@@ -88,3 +88,9 @@ function generateCode() {
     htmlCode += '</div>';
     codeOutput.textContent = htmlCode;
 }
+
+// Attach event listeners
+document.getElementById('add-text-btn').addEventListener('click', addText);
+document.getElementById('add-image-btn').addEventListener('click', addImage);
+document.getElementById('add-button-btn').addEventListener('click', addButton);
+document.getElementById('generate-code-btn').addEventListener('click', generateCode);

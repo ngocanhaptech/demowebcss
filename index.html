@@ -55,10 +55,10 @@
     <h1>Simple Web Builder</h1>
     <div id="container">
         <div id="toolbox">
-            <button onclick="addText()">Add Text</button>
-            <button onclick="addImage()">Add Image</button>
-            <button onclick="addButton()">Add Button</button>
-            <button onclick="generateCode()">Generate HTML Code</button>
+            <button id="add-text-btn">Add Text</button>
+            <button id="add-image-btn">Add Image</button>
+            <button id="add-button-btn">Add Button</button>
+            <button id="generate-code-btn">Generate HTML Code</button>
         </div>
         <iframe id="preview" srcdoc='<!DOCTYPE html><html><head><style>body {position: relative; padding: 20px; margin: 0; min-height: 460px;}.element {position: absolute;border: 1px dashed #ccc;padding: 10px;cursor: move;background: #fff;}.element.selected {border: 1px solid #007bff;}</style></head><body></body></html>' frameborder="0"></iframe>
     </div>
