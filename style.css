@@ -1099,7 +1099,7 @@ select.form-control {
 
 /* Left Sidebar */
 .sidebar {
-  width: 280px;
+  width: 300px;
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border);
   padding: var(--space-24);
@@ -1256,7 +1256,7 @@ select.form-control {
 
 /* Properties Panel (Right Sidebar) */
 .properties-panel {
-  width: 300px;
+  width: 320px;
   background-color: var(--color-surface);
   border-left: 1px solid var(--color-border);
   display: flex;
@@ -1301,4 +1301,67 @@ select.form-control {
 
 .element.selected {
   box-shadow: 0 0 0 3px rgba(var(--color-teal-500-rgb), 0.6);
+}
+
+/* Container elements */
+.container-element {
+  position: relative !important;
+  min-height: 100px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  margin: 10px 0;
+}
+
+.container-element.drag-over {
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 33, 128, 141), 0.4) !important;
+  background-color: rgba(var(--color-primary-rgb, 33, 128, 141), 0.05) !important;
+}
+
+.container-element.selected {
+  box-shadow: 0 0 0 3px rgba(var(--color-teal-500-rgb), 0.6) !important;
+}
+
+.container-label {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  pointer-events: none;
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.section-element {
+  background-color: #f8f9fa;
+  border: 2px dashed #999;
+}
+
+.bs-container-element {
+  background-color: #e7f3ff;
+  border: 2px dashed #0066cc;
+}
+
+.row-element {
+  background-color: #f0fff0;
+  border: 2px dashed #009900;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-element {
+  background-color: #fffaf0;
+  border: 2px dashed #ff9900;
+  flex: 1;
+  min-height: 100px;
+}
+
+.nested-element {
+  position: relative !important;
+  margin: 5px;
+  cursor: move;
 }
