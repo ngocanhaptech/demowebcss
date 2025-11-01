@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- https://www.perplexity.ai/search/them-chuc-nang-edit-text-cho-t-W5ffoKFNTEGlmYEUQF8FBA?0=d&1=d&2=d&3=a -->
         <!-- Left Sidebar -->
         <div class="sidebar">
             <h2>Web Builder</h2>
@@ -29,8 +28,24 @@
         <div class="preview-container">
             <div class="preview-header">
                 <h3>Preview</h3>
+                <div class="device-switcher">
+                    <button id="device-desktop" class="device-btn active" data-device="desktop">
+                        <span class="device-icon">🖥️</span>
+                        <span class="device-label">Desktop</span>
+                    </button>
+                    <button id="device-tablet" class="device-btn" data-device="tablet">
+                        <span class="device-icon">📱</span>
+                        <span class="device-label">Tablet</span>
+                    </button>
+                    <button id="device-mobile" class="device-btn" data-device="mobile">
+                        <span class="device-icon">📱</span>
+                        <span class="device-label">Mobile</span>
+                    </button>
+                </div>
             </div>
-            <iframe id="preview" class="preview-iframe"></iframe>
+            <div class="preview-wrapper">
+                <iframe id="preview" class="preview-iframe"></iframe>
+            </div>
         </div>
 
         <!-- Properties Panel (Right Sidebar) -->
@@ -252,5 +267,6 @@
     </div>
 
     <script src="./app/app.js"></script>
+    <!-- https://www.perplexity.ai/search/them-chuc-nang-edit-text-cho-t-W5ffoKFNTEGlmYEUQF8FBA?0=d&1=d&2=d&3=a -->
 </body>
 </html>
