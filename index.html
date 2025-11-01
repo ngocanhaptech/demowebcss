@@ -12,9 +12,15 @@
         <div class="sidebar">
             <h2>Web Builder</h2>
             <div class="controls">
+                <h4 style="margin-bottom: var(--space-12); font-size: var(--font-size-sm); color: var(--color-text-secondary); text-transform: uppercase;">Elements</h4>
                 <button id="add-text-btn" class="btn btn--primary btn--full-width">Add Text</button>
                 <button id="add-image-btn" class="btn btn--primary btn--full-width">Add Image</button>
                 <button id="add-button-btn" class="btn btn--primary btn--full-width">Add Button</button>
+                <h4 style="margin: var(--space-20) 0 var(--space-12) 0; font-size: var(--font-size-sm); color: var(--color-text-secondary); text-transform: uppercase;">Containers</h4>
+                <button id="add-section-btn" class="btn btn--primary btn--full-width">📦 Add Section</button>
+                <button id="add-container-btn" class="btn btn--primary btn--full-width">📮 Add Container</button>
+                <button id="add-row-btn" class="btn btn--primary btn--full-width">📋 Add Row</button>
+                <button id="add-col-btn" class="btn btn--primary btn--full-width">📊 Add Col</button>
                 <button id="generate-code-btn" class="btn btn--secondary btn--full-width">Generate Code</button>
             </div>
             
@@ -262,6 +268,168 @@
                 </div>
 
                 <button id="apply-image-properties" class="btn btn--primary btn--full-width">Apply Changes</button>
+            </div>
+
+            <!-- Container Properties -->
+            <div id="container-properties" class="properties-body hidden">
+                <div class="form-group">
+                    <label class="form-label">Container Type</label>
+                    <input id="prop-container-type" type="text" class="form-control" readonly>
+                </div>
+
+                <div class="form-group" id="container-max-width-group">
+                    <label class="form-label">Max Width</label>
+                    <input id="prop-container-max-width" type="text" class="form-control" placeholder="e.g., 1200px or 100%">
+                </div>
+
+                <div class="form-group" id="container-min-width-group">
+                    <label class="form-label">Min Width</label>
+                    <input id="prop-container-min-width" type="text" class="form-control" placeholder="e.g., auto">
+                </div>
+
+                <div class="form-group" id="container-max-height-group">
+                    <label class="form-label">Max Height</label>
+                    <input id="prop-container-max-height" type="text" class="form-control" placeholder="e.g., auto">
+                </div>
+
+                <div class="form-group" id="container-min-height-group">
+                    <label class="form-label">Min Height</label>
+                    <input id="prop-container-min-height" type="text" class="form-control" placeholder="e.g., 100px">
+                </div>
+
+                <div class="form-group" id="container-flex-direction-group" style="display: none;">
+                    <label class="form-label">Flex Direction</label>
+                    <select id="prop-flex-direction" class="form-control">
+                        <option value="row">Row</option>
+                        <option value="column">Column</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-align-items-group" style="display: none;">
+                    <label class="form-label">Align Items</label>
+                    <select id="prop-align-items" class="form-control">
+                        <option value="flex-start">Flex Start</option>
+                        <option value="center">Center</option>
+                        <option value="flex-end">Flex End</option>
+                        <option value="stretch">Stretch</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-justify-content-group" style="display: none;">
+                    <label class="form-label">Justify Content</label>
+                    <select id="prop-justify-content" class="form-control">
+                        <option value="flex-start">Flex Start</option>
+                        <option value="center">Center</option>
+                        <option value="flex-end">Flex End</option>
+                        <option value="space-between">Space Between</option>
+                        <option value="space-around">Space Around</option>
+                        <option value="space-evenly">Space Evenly</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-col-size-group" style="display: none;">
+                    <label class="form-label">Column Size</label>
+                    <select id="prop-col-size" class="form-control">
+                        <option value="auto">Auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12" selected>12</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-col-md-group" style="display: none;">
+                    <label class="form-label">Col MD (≥768px)</label>
+                    <select id="prop-col-md" class="form-control">
+                        <option value="auto" selected>Auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-col-lg-group" style="display: none;">
+                    <label class="form-label">Col LG (≥992px)</label>
+                    <select id="prop-col-lg" class="form-control">
+                        <option value="auto" selected>Auto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-order-group" style="display: none;">
+                    <label class="form-label">Order</label>
+                    <input id="prop-container-order" type="number" class="form-control" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Padding</label>
+                    <input id="prop-container-padding" type="text" class="form-control" placeholder="e.g., 20px">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Margin</label>
+                    <input id="prop-container-margin" type="text" class="form-control" placeholder="e.g., 10px">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Background Color</label>
+                    <input id="prop-container-bg" type="color" class="form-control color-input" value="#ffffff">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Border Style</label>
+                    <select id="prop-container-border-style" class="form-control">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="container-border-width-group" style="display: none;">
+                    <label class="form-label">Border Width</label>
+                    <input id="prop-container-border-width" type="text" class="form-control" placeholder="e.g., 1px">
+                </div>
+
+                <div class="form-group" id="container-border-color-group" style="display: none;">
+                    <label class="form-label">Border Color</label>
+                    <input id="prop-container-border-color" type="color" class="form-control color-input" value="#000000">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Box Shadow</label>
+                    <input id="prop-container-box-shadow" type="text" class="form-control" placeholder="e.g., 0 2px 4px rgba(0,0,0,0.1)">
+                </div>
+
+                <button id="apply-container-properties" class="btn btn--primary btn--full-width">Apply Changes</button>
             </div>
         </div>
     </div>
