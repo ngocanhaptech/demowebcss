@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Web Builder</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
         }
+        #container {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
         #toolbox {
             width: 200px;
-            float: left;
             background: #fff;
             padding: 10px;
             border: 1px solid #ddd;
@@ -30,7 +37,7 @@
             cursor: pointer;
         }
         #preview {
-            width: calc(100% - 240px);
+            flex: 1;
             min-height: 500px;
             background: white;
             border: 1px solid #ddd;
@@ -57,15 +64,16 @@
 </head>
 <body>
     <h1>Simple Web Builder</h1>
-    <div id="toolbox">
-        <button onclick="addText()">Add Text</button>
-        <button onclick="addImage()">Add Image</button>
-        <button onclick="addButton()">Add Button</button>
-        <button onclick="generateCode()">Generate HTML Code</button>
+    <div id="container">
+        <div id="toolbox">
+            <button onclick="addText()">Add Text</button>
+            <button onclick="addImage()">Add Image</button>
+            <button onclick="addButton()">Add Button</button>
+            <button onclick="generateCode()">Generate HTML Code</button>
+        </div>
+        <div id="preview"></div>
     </div>
-    <div id="preview"></div>
     <pre id="code-output"></pre>
-
     <script src="./app/builder.js"></script>
 </body>
 </html>
