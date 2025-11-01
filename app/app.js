@@ -1,11 +1,12 @@
 // Global variables
 let elementId = 0;
-const previewIframe = document.getElementById('preview');
+let previewIframe = null;
 let previewDoc = null;
 let previewBody = null;
 let currentSelectedElement = null;
 let resizeHandlesContainer = null;
 let isResizing = false;
+let currentDevice = 'desktop'; // desktop, tablet, mobile
 
 // Initialize iframe
 function initializeIframe() {
@@ -698,8 +699,47 @@ function addResizeHandler(handle, imageElement) {
     });
 }
 
+// Device Switcher Functions
+function switchDevice(device) {
+    currentDevice = device;
+    
+    // Update button states
+    document.querySelectorAll('.device-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById('device-' + device).classList.add('active');
+    
+    // Update iframe class
+    previewIframe.className = 'preview-iframe ' + device;
+    
+    // Apply device-specific dimensions
+    switch(device) {
+        case 'desktop':
+            previewIframe.style.maxWidth = '1200px';
+            previewIframe.style.width = '100%';
+            previewIframe.style.height = 'auto';
+            previewIframe.style.minHeight = '600px';
+            break;
+        case 'tablet':
+            previewIframe.style.width = '768px';
+            previewIframe.style.height = '1024px';
+            previewIframe.style.minHeight = '1024px';
+            previewIframe.style.maxWidth = '768px';
+            break;
+        case 'mobile':
+            previewIframe.style.width = '375px';
+            previewIframe.style.height = '667px';
+            previewIframe.style.minHeight = '667px';
+            previewIframe.style.maxWidth = '375px';
+            break;
+    }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
+    // Get iframe reference
+    previewIframe = document.getElementById('preview');
+    
     // Initialize iframe
     initializeIframe();
     
@@ -739,6 +779,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prop-image-opacity').addEventListener('input', function(e) {
         document.getElementById('image-opacity-value').textContent = e.target.value + '%';
     });
+    
+    // Device switcher event listeners
+    document.getElementById('device-desktop').addEventListener('click', function() {
+        switchDevice('desktop');
+    });
+    
+    document.getElementById('device-tablet').addEventListener('click', function() {
+        switchDevice('tablet');
+    });
+    
+    document.getElementById('device-mobile').addEventListener('click', function() {
+        switchDevice('mobile');
+    });
+    
+    // Initialize with desktop view
+    switchDevice('desktop');
     
     // Click outside to deselect
     setTimeout(() => {
