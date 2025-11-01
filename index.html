@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval';">
     <title>Simple Web Builder</title>
     <style>
         * {
@@ -39,20 +40,8 @@
         #preview {
             flex: 1;
             min-height: 500px;
-            background: white;
             border: 1px solid #ddd;
-            padding: 20px;
-            position: relative;
-        }
-        .element {
-            position: absolute;
-            border: 1px dashed #ccc;
-            padding: 10px;
-            cursor: move;
-            background: #fff;
-        }
-        .element.selected {
-            border: 1px solid #007bff;
+            width: 100%;
         }
         #code-output {
             margin-top: 20px;
@@ -71,9 +60,10 @@
             <button onclick="addButton()">Add Button</button>
             <button onclick="generateCode()">Generate HTML Code</button>
         </div>
-        <div id="preview"></div>
+        <iframe id="preview" srcdoc='<!DOCTYPE html><html><head><style>body {position: relative; padding: 20px; margin: 0; min-height: 460px;}.element {position: absolute;border: 1px dashed #ccc;padding: 10px;cursor: move;background: #fff;}.element.selected {border: 1px solid #007bff;}</style></head><body></body></html>' frameborder="0"></iframe>
     </div>
     <pre id="code-output"></pre>
+    
     <script src="./app/builder.js"></script>
 </body>
 </html>
