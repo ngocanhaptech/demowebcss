@@ -1,43 +1,46 @@
 // builder.js
 
 let elementId = 0;
+const previewIframe = document.getElementById('preview');
+const previewDoc = previewIframe.contentDocument;
+const previewBody = previewDoc.body;
 
 function addText() {
-    const textElement = document.createElement('div');
+    const textElement = previewDoc.createElement('div');
     textElement.className = 'element';
     textElement.id = 'element-' + elementId++;
     textElement.innerText = 'Editable Text';
     textElement.contentEditable = true;
     textElement.style.left = '50px';
     textElement.style.top = '50px';
-    makeDraggable(textElement);
-    document.getElementById('preview').appendChild(textElement);
+    makeDraggable(textElement, previewDoc);
+    previewBody.appendChild(textElement);
 }
 
 function addImage() {
-    const imgElement = document.createElement('img');
+    const imgElement = previewDoc.createElement('img');
     imgElement.className = 'element';
     imgElement.id = 'element-' + elementId++;
     imgElement.src = 'https://via.placeholder.com/150';
     imgElement.style.left = '100px';
     imgElement.style.top = '100px';
     imgElement.style.width = '150px';
-    makeDraggable(imgElement);
-    document.getElementById('preview').appendChild(imgElement);
+    makeDraggable(imgElement, previewDoc);
+    previewBody.appendChild(imgElement);
 }
 
 function addButton() {
-    const btnElement = document.createElement('button');
+    const btnElement = previewDoc.createElement('button');
     btnElement.className = 'element';
     btnElement.id = 'element-' + elementId++;
     btnElement.innerText = 'Click Me';
     btnElement.style.left = '150px';
     btnElement.style.top = '150px';
-    makeDraggable(btnElement);
-    document.getElementById('preview').appendChild(btnElement);
+    makeDraggable(btnElement, previewDoc);
+    previewBody.appendChild(btnElement);
 }
 
-function makeDraggable(element) {
+function makeDraggable(element, doc) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     element.onmousedown = dragMouseDown;
 
@@ -46,8 +49,8 @@ function makeDraggable(element) {
         e.preventDefault();
         pos3 = e.clientX;
         pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+        doc.onmouseup = closeDragElement;
+        doc.onmousemove = elementDrag;
     }
 
     function elementDrag(e) {
@@ -62,17 +65,16 @@ function makeDraggable(element) {
     }
 
     function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+        doc.onmouseup = null;
+        doc.onmousemove = null;
     }
 }
 
 function generateCode() {
-    const preview = document.getElementById('preview');
     const codeOutput = document.getElementById('code-output');
     let htmlCode = '<div style="position: relative;">\n';
     
-    Array.from(preview.children).forEach(child => {
+    Array.from(previewBody.children).forEach(child => {
         const clone = child.cloneNode(true);
         clone.style.position = 'absolute';
         clone.style.left = child.style.left;
