@@ -3,66 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;">
-    <title>Simple Web Builder</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        #container {
-            display: flex;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-        }
-        #toolbox {
-            width: 200px;
-            background: #fff;
-            padding: 10px;
-            border: 1px solid #ddd;
-            margin-right: 20px;
-        }
-        #toolbox button {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #preview {
-            flex: 1;
-            min-height: 500px;
-            border: 1px solid #ddd;
-            width: 100%;
-        }
-        #code-output {
-            margin-top: 20px;
-            background: #fff;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-    </style>
+    <title>Visual Web Page Builder</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Simple Web Builder</h1>
-    <div id="container">
-        <div id="toolbox">
-            <button id="add-text-btn">Add Text</button>
-            <button id="add-image-btn">Add Image</button>
-            <button id="add-button-btn">Add Button</button>
-            <button id="generate-code-btn">Generate HTML Code</button>
+    <div class="app-container">
+        <!-- https://www.perplexity.ai/search/them-chuc-nang-edit-text-cho-t-W5ffoKFNTEGlmYEUQF8FBA?0=d&1=d&2=d&3=a -->
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <h2>Web Builder</h2>
+            <div class="controls">
+                <button id="add-text-btn" class="btn btn--primary btn--full-width">Add Text</button>
+                <button id="add-image-btn" class="btn btn--primary btn--full-width">Add Image</button>
+                <button id="add-button-btn" class="btn btn--primary btn--full-width">Add Button</button>
+                <button id="generate-code-btn" class="btn btn--secondary btn--full-width">Generate Code</button>
+            </div>
+            
+            <div class="code-section">
+                <h3>Generated Code</h3>
+                <pre id="code-output" class="code-output">Click "Generate Code" to see HTML output</pre>
+            </div>
         </div>
-        <iframe id="preview" srcdoc='<!DOCTYPE html><html><head><style>body {position: relative; padding: 20px; margin: 0; min-height: 460px;}.element {position: absolute;border: 1px dashed #ccc;padding: 10px;cursor: move;background: #fff;}.element.selected {border: 1px solid #007bff;}</style></head><body></body></html>' frameborder="0"></iframe>
+
+        <!-- Preview Area -->
+        <div class="preview-container">
+            <div class="preview-header">
+                <h3>Preview</h3>
+            </div>
+            <iframe id="preview" class="preview-iframe"></iframe>
+        </div>
+
+        <!-- Properties Panel (Right Sidebar) -->
+        <div id="properties-panel" class="properties-panel hidden">
+            <div class="properties-header">
+                <h3 id="properties-title">Text Properties</h3>
+                <button id="close-properties" class="btn btn--sm">&times;</button>
+            </div>
+            
+            <!-- Text Properties -->
+            <div id="text-properties" class="properties-body">
+                <div class="form-group">
+                    <label class="form-label">Text Content</label>
+                    <textarea id="prop-text-content" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Size</label>
+                    <select id="prop-font-size" class="form-control">
+                        <option value="12px">12px</option>
+                        <option value="14px">14px</option>
+                        <option value="16px" selected>16px</option>
+                        <option value="18px">18px</option>
+                        <option value="20px">20px</option>
+                        <option value="24px">24px</option>
+                        <option value="28px">28px</option>
+                        <option value="32px">32px</option>
+                        <option value="36px">36px</option>
+                        <option value="48px">48px</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Family</label>
+                    <select id="prop-font-family" class="form-control">
+                        <option value="Arial" selected>Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Helvetica">Helvetica</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Text Color</label>
+                    <input id="prop-text-color" type="color" class="form-control color-input" value="#000000">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Weight</label>
+                    <select id="prop-font-weight" class="form-control">
+                        <option value="normal" selected>Normal</option>
+                        <option value="bold">Bold</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Text Alignment</label>
+                    <select id="prop-text-align" class="form-control">
+                        <option value="left" selected>Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Text Decoration</label>
+                    <select id="prop-text-decoration" class="form-control">
+                        <option value="none" selected>None</option>
+                        <option value="underline">Underline</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Style</label>
+                    <select id="prop-font-style" class="form-control">
+                        <option value="normal" selected>Normal</option>
+                        <option value="italic">Italic</option>
+                    </select>
+                </div>
+
+                <button id="apply-properties" class="btn btn--primary btn--full-width">Apply Changes</button>
+            </div>
+
+            <!-- Button Properties -->
+            <div id="button-properties" class="properties-body hidden">
+                <div class="form-group">
+                    <label class="form-label">Button Text</label>
+                    <input id="prop-button-text" type="text" class="form-control" placeholder="Enter button text">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Size</label>
+                    <select id="prop-button-font-size" class="form-control">
+                        <option value="12px">12px</option>
+                        <option value="14px">14px</option>
+                        <option value="16px" selected>16px</option>
+                        <option value="18px">18px</option>
+                        <option value="20px">20px</option>
+                        <option value="24px">24px</option>
+                        <option value="28px">28px</option>
+                        <option value="32px">32px</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Family</label>
+                    <select id="prop-button-font-family" class="form-control">
+                        <option value="Arial" selected>Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Helvetica">Helvetica</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Text Color</label>
+                    <input id="prop-button-text-color" type="color" class="form-control color-input" value="#ffffff">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Background Color</label>
+                    <input id="prop-button-bg-color" type="color" class="form-control color-input" value="#007bff">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Font Weight</label>
+                    <select id="prop-button-font-weight" class="form-control">
+                        <option value="normal" selected>Normal</option>
+                        <option value="bold">Bold</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Border Radius</label>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input id="prop-button-border-radius" type="range" min="0" max="50" value="5" style="flex: 1;">
+                        <span id="border-radius-value" style="min-width: 40px; font-size: var(--font-size-sm);">5px</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Padding</label>
+                    <input id="prop-button-padding" type="text" class="form-control" placeholder="e.g., 10px 20px" value="10px 20px">
+                </div>
+
+                <button id="apply-button-properties" class="btn btn--primary btn--full-width">Apply Changes</button>
+            </div>
+
+            <!-- Image Properties -->
+            <div id="image-properties" class="properties-body hidden">
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input id="prop-image-url" type="text" class="form-control" placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Width</label>
+                    <input id="prop-image-width" type="text" class="form-control" placeholder="e.g., 150px or 50%">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Height</label>
+                    <input id="prop-image-height" type="text" class="form-control" placeholder="e.g., 150px or auto">
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input id="prop-maintain-aspect" type="checkbox" checked>
+                        <span class="form-label" style="margin: 0;">Maintain aspect ratio</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Border Style</label>
+                    <select id="prop-image-border-style" class="form-control">
+                        <option value="none" selected>None</option>
+                        <option value="solid">Solid</option>
+                        <option value="dashed">Dashed</option>
+                        <option value="dotted">Dotted</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="border-width-group" style="display: none;">
+                    <label class="form-label">Border Width</label>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input id="prop-image-border-width" type="range" min="0" max="10" value="1" style="flex: 1;">
+                        <span id="border-width-value" style="min-width: 40px; font-size: var(--font-size-sm);">1px</span>
+                    </div>
+                </div>
+
+                <div class="form-group" id="border-color-group" style="display: none;">
+                    <label class="form-label">Border Color</label>
+                    <input id="prop-image-border-color" type="color" class="form-control color-input" value="#000000">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Border Radius</label>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input id="prop-image-border-radius" type="range" min="0" max="50" value="0" style="flex: 1;">
+                        <span id="image-border-radius-value" style="min-width: 40px; font-size: var(--font-size-sm);">0px</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Opacity</label>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input id="prop-image-opacity" type="range" min="0" max="100" value="100" style="flex: 1;">
+                        <span id="image-opacity-value" style="min-width: 40px; font-size: var(--font-size-sm);">100%</span>
+                    </div>
+                </div>
+
+                <button id="apply-image-properties" class="btn btn--primary btn--full-width">Apply Changes</button>
+            </div>
+        </div>
     </div>
-    <pre id="code-output"></pre>
-    <script src="./app/builder.js"></script>
+
+    <script src="./app/app.js"></script>
 </body>
 </html>
