@@ -956,8 +956,15 @@ function removeResizeHandles() {
 
 function setDevicePreview(device) {
   currentDevice = device;
+  
+  // ✅ Thêm null check
   const previewContainer = document.getElementById('preview-container');
   const previewIframe = document.getElementById('preview');
+  
+  if (!previewContainer || !previewIframe) {
+    console.error('Preview elements not found. Check HTML IDs.');
+    return; // Dừng hàm nếu element không tồn tại
+  }
 
   const devices = {
     desktop: { width: '100%', maxWidth: '1200px', height: 'auto', centered: false },
@@ -978,14 +985,14 @@ function setDevicePreview(device) {
     previewContainer.style.display = 'block';
   }
 
-  // Update button states
   ['desktop-btn', 'tablet-btn', 'mobile-btn'].forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) {
+    if (btn) { // ✅ Thêm check này
       btn.classList.toggle('active', (id.split('-')[0] === device));
     }
   });
 }
+
 
 // ============================================================================
 // GENERATE CODE
