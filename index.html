@@ -1,17 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APP SEOVN.ORG</title>
-    <style>
-        .heading-1 {
-            color: red
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UX Builder JS - Trình tạo giao diện kéo thả</title>
+  <!-- Tailwind CSS cho styling nhanh -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome cho icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    [draggable] {
+      -webkit-user-drag: element;
+    }
+    .component {
+      cursor: move;
+    }
+    .placeholder {
+      border: 2px dashed #ccc;
+      min-height: 50px;
+    }
+    .selected {
+      outline: 3px solid #3b82f6;
+    }
+  </style>
 </head>
-<body>
-    <h1 class="heading-1">APP SEOVN.ORG project</h1>
-    <p>Manage task</p>
+<body class="bg-gray-100 font-sans">
+
+  <div class="flex h-screen">
+
+    <!-- Sidebar: Danh sách thành phần -->
+    <div class="w-64 bg-white shadow-lg p-4 overflow-y-auto">
+      <h2 class="text-xl font-bold mb-4">Thành phần</h2>
+      <div class="space-y-3">
+        <div class="component p-3 bg-blue-100 rounded cursor-move" draggable="true" data-type="text">
+          <i class="fas fa-font mr-2"></i> Văn bản
+        </div>
+        <div class="component p-3 bg-green-100 rounded cursor-move" draggable="true" data-type="button">
+          <i class="fas fa-square mr-2"></i> Nút
+        </div>
+        <div class="component p-3 bg-purple-100 rounded cursor-move" draggable="true" data-type="image">
+          <i class="fas fa-image mr-2"></i> Hình ảnh
+        </div>
+        <div class="component p-3 bg-yellow-100 rounded cursor-move" draggable="true" data-type="card">
+          <i class="fas fa-id-card mr-2"></i> Card
+        </div>
+        <div class="component p-3 bg-red-100 rounded cursor-move" draggable="true" data-type="input">
+          <i class="fas fa-keyboard mr-2"></i> Input
+        </div>
+      </div>
+
+      <hr class="my-6"/>
+
+      <h3 class="font-semibold mb-2">Thuộc tính</h3>
+      <div id="properties" class="text-sm text-gray-500">
+        Chọn một phần tử để chỉnh sửa.
+      </div>
+    </div>
+
+    <!-- Khu vực thiết kế chính -->
+    <div class="flex-1 p-6 overflow-auto">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Khu vực thiết kế</h1>
+        <div id="canvas" class="min-h-screen bg-white rounded-lg shadow-inner p-6 placeholder">
+          <!-- Các phần tử sẽ được kéo thả vào đây -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview & Export -->
+    <div class="w-64 bg-gray-50 p-4 border-l">
+      <h3 class="font-bold mb-3">Xem trước & Xuất</h3>
+      <button id="previewBtn" class="w-full bg-indigo-600 text-white py-2 rounded mb-2 hover:bg-indigo-700">
+        <i class="fas fa-eye mr-1"></i> Xem trước
+      </button>
+      <button id="exportHtml" class="w-full bg-green-600 text-white py-2 rounded mb-2 hover:bg-green-700">
+        <i class="fas fa-download mr-1"></i> Xuất HTML
+      </button>
+      <button id="clearCanvas" class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">
+        <i class="fas fa-trash mr-1"></i> Xóa hết
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Modal Xem trước -->
+  <div id="previewModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-3xl w-full max-h-screen overflow-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Xem trước giao diện</h2>
+        <button id="closeModal" class="text-gray-600 hover:text-gray-900">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <div id="previewContent" class="min-h-96 bg-gray-50 p-4 rounded"></div>
+    </div>
+  </div>
+
+  <script>
+    // === Biến toàn cục ===
+    let selectedElement = null;
+    const canvas = document.getElementById('canvas');
+    const propertiesPanel = document.getElementById('properties');
+
+    // === Tạo phần tử theo loại ===
+    function createElement(type) {
+      let el;
+      switch(type) {
+        case 'text':
+          el = document.createElement('p');
+          el.textContent = 'Văn bản mẫu. Nhấp để chỉnh sửa.';
+          el.className = 'text-lg text-gray-800 mb-2';
+          break;
+        case 'button':
+          el = document.createElement('button');
+          el.textContent = 'Nút bấm';
+          el.className = 'px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700';
+          break;
+        case 'image':
+          el = document.createElement('div');
+          el.innerHTML = `<img src="https://via.placeholder.com/300x200" alt="Hình ảnh" class="w-full rounded">`;
+          el = el.firstChild;
+          break;
+        case 'card':
+          el = document.createElement('div');
+          el.className = 'border rounded-lg p-4 shadow-sm bg-white';
+          el.innerHTML = `
+            <h3 class="font-bold text-lg mb-2">Tiêu đề Card</h3>
+            <p class="text-gray-600">Nội dung card. Có thể chỉnh sửa.</p>
+          `;
+          break;
+        case 'input':
+          el = document.createElement('input');
+          el.type = 'text';
+          el.placeholder = 'Nhập văn bản...';
+          el.className = 'w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500';
+          break;
+        default:
+          el = document.createElement('div');
+          el.textContent = 'Phần tử không xác định';
+      }
+      el.dataset.type = type;
+      el.classList.add('component-item', 'mb-3', 'relative');
+      el.draggable = true;
+      el.addEventListener('click', selectElement);
+      el.addEventListener('dblclick', makeEditable);
+      return el;
+    }
+
+    // === Kéo thả ===
+    document.querySelectorAll('.component').forEach(comp => {
+      comp.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', comp.dataset.type);
+      });
+    });
+
+    canvas.addEventListener('dragover', e => e.preventDefault());
+    canvas.addEventListener('drop', e => {
+      e.preventDefault();
+      const type = e.dataTransfer.getData('text/plain');
+      if (type) {
+        const newEl = createElement(type);
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Tìm vị trí chèn
+        const children = Array.from(canvas.children);
+        let insertBefore = null;
+        for (let child of children) {
+          const childRect = child.getBoundingClientRect();
+          if (y < childRect.top - rect.top + childRect.height / 2) {
+            insertBefore = child;
+            break;
+          }
+        }
+        canvas.insertBefore(newEl, insertBefore);
+      }
+    });
+
+    // === Chọn phần tử ===
+    function selectElement(e) {
+      e.stopPropagation();
+      if (selectedElement) selectedElement.classList.remove('selected');
+      selectedElement = this;
+      this.classList.add('selected');
+      showProperties(this);
+    }
+
+    document.addEventListener('click', () => {
+      if (selectedElement) {
+        selectedElement.classList.remove('selected');
+        selectedElement = null;
+        propertiesPanel.innerHTML = 'Chọn một phần tử để chỉnh sửa.';
+      }
+    });
+
+    // === Hiển thị thuộc tính ===
+    function showProperties(el) {
+      const type = el.dataset.type;
+      let html = `<p class="font-medium capitalize">${type}</p>`;
+
+      if (type === 'text' || type === 'button' || el.tagName === 'H3' || el.tagName === 'P') {
+        html += `
+          <label class="block mt-2">Nội dung:</label>
+          <input type="text" id="prop-text" class="w-full border rounded px-2 py-1" value="${el.textContent || ''}">
+        `;
+      }
+
+      if (type === 'image') {
+        const src = el.src || 'https://via.placeholder.com/300x200';
+        html += `
+          <label class="block mt-2">URL hình ảnh:</label>
+          <input type="url" id="prop-src" class="w-full border rounded px-2 py-1" value="${src}">
+        `;
+      }
+
+      if (type === 'input') {
+        html += `
+          <label class="block mt-2">Placeholder:</label>
+          <input type="text" id="prop-placeholder" class="w-full border rounded px-2 py-1" value="${el.placeholder || ''}">
+        `;
+      }
+
+      html += `
+        <button onclick="applyProperties()" class="mt-3 bg-blue-600 text-white px-3 py-1 rounded text-sm">Áp dụng</button>
+        <button onclick="deleteElement()" class="mt-3 bg-red-600 text-white px-3 py-1 rounded text-sm ml-2">Xóa</button>
+      `;
+
+      propertiesPanel.innerHTML = html;
+    }
+
+    // === Áp dụng thuộc tính ===
+    window.applyProperties = function() {
+      if (!selectedElement) return;
+      const type = selectedElement.dataset.type;
+
+      if (type === 'text' || type === 'button' || selectedElement.tagName === 'H3' || selectedElement.tagName === 'P') {
+        const text = document.getElementById('prop-text').value;
+        selectedElement.textContent = text;
+      }
+
+      if (type === 'image') {
+        const src = document.getElementById('prop-src').value;
+        selectedElement.src = src;
+      }
+
+      if (type === 'input') {
+        const placeholder = document.getElementById('prop-placeholder').value;
+        selectedElement.placeholder = placeholder;
+      }
+    };
+
+    // === Xóa phần tử ===
+    window.deleteElement = function() {
+      if (selectedElement && confirm('Xóa phần tử này?')) {
+        selectedElement.remove();
+        selectedElement = null;
+        propertiesPanel.innerHTML = 'Chọn một phần tử để chỉnh sửa.';
+      }
+    };
+
+    // === Chỉnh sửa trực tiếp ===
+    function makeEditable(e) {
+      e.stopPropagation();
+      const el = e.target;
+      if (el.tagName === 'P' || el.tagName === 'H3' || el.tagName === 'BUTTON') {
+        const oldText = el.textContent;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = oldText;
+        input.className = 'border rounded px-1';
+        input.style.width = '100%';
+        el.textContent = '';
+        el.appendChild(input);
+        input.focus();
+        input.select();
+
+        const save = () => {
+          el.textContent = input.value;
+        };
+        input.addEventListener('blur', save);
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') input.blur();
+        });
+      }
+    }
+
+    // === Xem trước ===
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      const modal = document.getElementById('previewModal');
+      const content = document.getElementById('previewContent');
+      content.innerHTML = canvas.innerHTML;
+      modal.classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('previewModal').classList.add('hidden');
+    });
+
+    // === Xuất HTML ===
+    document.getElementById('exportHtml').addEventListener('click', () => {
+      const htmlContent = `
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang được tạo bởi UX Builder JS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
+    ${canvas.innerHTML}
+  </div>
+</body>
+</html>`;
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ux-builder-export.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // === Xóa canvas ===
+    document.getElementById('clearCanvas').addEventListener('click', () => {
+      if (confirm('Xóa toàn bộ giao diện?')) {
+        canvas.innerHTML = '';
+      }
+    });
+
+    // === Hỗ trợ kéo thả trong canvas (sắp xếp lại) ===
+    canvas.addEventListener('dragstart', e => {
+      if (e.target.classList.contains('component-item')) {
+        e.dataTransfer.setData('text/plain', 'reorder');
+        selectedElement = e.target;
+      }
+    });
+
+    canvas.addEventListener('dragover', e => e.preventDefault());
+
+    canvas.addEventListener('drop', e => {
+      e.preventDefault();
+      if (e.dataTransfer.getData('text/plain') === 'reorder' && selectedElement) {
+        const rect = canvas.getBoundingClientRect();
+        const y = e.clientY - rect.top;
+        const children = Array.from(canvas.children);
+        let insertBefore = null;
+        for (let child of children) {
+          const childRect = child.getBoundingClientRect();
+          if (y < childRect.top - rect.top + childRect.height / 2) {
+            insertBefore = child;
+            break;
+          }
+        }
+        canvas.insertBefore(selectedElement, insertBefore);
+        selectedElement = null;
+      }
+    });
+  </script>
 </body>
 </html>
