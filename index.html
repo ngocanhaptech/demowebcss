@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
     <title>Simple Web Builder</title>
     <style>
         * {
@@ -63,7 +63,6 @@
         <iframe id="preview" srcdoc='<!DOCTYPE html><html><head><style>body {position: relative; padding: 20px; margin: 0; min-height: 460px;}.element {position: absolute;border: 1px dashed #ccc;padding: 10px;cursor: move;background: #fff;}.element.selected {border: 1px solid #007bff;}</style></head><body></body></html>' frameborder="0"></iframe>
     </div>
     <pre id="code-output"></pre>
-    
     <script src="./app/builder.js"></script>
 </body>
 </html>
