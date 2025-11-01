@@ -21,7 +21,7 @@ function addImage() {
     const imgElement = previewDoc.createElement('img');
     imgElement.className = 'element';
     imgElement.id = 'element-' + elementId++;
-    imgElement.src = 'https://via.placeholder.com/150';
+    imgElement.src = 'https://placehold.co/150';
     imgElement.style.left = '100px';
     imgElement.style.top = '100px';
     imgElement.style.width = '150px';
