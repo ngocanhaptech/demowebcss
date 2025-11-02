@@ -224,6 +224,8 @@ function addCol() {
 }
 
 function createContainerElement(type) {
+    let tag = type === 'section' ? 'section' : 'div';
+
     const container = previewDoc.createElement('div');
     const typeData = containerTypes[type];
     
