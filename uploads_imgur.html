@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imgur Upload Demo with React</title>
+    
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react?dev",
+        "react-dom/client": "https://esm.sh/react-dom/client?dev"
+      }
+    }
+    </script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f9; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        input { margin: 20px 0; }
+        img { max-width: 100%; border-radius: 8px; margin-top: 20px; border: 1px solid #ddd; }
+        .loading { color: #666; font-style: italic; }
+        .error { color: red; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        import React, { useState } from 'react';
+        import { createRoot } from 'react-dom/client';
+
+        function App() {
+            const [imageUrl, setImageUrl] = useState('');
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+
+            // THAY CLIENT ID CỦA BẠN VÀO ĐÂY
+            const CLIENT_ID = 'YOUR_CLIENT_ID_HERE'; 
+
+            const handleUpload = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                setLoading(true);
+                setError('');
+                
+                const formData = new FormData();
+                formData.append('image', file);
+
+                try {
+                    const response = await fetch('https://api.imgur.com/3/image', {
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Client-ID ${CLIENT_ID}`
+                        },
+                        body: formData
+                    });
+
+                    const resData = await response.json();
+
+                    if (resData.success) {
+                        setImageUrl(resData.data.link);
+                    } else {
+                        setError('Upload thất bại: ' + resData.data.error);
+                    }
+                } catch (err) {
+                    setError('Lỗi kết nối API!');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="card">
+                    <h2>Imgur Uploader</h2>
+                    <p>Chọn một ảnh để tải lên i.imgur.com</p>
+                    
+                    <input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handleUpload} 
+                        disabled={loading}
+                    />
+
+                    {loading && <p className="loading">Đang tải lên...</p>}
+                    {error && <p className="error">{error}</p>}
+                    
+                    {imageUrl && (
+                        <div>
+                            <p>Thành công! Link của bạn:</p>
+                            <code style={{wordBreak: 'break-all'}}>{imageUrl}</code>
+                            <br />
+                            <img src={imageUrl} alt="Uploaded" />
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
