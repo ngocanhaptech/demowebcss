@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Accordion - Luật ViTâm Inspired</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            color: #333;
+            overflow: hidden; /* Quan trọng để tránh scrollbar khi item co lại */
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="accordion-container">
+        <div class="accordion-item" data-index="1">
+            <div class="accordion-header">
+                <span class="index">01</span>
+                <h2 class="title">Lĩnh vực tư vấn sở hữu trí tuệ</h2>
+                <div class="icon"></div>
+            </div>
+            <div class="accordion-content">
+                <p>Chúng tôi cung cấp dịch vụ đăng ký, bảo hộ nhãn hiệu, bản quyền, sáng chế và giải quyết tranh chấp liên quan đến quyền sở hữu trí tuệ.</p>
+                <img src="https://via.placeholder.com/400x250/FF4500/FFFFFF?text=Tu+van+SHTT" alt="Tư vấn Sở hữu trí tuệ">
+            </div>
+        </div>
+
+        <div class="accordion-item active" data-index="2">
+            <div class="accordion-header">
+                <span class="index">02</span>
+                <h2 class="title">Đa dạng</h2>
+                <div class="icon"></div>
+            </div>
+            <div class="accordion-content">
+                <p>Luật ViTâm đại diện khách hàng trong các vụ kiện dân sự, kinh doanh thương mại và tranh chấp hành chính tại tòa án.</p>
+                <img src="https://via.placeholder.com/400x250/FF6347/FFFFFF?text=Dai+dien+Phap+ly" alt="Đại diện pháp lý">
+            </div>
+        </div>
+
+        <div class="accordion-item" data-index="3">
+            <div class="accordion-header">
+                <span class="index">03</span>
+                <h2 class="title">Cộng đồng</h2>
+                <div class="icon"></div>
+            </div>
+            <div class="accordion-content">
+                <p>Hỗ trợ soạn thảo, rà soát hợp đồng, tư vấn thành lập doanh nghiệp, tái cấu trúc và các vấn đề pháp lý nội bộ.</p>
+                <img src="https://via.placeholder.com/400x250/FF7F50/FFFFFF?text=Tu+van+Doanh+nghiep" alt="Tư vấn Doanh nghiệp">
+            </div>
+        </div>
+
+        <div class="accordion-item" data-index="4">
+            <div class="accordion-header">
+                <span class="index">04</span>
+                <h2 class="title">Đào tạo pháp luật và hội thảo</h2>
+                <div class="icon"></div>
+            </div>
+            <div class="accordion-content">
+                <p>Tổ chức các buổi đào tạo chuyên sâu về pháp luật cho doanh nghiệp, cập nhật các quy định mới và chia sẻ kinh nghiệm thực tiễn.</p>
+                <img src="https://via.placeholder.com/400x250/FFA07A/FFFFFF?text=Dao+tao+Phap+luat" alt="Đào tạo Pháp luật">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
