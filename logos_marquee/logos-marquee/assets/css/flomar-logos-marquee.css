@@ -1,0 +1,85 @@
+/* Logos Marquee Section */
+.logos-section {
+    --logo-width: 150px;
+    --gap: 3rem;
+    --duration: 30s;
+    padding: 60px 0;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+/* Container */
+.logos-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+}
+
+/* Marquee */
+.logos-marquee {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: flomar-scroll var(--duration) linear infinite;
+}
+
+/* Logos */
+.logos-marquee img {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0.8);
+    transition: filter 0.3s ease;
+}
+
+.logos-marquee img:hover {
+    filter: grayscale(0) brightness(1);
+}
+
+/* Hover pause */
+.logos-container:hover .logos-marquee {
+    animation-play-state: paused;
+}
+
+/* Keyframes */
+@keyframes flomar-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logos-section {
+        padding: 40px 0;
+    }
+
+    .logos-marquee img {
+        height: 26px;
+    }
+
+    .logos-container {
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+}

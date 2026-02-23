@@ -406,6 +406,114 @@
         </div>
     </section>
 
+    <section id="partners" class="py-32 px-6 bg-black relative overflow-hidden">
+        <style>
+            /* Container chính */
+            #partners {
+                background-color: #000;
+                overflow: hidden;
+                position: relative;
+                padding: 5rem 0; /* py-20 tương đương py-32 nhưng cân đối hơn */
+            }
+
+            /* Khung chuyển động */
+            .payment-marquee {
+                position: relative;
+                height: 14rem; /* Đủ không gian cho 2 hàng */
+            }
+
+            .payment-row {
+                display: flex;
+                gap: 1.5rem;
+                position: absolute;
+                width: max-content;
+            }
+
+            .payment-row:hover {
+                animation-play-state: paused;
+            }
+
+            /* Card chứa logo */
+            .payment-card {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 1rem 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 140px;
+                color: #fff;
+                font-weight: 600;
+                font-family: 'SVN-Gilroy', sans-serif;
+            }
+
+            /* Animations */
+            .row-left {
+                top: 0;
+                animation: scroll-left 30s linear infinite;
+            }
+
+            .row-right {
+                top: 7.5rem;
+                animation: scroll-right 30s linear infinite;
+            }
+
+            @keyframes scroll-left {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+
+            @keyframes scroll-right {
+                0% { transform: translateX(-50%); }
+                100% { transform: translateX(0); }
+            }
+        </style>
+        <section id="partners">
+    <div class="payment-marquee">
+        
+        <div class="payment-row row-left">
+            <div class="payment-card">VISA</div>
+            <div class="payment-card">Mastercard</div>
+            <div class="payment-card">Alipay</div>
+            <div class="payment-card">WeChat Pay</div>
+            <div class="payment-card">Stripe</div>
+            <div class="payment-card">Apple Pay</div>
+            <div class="payment-card">PayPal</div>
+            <div class="payment-card">AMEX</div>
+            <div class="payment-card">VISA</div>
+            <div class="payment-card">Mastercard</div>
+            <div class="payment-card">Alipay</div>
+            <div class="payment-card">WeChat Pay</div>
+            <div class="payment-card">Stripe</div>
+            <div class="payment-card">Apple Pay</div>
+            <div class="payment-card">PayPal</div>
+            <div class="payment-card">AMEX</div>
+        </div>
+
+        <div class="payment-row row-right">
+            <div class="payment-card">Klarna.</div>
+            <div class="payment-card">DISCOVER</div>
+            <div class="payment-card">JCB</div>
+            <div class="payment-card">Wise</div>
+            <div class="payment-card">GrabPay</div>
+            <div class="payment-card">Payoneer</div>
+            <div class="payment-card">Skrill</div>
+            <div class="payment-card">SEPA</div>
+            <div class="payment-card">Klarna.</div>
+            <div class="payment-card">DISCOVER</div>
+            <div class="payment-card">JCB</div>
+            <div class="payment-card">Wise</div>
+            <div class="payment-card">GrabPay</div>
+            <div class="payment-card">Payoneer</div>
+            <div class="payment-card">Skrill</div>
+            <div class="payment-card">SEPA</div>
+        </div>
+
+    </div>
+</section>
+    </section>
+
     <!-- Call to Action / Footer -->
     <section id="contact" class="py-32 px-6 bg-black relative overflow-hidden">
         <!-- Abstract Decoration: REPLACED with Requested Gradient Animation -->
