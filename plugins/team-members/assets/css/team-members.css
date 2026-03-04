@@ -1,0 +1,92 @@
+.box-team .post-title {
+    display: inline-flex;
+    flex: 1; /* Chiếm không gian bên trái */
+    font-size: 145%;
+    font-weight: 600;
+}
+.box-team .post-title a{
+ /* color: rgb(51 55 81); */
+}
+.box-team .team-post-inner {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử sau rớt dòng */
+    align-items: center; /* Căn giữa tên và kinh nghiệm theo chiều dọc */
+ }
+.box-team .team-category {
+    display: inline-flex;
+    background-color: var(--fs-color-primary);
+    border-radius: 2rem;
+    line-height: 1.4rem;
+    color: #fff;
+    font-weight: bold;
+    font-size: 75%;
+    height: 1.4rem;
+    padding: 0 12px;
+     /* Tạo khoảng cách bên trái so với tên */
+    white-space: nowrap; /* Không cho chữ "kinh nghiệm" bị rớt dòng */
+     /* Tùy chỉnh màu sắc nếu cần */
+}
+.box-team  .is-divider,
+.box-team  .team-position,
+.box-team  .team-excerpt {
+    flex: 0 0 100%; 
+    width: 100%;
+}
+.box-team  .is-divider,
+.box-team .team-position {
+ display: none;
+}
+.box-team  .team-excerpt {
+ text-align: left;
+ padding-top: 0.5rem;
+ font-size: 110%;
+	min-height: 2rem;
+}
+@media only screen and (max-width: 48em) {
+	.box-team  .port-title {
+		font-size: 125%;
+	}
+	.box-team  .team-excerpt {
+		font-size: 100%;
+	}
+	.team-member.col {
+		max-width: 86% !important;
+	}
+}
+
+.readmore.readmore-icon {
+    position: absolute;
+    bottom: 25px;
+    right: 12px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: 1px solid var(--fs-color-primary);
+    border-left: none;
+    border-bottom: none;
+	transition: all ease .3s;
+}
+.readmore.readmore-icon:before {
+    content: ' ';
+    width: 20px;
+    height: 1px;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%) rotate(
+135deg);
+	transition: all ease .3s;
+}
+.readmore.readmore-icon span {
+    display: none;
+}
+.readmore.readmore-icon:hover {
+	transform: rotate(-360deg);
+}
+.readmore.readmore-icon:hover:before {
+	transform: rotate(45deg);
+	transform: translate(50%, -50%) rotate(
+495deg);
+} 
+

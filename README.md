@@ -10,3 +10,4 @@ Cú pháp "git add <ten files>"
 git add .
 git commit -m"them index"
 git push
+
