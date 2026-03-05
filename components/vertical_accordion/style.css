@@ -63,12 +63,15 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     position: absolute;
-    bottom: -4rem;
-    left: -4rem;
+    bottom: -8rem;
+    left: -8rem;
+    transition: all ease .3s;
 }
 
 .accordion-item.active .accordion-header .index {
     opacity: 0.2; /* Ẩn index khi item mở rộng */
+    bottom: -3rem;
+    left: -3rem;
 }
 
 .accordion-header .title {
@@ -97,6 +100,9 @@
     top: 30px;
     left: 30px;
     color: #D32F2F; /* Màu đỏ thương hiệu ViTâm */
+    background: #3f51b517;
+    padding: 12px 24px;
+    width: calc(100% - 8rem);
 }
 
 .accordion-header .icon {
@@ -159,6 +165,7 @@
     transition: opacity 0.5s ease 0.2s; /* Delay opacity for smoother transition */
     background-color: transparent;
     z-index: 5;
+    overflow: auto;
 }
 
 .accordion-item.active .accordion-content {
@@ -198,6 +205,7 @@
     .accordion-item {
         flex: unset !important; /* Override flex for vertical stacking */
         width: 100%;
+        max-width: 100%;
         height: 80px; /* Default height for closed item */
         border-right: none;
         border-bottom: 1px solid #eee;
