@@ -1,0 +1,48 @@
+/* Filter Bar */
+.cpt-filter-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.cpt-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cpt-filter-group label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    opacity: .7;
+}
+
+.cpt-filter-select {
+    padding: 7px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #fff;
+    cursor: pointer;
+    min-width: 140px;
+    transition: border-color .2s;
+}
+
+.cpt-filter-select:focus {
+    outline: none;
+    border-color: #999;
+}
+
+/* Loading state */
+.cpt-relay--loading {
+    pointer-events: none;
+}
+
+.cpt-relay--loading .row {
+    opacity: .3 !important;
+    transition: opacity .2s;
+}

@@ -1,0 +1,44 @@
+( function( $ ) {  
+    "use strict"   
+    function patholab_cound_down_handler($scope){
+        if ($scope.find('.pxl-countdown-container').length > 0) {
+            var $this = $scope.find('.pxl-countdown-container');
+            var timeout = $this.data('time');
+            
+            if(timeout == ''){
+                var current = new Date();
+                var end = new Date(current.getTime() + (13*24*60*60*1000));
+            }else{
+                var end = new Date(timeout);
+            }
+
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer = setInterval(function () {
+                var now = new Date();
+                var distance = end - now;
+                if (distance > 0) {
+                    var days = Math.floor(distance / _day);
+                    var hours = Math.floor((distance % _day) / _hour);
+                    var minutes = Math.floor((distance % _hour) / _minute);
+                    var seconds = Math.floor((distance % _minute) / _second);
+                    $this.find('.day').html(days < 10 ? '0' + days : days);
+                    $this.find('.hour').html(hours < 10 ? '0' + hours : hours);
+                    $this.find('.minute').html(minutes < 10 ? '0' + minutes : minutes);
+                    $this.find('.second').html(seconds < 10 ? '0' + seconds : seconds);
+                    return;
+                }
+                clearInterval(timer);
+            }, 1000);
+            //})
+        }
+    }
+    // Make sure you run this code under Elementor.
+    $( window ).on( 'elementor/frontend/init', function() {
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/pxl_countdown.default', function( $scope ) {
+            patholab_cound_down_handler($scope);
+        } );
+    } );
+} )( jQuery );

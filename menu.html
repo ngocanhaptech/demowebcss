@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Components</h2>
+  <ul>
+    <li><a href="/components/logos_marquee/">Logos marquee</a></li>
+    <li><a href="/components/vertical_accordion/">Vertical accordion</a></li>
+    <li><a href="/components/slider-cellphones/">Slider cellphones</a></li>
+  </ul>
+  <h2>Landings</h2>
+  <ul>
+    <li><a href="/landing/index-2.html">Lab studio</a></li>
+  </ul>
+  <h2>Editor</h2>
+  <ul>
+    <li><a href="/tests/arco.html">React arco</a></li>
+    <li><a href="/tests/data-sheet.html">Sheet dataset</a></li>
+    <li><a href="/tests/editor.html">Editor</a></li>
+    <li><a href="/tests/uploads_imgur.html">Uploads imgur</a></li>
+  </ul>
+  <div id="root"></div>
+</body>
+<!-- This setup is not suitable for production. -->
+<!-- Only use it in development! -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react?dev",
+    "react-dom/client": "https://esm.sh/react-dom/client?dev"
+  }
+}
+</script>
+<script type="text/babel" data-type="module">
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+function MyButton() {
+  return (
+    <button>
+      I'm a button
+    </button>
+  );
+}
+
+let App = function MyApp() {
+  return (
+    <div>
+      <h1>Welcome to my app</h1>
+      <MyButton />
+    </div>
+  );
+}
+
+const user = {
+  name: 'Hedy Lamarr',
+  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  imageSize: 90,
+};
+
+// export default function Profile()
+let Profile = function MyProfile() {
+  return (
+    <>
+      <h1>{user.name}</h1>
+      <img
+        className="avatar"
+        src={user.imageUrl}
+        alt={'Photo of ' + user.name}
+        style={{
+          width: user.imageSize,
+          height: user.imageSize
+        }}
+      />
+      <a href="/uploads_imgur.html" />
+    </>
+  );
+}
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  <StrictMode>
+    <Profile />
+  </StrictMode>
+);
+</script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+h4 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+h5 {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+h6 {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+code {
+  font-size: 1.2em;
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+</style>
+</html>
