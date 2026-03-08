@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fluid Splash Cursor - Professional Version</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        canvas { display: block; width: 100%; height: 100%; }
+        /* Ẩn bớt các phần UI không cần thiết của dat.gui để giống ReactBits */
+        .dg.main .close-button { background-color: #222; }
+        .dg li.title { background: #1a1a1a; }
+    </style>
+</head>
+<body>
+
+    <canvas></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/PavelDoGreat/WebGL-Fluid-Simulation/script.js"></script>
+
+    <script>
+        // Cấu hình mặc định tối ưu cho hiệu ứng Splash Cursor
+        const splashConfig = {
+            SIM_RESOLUTION: 128,
+            DYE_RESOLUTION: 1024,
+            DENSITY_DISSIPATION: 0.97, // Tốc độ tan màu (giảm để màu lâu mất hơn)
+            VELOCITY_DISSIPATION: 0.98, // Tốc độ giảm lực
+            PRESSURE: 0.8,
+            CURL: 30,                 // Độ xoáy
+            SPLAT_RADIUS: 0.3,        // Kích thước vết loang
+            SPLAT_FORCE: 6000,
+            SHADING: true,
+            COLORFUL: true,
+            BLOOM: true,
+            BLOOM_INTENSITY: 0.8,
+            SUNRAYS: true
+        };
+
+        // Chờ thư viện tải xong và ghi đè cấu hình
+        window.addEventListener('load', () => {
+            if (window.config) {
+                Object.assign(window.config, splashConfig);
+                
+                // Tự động tạo hiệu ứng ban đầu
+                multipleSplats(parseInt(Math.random() * 5) + 5);
+            }
+
+            // Tùy chỉnh GUI để trông gọn gàng hơn
+            const guiElements = document.querySelectorAll('.dg.cr.function');
+            guiElements.forEach(el => {
+                if (el.textContent.includes('Github') || el.textContent.includes('Twitter') || el.textContent.includes('App')) {
+                    el.style.display = 'none';
+                }
+            });
+        });
+
+        // Xử lý khi resize cửa sổ để không bị lỗi "Zero size"
+        window.addEventListener('resize', () => {
+            if (typeof initCanvas === 'function') initCanvas();
+        });
+    </script>
+</body>
+</html>

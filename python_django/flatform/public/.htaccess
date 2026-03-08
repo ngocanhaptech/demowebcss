@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# 1. Nếu là file thực tế (như css, js, png), hãy để LiteSpeed tự đọc, đừng đưa vào Django
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# 2. Các yêu cầu khác mới đẩy vào ứng dụng Django
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ passenger_wsgi.py [L]

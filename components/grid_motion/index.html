@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Motion Demo</title>
+    <style>
+        :root {
+            --bg-color: #060010;
+            --accent-color: #5227FF;
+            --card-bg: #111111;
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Container chính với Gradient trung tâm */
+        .intro {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+        }
+
+        .gridMotion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 150%; /* Rộng hơn màn hình để trượt không lộ cạnh */
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            will-change: transform; /* Giúp chuyển động mượt hơn */
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Thêm hiệu ứng làm mờ các hàng khác khi đang hover vào một hàng nào đó (tùy chọn) */
+        .gridMotion-container:hover .row:not(:hover) {
+            opacity: 0.5;
+        }
+
+        .row__item {
+            flex-shrink: 0;
+            width: 300px;
+            height: 150px;
+            perspective: 1000px;
+        }
+
+        .row__item-inner {
+            width: 100%;
+            height: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .row__item-inner:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            background-color: #1a1a1a;
+        }
+
+        .row__item-content {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Hiệu ứng mờ ở hai biên */
+        .intro::before, .intro::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .intro::before { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
+        .intro::after { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
+
+    </style>
+</head>
+<body>
+
+<section class="intro">
+    <div class="gridMotion-container" id="motionContainer">
+        <div class="row" data-speed="1">
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 1</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 2</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 3</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 4</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 5</div></div></div>
+        </div>
+        <div class="row" data-speed="-1">
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 6</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 7</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 8</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 9</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 10</div></div></div>
+        </div>
+        <div class="row" data-speed="1.2">
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 11</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 12</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 13</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 14</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 15</div></div></div>
+        </div>
+        <div class="row" data-speed="-0.8">
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 16</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 17</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 18</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 19</div></div></div>
+            <div class="row__item"><div class="row__item-inner"><div class="row__item-content">Item 20</div></div></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const rows = document.querySelectorAll('.row');
+
+    // Cấu hình ban đầu cho từng hàng
+    rows.forEach(row => {
+        // Nhân đôi nội dung để tạo vòng lặp vô tận
+        row.innerHTML += row.innerHTML;
+        
+        // Khởi tạo vị trí riêng cho từng hàng
+        row.dataset.offset = 0;
+        
+        // Biến đánh dấu trạng thái hover của riêng hàng này
+        row.isPaused = false;
+
+        row.addEventListener('mouseenter', () => row.isPaused = true);
+        row.addEventListener('mouseleave', () => row.isPaused = false);
+    });
+
+    function animate() {
+        rows.forEach((row) => {
+            // Nếu hàng này đang bị hover (isPaused = true) thì bỏ qua không tăng offset
+            if (!row.isPaused) {
+                const speed = parseFloat(row.getAttribute('data-speed')) || 1;
+                const step = 320; // Chiều rộng 1 item (300px) + gap (20px)
+                
+                // Lấy offset cũ, cộng thêm tốc độ
+                let currentOffset = parseFloat(row.dataset.offset);
+                currentOffset += 0.5 * speed; 
+                
+                // Reset khi đi hết một chu kỳ để tránh số quá lớn
+                if (currentOffset >= step) {
+                    currentOffset -= step;
+                } else if (currentOffset <= -step) {
+                    currentOffset += step;
+                }
+                
+                // Lưu lại vị trí mới và cập nhật giao diện
+                row.dataset.offset = currentOffset;
+                row.style.transform = `translateX(${-currentOffset}px)`;
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    // Bắt đầu chạy
+    animate();
+</script>
+
+</body>
+</html>
