@@ -1,0 +1,191 @@
+/* =========================================================
+    2. CSS TOP-BAR
+    ========================================================= */
+.topbar-section {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    padding: 12px 15px;
+    overflow: hidden;
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+}
+
+.topbar-container {
+    max-width: 1720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Box phone call */
+.pxl-phone-call2.bg-box-on {
+    padding: 10px 18px;
+    border-radius: 40px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.pxl-phone-call2 .pxl-item--inner,
+.pxl-phone-call2 .pxl-item--content {
+    display: flex;
+    align-items: center;
+}
+
+.pxl-phone-call2 .pxl-item--inner {
+    gap: 20px;
+}
+
+.pxl-phone-call2 .pxl-item--content {
+    gap: 10px;
+}
+
+.pxl-phone-call2 .pxl-label {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-right: 10px;
+    color: var(--secondary-color);
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.pxl-phone-call2 .pxl-label cite {
+    margin-left: 6px;
+    font-style: normal;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.pxl-phone-call2 .pxl-item--phone {
+    color: var(--secondary-color);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pxl-phone-call2 .pxl-item--phone a {
+    color: inherit;
+}
+
+.pxl-phone-call2 .pxl-item--icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 12px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.pxl-phone-call2 .pxl-item--icon svg {
+    max-height: 16px;
+}
+
+/* Nền nghiêng phía sau box (desktop lớn) */
+@media screen and (min-width: 1400px) {
+    .pxl-phone-call2.bg-box-on {
+    padding-right: 50px;
+    }
+
+    .pxl-phone-call2.bg-box-on::before {
+    content: "";
+    display: block;
+    background-color: var(--primary-color);
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    right: 0;
+    bottom: 0;
+    height: 300%;
+    width: 500%;
+    -webkit-transform: translateY(-50%) skew(40deg);
+    -khtml-transform: translateY(-50%) skew(40deg);
+    -moz-transform: translateY(-50%) skew(40deg);
+    -ms-transform: translateY(-50%) skew(40deg);
+    -o-transform: translateY(-50%) skew(40deg);
+    transform: translateY(-50%) skew(40deg);
+    }
+
+    .pxl-phone-call2.bg-box-on .pxl-label {
+    color: #ffffff;
+    }
+    .pxl-phone-call2.bg-box-on .pxl-label cite {
+    color: var(--secondary-color);
+    }
+    .pxl-phone-call2.bg-box-on .pxl-item--phone {
+    color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .pxl-phone-call2 .pxl-item--phone {
+    font-size: 14px;
+    }
+}
+
+/* Links giờ làm việc / email / địa chỉ */
+.topbar-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    max-width: 54%;
+}
+
+.topbar-links li {
+    display: inline-flex;
+}
+
+.topbar-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    font-size: 13px;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.topbar-links a:hover {
+    opacity: 1;
+}
+
+.topbar-links i {
+    margin-top: 2px;
+    font-size: 18px;
+    min-width: 15px;
+    color: var(--secondary-color);
+}
+
+@media (max-width: 575px) {
+    .topbar-section {
+        display: none
+    }
+    .pxl-phone-call2.bg-box-on {
+    width: 100%;
+    justify-content: center;
+    box-shadow: none;
+    padding-left: 0;
+    }
+
+    .topbar-links {
+    flex-direction: column;
+    align-items: flex-start;
+    }
+}

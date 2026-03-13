@@ -1,0 +1,119 @@
+/* Section hero chứa SVG */
+.hero-with-svg-line {
+  position: relative;
+  overflow: hidden;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 0 0 120px 0;
+  z-index: 2;
+}
+
+/* Overlay đáy giống elementor-10593 .elementor-element-1fc8ce9 */
+.hero-with-svg-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://demo.bravisthemes.com/patholab/wp-content/uploads/2023/10/bg-bottom.png");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Nội dung (title, text, v.v.) */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-top: 138px;
+  text-align: center;
+  margin-top: -186px;
+  padding-bottom: 30px;
+  background: var(--primary-color);
+}
+
+.hero-title {
+  font-family: "Chakra Petch", system-ui, sans-serif;
+  font-size: 42px;
+  margin: 0 0 10px;
+  font-weight: 300;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  margin: 0;
+  color: var(--base-color);
+  font-weight: 400;
+}
+
+.dark .hero-title,
+.dark .hero-subtitle {
+  color: #fff;
+}
+
+/* Container cho SVG line */
+.hero-svg-line {
+  position: relative;
+  z-index: 2;
+  padding-top: 60px;
+  margin-bottom: -120px;
+}
+
+/* SVG full width, giữ tỉ lệ */
+.hero-svg {
+  display: block;
+  width: 100%;
+  max-width: 1920px;
+  height: auto;
+  margin: 0 auto;
+  overflow: unset;
+}
+
+/* Dot, nếu cần transition nhỏ khi JS thay đổi vị trí */
+.hero-svg circle {
+  will-change: transform, cx, cy;
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+  .hero-with-svg-line {
+    padding-bottom: 160px;
+    background-size: cover;
+  }
+
+  .hero-inner {
+    padding-top: 90px;
+    padding-inline: 20px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-inner {
+    padding-top: 170px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+  }
+
+  /* Có thể giảm dot nếu muốn nhẹ mắt */
+  .hero-svg circle {
+    r: 10;
+  }
+}
