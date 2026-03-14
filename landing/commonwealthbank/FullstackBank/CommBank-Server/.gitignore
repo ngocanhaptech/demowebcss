@@ -404,6 +404,8 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+# Mac
+.DS_Store
 
 # Custom secrets
 Secrets.json
