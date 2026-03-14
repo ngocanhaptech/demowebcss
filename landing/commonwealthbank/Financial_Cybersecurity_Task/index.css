@@ -1,0 +1,50 @@
+/* 1. Variables */
+:root {
+    --commbank-yellow: #FFD000;
+    --commbank-black: #231F20;
+    --commbank-white: #FFFFFF;
+    --commbank-sand: #F4F1ED;
+}
+
+/* 2. Fonts colors */
+body {
+    font-family: 'Verdana', sans-serif; /* Font web CommBank */
+    background-color: var(--commbank-white);
+    color: var(--commbank-black);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* 3. Headers */
+h1, h2 {
+    color: var(--commbank-black);
+    border-left: 5px solid var(--commbank-yellow);
+    padding-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 4. Buttons CommBank */
+.button-book {
+    background-color: var(--commbank-yellow);
+    color: var(--commbank-black);
+    border: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px; 
+}
+
+.button-book:hover {
+    background-color: #e6bc00;
+}
+
+/* 5. Footer*/
+footer {
+    background-color: var(--commbank-black);
+    color: var(--commbank-yellow);
+    padding: 20px;
+    text-align: center;
+}
