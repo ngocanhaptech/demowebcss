@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outstanding Portfolio - WebGL Style Parallax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap');
+
+        :root {
+            --tp-white-bg: #ffffff;
+            --tp-heading-color: #121212;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0b0b;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .pt-160 { padding-top: 160px; }
+        .pb-130 { padding-bottom: 130px; }
+
+        /* Container Portfolio */
+        .tp-project-2-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            perspective: 1200px; /* Tạo độ sâu cho chuyển động 3D */
+        }
+
+        .tp-project-2-item {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            margin-bottom: 100px;
+            will-change: transform;
+            cursor: pointer;
+        }
+
+        /* Thumb xử lý hiệu ứng lồng nhau */
+        .tp-project-2-thumb {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #1a1a1a;
+            aspect-ratio: 16/10;
+        }
+
+        .tp-project-2-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scale: 1.2; /* Để khi parallax không bị hở viền */
+            will-change: transform;
+        }
+
+        .tp-project-2-content {
+            padding: 25px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .tp-project-2-cetagory span {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-right: 15px;
+            border: 1px solid #333;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .tp-project-2-tittle {
+            font-size: 42px;
+            font-weight: 700;
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        .tp-project-2-dates {
+            font-family: serif;
+            font-style: italic;
+            font-size: 24px;
+            color: #555;
+        }
+
+        /* Cursor ảo cho phong cách Design Agency */
+        #custom-cursor {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            color: #000;
+            font-weight: 700;
+            line-height: 1.2;
+            transform: scale(0);
+            mix-blend-mode: difference;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor">VIEW<br>DETAILS</div>
+
+    <main>
+        <div class="tp-project-area pt-160 pb-130">
+            <div class="container mx-auto px-4">
+                <div class="tp-project-2-wrap des-portfolio-wrap">
+                    
+                    <!-- Item 1 -->
+                    <div class="tp-project-2-item" data-parallax-speed="0.1">
+                        <a href="#" class="cursor-hide">
+                            <div class="tp-project-2-thumb">
+                                <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070" alt="Sonder goods">
+                            </div>
+                            <div class="tp-project-2-content">
+                                <div class="tp-project-2-tittle-wrap">
+                                    <div class="tp-project-2-cetagory">
+                                        <span>Branding</span>
+                                        <span>Digital</span>
+                                    </div>
+                                    <h3 class="tp-project-2-tittle">Sonder goods</h3>
+                                </div>
+                                <span class="tp-project-2-dates">/2025</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="tp-project-2-item" data-parallax-speed="-0.1">
+                        <a href="#" class="cursor-hide">
+                            <div class="tp-project-2-thumb">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964" alt="Promot box">
+                            </div>
+                            <div class="tp-project-2-content">
+                                <div class="tp-project-2-tittle-wrap">
+                                    <div class="tp-project-2-cetagory">
+                                        <span>Design</span>
+                                        <span>Web</span>
+                                    </div>
+                                    <h3 class="tp-project-2-tittle">Promot box</h3>
+                                </div>
+                                <span class="tp-project-2-dates">/2025</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="tp-project-2-item" data-parallax-speed="0.15">
+                        <a href="#" class="cursor-hide">
+                            <div class="tp-project-2-thumb">
+                                <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1887" alt="Olio noiring">
+                            </div>
+                            <div class="tp-project-2-content">
+                                <div class="tp-project-2-tittle-wrap">
+                                    <div class="tp-project-2-cetagory">
+                                        <span>Art</span>
+                                        <span>Minimal</span>
+                                    </div>
+                                    <h3 class="tp-project-2-tittle">Olio noiring</h3>
+                                </div>
+                                <span class="tp-project-2-dates">/2025</span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="parallax-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Agency - Water Ripple Effect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap');
+
+        body {
+            margin: 0;
+            background: #050505;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Bước 1: CSS Banner với Background dự phòng */
+        .tp-hero-area {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            /* Ảnh này sẽ bị JS đè lên bởi Canvas */
+            background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Bước 2: Canvas chiếm toàn bộ diện tích */
+        #ripple-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none; /* Để chuột vẫn tương tác được với text bên dưới nếu cần */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            pointer-events: none; /* Cho phép sự kiện chuột xuyên qua nội dung xuống lớp Banner bên dưới */
+        }
+
+        .tp-hero-title {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .btn-purchase {
+            pointer-events: auto; /* Kích hoạt lại tương tác cho nút bấm */
+            background: white;
+            color: black;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-purchase:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <section class="tp-hero-area" id="banner-container">
+        <!-- Lớp Canvas sẽ được chèn vào đây bởi JS -->
+        
+        <div class="hero-content container mx-auto px-6">
+            <h2 class="tp-hero-title">
+                Creative Agency & <br> Outstanding Design
+            </h2>
+            <p class="mt-4 text-gray-300 text-lg max-w-2xl mx-auto">
+                Trải nghiệm hiệu ứng mặt nước tương tác sử dụng WebGL Shaders tối ưu hóa hiệu suất GPU.
+            </p>
+            <a href="#" class="btn-purchase">Khám Phá Ngay</a>
+        </div>
+    </section>
+
+    <!-- SHADERS LOGIC -->
+    <script id="v-shader" type="x-shader/x-vertex">
+        attribute vec2 position;
+        varying vec2 vUv;
+        void main() {
+            vUv = position * 0.5 + 0.5;
+            gl_Position = vec4(position, 0.0, 1.0);
+        }
+    </script>
+
+    <script id="f-shader-update" type="x-shader/x-fragment">
+        precision highp float;
+        uniform sampler2D tDiffuse;
+        uniform vec2 delta;
+        varying vec2 vUv;
+
+        void main() {
+            // Lấy trạng thái từ Framebuffer trước
+            vec4 info = texture2D(tDiffuse, vUv);
+            
+            // Tính toán trung bình cộng các điểm lân cận để lan truyền sóng
+            vec2 dx = vec2(delta.x, 0.0);
+            vec2 dy = vec2(0.0, delta.y);
+            float average = (
+                texture2D(tDiffuse, vUv - dx).r +
+                texture2D(tDiffuse, vUv - dy).r +
+                texture2D(tDiffuse, vUv + dx).r +
+                texture2D(tDiffuse, vUv + dy).r
+            ) * 0.25;
+
+            // Vật lý nước cơ bản: Gia tốc và suy giảm (Damping)
+            info.g += (average - info.r) * 2.0;
+            info.g *= 0.985; // Độ lướt của nước
+            info.r += info.g;
+
+            gl_FragColor = info;
+        }
+    </script>
+
+    <script id="f-shader-drop" type="x-shader/x-fragment">
+        precision highp float;
+        uniform sampler2D tDiffuse;
+        uniform vec2 center;
+        uniform float radius;
+        uniform float strength;
+        varying vec2 vUv;
+
+        void main() {
+            vec4 info = texture2D(tDiffuse, vUv);
+            float drop = max(0.0, 1.0 - length(center - vUv) / radius);
+            drop = 0.5 - cos(drop * 3.14159) * 0.5;
+            info.r += drop * strength;
+            gl_FragColor = info;
+        }
+    </script>
+
+    <script id="f-shader-render" type="x-shader/x-fragment">
+        precision highp float;
+        uniform sampler2D tBackground;
+        uniform sampler2D tRipples;
+        uniform float perturbance;
+        varying vec2 vUv;
+
+        void main() {
+            // Bước 5: Tính toán độ méo dựa trên dữ liệu từ Texture sóng
+            vec2 delta = vec2(1.0 / 256.0);
+            float hL = texture2D(tRipples, vUv - vec2(delta.x, 0.0)).r;
+            float hR = texture2D(tRipples, vUv + vec2(delta.x, 0.0)).r;
+            float hT = texture2D(tRipples, vUv - vec2(0.0, delta.y)).r;
+            float hB = texture2D(tRipples, vUv + vec2(0.0, delta.y)).r;
+
+            vec2 offset = vec2(hL - hR, hT - hB);
+            
+            // Khúc xạ hình nền (Refraction)
+            vec4 color = texture2D(tBackground, vUv + offset * perturbance);
+            
+            // Thêm chút ánh sáng phản chiếu (Specular)
+            float spec = pow(max(0.0, dot(offset, vec2(-0.5, 0.5))), 4.0);
+            gl_FragColor = color + spec;
+        }
+    </script>
+
+    <script>
+        class WaterRipple {
+            constructor(containerId, bgUrl) {
+                this.container = document.getElementById(containerId);
+                this.bgUrl = bgUrl;
+                this.width = this.container.offsetWidth;
+                this.height = this.container.offsetHeight;
+                this.res = 256; // Độ phân giải lưới sóng
+
+                this.initCanvas();
+                this.initGL();
+                this.loadTexture();
+                this.createBuffers();
+                this.createPrograms();
+                this.addEvents();
+                this.animate();
+            }
+
+            initCanvas() {
+                this.canvas = document.createElement('canvas');
+                this.canvas.id = 'ripple-canvas';
+                this.container.prepend(this.canvas);
+                this.canvas.width = this.width;
+                this.canvas.height = this.height;
+            }
+
+            initGL() {
+                this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+                const gl = this.gl;
+                gl.getExtension('OES_texture_float');
+                gl.getExtension('OES_texture_float_linear');
+            }
+
+            createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                return shader;
+            }
+
+            createProgram(vsSource, fsSource) {
+                const gl = this.gl;
+                const vs = this.createShader(gl, gl.VERTEX_SHADER, vsSource);
+                const fs = this.createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+                const prog = gl.createProgram();
+                gl.attachShader(prog, vs);
+                gl.attachShader(prog, fs);
+                gl.linkProgram(prog);
+                return prog;
+            }
+
+            createPrograms() {
+                const vs = document.getElementById('v-shader').text;
+                this.progUpdate = this.createProgram(vs, document.getElementById('f-shader-update').text);
+                this.progDrop = this.createProgram(vs, document.getElementById('f-shader-drop').text);
+                this.progRender = this.createProgram(vs, document.getElementById('f-shader-render').text);
+            }
+
+            createBuffers() {
+                const gl = this.gl;
+                // Tạo Quad buffer (hình vuông phủ kín màn hình)
+                this.quadBuffer = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, 1,1, -1,1]), gl.STATIC_DRAW);
+
+                // Bước 3: Tạo 2 Texture (Ping-Pong) để lưu trạng thái sóng
+                this.textures = [];
+                this.framebuffers = [];
+                for(let i=0; i<2; i++) {
+                    const tex = gl.createTexture();
+                    gl.bindTexture(gl.TEXTURE_2D, tex);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.res, this.res, 0, gl.RGBA, gl.FLOAT, null);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+                    const fb = gl.createFramebuffer();
+                    gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+                    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+                    
+                    this.textures.push(tex);
+                    this.framebuffers.push(fb);
+                }
+            }
+
+            loadTexture() {
+                const gl = this.gl;
+                this.backgroundTexture = gl.createTexture();
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = () => {
+                    gl.bindTexture(gl.TEXTURE_2D, this.backgroundTexture);
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                    this.loaded = true;
+                };
+                img.src = this.bgUrl;
+            }
+
+            addEvents() {
+                // Bước 4: Bắt tọa độ chuột
+                this.container.addEventListener('mousemove', (e) => {
+                    const rect = this.container.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / this.width;
+                    const y = 1.0 - (e.clientY - rect.top) / this.height;
+                    this.drop(x, y, 0.03, 0.02);
+                });
+
+                window.addEventListener('resize', () => {
+                    this.width = this.container.offsetWidth;
+                    this.height = this.container.offsetHeight;
+                    this.canvas.width = this.width;
+                    this.canvas.height = this.height;
+                });
+            }
+
+            drop(x, y, radius, strength) {
+                const gl = this.gl;
+                gl.viewport(0, 0, this.res, this.res);
+                gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffers[0]);
+                gl.useProgram(this.progDrop);
+                
+                gl.uniform1i(gl.getUniformLocation(this.progDrop, "tDiffuse"), 0);
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, this.textures[1]);
+                
+                gl.uniform2f(gl.getUniformLocation(this.progDrop, "center"), x, y);
+                gl.uniform1f(gl.getUniformLocation(this.progDrop, "radius"), radius);
+                gl.uniform1f(gl.getUniformLocation(this.progDrop, "strength"), strength);
+
+                this.drawQuad(this.progDrop);
+                this.swap();
+            }
+
+            swap() {
+                this.textures.reverse();
+                this.framebuffers.reverse();
+            }
+
+            drawQuad(prog) {
+                const gl = this.gl;
+                const pos = gl.getAttribLocation(prog, "position");
+                gl.enableVertexAttribArray(pos);
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+                gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+                gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+            }
+
+            animate() {
+                if(this.loaded) {
+                    const gl = this.gl;
+
+                    // 1. Update vật lý sóng
+                    gl.viewport(0, 0, this.res, this.res);
+                    gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffers[0]);
+                    gl.useProgram(this.progUpdate);
+                    gl.activeTexture(gl.TEXTURE0);
+                    gl.bindTexture(gl.TEXTURE_2D, this.textures[1]);
+                    gl.uniform2f(gl.getUniformLocation(this.progUpdate, "delta"), 1/this.res, 1/this.res);
+                    this.drawQuad(this.progUpdate);
+                    this.swap();
+
+                    // 2. Render lên màn hình chính
+                    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+                    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+                    gl.useProgram(this.progRender);
+                    
+                    gl.activeTexture(gl.TEXTURE0);
+                    gl.bindTexture(gl.TEXTURE_2D, this.backgroundTexture);
+                    gl.uniform1i(gl.getUniformLocation(this.progRender, "tBackground"), 0);
+                    
+                    gl.activeTexture(gl.TEXTURE1);
+                    gl.bindTexture(gl.TEXTURE_2D, this.textures[0]);
+                    gl.uniform1i(gl.getUniformLocation(this.progRender, "tRipples"), 1);
+
+                    gl.uniform1f(gl.getUniformLocation(this.progRender, "perturbance"), 1.15);
+
+                    this.drawQuad(this.progRender);
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Khởi tạo
+        window.onload = () => {
+            new WaterRipple('banner-container', 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2070&auto=format&fit=crop');
+        }
+    </script>
+</body>
+</html>
