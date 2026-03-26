@@ -1,0 +1,890 @@
+# Copyright (C) 2025 ThemeHigh
+# This file is distributed under the same license as the Job Manager & Career - Manage job board listings, and recruitments plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Job Manager & Career - Manage job board listings, and recruitments 1.4.9\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/job-manager-career\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-03-03T05:06:27+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: job-manager-career\n"
+
+#. Plugin Name of the plugin
+#: job-manager-career.php
+msgid "Job Manager & Career - Manage job board listings, and recruitments"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: job-manager-career.php
+msgid "https://www.themehigh.com/job-manager"
+msgstr ""
+
+#. Description of the plugin
+#: job-manager-career.php
+msgid "Create and manage jobs from WordPress admin panel."
+msgstr ""
+
+#. Author of the plugin
+#: job-manager-career.php
+msgid "ThemeHigh"
+msgstr ""
+
+#. Author URI of the plugin
+#: job-manager-career.php
+msgid "https://www.themehigh.com"
+msgstr ""
+
+#: classes/class-thjmf-hooks.php:90
+#: classes/class-thjmf-public-shortcodes.php:435
+#: templates/single-jobs/title.php:57
+msgid "Apply Now"
+msgstr ""
+
+#: classes/class-thjmf-hooks.php:178
+#: classes/class-thjmf-public-shortcodes.php:692
+msgid "Application Submitted Successfully"
+msgstr ""
+
+#: classes/class-thjmf-hooks.php:181
+#: classes/class-thjmf-public-shortcodes.php:693
+msgid "An error occured while submitting the application. Try again"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:106
+msgid "Job Features"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:108
+#: classes/class-thjmf-public-jobs.php:198
+#: templates/loop/details-button.php:22
+#: templates/version1/content-job-listing.php:55
+msgid "Details"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:110
+msgid "Apply Now Form Fields"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:111
+msgid "Add New Field"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:112
+msgid "Job Expiry"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:161
+msgid "Create"
+msgstr ""
+
+#: classes/class-thjmf-post-fields.php:162
+msgid " more job features"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:94
+#: classes/class-thjmf.php:111
+msgid "All Jobs"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:121
+msgid "Search Categories"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:122
+#: templates/version1/job-filters.php:41
+msgid "All Categories"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:123
+msgid "Parent Categories"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:124
+msgid "Parent Category:"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:125
+msgid "Edit Category"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:126
+msgid "Update Category"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:127
+msgid "Add New Category"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:128
+msgid "New Category Name"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:129
+msgid "Job Categories"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:145
+msgid "Search Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:146
+msgid "All Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:147
+msgid "Parent Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:148
+msgid "Parent Location:"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:149
+msgid "Edit Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:150
+msgid "Update Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:151
+msgid "Add New Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:152
+msgid "New Location Name"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:153
+msgid "Locations"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:154
+msgid "No locations found."
+msgstr ""
+
+#: classes/class-thjmf-posts.php:155
+msgid "← Back to locations"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:171
+msgid "Search Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:172
+msgid "All Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:173
+msgid "Parent Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:174
+msgid "Parent Job Type:"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:175
+msgid "Edit Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:176
+msgid "Update Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:177
+msgid "Add New Job Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:178
+msgid "New Job Type Name"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:179
+msgid "Job Types"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:180
+msgid "No job types found."
+msgstr ""
+
+#: classes/class-thjmf-posts.php:181
+msgid "← Back to job types"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:201
+#: classes/class-thjmf-settings-general.php:118
+msgid "Category"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:202
+msgid "Type"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:203
+#: classes/class-thjmf-posts.php:217
+#: classes/class-thjmf-settings-general.php:120
+#: templates/job-filters.php:28
+#: templates/single-jobs/tags.php:27
+msgid "Location"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:204
+msgid "Posted"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:205
+#: classes/class-thjmf-template.php:268
+msgid "Featured"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:206
+msgid "Filled"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:207
+#: classes/class-thjmf-posts.php:219
+#: classes/class-thjmf-posts.php:490
+msgid "Status"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:208
+msgid "Job Applications"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:215
+#: classes/class-thjmf-public-shortcodes.php:499
+#: classes/class-thjmf-utils.php:122
+#: templates/single-jobs/job-application.php:22
+msgid "Name"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:216
+msgid "Position"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:218
+msgid "Applied Date"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:225
+msgid "Job Data"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:226
+msgid "Featured Listing"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:227
+msgid "Job Status"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:232
+msgid "Applicant Data"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:233
+msgid "Additional Notes - For Admin"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:465
+#: classes/class-thjmf-public-shortcodes.php:517
+#: templates/single-jobs/job-application.php:44
+msgid "Resume"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:484
+msgid "Pending"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:485
+msgid "Rejected"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:486
+msgid "Selected"
+msgstr ""
+
+#: classes/class-thjmf-posts.php:567
+msgid "View Applications%s"
+msgstr ""
+
+#: classes/class-thjmf-public-jobs.php:379
+#: classes/class-thjmf-public-shortcodes.php:444
+msgid "This job is Expired"
+msgstr ""
+
+#: classes/class-thjmf-public-jobs.php:381
+msgid "This job is Filled"
+msgstr ""
+
+#: classes/class-thjmf-public-jobs.php:389
+#: classes/class-thjmf-public-jobs.php:393
+msgid "The field should contain only alphabets"
+msgstr ""
+
+#: classes/class-thjmf-public-jobs.php:397
+msgid "Invalid phone number"
+msgstr ""
+
+#: classes/class-thjmf-public-jobs.php:401
+msgid "Invalid email"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:280
+#: templates/thjm-more-jobs.php:25
+msgid "Load more"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:445
+msgid "This Job is Filled"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:463
+msgid "Application Form"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:484
+msgid "Apply"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:499
+#: classes/class-thjmf-public-shortcodes.php:511
+#: classes/class-thjmf-public-shortcodes.php:517
+#: classes/class-thjmf-template.php:331
+#: templates/single-jobs/job-application.php:22
+#: templates/single-jobs/job-application.php:37
+#: templates/single-jobs/job-application.php:44
+msgid "required"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:505
+#: classes/class-thjmf-utils.php:123
+#: templates/single-jobs/job-application.php:28
+msgid "Phone"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:511
+#: classes/class-thjmf-settings-general.php:130
+#: classes/class-thjmf-utils.php:124
+#: templates/single-jobs/job-application.php:37
+msgid "Email"
+msgstr ""
+
+#: classes/class-thjmf-public-shortcodes.php:523
+#: classes/class-thjmf-utils.php:125
+#: templates/single-jobs/job-application.php:52
+msgid "Cover Letter"
+msgstr ""
+
+#: classes/class-thjmf-public.php:177
+#: classes/class-thjmf-public.php:195
+msgid "{site_title} New Job Application Received"
+msgstr ""
+
+#. translators: Allowed file types $accept.
+#: classes/class-thjmf-public.php:239
+msgid "Invalid file type."
+msgstr ""
+
+#. translators: Allowed file types.
+#: classes/class-thjmf-public.php:241
+msgid "Invalid file type, allowed types are %s."
+msgstr ""
+
+#. translators: Allowed maximum size of file to upload.
+#: classes/class-thjmf-public.php:247
+msgid "Uploaded file should not exceed %sMB."
+msgstr ""
+
+#: classes/class-thjmf-public.php:336
+msgid "Job Application"
+msgstr ""
+
+#. translators: Name of the applicant.
+#: classes/class-thjmf-public.php:363
+msgid "Hi %s,"
+msgstr ""
+
+#: classes/class-thjmf-public.php:364
+msgid "Thank you for your interest!"
+msgstr ""
+
+#. translators: Job title for which the application was received.
+#: classes/class-thjmf-public.php:369
+msgid "We have received your application for %s."
+msgstr ""
+
+#: classes/class-thjmf-public.php:374
+msgid "Our teams will organize next steps post reviewing your application."
+msgstr ""
+
+#: classes/class-thjmf-public.php:376
+msgid "Regards,"
+msgstr ""
+
+#: classes/class-thjmf-public.php:391
+msgid "Hi,"
+msgstr ""
+
+#. translators: Job applicant name, Job title.
+#: classes/class-thjmf-public.php:393
+msgid "You have received an application from %1$s for the job %2$s."
+msgstr ""
+
+#. translators: Url of the applicant admin dashboard
+#: classes/class-thjmf-public.php:395
+msgid " View %s for more detials."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:105
+msgid "DEFAULT JOB FEATURES"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:106
+msgid "Feature"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:107
+msgid "SETTINGS"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:108
+msgid "Add Feature"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:109
+msgid "Job Expiration"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:110
+msgid "Hide Expired Jobs"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:111
+msgid "Hide Filled in Job"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:112
+msgid "Display Job Posted Date"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:113
+msgid "Enable Apply Now & Form"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:114
+msgid "Message Text"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:115
+msgid "DATA MANAGEMENT"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:117
+msgid "SEARCH FILTERS"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:119
+msgid "Job Type"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:121
+msgid "USER APPLICATION OPTIONS"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:122
+msgid "DEFAULT FORM FIELDS"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:124
+msgid "SOCIAL SHARE"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:127
+msgid "Enable social share"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:133
+msgid "Whatsapp"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:136
+msgid "Facebook"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:139
+msgid "Twitter"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:142
+msgid "Linkedin"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:185
+msgid "Product fields successfully reset"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:248
+msgid "Your changes were saved."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:248
+#: classes/class-thjmf-settings-general.php:605
+msgid "Your changes were not saved due to an error (or you made none!)."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:343
+msgid "Save changes"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:344
+msgid "Reset to default"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:441
+msgid "Apply Now form contains the default fields - Name, Phone, Email, Resume upload & Description"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:528
+#: classes/class-thjmf-settings.php:56
+msgid "Sorry, your nonce did not verify."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:534
+msgid "Backup and Import Settings"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:536
+msgid "Plugin Settings Data"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:537
+msgid "You can transfer the saved settings data between different installs by copying the text inside the text box. To import data from another install, replace the data in the text box with the one from another install and click \"Save Settings\"."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:568
+msgid "Save Settings"
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:580
+msgid "The entered import settings data is invalid. Please try again with valid data.."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:589
+msgid "Your changes were not saved due to an error (or serialized data may compromised)."
+msgstr ""
+
+#: classes/class-thjmf-settings-general.php:602
+msgid "Your Settings Updated."
+msgstr ""
+
+#: classes/class-thjmf-settings.php:49
+#: classes/class-thjmf-settings.php:50
+#: classes/class-thjmf-settings.php:78
+msgid "Settings"
+msgstr ""
+
+#: classes/class-thjmf-template.php:334
+msgid "optional"
+msgstr ""
+
+#: classes/class-thjmf-template.php:450
+msgid "Choose an option"
+msgstr ""
+
+#. translators: Allowed file types.
+#: classes/class-thjmf-template.php:481
+msgid "Supports %s files"
+msgstr ""
+
+#: classes/class-thjmf-utils.php:152
+#: classes/class-thjmf-utils.php:573
+#: classes/class-thjmf-utils.php:591
+msgid "Expired"
+msgstr ""
+
+#: classes/class-thjmf-utils.php:152
+#: classes/class-thjmf-utils.php:573
+#: classes/class-thjmf-utils.php:575
+#: classes/class-thjmf-utils.php:591
+msgid "Active"
+msgstr ""
+
+#: classes/class-thjmf-utils.php:659
+#: classes/class-thjmf.php:149
+msgid "All Applicants"
+msgstr ""
+
+#: classes/class-thjmf.php:102
+#: classes/class-thjmf.php:103
+msgid "Jobs"
+msgstr ""
+
+#: classes/class-thjmf.php:104
+#: classes/class-thjmf.php:105
+msgid "Job Listings"
+msgstr ""
+
+#: classes/class-thjmf.php:106
+#: classes/class-thjmf.php:144
+msgid "Add New"
+msgstr ""
+
+#: classes/class-thjmf.php:107
+msgid "Add New Job"
+msgstr ""
+
+#: classes/class-thjmf.php:108
+msgid "New Job"
+msgstr ""
+
+#: classes/class-thjmf.php:109
+msgid "Edit Job"
+msgstr ""
+
+#: classes/class-thjmf.php:110
+msgid "View Job"
+msgstr ""
+
+#: classes/class-thjmf.php:112
+msgid "Search Jobs"
+msgstr ""
+
+#: classes/class-thjmf.php:113
+msgid "Parent Jobs:"
+msgstr ""
+
+#: classes/class-thjmf.php:114
+msgid "No jobs found."
+msgstr ""
+
+#: classes/class-thjmf.php:115
+msgid "No jobs found in Trash."
+msgstr ""
+
+#: classes/class-thjmf.php:140
+msgid "Applicants"
+msgstr ""
+
+#: classes/class-thjmf.php:141
+#: classes/class-thjmf.php:142
+#: classes/class-thjmf.php:143
+msgid "Applicant"
+msgstr ""
+
+#: classes/class-thjmf.php:145
+msgid "Add New Applicant"
+msgstr ""
+
+#: classes/class-thjmf.php:146
+msgid "New Applicant"
+msgstr ""
+
+#: classes/class-thjmf.php:147
+msgid "Edit Applicant"
+msgstr ""
+
+#: classes/class-thjmf.php:148
+msgid "View Applicant"
+msgstr ""
+
+#: classes/class-thjmf.php:150
+msgid "Search Applicants"
+msgstr ""
+
+#: classes/class-thjmf.php:151
+msgid "Parent Applicant:"
+msgstr ""
+
+#: classes/class-thjmf.php:152
+msgid "No Applicants found."
+msgstr ""
+
+#: classes/class-thjmf.php:153
+msgid "No Applicants found in Trash."
+msgstr ""
+
+#: classes/class-thjmf.php:282
+msgid "Quick Feedback"
+msgstr ""
+
+#: classes/class-thjmf.php:287
+#: classes/class-thjmf.php:317
+msgid "Get Support"
+msgstr ""
+
+#: classes/class-thjmf.php:291
+msgid "If you have a moment, please let us know why you want to deactivate this plugin"
+msgstr ""
+
+#: classes/class-thjmf.php:310
+msgid "This form is only for getting your valuable feedback. We do not collect your personal data. To know more read our "
+msgstr ""
+
+#: classes/class-thjmf.php:310
+msgid "Privacy Policy"
+msgstr ""
+
+#: classes/class-thjmf.php:314
+msgid "Skip & Deactivate"
+msgstr ""
+
+#: classes/class-thjmf.php:318
+msgid "Submit and Deactivate"
+msgstr ""
+
+#: classes/class-thjmf.php:319
+msgid "Cancel"
+msgstr ""
+
+#: classes/class-thjmf.php:541
+msgid "Deactivate and "
+msgstr ""
+
+#: classes/class-thjmf.php:543
+msgid "leave a review"
+msgstr ""
+
+#: classes/class-thjmf.php:547
+msgid "Upgraded"
+msgstr ""
+
+#: classes/class-thjmf.php:618
+msgid "Upgraded to premium."
+msgstr ""
+
+#: classes/class-thjmf.php:625
+msgid "A specific feature is missing"
+msgstr ""
+
+#: classes/class-thjmf.php:627
+msgid "Propose the feature"
+msgstr ""
+
+#: classes/class-thjmf.php:632
+msgid "Found an error in the plugin/ Plugin was not working"
+msgstr ""
+
+#: classes/class-thjmf.php:634
+msgid "Specify the issue"
+msgstr ""
+
+#: classes/class-thjmf.php:639
+msgid "It was hard to use"
+msgstr ""
+
+#: classes/class-thjmf.php:641
+msgid "How can we improve your experience?"
+msgstr ""
+
+#: classes/class-thjmf.php:646
+msgid "I found a better Plugin"
+msgstr ""
+
+#: classes/class-thjmf.php:648
+#: classes/class-thjmf.php:662
+msgid "Could you please mention the plugin?"
+msgstr ""
+
+#: classes/class-thjmf.php:660
+msgid "It’s a temporary deactivation - I’m troubleshooting an issue"
+msgstr ""
+
+#: classes/class-thjmf.php:667
+msgid "Not mentioned here"
+msgstr ""
+
+#: classes/class-thjmf.php:669
+msgid "Kindly tell us your reason, so that we can improve"
+msgstr ""
+
+#: classes/thjmf-core-functions.php:133
+msgid "Featured Job"
+msgstr ""
+
+#: templates/job-filters.php:29
+msgid "City, State or Pin code"
+msgstr ""
+
+#: templates/job-filters.php:30
+msgid "location"
+msgstr ""
+
+#: templates/job-filters.php:35
+#: templates/job-filters.php:50
+msgid "Find Job"
+msgstr ""
+
+#: templates/loop/title.php:31
+#: templates/single-jobs/title.php:30
+msgid "Share to email"
+msgstr ""
+
+#: templates/single-jobs/job-application.php:58
+msgid "Submit"
+msgstr ""
+
+#: templates/single-jobs/tags.php:21
+msgid "Posted time"
+msgstr ""
+
+#: templates/single-jobs/tags.php:33
+msgid "Job type"
+msgstr ""
+
+#: templates/single-jobs/title.php:35
+msgid "Share to whatsapp"
+msgstr ""
+
+#: templates/single-jobs/title.php:40
+msgid "Share to facebook"
+msgstr ""
+
+#: templates/single-jobs/title.php:45
+msgid "Share to twitter"
+msgstr ""
+
+#: templates/single-jobs/title.php:50
+msgid "Share to linkedin"
+msgstr ""
+
+#: templates/thjm-no-jobs.php:18
+msgid "No Jobs Found"
+msgstr ""
+
+#: templates/version1/content-no-jobs.php:23
+msgid "No jobs found . . ."
+msgstr ""
+
+#: templates/version1/job-filters.php:24
+msgid "Select Location"
+msgstr ""
+
+#: templates/version1/job-filters.php:26
+msgid "All Locations"
+msgstr ""
+
+#: templates/version1/job-filters.php:39
+msgid "Select Category"
+msgstr ""
+
+#: templates/version1/job-filters.php:54
+msgid "Select Job Type"
+msgstr ""
+
+#: templates/version1/job-filters.php:56
+msgid "All Job Types"
+msgstr ""
+
+#: templates/version1/job-filters.php:70
+msgid "Reset"
+msgstr ""
+
+#: templates/version1/job-filters.php:71
+msgid "Filter"
+msgstr ""

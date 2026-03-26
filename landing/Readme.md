@@ -345,3 +345,136 @@ DX
 Sản phẩm
 
 Homepage được chọn làm base duy nhất cho tất cả homepage còn lại (no fork khác biệt).
+
+1. Ngôn ngữ & Runtime
+HTML5 semantic (1 homepage index.html).
+
+CSS3 hiện đại (custom properties, clamp(), aspect-ratio, logical properties).
+
+JavaScript ES6+ (module, import/export, no jQuery).
+​
+
+2. Frontend Framework & Tooling
+Kiến trúc: Vanilla JS + Atomic Design (atoms → molecules → organisms).
+
+Dev server & bundler: Vite 5+ (template vanilla).
+
+HMR, build tối ưu, cấu trúc gần giống các starter vite-vanilla-starter.
+
+Lint & Format (optional nhưng nên có):
+
+ESLint (rules cơ bản cho ES6).
+
+Prettier cho format code nhất quán.
+​
+
+3. Styles & Design System
+Design tokens:
+
+tokens.css với CSS variables cho màu, typography, spacing, radius, shadow.
+
+Layer CSS:
+
+base.css: reset, body, typography, container, grid.
+
+components.css: button, link, section-tag, cards.
+
+layout.css: layout cho hero, bento, projects, studio, footer.
+
+Typography:
+
+Google Fonts:
+
+Display: Space Grotesk / tương đương.
+
+Body: Inter.
+
+Layout:
+
+CSS Grid + Flexbox, 12‑column mental model, responsive mobile‑first.
+
+4. Animation & Interaction
+Core animation lib: GSAP 3 (module):
+
+gsap/core.
+
+ScrollTrigger cho scroll-based animation.
+
+Tổ chức JS:
+
+main.js: nav, a11y, helpers, init.
+
+animations.js: init hero, sections, projects.
+
+Optional (sau):
+
+Custom cursor (circle).
+
+Smooth scroll (Lenis/Locomotive Scroll) nếu đảm bảo không phá performance.
+
+5. Performance & Asset Strategy
+JS:
+
+Chỉ 2 entry JS, import GSAP theo module, không dùng jQuery.
+
+type="module" + defer.
+
+Images:
+
+Định dạng .webp / .avif.
+
+srcset + sizes, khai báo width/height hoặc aspect-ratio để tránh CLS.
+​
+
+Fonts:
+
+Google Fonts với display=swap.
+
+Build:
+
+Vite build → output /dist static, dùng cho Lighthouse audit.
+​
+
+6. Accessibility & Globalization
+HTML landmark: <header>, <main>, <nav>, <section>, <footer>.
+
+Keyboard:
+
+Skip link, focus styles rõ, order tab hợp lý.
+
+Screen reader:
+
+aria-label cho icon/button, alt text chuẩn.
+
+RTL‑ready:
+
+Dùng logical properties (margin-inline, padding-inline, border-inline-start).
+
+7. QA & Tooling phụ trợ
+Lighthouse (Chrome DevTools) để đo Performance/A11y/Best Practices/SEO.
+​
+
+Browserslist (nếu thêm PostCSS/Babel sau này) để align target browser.
+​
+
+Test manual trên:
+
+Chrome, Safari, Firefox, Edge, mobile iOS/Android.
+
+8. Repo Structure (chuẩn áp dụng tech stack)
+~~~~~~
+index.html
+vite.config.js
+package.json
+/src
+  /assets
+    /images
+    /fonts
+  /styles
+    tokens.css
+    base.css
+    components.css
+    layout.css
+  /scripts
+    main.js
+    animations.js
