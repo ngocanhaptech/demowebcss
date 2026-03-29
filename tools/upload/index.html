@@ -31,9 +31,19 @@
 
     <script>
         // --- CẤU HÌNH CLOUDINARY  ---
-        const CLOUD_NAME = '{{CLOUDINARY_NAME}}';
-        const UPLOAD_PRESET = '{{CLOUDINARY_PRESET}}';
+        const CLOUD_NAME = 'dycwkcxiu';
+        const UPLOAD_PRESET = 'googlesheet';
         // -------------------------------------------
+        // --- CẤU HÌNH CLOUDINARY ---
+        // let CLOUD_NAME = 'dycwkcxiu';
+        // let UPLOAD_PRESET = 'googlesheet';
+
+        // // TỰ ĐỘNG ĐIỀN NẾU CHƯA ĐƯỢC GITHUB THAY THẾ (Dành cho Local Test)
+        // if (CLOUD_NAME.includes('{{')) {
+        //     CLOUD_NAME = 'dycwkcxiu';
+        //     UPLOAD_PRESET = 'googlesheet';
+        //     console.log("Đang chạy Local: Đã tự động dùng cấu hình dự phòng.");
+        // }
 
         const fileInput = document.getElementById('file-input');
         const uploadBtn = document.getElementById('upload-btn');
