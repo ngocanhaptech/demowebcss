@@ -1,0 +1,202 @@
+/* Block contact 3 cột trong footer */
+.footer-contact {
+  margin: 0 0 55px;
+}
+
+.footer-contact .footer-container {
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-contact-inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+/* Mỗi box */
+.footer-contact-box {
+  padding: 20px 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+.footer-contact-box:first-child {
+  border-left: none;
+}
+
+/* Phone box */
+.footer-contact-phone-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Gradient chung cho các khối/icon có class .icon-gradient, pricing, tabs... */
+.footer-contact-icon {
+  background-color: var(--gradient-color-from);
+  background-image: linear-gradient(
+    to right,
+    var(--gradient-color-from),
+    var(--gradient-color-to)
+  );
+}
+
+
+.footer-contact-icon svg {
+  max-height: 30px;
+}
+
+.footer-contact-phone-label {
+  display: block;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.footer-contact-phone-number a {
+  font-family: "Chakra Petch", system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #00fb8a;
+  text-decoration: none;
+}
+
+/* Email + address link */
+.footer-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-contact-link i {
+  color: #00fb8a;
+  font-size: 22px;
+  margin-top: 4px;
+  min-width: 15px;
+}
+
+.footer-contact-link span {
+  display: inline-block;
+}
+
+/* Hover */
+.footer-contact-link:hover {
+  color: #30efad;
+}
+
+/* Responsive tương đương bản gốc */
+@media (min-width: 576px) and (max-width: 991px) {
+  .footer-contact-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-contact-address {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-contact-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-contact-box {
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+  }
+
+  .footer-contact-box:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+@media (max-width: 575px) {
+  .footer-contact-box {
+    padding: 15px 20px;
+  }
+
+  .footer-contact-phone-number a {
+    font-size: 24px;
+  }
+}
+@media (min-width: 575px) {
+    /* Wrapper chung trong footer */
+    .footer-newsletter-form {
+    text-align: right;
+    }
+
+    /* Form tối đa 520px giống bản gốc */
+    .footer-newsletter-form .newsletter-form {
+    display: inline-block;
+    max-width: 520px;
+    width: 100%;
+    }
+
+    /* Hàng input + button */
+    .footer-newsletter-form .newsletter-fields {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: rgba(255, 255, 255, 0.36); /* #FFFFFF5C */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* #FFFFFF26 */
+    border-radius: 999px;
+    overflow: hidden;
+    }
+
+    /* Input email */
+    .footer-newsletter-form .newsletter-fields input[type="email"] {
+    flex: 1;
+    padding: 14px 18px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 14px;
+    }
+
+    /* Placeholder trắng nhạt */
+    .footer-newsletter-form .newsletter-fields input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Button submit */
+    .footer-newsletter-form .newsletter-fields button[type="submit"] {
+    padding: 14px 26px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 999px;
+    margin: 2px;
+    background-image: linear-gradient(90deg, #24b7d3 0%, #39e2a8 100%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.1s ease;
+    }
+
+    /* Hover button */
+    .footer-newsletter-form .newsletter-fields button[type="submit"]:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+    }
+
+
+}

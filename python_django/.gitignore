@@ -1,0 +1,28 @@
+# Environment Variables (Chặn các file chứa bí mật)
+.env
+.env.dev
+.env.prod
+.venv/
+env/
+venv/
+ENV/
+
+# Django các file phát sinh
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS & IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Hosting specific (CPanel/LiteSpeed)
+stderr.log
+error_log
+node_modules/
+.python-version

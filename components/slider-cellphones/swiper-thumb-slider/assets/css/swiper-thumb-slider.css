@@ -1,0 +1,288 @@
+/* ===============================================
+   Swiper Thumb Slider Styles
+   =============================================== */
+
+/* Wrapper */
+.swiper-thumb-slider-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Main Slider */
+.main-slider {
+    width: 100%;
+    height: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.main-slider .swiper-slide {
+    position: relative;
+}
+
+.main-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Slide Overlay Content */
+.slide-overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    color: #fff;
+    width: 90%;
+    max-width: 600px;
+}
+
+.slide-overlay-content h1,
+.slide-overlay-content h2,
+.slide-overlay-content h3,
+.slide-overlay-content h4 {
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.slide-overlay-content p {
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.slide-overlay-content .button {
+    margin-top: 10px;
+}
+
+/* Swiper Navigation Buttons */
+.main-slider .swiper-button-next,
+.main-slider .swiper-button-prev {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.main-slider .swiper-button-next svg,
+.main-slider .swiper-button-prev  svg{
+    height: 40%;
+    object-fit: contain;
+    transform-origin: center;
+    width: 40%;
+    fill: currentColor;
+    pointer-events: none
+}
+
+.main-slider .swiper-button-next::after,
+.main-slider .swiper-button-prev::after {
+    font-size: 20px;
+}
+
+.main-slider .swiper-button-next:hover,
+.main-slider .swiper-button-prev:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+}
+
+/* Swiper Pagination */
+.main-slider .swiper-pagination {
+    bottom: 20px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.main-slider .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.main-slider .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #B31E1A;
+    width: 30px;
+    border-radius: 6px;
+}
+
+/* Thumbnail Slider */
+.thumb-slider {
+    margin-top: 0;
+    padding: 12px 0 0;
+}
+
+.thumb-slider .swiper-slide {
+    cursor: pointer;
+    text-align: center;
+    font-family: 'SVN-Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #5A738C;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    padding-bottom: 10px;
+    border-bottom: 2px solid transparent;
+    user-select: none;
+}
+
+.thumb-slider .swiper-slide:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+/* Active Thumbnail */
+.thumb-slider .swiper-slide-thumb-active {
+    opacity: 1;
+    color: #B31E1A;
+    border-bottom: 2px solid #B31E1A;
+    transform: translateY(-3px);
+}
+
+.thumb-slider .swiper-slide i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+/* Effects Styles */
+
+/* Fade Effect */
+.main-slider.swiper-fade .swiper-slide {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.main-slider.swiper-fade .swiper-slide-active {
+    opacity: 1;
+}
+
+/* Cube Effect */
+.main-slider.swiper-cube {
+    perspective: 1200px;
+}
+
+/* Coverflow Effect */
+.main-slider.swiper-coverflow .swiper-slide {
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .swiper-thumb-slider-wrapper {
+        padding: 10px;
+    }
+
+    .main-slider {
+        height: 300px;
+        border-radius: 8px;
+    }
+
+    .main-slider .swiper-button-next,
+    .main-slider .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+    }
+
+    .main-slider .swiper-button-next::after,
+    .main-slider .swiper-button-prev::after {
+        font-size: 16px;
+    }
+
+    .thumb-slider .swiper-slide {
+        font-size: 14px;
+        padding-bottom: 8px;
+    }
+
+    .thumb-slider .swiper-slide i {
+        font-size: 16px;
+    }
+
+    .slide-overlay-content {
+        width: 95%;
+    }
+
+    .slide-overlay-content h1 {
+        font-size: 28px;
+    }
+
+    .slide-overlay-content h2 {
+        font-size: 24px;
+    }
+
+    .slide-overlay-content h3 {
+        font-size: 20px;
+    }
+
+    .slide-overlay-content h4 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 550px) {
+    .main-slider {
+        height: 250px;
+    }
+
+    .thumb-slider .swiper-slide {
+        font-size: 12px;
+    }
+
+    /* Hide navigation buttons on small screens */
+    .main-slider .swiper-button-next,
+    .main-slider .swiper-button-prev {
+        display: none;
+    }
+}
+
+/* Loading State */
+.swiper-thumb-slider-wrapper.loading {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.swiper-thumb-slider-wrapper.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #B31E1A;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Dark Theme Support */
+.dark-theme .thumb-slider .swiper-slide {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.dark-theme .thumb-slider .swiper-slide-thumb-active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+/* Accessibility */
+.thumb-slider .swiper-slide:focus {
+    outline: 2px solid #B31E1A;
+    outline-offset: 2px;
+}

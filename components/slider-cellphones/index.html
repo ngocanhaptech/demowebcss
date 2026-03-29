@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <style>
+        body {
+            max-width: 820px;
+            margin: auto;
+        }
+        /* Slider chính */
+        .main-slider {
+        width: 100%;
+        height: 450px;
+        border-radius: 10px;
+        overflow: hidden;
+        }
+        .main-slider img {
+        width: 100%; height: 100%; object-fit: cover;
+        }
+
+        /* Thanh Thumbnails */
+        .thumb-slider {
+        margin-top: 20px;
+        padding: 10px 0;
+        }
+        .thumb-slider .swiper-slide {
+        cursor: pointer;
+        text-align: center;
+        font-family: 'SVN-Gilroy', sans-serif;
+        font-weight: 600;
+        color: #5A738C; /* Màu xám xanh đã chọn */
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        padding-bottom: 10px;
+        border-bottom: 2px solid transparent;
+        }
+
+        /* Hiệu ứng khi được chọn (Active) */
+        .thumb-slider .swiper-slide-thumb-active {
+        opacity: 1;
+        color: #B31E1A; /* Màu đỏ thương hiệu từ Figma */
+        border-bottom: 2px solid #B31E1A;
+        }
+    </style>
+    <div class="swiper main-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+            <img src="https://htpc.42web.io/wp-content/uploads/2022/04/samsung_mua_nhi_u.png" alt="Banner 1">
+            <div class="content"><h4>Thiết Kế Website</h4></div>
+            </div>
+            <div class="swiper-slide">
+            <img src="https://htpc.42web.io/wp-content/uploads/2022/04/A73.png" alt="Banner 2">
+            <div class="content"><h4>Mobile App</h4></div>
+            </div>
+            <div class="swiper-slide">
+            <img src="https://htpc.42web.io/wp-content/uploads/2022/04/TV.png" alt="Banner 3">
+            <div class="content"><h4>Digital Marketing</h4></div>
+            </div>
+        </div>
+        </div>
+
+        <div class="swiper thumb-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><span>Web Design</span></div>
+            <div class="swiper-slide"><span>Mobile App</span></div>
+            <div class="swiper-slide"><span>Marketing</span></div>
+        </div>
+    </div>
+    <script>
+        // 1. Khởi tạo Slider Tiêu đề (Thumbs)
+        var swiperThumbs = new Swiper(".thumb-slider", {
+        spaceBetween: 10,
+        slidesPerView: 3,
+        freeMode: true,
+        watchSlidesProgress: true,
+        });
+
+        // 2. Khởi tạo Slider Chính
+        var swiperMain = new Swiper(".main-slider", {
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+        },
+        thumbs: {
+            swiper: swiperThumbs, // Kết nối với slider tiêu đề
+        },
+        });
+    </script>
+    <!-- Hướng dẫn -->
+    <script
+    type="module"
+    src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
+  ></script>
+  <zero-md src="./README.md"></zero-md>
+    <article>article
+        
+    </article>
+</body>
+</html>

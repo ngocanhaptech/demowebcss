@@ -1,0 +1,271 @@
+/* =========================================================
+    3. CSS HEADER-MAIN
+    ========================================================= */
+.header-section {
+    background-color: #ffffff;
+    padding: 0 15px;
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+}
+
+.header-container {
+    max-width: 1720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+    padding: 12px 0;
+}
+
+.header-logo img {
+    max-height: 51px;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    flex: 1;
+}
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu > li {
+    margin: 0 8px;
+    position: relative;
+}
+
+.main-menu > li > a {
+    display: inline-block;
+    padding: 8px 4px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.main-menu > li > a:hover {
+    color: var(--secondary-color);
+}
+
+.main-menu li ul.sub-menu {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 200px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    z-index: 99;
+}
+
+.main-menu li:hover > ul.sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    height: auto;
+    display: block;
+}
+
+.main-menu li ul.sub-menu li {
+    margin: 0;
+}
+
+.main-menu li ul.sub-menu a {
+    display: block;
+    padding: 7px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.main-menu li ul.sub-menu a:hover {
+    background-color: #f5f8fd;
+    color: var(--secondary-color);
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-icons a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    background-color: #f5f8fd;
+    margin: 1px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.header-icons a:hover {
+    color: #ffffff;
+    background-color: var(--secondary-color);
+}
+
+.header-divider {
+    width: 1px;
+    height: 45px;
+    background-color: #eeeeee;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .topbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    }
+
+    .header-inner {
+    flex-wrap: wrap;
+    gap: 15px;
+    }
+
+    .header-nav {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    }
+
+    .main-menu {
+    flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 575px) {
+    .header-inner {
+    align-items: center;
+    }
+    .main-menu,
+    .header-icons,
+    .header-divider {
+        display: none
+    }
+    .main-menu {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -320px;
+        bottom: 0;
+        background: #fff;
+        min-width: 280px;
+        z-index: 1028;
+    }
+}
+
+@media (min-width: 576px) {
+    .header-logo {
+    flex: 0 0 15%;
+    }
+    .header-nav {
+    flex: 0 0 80%;
+    }
+    .header-nav-icon {
+        display: none
+    }
+}
+/* Mobile nhỏ */
+@media (max-width: 575px) {
+  .header-inner {
+    align-items: center;
+  }
+
+  /* Hiện nút hamburger trên mobile */
+  .header-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none
+  }
+
+  /* Mặc định ẩn menu, icon, divider */
+  .main-menu,
+  .header-icons,
+  .header-divider{
+    display: none;
+  }
+
+  .header-logo {
+    z-index: 1034;
+    position: relative;
+    }
+  /* Side menu off-canvas */
+  .main-menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    bottom: 0;
+    background: #ffffff;
+    min-width: 280px;
+    max-width: 80%;
+    z-index: 1028;
+    padding: 90px 20px 20px;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+    transition: left 0.3s ease;
+  }
+
+  .main-menu > li {
+    margin: 0 0 10px;
+  }
+
+  .main-menu > li > a {
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+  }
+
+  /* Khi body có class menu-open: slide in */
+  body.menu-open .main-menu {
+    left: 0;
+  }
+
+}
+
+/* Mobile: submenu dạng accordion full width, không absolute */
+@media (max-width: 575px) {
+  .main-menu li ul.sub-menu {
+    position: static;
+    box-shadow: none;
+    transform: none;
+    height: 0;
+    display: none;
+  }
+    .main-menu li ul.sub-menu li {
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+  .main-menu li.menu-item-has-children > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-menu li ul.sub-menu a {
+    padding: 8px;
+    font-size: 15px;
+  }
+}

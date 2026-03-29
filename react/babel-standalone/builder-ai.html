@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/react/babel-standalone/css/styles.css">
+  </head>
+<body>
+  <div id="root"></div>
+</body>
+<!-- This setup is not suitable for production. -->
+<!-- Only use it in development! -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react?dev",
+    "react-dom/client": "https://esm.sh/react-dom/client?dev"
+  }
+}
+</script>
+<script type="text/babel" data-type="module">
+import React, { StrictMode, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+
+/** App.js */
+// 1. Danh sách các "Khuôn mẫu" (Blocks Library)
+const BLOCK_TEMPLATES = {
+  header: { type: 'header', content: 'My Awesome Website', color: '#333' },
+  hero: { type: 'hero', content: 'Chào mừng đến với cửa hàng của tôi!', sub: 'Đặt hàng ngay hôm nay' },
+  footer: { type: 'footer', content: '© 2026 Contact us: 090xxxx' }
+};
+
+function App() {
+  // 2. State lưu trữ cấu trúc JSON của trang web
+  const [blocks, setBlocks] = useState([]);
+
+  // 3. Hàm thêm Block vào trang (Giả lập kéo thả)
+  const addBlock = (type) => {
+    const newBlock = { ...BLOCK_TEMPLATES[type], id: Date.now() };
+    setBlocks([...blocks, newBlock]);
+  };
+
+  // 4. Hàm lưu JSON (Giai đoạn MVP sẽ gửi cái này lên Spring Boot)
+  const saveLayout = () => {
+    console.log("Dữ liệu JSON đang gửi lên Server:", JSON.stringify(blocks, null, 2));
+    alert("Đã lưu cấu trúc JSON vào Console! Hãy kiểm tra F12.");
+  };
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', fontFamily: 'Arial' }}>
+      
+      <div style={{ width: '250px', background: '#f4f4f4', padding: '20px', borderRight: '1px solid #ddd' }}>
+        <h3>Blocks Library</h3>
+        <button onClick={() => addBlock('header')}>+ Add Header</button>
+        <button onClick={() => addBlock('hero')} style={{margin: '10px 0'}}>+ Add Hero</button>
+        <button onClick={() => addBlock('footer')}>+ Add Footer</button>
+        
+        <hr />
+        <button onClick={saveLayout} style={{ background: 'green', color: 'white', padding: '10px', width: '100%' }}>
+          SAVE (Lưu JSON)
+        </button>
+      </div>
+
+      {/* CANVAS: Khu vực hiển thị website */}
+      <div style={{ flex: 1, padding: '40px', background: '#fff', overflowY: 'auto' }}>
+        <h2>Live Preview</h2>
+        {blocks.map((block) => (
+          <div key={block.id} style={{ 
+            border: '1px dashed #ccc', 
+            padding: '20px', 
+            margin: '10px 0',
+            textAlign: 'center',
+            background: block.type === 'header' ? '#eee' : '#fff'
+          }}>
+            {block.type === 'header' && <h1 style={{color: block.color}}>{block.content}</h1>}
+            {block.type === 'hero' && (
+              <div>
+                <h2>{block.content}</h2>
+                <p>{block.sub}</p>
+              </div>
+            )}
+            {block.type === 'footer' && <p style={{fontSize: '12px'}}>{block.content}</p>}
+          </div>
+        ))}
+        {blocks.length === 0 && <p>Chưa có gì cả, hãy chọn Block từ bên trái!</p>}
+      </div>
+    </div>
+  );
+}
+/* End App.js */
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+</script>
+</html>

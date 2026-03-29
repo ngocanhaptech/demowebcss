@@ -1,0 +1,63 @@
+
+.logos-section {
+    --logo-width: 150px;
+    --gap: 3rem;
+    --duration: 30s;
+    padding: 60px 0;
+    background-color: #f5f5f5; /* Màu nền từ token của bạn */
+    overflow: hidden;
+}
+
+.logos-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    /* Tạo hiệu ứng mờ dần 2 đầu */
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+}
+
+.logos-marquee {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: scroll var(--duration) linear infinite;
+}
+
+.logos-marquee img {
+    height: 35px; /* Điều chỉnh độ cao logo */
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0.8); /* Làm logo màu xám tinh tế */
+    transition: filter 0.3s ease;
+}
+
+.logos-marquee img:hover {
+    filter: grayscale(0) brightness(1); /* Hiện màu khi hover */
+}
+
+/* Hoạt ảnh chạy ngang */
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+/* Tạm dừng khi di chuột vào */
+.logos-container:hover .logos-marquee {
+    animation-play-state: paused;
+}

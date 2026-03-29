@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng tính giá nhựa Ocean Lite</title>
+    <style>
+        /* CSS Reset & Cơ bản */
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Container chính */
+        .calculator-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Tiêu đề */
+        .calc-heading {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00b163;
+            margin-bottom: 25px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Các trường nhập liệu */
+        .calc-field {
+            margin-bottom: 20px;
+        }
+
+        .calc-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .calc-desc {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        /* Input và Select */
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: #00b163;
+            outline: none;
+        }
+
+        /* Radio buttons group */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            margin-right: 8px;
+            accent-color: #00b163;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Phần tổng kết (Summary) */
+        .calc-summary {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            background-color: #00b163;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 14px;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ddd;
+        }
+
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .total-item.final {
+            font-size: 20px;
+            color: #d32f2f;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-wrapper">
+    <div class="calc-heading">Bảng tính giá nhựa Ocean Lite</div>
+
+    <!-- 1. Chiều dài -->
+    <div class="calc-field">
+        <label class="calc-label">Chiều dài (m)</label>
+        <input type="number" id="length" value="2.6" min="0" step="0.01" oninput="calculate()">
+    </div>
+
+    <!-- 2. Chiều rộng -->
+    <div class="calc-field">
+        <label class="calc-label">Chiều rộng (m)</label>
+        <input type="number" id="width" value="2.2" min="0" step="0.01" oninput="calculate()">
+    </div>
+
+    <!-- 3. Khổ rộng tiêu chuẩn -->
+    <div class="calc-field">
+        <label class="calc-label">Khổ rộng tiêu chuẩn (m)</label>
+        <div class="calc-desc">Kích thước chiều rộng tiêu chuẩn của nhà máy để ghép miếng nhựa.</div>
+        <select id="standardWidth" onchange="calculate()">
+            <option value="1.22">1.22 m</option>
+            <option value="1.56">1.56 m</option>
+            <option value="1.82">1.82 m</option>
+            <option value="2.1">2.1 m</option>
+        </select>
+    </div>
+
+    <!-- 4. Độ dày -->
+    <div class="calc-field">
+        <label class="calc-label">Độ dày tấm nhựa</label>
+        <select id="thickness" onchange="calculate()">
+            <option value="162000">1.5 mm - 162,000 VND</option>
+            <option value="215000">2.0 mm - 215,000 VND</option>
+            <option value="269000">2.5 mm - 269,000 VND</option>
+            <option value="322000">3.0 mm - 322,000 VND</option>
+            <option value="430000">4.0 mm - 430,000 VND</option>
+            <option value="537000">5.0 mm - 537,000 VND</option>
+            <option value="718000" selected>6.0 mm - 718,000 VND</option>
+            <option value="992000">8.0 mm - 992,000 VND</option>
+            <option value="1240000">10.0 mm - 1,240,000 VND</option>
+        </select>
+    </div>
+
+    <!-- 5. Dòng sản phẩm (Radio) -->
+    <div class="calc-field">
+        <label class="calc-label">Dòng sản phẩm</label>
+        <div class="radio-group">
+            <label class="radio-option">
+                <input type="radio" name="productType" value="1" onchange="calculate()">
+                Asia Gold (x1.0)
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="productType" value="1.177" onchange="calculate()">
+                Asia Pearl (x1.177)
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="productType" value="1" checked onchange="calculate()">
+                Ocean Lite (x1.0)
+            </label>
+        </div>
+    </div>
+
+    <!-- 6. Chiết khấu -->
+    <div class="calc-field">
+        <label class="calc-label">Chiết khấu (%)</label>
+        <input type="number" id="discount" value="0" min="0" max="100" step="1" oninput="calculate()">
+    </div>
+
+    <!-- KẾT QUẢ TÍNH TOÁN -->
+    <div class="calc-summary">
+        <div class="summary-header">
+            <span>Chi tiết</span>
+            <span>Giá trị</span>
+        </div>
+        
+        <div class="summary-row">
+            <span>Số tấm nhựa cần có</span>
+            <span id="res-sheets">0 tấm</span>
+        </div>
+        <div class="summary-row">
+            <span>Tổng diện tích (m2)</span>
+            <span id="res-area">0 m2</span>
+        </div>
+        <div class="summary-row">
+            <span>Đơn giá / m2</span>
+            <span id="res-unit-price">0 VND</span>
+        </div>
+
+        <div class="summary-total">
+            <div class="total-item">
+                <span>Thành tiền (Chưa CK):</span>
+                <span id="res-subtotal">0 VND</span>
+            </div>
+            <div class="total-item" style="color: #666; font-size: 14px;">
+                <span>Giảm giá:</span>
+                <span id="res-discount-value">- 0 VND</span>
+            </div>
+            <div class="total-item final">
+                <span>TỔNG TIỀN:</span>
+                <span id="res-total">0 VND</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Hàm định dạng tiền tệ (VD: 1000000 -> 1,000,000 VND)
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Hàm tính toán chính
+    function calculate() {
+        // 1. Lấy giá trị từ Input
+        const length = parseFloat(document.getElementById('length').value) || 0;
+        const width = parseFloat(document.getElementById('width').value) || 0;
+        const stdWidth = parseFloat(document.getElementById('standardWidth').value) || 0;
+        const thicknessPrice = parseFloat(document.getElementById('thickness').value) || 0;
+        
+        // Lấy giá trị Radio đã chọn
+        let typeMultiplier = 1;
+        const productTypes = document.getElementsByName('productType');
+        for (const radio of productTypes) {
+            if (radio.checked) {
+                typeMultiplier = parseFloat(radio.value);
+                break;
+            }
+        }
+
+        const discountPercent = parseFloat(document.getElementById('discount').value) || 0;
+
+        // 2. Logic Tính toán
+        // Tính số tấm: Chiều rộng / Khổ tiêu chuẩn (Làm tròn lên)
+        // Ví dụ: Rộng 2.2m / Khổ 1.22m = 1.8 tấm -> Làm tròn thành 2 tấm
+        let sheetsNeeded = 0;
+        if (stdWidth > 0 && width > 0) {
+            sheetsNeeded = Math.ceil(width / stdWidth);
+        }
+
+        // Tính tổng diện tích thực tế (Dựa trên số tấm * khổ tiêu chuẩn * chiều dài)
+        // Đây là cách tính phổ biến: bán theo khổ tấm, không bán theo kích thước cắt lẻ
+        const totalArea = sheetsNeeded * stdWidth * length;
+
+        // Tính đơn giá thực tế sau khi nhân hệ số dòng sản phẩm
+        const realUnitPrice = thicknessPrice * typeMultiplier;
+
+        // Tính tổng tiền trước chiết khấu
+        const subTotal = totalArea * realUnitPrice;
+
+        // Tính tiền giảm giá
+        const discountValue = subTotal * (discountPercent / 100);
+
+        // Tổng tiền cuối cùng
+        const finalTotal = subTotal - discountValue;
+
+        // 3. Hiển thị kết quả ra HTML
+        document.getElementById('res-sheets').textContent = sheetsNeeded + " tấm";
+        document.getElementById('res-area').textContent = totalArea.toFixed(2) + " m2";
+        document.getElementById('res-unit-price').textContent = formatCurrency(realUnitPrice);
+        
+        document.getElementById('res-subtotal').textContent = formatCurrency(subTotal);
+        document.getElementById('res-discount-value').textContent = "- " + formatCurrency(discountValue);
+        document.getElementById('res-total').textContent = formatCurrency(finalTotal);
+    }
+
+    // Chạy tính toán ngay khi tải trang
+    window.onload = calculate;
+</script>
+
+</body>
+</html>
