@@ -34,6 +34,16 @@
         const CLOUD_NAME = '{{CLOUDINARY_NAME}}';
         const UPLOAD_PRESET = '{{CLOUDINARY_PRESET}}';
         // -------------------------------------------
+        // --- CẤU HÌNH CLOUDINARY ---
+        // let CLOUD_NAME = '{{CLOUDINARY_NAME}}';
+        // let UPLOAD_PRESET = '{{CLOUDINARY_PRESET}}';
+
+        // // TỰ ĐỘNG ĐIỀN NẾU CHƯA ĐƯỢC GITHUB THAY THẾ (Dành cho Local Test)
+        // if (CLOUD_NAME.includes('{{')) {
+        //     CLOUD_NAME = 'dycwkcxiu';
+        //     UPLOAD_PRESET = 'googlesheet';
+        //     console.log("Đang chạy Local: Đã tự động dùng cấu hình dự phòng.");
+        // }
 
         const fileInput = document.getElementById('file-input');
         const uploadBtn = document.getElementById('upload-btn');
