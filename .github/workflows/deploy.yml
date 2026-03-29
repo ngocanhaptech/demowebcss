@@ -14,17 +14,13 @@ jobs:
 
       - name: Inject Cloudinary Secrets
         run: |
-          # Tìm tất cả file .html và thực hiện thay thế (phòng trường hợp file nằm trong folder)
-          find . -name "*.html" -type f -exec sed -i "s|{{CLOUDINARY_NAME}}|${{ secrets.CLOUDINARY_NAME }}|g" {} +
-          find . -name "*.html" -type f -exec sed -i "s|{{CLOUDINARY_PRESET}}|${{ secrets.CLOUDINARY_PRESET }}|g" {} +
+          # 1. Thực hiện thay thế trong file nằm ở thư mục tools/upload/
+          sed -i "s|{{CLOUDINARY_NAME}}|${{ secrets.CLOUDINARY_NAME }}|g" tools/upload/index.html
+          sed -i "s|{{CLOUDINARY_PRESET}}|${{ secrets.CLOUDINARY_PRESET }}|g" tools/upload/index.html
           
           echo "--- KIỂM TRA KẾT QUẢ ---"
-          # Tìm và in ra dòng chứa CLOUD_NAME để xác nhận
-          grep -r "CLOUD_NAME =" . || echo "Không tìm thấy dòng CLOUD_NAME trong bất kỳ file nào!"
-
-          # (Log Action)
-          echo "Kiểm tra dòng code sau khi tiêm:"
-          grep "const CLOUD_NAME =" index.html
+          # 2. Kiểm tra lại file đó xem đã được thay thế chưa
+          grep "const CLOUD_NAME =" tools/upload/index.html || echo "Vẫn chưa tìm thấy dòng code trong file!"
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
