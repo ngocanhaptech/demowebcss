@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Ảnh Sách lên Cloudinary</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .upload-section { border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 10px; margin-bottom: 20px; }
+        #preview-img { max-width: 100%; max-height: 300px; display: none; margin-top: 15px; border-radius: 5px; }
+        #result-link { width: 100%; padding: 10px; margin-top: 10px; display: none; box-sizing: border-radius; }
+        .btn-upload { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-upload:disabled { background: #ccc; }
+        #status { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Bước 1: Chọn và Tối ưu Ảnh Sách</h2>
+    
+    <div class="upload-section">
+        <input type="file" id="file-input" accept="image/*">
+        <br><br>
+        <button class="btn-upload" id="upload-btn" onclick="uploadImage()" disabled>Tải ảnh lên Cloudinary</button>
+        <div id="status"></div>
+        <img id="preview-img" src="" alt="Xem trước ảnh">
+    </div>
+
+    <h2>Bước 2: Kết quả (Copy link này vào Google Sheet)</h2>
+    <input type="text" id="result-link" readonly placeholder="Link ảnh sẽ xuất hiện ở đây...">
+
+    <script>
+        // --- CẤU HÌNH CLOUDINARY  ---
+        const CLOUD_NAME = '{{CLOUDINARY_NAME}}';
+        const UPLOAD_PRESET = '{{CLOUDINARY_PRESET}}';
+        // -------------------------------------------
+
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const previewImg = document.getElementById('preview-img');
+        const statusDiv = document.getElementById('status');
+        const resultLinkInput = document.getElementById('result-link');
+
+        // 1. Xử lý khi chọn file: Hiển thị ảnh xem trước
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.style.display = 'block';
+                    uploadBtn.disabled = false; // Bật nút upload
+                    statusDiv.innerText = "Ảnh đã sẵn sàng. Nhấn nút để upload!";
+                    statusDiv.style.color = "black";
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 2. Hàm xử lý upload ảnh chính
+        async function uploadImage() {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            statusDiv.innerText = "Đang upload... Vui lòng đợi...";
+            statusDiv.style.color = "blue";
+            uploadBtn.disabled = true; // Khóa nút để tránh nhấn nhiều lần
+
+            // Tạo FormData để gửi dữ liệu dạng multipart/form-data
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+
+            const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Upload thất bại: ' + response.statusText);
+                }
+
+                const data = await response.json();
+                
+                // --- THÀNH CÔNG ---
+                console.log("Dữ liệu trả về từ Cloudinary:", data);
+                
+                // Lấy URL ảnh đã được tối ưu (dùng HTTPS)
+                const secureUrl = data.secure_url; 
+                
+                statusDiv.innerText = "Upload thành công! 🎉";
+                statusDiv.style.color = "green";
+                resultLinkInput.value = secureUrl; // Điền link vào ô input
+                resultLinkInput.style.display = 'block';
+                
+            } catch (error) {
+                // --- THẤT BẠI ---
+                console.error("Lỗi:", error);
+                statusDiv.innerText = "Lỗi upload! Hãy kiểm tra lại cấu hình Cloud Name và Preset.";
+                statusDiv.style.color = "red";
+                uploadBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
