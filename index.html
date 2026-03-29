@@ -12,5 +12,56 @@
         <li><a href="/landing/consulting">Lab studio</a></li>
         <li><a href="/landing/consulting/consulting.html">Lab studio</a></li>
     </ul>
+    <script>
+        const apiKey = 'AIzaSyByU0Z5enDeVvlOGEwxuIF8Jq0k47jNpoo';
+        const spreadsheetId = '1gPWqP3zwwP1rJGGRjO0MgQXjNFtS1Vx_8foRS-qLzlA';
+        const range = 'amazone-ebook!A2:F10';
+
+        async function fetchAmazonBooks() {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Lỗi phản hồi từ API: ' + response.status);
+                }
+                const data = await response.json();
+                const rows = data.values;
+
+                if (rows && rows.length > 0) {
+                    console.log("Đã lấy được dữ liệu thành công!");
+                    displayBooks(rows);
+                } else {
+                    console.log("Không tìm thấy dữ liệu trong vùng đã chọn.");
+                }
+            } catch (error) {
+                console.error("Lỗi kết nối:", error);
+                document.getElementById('book-container').innerHTML = `<p style="color:red">Lỗi: ${error.message}. Hãy kiểm tra cấu hình Website Restrictions trên Google Cloud.</p>`;
+            }
+        }
+
+        function displayBooks(books) {
+            const container = document.getElementById('book-container');
+            container.innerHTML = ''; 
+
+            books.forEach(row => {
+                const bookHTML = `
+                    <div class="book-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+                        <img src="${row[4]}" alt="${row[3]}" style="max-width: 150px; float: left; margin-right: 15px;">
+                        <div class="book-info">
+                            <h3 style="margin-top: 0;">${row[3]}</h3>
+                            <p><strong>Store ID:</strong> ${row[2]}</p>
+                            <p style="font-size: 0.9em; color: #555;">${row[5].substring(0, 200)}...</p>
+                            <a href="${row[1]}" target="_blank" style="background: #ff9900; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View on Amazon</a>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                `;
+                container.innerHTML += bookHTML;
+            });
+        }
+
+        fetchAmazonBooks();
+    </script>
 </body>
 </html>
