@@ -17,11 +17,12 @@ jobs:
           # Tìm và thay thế trong file chính xác tại thư mục tools/upload/
           sed -i "s|{{CLOUDINARY_NAME}}|${{ secrets.CLOUDINARY_NAME }}|g" tools/upload/index.html
           sed -i "s|{{CLOUDINARY_PRESET}}|${{ secrets.CLOUDINARY_PRESET }}|g" tools/upload/index.html
+          sed -i "s|{{GOOGLE_SCRIPT_URL}}|${{ secrets.GOOGLE_SCRIPT_URL }}|g" tools/upload/index.html
           
           echo "--- XÁC NHẬN NỘI DUNG SAU KHI TIÊM ---"
           # In ra 10 dòng đầu của script để xem kết quả trong Log
           grep -A 5 "CẤU HÌNH CLOUDINARY" tools/upload/index.html
-          
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
