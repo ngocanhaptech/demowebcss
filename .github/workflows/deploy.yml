@@ -14,8 +14,13 @@ jobs:
 
       - name: Inject Cloudinary Secrets
         run: |
-          sed -i 's/{{CLOUDINARY_NAME}}/${{ secrets.CLOUDINARY_NAME }}/g' index.html
-          sed -i 's/{{CLOUDINARY_PRESET}}/${{ secrets.CLOUDINARY_PRESET }}/g' index.html
+          # Tìm tất cả file .html và thực hiện thay thế (phòng trường hợp file nằm trong folder)
+          find . -name "*.html" -type f -exec sed -i "s|{{CLOUDINARY_NAME}}|${{ secrets.CLOUDINARY_NAME }}|g" {} +
+          find . -name "*.html" -type f -exec sed -i "s|{{CLOUDINARY_PRESET}}|${{ secrets.CLOUDINARY_PRESET }}|g" {} +
+          
+          echo "--- KIỂM TRA KẾT QUẢ ---"
+          # Tìm và in ra dòng chứa CLOUD_NAME để xác nhận
+          grep -r "CLOUD_NAME =" . || echo "Không tìm thấy dòng CLOUD_NAME trong bất kỳ file nào!"
 
           # (Log Action)
           echo "Kiểm tra dòng code sau khi tiêm:"
