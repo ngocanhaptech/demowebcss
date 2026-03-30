@@ -18,6 +18,14 @@
         .btn-upload:disabled { background: #ccc; cursor: not-allowed; }
         #status { margin-top: 15px; text-align: center; font-weight: bold; min-height: 1.2em; }
         #result-link { margin-top: 15px; background: #e9ecef; display: none; cursor: pointer; }
+        
+        /* Thư viện Grid */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery-item { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .gallery-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; cursor: pointer; }
+        .gallery-item p { font-size: 12px; margin-top: 5px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .btn-page { background: #fff; border: 1px solid #007bff; color: #007bff; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+        .btn-page:disabled { border-color: #ccc; color: #ccc; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -32,7 +40,7 @@
 
     <div class="form-group">
         <label>Mã cửa hàng (store_id):</label>
-        <input type="text" id="store-id" value="SHOP_01">
+        <input type="text" id="store-id" value="seovnorg-20">
     </div>
 
     <div class="form-group">
@@ -40,18 +48,43 @@
         <textarea id="description" rows="2" placeholder="Nhập mô tả ngắn..."></textarea>
     </div>
 
+    <div class="form-group">
+        <label>Aff Link (aff_link):</label>
+        <textarea id="aff_link" rows="2" placeholder="Nhập liên kết..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Giá (price):</label>
+        <input type="text" id="price" value="0">
+    </div>
+
     <div class="upload-section">
         <label style="cursor: pointer; color: #007bff;">
             <strong>📁 Chọn ảnh sách</strong>
-            <input type="file" id="file-input" accept="image/*" style="display: none;">
+            <input type="file" id="file-input" accept="image/*" style="display: block;margin: auto;">
         </label>
         <img id="preview-img" src="" alt="Xem trước">
         <div id="status">Vui lòng chọn ảnh...</div>
     </div>
 
     <button class="btn-upload" id="upload-btn" onclick="processAll()" disabled>TẢI LÊN & LƯU VÀO SHEET</button>
-    
     <input type="text" id="result-link" readonly title="Click để copy link">
+</div>
+
+<div class="container" style="margin-top: 30px;">
+    <h2>📚 Thư viện ảnh đã lưu</h2>
+    <div class="form-group">
+        <input type="text" id="search-input" onkeyup="filterBooks()" placeholder="🔍 Nhập tên sách để tìm nhanh...">
+    </div>
+    <button onclick="loadGallery()" style="margin-bottom: 15px; width: 100%; padding: 10px; cursor: pointer;">🔄 Làm mới danh sách</button>
+    
+    <div id="gallery" class="gallery-grid"></div>
+
+    <div id="pagination-controls" style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 10px; align-items: center;">
+        <button id="prev-btn" onclick="changePage(-1)" class="btn-page">⬅️ Trước</button>
+        <span id="page-info" style="font-weight: bold;">Trang 1 / 1</span>
+        <button id="next-btn" onclick="changePage(1)" class="btn-page">Sau ➡️</button>
+    </div>
 </div>
 
 <script>
@@ -72,7 +105,13 @@
     const statusDiv = document.getElementById('status');
     const resultLinkInput = document.getElementById('result-link');
 
-    // 1. Xem trước ảnh
+    // Biến cho Thư viện & Phân trang
+    let allBooks = [];         
+    let filteredBooks = [];    
+    let currentPage = 1;       
+    const rowsPerPage = 6;
+
+    // 1. Upload logic (giữ nguyên của bạn)
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
@@ -81,73 +120,129 @@
                 previewImg.src = ev.target.result;
                 previewImg.style.display = 'block';
                 uploadBtn.disabled = false;
-                statusDiv.innerText = "Sẵn sàng để tải lên!";
-                statusDiv.style.color = "#28a745";
+                statusDiv.innerText = "Sẵn sàng!";
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // 2. Quy trình chính: Upload Cloudinary -> Gửi Sheet
     async function processAll() {
         const file = fileInput.files[0];
         const title = document.getElementById('book-title').value;
-
-        if (!title) {
-            alert("Vui lòng nhập tiêu đề sách trước!");
-            return;
-        }
-
-        statusDiv.innerText = "⏳ Đang tải ảnh lên Cloudinary...";
-        statusDiv.style.color = "#007bff";
+        if (!title) { alert("Vui lòng nhập tiêu đề!"); return; }
+        
+        statusDiv.innerText = "⏳ Đang xử lý...";
         uploadBtn.disabled = true;
 
         try {
-            // Bước A: Tải lên Cloudinary
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', UPLOAD_PRESET);
-
-            const clouResp = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                method: 'POST',
-                body: formData
-            });
-            
+            const clouResp = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
             const clouData = await clouResp.json();
             const imageUrl = clouData.secure_url;
 
-            statusDiv.innerText = "🚀 Đang gửi dữ liệu sang Google Sheet...";
-            
-            // Bước B: Gửi dữ liệu sang Google Sheet
             const payload = {
                 short_link: imageUrl,
                 store_id: document.getElementById('store-id').value,
                 title: title,
                 thumb: imageUrl,
-                description: document.getElementById('description').value
+                description: document.getElementById('description').value,
+                aff_link: document.getElementById('aff_link').value,
+                price: document.getElementById('price').value
             };
 
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
 
-            // Bước C: Hoàn tất
-            statusDiv.innerText = "✅ THÀNH CÔNG RỰC RỠ!";
+            // --- Bước Hoàn tất ---
+            
+            // 1. Thông báo
+            statusDiv.innerText = "✅ TẠO MỚI THÀNH CÔNG!";
             resultLinkInput.value = imageUrl;
             resultLinkInput.style.display = 'block';
-            navigator.clipboard.writeText(imageUrl);
-            alert("Đã xong! Ảnh đã lên mây và thông tin đã vào Sheet.");
+
+            // 2. RESET FORM (Xóa trắng các ô nhập liệu)
+            document.getElementById('book-title').value = "";
+            document.getElementById('description').value = "";
+            document.getElementById('aff_link').value = "";
+            fileInput.value = ""; // Xóa file đã chọn
+            previewImg.style.display = 'none'; // Ẩn ảnh xem trước
+            uploadBtn.disabled = true; // Khóa nút lại cho lần sau
+            
+            
+            // 3. Tải lại thư viện để hiện ảnh mới nhất
+            loadGallery();
 
         } catch (error) {
-            console.error(error);
-            statusDiv.innerText = "❌ Lỗi rồi! Hãy kiểm tra Console.";
-            statusDiv.style.color = "red";
+            statusDiv.innerText = "❌ Lỗi!";
             uploadBtn.disabled = false;
         }
     }
+
+    // 2. Thư viện & Phân trang logic (ĐÃ HỢP NHẤT)
+    async function loadGallery() {
+        const galleryDiv = document.getElementById('gallery');
+        galleryDiv.innerHTML = "<p>⏳ Đang tải dữ liệu...</p>";
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL);
+            allBooks = await response.json();
+            filteredBooks = [...allBooks]; 
+            currentPage = 1;
+            renderCurrentPage(); 
+        } catch (error) {
+            galleryDiv.innerHTML = "❌ Lỗi kết nối API!";
+        }
+    }
+
+    function renderCurrentPage() {
+        const totalPages = Math.ceil(filteredBooks.length / rowsPerPage) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = filteredBooks.slice(start, end);
+
+        renderGallery(pageData); 
+
+        document.getElementById('page-info').innerText = `Trang ${currentPage} / ${totalPages}`;
+        document.getElementById('prev-btn').disabled = (currentPage === 1);
+        document.getElementById('next-btn').disabled = (currentPage === totalPages || filteredBooks.length === 0);
+    }
+
+    function renderGallery(data) {
+        const galleryDiv = document.getElementById('gallery');
+        galleryDiv.innerHTML = ""; 
+        if (data.length === 0) {
+            galleryDiv.innerHTML = "<p style='grid-column: 1/-1;'>Không có dữ liệu.</p>";
+            return;
+        }
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'gallery-item';
+            card.innerHTML = `
+                <img src="${item.thumb}" onclick="window.open('${item.short_link}', '_blank')">
+                <p title="${item.title}">${item.title || 'Không tiêu đề'}</p>
+                <span style="font-size: 10px; color: #888;">${item.store_id}</span>
+            `;
+            galleryDiv.appendChild(card);
+        });
+    }
+
+    function changePage(step) {
+        currentPage += step;
+        renderCurrentPage();
+        document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function filterBooks() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        filteredBooks = allBooks.filter(book => (book.title || "").toLowerCase().includes(searchTerm));
+        currentPage = 1; 
+        renderCurrentPage();
+    }
+
+    window.onload = loadGallery;
 </script>
 </body>
 </html>
