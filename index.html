@@ -16,7 +16,7 @@
     <script>
         const apiKey = 'AIzaSyByU0Z5enDeVvlOGEwxuIF8Jq0k47jNpoo';
         const spreadsheetId = '1gPWqP3zwwP1rJGGRjO0MgQXjNFtS1Vx_8foRS-qLzlA';
-        const range = 'amazone-ebook!A2:F10';
+        const range = 'amazone-ebook!A2:G300';
 
         async function fetchAmazonBooks() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
@@ -28,6 +28,7 @@
                 }
                 const data = await response.json();
                 const rows = data.values;
+                rows.reverse();
 
                 if (rows && rows.length > 0) {
                     console.log("Đã lấy được dữ liệu thành công!");
@@ -53,7 +54,7 @@
                             <h3 style="margin-top: 0;">${row[3]}</h3>
                             <p><strong>Store ID:</strong> ${row[2]}</p>
                             <p style="font-size: 0.9em; color: #555;">${row[5].substring(0, 200)}...</p>
-                            <a href="${row[1]}" target="_blank" style="background: #ff9900; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View on Amazon</a>
+                            <a href="${row[6]}" target="_blank" style="background: #ff9900; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View on Amazon</a>
                         </div>
                         <div style="clear: both;"></div>
                     </div>
