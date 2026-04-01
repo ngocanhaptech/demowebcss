@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime.IMtK-z4i.mjs";function t(e,t){return{description:`Track spending, manage budgets, and get smart money tips.`,favicon:`https://framerusercontent.com/assets/sbMEOPcZkrafAtpDV2sGovzCQoY.png`,robots:`max-image-preview:large`,socialImage:`https://framerusercontent.com/assets/gm6GnayQf9ylFvMZ5fLvbduy1E.png`,title:`Nova`}}var n=e((()=>{}));export{t as n,n as t};
+//# sourceMappingURL=shared-lib.BhM_UjML.mjs.map
