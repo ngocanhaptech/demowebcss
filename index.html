@@ -12,12 +12,18 @@
         <li><a href="/landing/consulting">Lex consulting</a></li>
         <li><a href="/landing/consulting/consulting.html">Lex consulting studio</a></li>
         <li><a href="/landing/forge-tokyo/">Forge Tokyo</a></li>
+        <li><a href="/landing/humblefactory/">Humblefactory</a></li>
+        <li><a href="/landing/novaapp/">Nova</a></li>
     </ul>
     <div id="book-container"></div>
     <script>
-        const apiKey = '{{GOOGLE_SHEET_API_KEY}}' ?? 'AIzaSyByU0Z5enDeVvlOGEwxuIF8Jq0k47jNpoo';
+        let apiKey = '{{GOOGLE_SHEET_API_KEY}}';
         const spreadsheetId = '1gPWqP3zwwP1rJGGRjO0MgQXjNFtS1Vx_8foRS-qLzlA';
         const range = 'amazone-ebook!A2:G300';
+
+        if (apiKey.includes('{{')) {
+            apiKey = 'AIzaSyByU0Z5enDeVvlOGEwxuIF8Jq0k47jNpoo';
+        }
 
         async function fetchAmazonBooks() {
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
