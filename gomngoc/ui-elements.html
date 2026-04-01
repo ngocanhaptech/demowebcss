@@ -1,0 +1,100 @@
+<html lang="vi"><head>
+    <style>
+        :root {
+            --bg-color: #f7f7f8;
+            --border-width: 2px;
+            --radius: 12px;
+            --gradient: conic-gradient(from 0deg, #ff4545, #ffecc1, #6e380e, #b6671c, #6c1111);;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            gap: 24px;
+            padding: 24px;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        /* Container của nút */
+        .gradient-btn {
+            position: relative;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #d7b593;
+            background: #ffffff00;
+            border: none;
+            cursor: pointer;
+            border-radius: var(--radius);
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            overflow: hidden;
+            box-shadow: 1px 3px 10px #947954;
+        }
+
+        .gradient-btn:hover {
+            /* transform: scale(1.05); */
+        }
+        .gradient-btn:hover::after {
+            background: #581b14;
+        }
+
+        /* Lớp tạo viền gradient */
+        .gradient-btn::before {
+            content: "";
+            position: absolute;
+            inset: calc(var(--border-width) * -1);
+            z-index: -1;
+            filter: blur(26px);
+            background: var(--gradient);
+            border-radius: calc(var(--radius) + var(--border-width));
+            animation: rotate-gradient 3s linear infinite;
+        }
+
+        /* Lớp che để chỉ hiển thị phần viền */
+        .gradient-btn::after {
+            top: 2px !important;
+            left: 2px !important;
+            width: calc(100% - 6px);
+            height: calc(100% - 6px);
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #412b18;
+            border-radius: var(--radius);
+            z-index: -1;
+            border: 1px solid #754c21;
+        }
+
+        /* Hiệu ứng xoay */
+        @keyframes rotate-gradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hiệu ứng đổ bóng phía sau (Glow) - Tùy chọn */
+        .glow {
+            filter: blur(10px);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="branding-logo">
+        <img src="https://app.seovn.org/gomngoc/demo/wp-content/uploads/2026/03/logo-gold-phulang-white.webp" alt="gomngoc-logo">
+    </div>
+    <button class="gradient-btn">
+        Hành động ngay
+    </button>
+
+
+</body></html>
