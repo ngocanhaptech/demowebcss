@@ -8,6 +8,7 @@ function buildHtmlDocument(page) {
   const bodyHtmlParts = [];
 
   if (page && Array.isArray(page.sections)) {
+    // Rất đơn giản: chỉ nối các đoạn HTML thô có trong JSON
     page.sections.forEach((section) => {
       if (section['html-nav']) {
         bodyHtmlParts.push(
@@ -80,8 +81,8 @@ function App() {
   const [pageJsonText, setPageJsonText] = useState('');
   const [pageObj, setPageObj] = useState(null);
   const [error, setError] = useState('');
-  const [dragIndex, setDragIndex] = useState(null);
 
+  // Load initial data: ưu tiên localStorage, fallback sang file JSON
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -90,7 +91,9 @@ function App() {
         setPageObj(parsed);
         setPageJsonText(JSON.stringify(parsed, null, 2));
         return;
-      } catch (_e) {}
+      } catch (_e) {
+        // Nếu lỗi parse localStorage, fallback sang file
+      }
     }
     setPageObj(pageData);
     setPageJsonText(JSON.stringify(pageData, null, 2));
@@ -118,31 +121,6 @@ function App() {
     const html = buildHtmlDocument(pageObj);
     const filename = (pageObj && pageObj.id ? pageObj.id : 'page') + '.html';
     downloadHtml(html, filename);
-  };
-
-  const handleDragStart = (index) => {
-    setDragIndex(index);
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (targetIndex) => {
-    if (dragIndex === null || dragIndex === targetIndex || !pageObj) {
-      setDragIndex(null);
-      return;
-    }
-
-    const sections = Array.isArray(pageObj.sections) ? [...pageObj.sections] : [];
-    const moved = sections.splice(dragIndex, 1)[0];
-    sections.splice(targetIndex, 0, moved);
-
-    const newPage = { ...pageObj, sections };
-    setPageObj(newPage);
-    setPageJsonText(JSON.stringify(newPage, null, 2));
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(newPage));
-    setDragIndex(null);
   };
 
   return (
@@ -213,50 +191,6 @@ function App() {
       </div>
 
       <div style={{ flex: 1, padding: '12px', boxSizing: 'border-box', overflowY: 'auto' }}>
-        <h2 style={{ fontSize: '16px', marginBottom: '8px' }}>Reorder sections (kéo thả)</h2>
-        <div
-          style={{
-            marginBottom: '12px',
-            border: '1px solid #eee',
-            borderRadius: '4px',
-            padding: '8px',
-            backgroundColor: '#fafafa'
-          }}
-        >
-          {pageObj &&
-            Array.isArray(pageObj.sections) &&
-            pageObj.sections.map((section, index) => (
-              <div
-                key={section.name + '-' + index}
-                draggable
-                onDragStart={() => handleDragStart(index)}
-                onDragOver={handleDragOver}
-                onDrop={() => handleDrop(index)}
-                style={{
-                  padding: '6px 8px',
-                  marginBottom: '4px',
-                  borderRadius: '4px',
-                  border: '1px solid #ddd',
-                  backgroundColor: dragIndex === index ? '#e0f2fe' : '#fff',
-                  fontSize: '12px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  cursor: 'grab'
-                }}
-              >
-                <span>
-                  #{index + 1} – {section.name}
-                </span>
-                <span style={{ opacity: 0.6 }}>↕</span>
-              </div>
-            ))}
-          {!pageObj ||
-            (!pageObj.sections || pageObj.sections.length === 0) && (
-              <div style={{ fontSize: '12px', color: '#777' }}>Không có section nào.</div>
-            )}
-        </div>
-
         <h2 style={{ fontSize: '16px', marginBottom: '8px' }}>Preview</h2>
         <div style={{ border: '1px solid #eee', borderRadius: '4px', overflow: 'hidden' }}>
           <PageRenderer page={pageObj} />
