@@ -1,0 +1,402 @@
+{
+  "version": "2",
+  "savedAt": "2026-04-09T22:03:04.361Z",
+  "tree": {
+    "$id": "root",
+    "tag": "_root",
+    "options": {},
+    "children": [
+      {
+        "$id": "nav-001",
+        "tag": "navbar",
+        "options": {
+          "bgColor": "var(--color-bg)",
+          "borderBottom": "1px solid var(--color-border)",
+          "sticky": true,
+          "paddingY": 16
+        },
+        "children": [
+          {
+            "$id": "nav-container",
+            "tag": "container",
+            "options": {},
+            "children": [
+              {
+                "$id": "nav-row",
+                "tag": "row",
+                "options": {
+                  "align": "center",
+                  "justify": "space-between",
+                  "gap": 16
+                },
+                "children": [
+                  {
+                    "$id": "nav-logo",
+                    "tag": "heading",
+                    "options": {
+                      "level": "h3",
+                      "fontSize": "var(--font-size-xl)",
+                      "color": "var(--color-primary)",
+                      "marginBottom": 0,
+                      "fontWeight": "var(--font-weight-bold)"
+                    },
+                    "content": "seovn"
+                  },
+                  {
+                    "$id": "nav-cta",
+                    "tag": "button",
+                    "options": {
+                      "variant": "primary",
+                      "size": "sm"
+                    },
+                    "content": "Get Started"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$id": "section-hero",
+        "tag": "section",
+        "options": {
+          "bgColor": "var(--color-bg-dark)",
+          "paddingY": 120,
+          "textAlign": "center",
+          "$responsive": {
+            "paddingY": [
+              60,
+              80,
+              120
+            ]
+          }
+        },
+        "children": [
+          {
+            "$id": "hero-container",
+            "tag": "container",
+            "options": {},
+            "children": [
+              {
+                "$id": "row-OFzXtx4s",
+                "tag": "row",
+                "options": {
+                  "gap": 16,
+                  "justify": "center"
+                },
+                "children": [
+                  {
+                    "$id": "image-9c_WuAo-",
+                    "tag": "image",
+                    "options": {
+                      "src": "https://res.cloudinary.com/dycwkcxiu/image/upload/v1775768479/b3ob8zav4gufcdz75cfp.png",
+                      "alt": "",
+                      "width": "60%",
+                      "height": "auto",
+                      "objectFit": "contain",
+                      "borderRadius": "0",
+                      "marginTop": 0,
+                      "marginBottom": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "$id": "hero-title",
+                "tag": "heading",
+                "options": {
+                  "level": "h1",
+                  "color": "var(--color-text-inverse)",
+                  "fontSize": "var(--font-size-5xl)",
+                  "textAlign": "center",
+                  "marginBottom": 24,
+                  "fontWeight": "var(--font-weight-bold)",
+                  "$responsive": {
+                    "fontSize": [
+                      "var(--font-size-3xl)",
+                      "var(--font-size-4xl)",
+                      "var(--font-size-5xl)"
+                    ]
+                  }
+                },
+                "content": "Build Stunning Pages, Visually"
+              },
+              {
+                "$id": "hero-sub",
+                "tag": "paragraph",
+                "options": {
+                  "color": "var(--color-text-muted)",
+                  "fontSize": "var(--font-size-lg)",
+                  "textAlign": "center",
+                  "maxWidth": "600px",
+                  "marginBottom": 40
+                },
+                "content": "Drag, drop, and export pixel-perfect HTML. No code required. Runs entirely in your browser."
+              },
+              {
+                "$id": "hero-buttons",
+                "tag": "row",
+                "options": {
+                  "justify": "center",
+                  "gap": 16,
+                  "flexDirection": "row",
+                  "$responsive": {
+                    "flexDirection": [
+                      "column",
+                      "row",
+                      "row"
+                    ]
+                  }
+                },
+                "children": [
+                  {
+                    "$id": "hero-btn-primary",
+                    "tag": "button",
+                    "options": {
+                      "variant": "primary",
+                      "size": "lg"
+                    },
+                    "content": "Start Building"
+                  },
+                  {
+                    "$id": "hero-btn-ghost",
+                    "tag": "button",
+                    "options": {
+                      "variant": "outline-light",
+                      "size": "lg"
+                    },
+                    "content": "View Demo"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$id": "section-features",
+        "tag": "section",
+        "options": {
+          "bgColor": "var(--color-bg-alt)",
+          "paddingY": 80
+        },
+        "children": [
+          {
+            "$id": "features-container",
+            "tag": "container",
+            "options": {},
+            "children": [
+              {
+                "$id": "features-title",
+                "tag": "heading",
+                "options": {
+                  "level": "h2",
+                  "textAlign": "center",
+                  "marginBottom": 48,
+                  "color": "var(--color-text)",
+                  "fontWeight": "var(--font-weight-bold)"
+                },
+                "content": "Why ui-maker?"
+              },
+              {
+                "$id": "features-grid",
+                "tag": "row",
+                "options": {
+                  "gap": 24,
+                  "align": "stretch",
+                  "flexDirection": "row",
+                  "$responsive": {
+                    "flexDirection": [
+                      "column",
+                      "row",
+                      "row"
+                    ]
+                  }
+                },
+                "children": [
+                  {
+                    "$id": "feat-1",
+                    "tag": "card",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "$id": "feat-1-title",
+                        "tag": "heading",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        },
+                        "content": "🎨 Visual Editing"
+                      },
+                      {
+                        "$id": "feat-1-desc",
+                        "tag": "paragraph",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        },
+                        "content": "Click to select, drag to reorder. What you see is what you get."
+                      }
+                    ]
+                  },
+                  {
+                    "$id": "feat-2",
+                    "tag": "card",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "$id": "feat-2-title",
+                        "tag": "heading",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        },
+                        "content": "📱 Responsive"
+                      },
+                      {
+                        "$id": "feat-2-desc",
+                        "tag": "paragraph",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        },
+                        "content": "Preview Desktop, Tablet, and Mobile. Style each breakpoint independently."
+                      }
+                    ]
+                  },
+                  {
+                    "$id": "feat-3",
+                    "tag": "card",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "$id": "feat-3-title",
+                        "tag": "heading",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        },
+                        "content": "⚡ Export HTML"
+                      },
+                      {
+                        "$id": "feat-3-desc",
+                        "tag": "paragraph",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        },
+                        "content": "Self-contained HTML with inline styles. Drop anywhere, works everywhere."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$id": "section-cta",
+        "tag": "section",
+        "options": {
+          "bgColor": "var(--color-primary)",
+          "paddingY": 80,
+          "textAlign": "center"
+        },
+        "children": [
+          {
+            "$id": "cta-container",
+            "tag": "container",
+            "options": {},
+            "children": [
+              {
+                "$id": "cta-title",
+                "tag": "heading",
+                "options": {
+                  "level": "h2",
+                  "color": "var(--color-text-inverse)",
+                  "textAlign": "center",
+                  "marginBottom": 16,
+                  "fontWeight": "var(--font-weight-bold)"
+                },
+                "content": "Ready to build something beautiful?"
+              },
+              {
+                "$id": "cta-sub",
+                "tag": "paragraph",
+                "options": {
+                  "color": "var(--color-primary-light)",
+                  "textAlign": "center",
+                  "marginBottom": 32,
+                  "fontSize": "var(--font-size-lg)"
+                },
+                "content": "No account needed. No installation. Open the app and start building."
+              },
+              {
+                "$id": "cta-btn",
+                "tag": "button",
+                "options": {
+                  "variant": "inverse",
+                  "size": "lg"
+                },
+                "content": "Open ui-maker →"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$id": "section-footer",
+        "tag": "section",
+        "options": {
+          "bgColor": "var(--color-bg-dark)",
+          "paddingY": 40
+        },
+        "children": [
+          {
+            "$id": "footer-container",
+            "tag": "container",
+            "options": {},
+            "children": [
+              {
+                "$id": "footer-copy",
+                "tag": "paragraph",
+                "options": {
+                  "color": "var(--color-text-muted)",
+                  "textAlign": "center",
+                  "fontSize": "var(--font-size-sm)"
+                },
+                "content": "© 2026 ui-maker. Built with ❤️ and React."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

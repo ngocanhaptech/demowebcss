@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getSectionMeta } from '../constants/sectionRegistry.js';
 
 function TextPropField({ propKey, label, value, onChange }) {
@@ -73,19 +73,117 @@ function HtmlPropField({ propKey, label, value, onChange }) {
   );
 }
 
+function SelectPropField({ propKey, label, value, options, onChange }) {
+  return (
+    <div style={{ marginBottom: '12px' }}>
+      <label
+        style={{
+          display: 'block',
+          fontSize: '11px',
+          fontWeight: 600,
+          color: '#666',
+          marginBottom: '4px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}
+      >
+        {label}
+      </label>
+      <select
+        value={value || (options && options[0] ? options[0].value : '')}
+        onChange={(e) => onChange(propKey, e.target.value)}
+        style={{
+          width: '100%',
+          padding: '7px 9px',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+          fontSize: '12px',
+          boxSizing: 'border-box',
+          outline: 'none',
+          background: '#fff',
+          cursor: 'pointer',
+          fontFamily: 'inherit'
+        }}
+      >
+        {(options || []).map((opt) => (
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function ColorPropField({ propKey, label, value, onChange }) {
+  return (
+    <div style={{ marginBottom: '12px' }}>
+      <label
+        style={{
+          display: 'block',
+          fontSize: '11px',
+          fontWeight: 600,
+          color: '#666',
+          marginBottom: '4px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}
+      >
+        {label}
+      </label>
+      <div style={{ display: 'flex', gap: '7px', alignItems: 'center' }}>
+        <input
+          type="color"
+          value={value || '#3b82f6'}
+          onChange={(e) => onChange(propKey, e.target.value)}
+          style={{
+            width: '34px',
+            height: '32px',
+            border: '1px solid #ddd',
+            borderRadius: '5px',
+            padding: '2px',
+            cursor: 'pointer',
+            flexShrink: 0
+          }}
+        />
+        <input
+          type="text"
+          value={value || ''}
+          onChange={(e) => onChange(propKey, e.target.value)}
+          placeholder="#3b82f6"
+          style={{
+            flex: 1,
+            padding: '7px 9px',
+            border: '1px solid #ddd',
+            borderRadius: '5px',
+            fontSize: '12px',
+            boxSizing: 'border-box',
+            outline: 'none',
+            fontFamily: 'ui-monospace, Consolas, monospace'
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 function JsonArrayPropField({ propKey, label, value, onChange }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState(() =>
+    JSON.stringify(Array.isArray(value) ? value : [], null, 2)
+  );
   const [error, setError] = useState('');
+  const prevValueRef = useRef(value);
 
   useEffect(() => {
-    setText(JSON.stringify(Array.isArray(value) ? value : [], null, 2));
-    setError('');
-  }, [value]);
+    if (prevValueRef.current !== value && !error) {
+      setText(JSON.stringify(Array.isArray(value) ? value : [], null, 2));
+    }
+    prevValueRef.current = value;
+  }, [value, error]);
 
   function handleChange(e) {
-    setText(e.target.value);
+    const raw = e.target.value;
+    setText(raw);
     try {
-      const parsed = JSON.parse(e.target.value);
+      const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
         setError('');
         onChange(propKey, parsed);
@@ -236,6 +334,29 @@ export function PropsPanel({ selectedSection, onUpdateSection, onDeleteSection }
           if (field.type === 'json-array') {
             return (
               <JsonArrayPropField
+                key={field.key}
+                propKey={field.key}
+                label={field.label}
+                value={selectedSection[field.key]}
+                onChange={handleChange}
+              />
+            );
+          }
+          if (field.type === 'select') {
+            return (
+              <SelectPropField
+                key={field.key}
+                propKey={field.key}
+                label={field.label}
+                value={selectedSection[field.key]}
+                options={field.options || []}
+                onChange={handleChange}
+              />
+            );
+          }
+          if (field.type === 'color') {
+            return (
+              <ColorPropField
                 key={field.key}
                 propKey={field.key}
                 label={field.label}
