@@ -1,0 +1,354 @@
+{
+  "id": "page-sample-001",
+  "name": "Landing Page Demo",
+  "slug": "landing-demo",
+  "seo": {
+    "title": "ui-maker Demo — Landing Page",
+    "description": "Built with ui-maker page builder"
+  },
+  "theme": "default",
+  "createdAt": "2026-04-10T00:00:00.000Z",
+  "updatedAt": "2026-04-10T00:00:00.000Z",
+  "tree": {
+    "tag": "_root",
+    "$id": "root",
+    "options": {},
+    "children": [
+      {
+        "tag": "navbar",
+        "$id": "nav-001",
+        "options": {
+          "bgColor": "var(--color-bg)",
+          "borderBottom": "1px solid var(--color-border)",
+          "sticky": true,
+          "paddingY": 16
+        },
+        "children": [
+          {
+            "tag": "container",
+            "$id": "nav-container",
+            "options": {},
+            "children": [
+              {
+                "tag": "row",
+                "$id": "nav-row",
+                "options": { "align": "center", "justify": "space-between", "gap": 16 },
+                "children": [
+                  {
+                    "tag": "heading",
+                    "$id": "nav-logo",
+                    "content": "ui-maker",
+                    "options": {
+                      "level": "h3",
+                      "fontSize": "var(--font-size-xl)",
+                      "color": "var(--color-primary)",
+                      "marginBottom": 0,
+                      "fontWeight": "var(--font-weight-bold)"
+                    }
+                  },
+                  {
+                    "tag": "button",
+                    "$id": "nav-cta",
+                    "content": "Get Started",
+                    "options": { "variant": "primary", "size": "sm" }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "section",
+        "$id": "section-hero",
+        "options": {
+          "bgColor": "var(--color-bg-dark)",
+          "paddingY": 120,
+          "textAlign": "center",
+          "$responsive": {
+            "paddingY": [60, 80, 120]
+          }
+        },
+        "children": [
+          {
+            "tag": "container",
+            "$id": "hero-container",
+            "options": {},
+            "children": [
+              {
+                "tag": "heading",
+                "$id": "hero-title",
+                "content": "Build Stunning Pages, Visually",
+                "options": {
+                  "level": "h1",
+                  "color": "var(--color-text-inverse)",
+                  "fontSize": "var(--font-size-5xl)",
+                  "textAlign": "center",
+                  "marginBottom": 24,
+                  "fontWeight": "var(--font-weight-bold)",
+                  "$responsive": {
+                    "fontSize": ["var(--font-size-3xl)", "var(--font-size-4xl)", "var(--font-size-5xl)"]
+                  }
+                }
+              },
+              {
+                "tag": "paragraph",
+                "$id": "hero-sub",
+                "content": "Drag, drop, and export pixel-perfect HTML. No code required. Runs entirely in your browser.",
+                "options": {
+                  "color": "var(--color-text-muted)",
+                  "fontSize": "var(--font-size-lg)",
+                  "textAlign": "center",
+                  "maxWidth": "600px",
+                  "marginBottom": 40
+                }
+              },
+              {
+                "tag": "row",
+                "$id": "hero-buttons",
+                "options": {
+                  "justify": "center",
+                  "gap": 16,
+                  "flexDirection": "row",
+                  "$responsive": {
+                    "flexDirection": ["column", "row", "row"]
+                  }
+                },
+                "children": [
+                  {
+                    "tag": "button",
+                    "$id": "hero-btn-primary",
+                    "content": "Start Building",
+                    "options": { "variant": "primary", "size": "lg" }
+                  },
+                  {
+                    "tag": "button",
+                    "$id": "hero-btn-ghost",
+                    "content": "View Demo",
+                    "options": { "variant": "outline-light", "size": "lg" }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "section",
+        "$id": "section-features",
+        "options": {
+          "bgColor": "var(--color-bg-alt)",
+          "paddingY": 80
+        },
+        "children": [
+          {
+            "tag": "container",
+            "$id": "features-container",
+            "options": {},
+            "children": [
+              {
+                "tag": "heading",
+                "$id": "features-title",
+                "content": "Why ui-maker?",
+                "options": {
+                  "level": "h2",
+                  "textAlign": "center",
+                  "marginBottom": 48,
+                  "color": "var(--color-text)",
+                  "fontWeight": "var(--font-weight-bold)"
+                }
+              },
+              {
+                "tag": "row",
+                "$id": "features-grid",
+                "options": {
+                  "gap": 24,
+                  "align": "stretch",
+                  "flexDirection": "row",
+                  "$responsive": {
+                    "flexDirection": ["column", "row", "row"]
+                  }
+                },
+                "children": [
+                  {
+                    "tag": "card",
+                    "$id": "feat-1",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "tag": "heading",
+                        "$id": "feat-1-title",
+                        "content": "🎨 Visual Editing",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        }
+                      },
+                      {
+                        "tag": "paragraph",
+                        "$id": "feat-1-desc",
+                        "content": "Click to select, drag to reorder. What you see is what you get.",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "card",
+                    "$id": "feat-2",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "tag": "heading",
+                        "$id": "feat-2-title",
+                        "content": "📱 Responsive",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        }
+                      },
+                      {
+                        "tag": "paragraph",
+                        "$id": "feat-2-desc",
+                        "content": "Preview Desktop, Tablet, and Mobile. Style each breakpoint independently.",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "card",
+                    "$id": "feat-3",
+                    "options": {
+                      "shadow": "var(--shadow-md)",
+                      "radius": "var(--radius-lg)",
+                      "bgColor": "var(--color-bg)",
+                      "padding": "var(--card-padding)",
+                      "flex": "1"
+                    },
+                    "children": [
+                      {
+                        "tag": "heading",
+                        "$id": "feat-3-title",
+                        "content": "⚡ Export HTML",
+                        "options": {
+                          "level": "h3",
+                          "fontSize": "var(--font-size-lg)",
+                          "marginBottom": 8,
+                          "color": "var(--color-text)"
+                        }
+                      },
+                      {
+                        "tag": "paragraph",
+                        "$id": "feat-3-desc",
+                        "content": "Self-contained HTML with inline styles. Drop anywhere, works everywhere.",
+                        "options": {
+                          "color": "var(--color-text-muted)",
+                          "fontSize": "var(--font-size-sm)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "section",
+        "$id": "section-cta",
+        "options": {
+          "bgColor": "var(--color-primary)",
+          "paddingY": 80,
+          "textAlign": "center"
+        },
+        "children": [
+          {
+            "tag": "container",
+            "$id": "cta-container",
+            "options": {},
+            "children": [
+              {
+                "tag": "heading",
+                "$id": "cta-title",
+                "content": "Ready to build something beautiful?",
+                "options": {
+                  "level": "h2",
+                  "color": "var(--color-text-inverse)",
+                  "textAlign": "center",
+                  "marginBottom": 16,
+                  "fontWeight": "var(--font-weight-bold)"
+                }
+              },
+              {
+                "tag": "paragraph",
+                "$id": "cta-sub",
+                "content": "No account needed. No installation. Open the app and start building.",
+                "options": {
+                  "color": "var(--color-primary-light)",
+                  "textAlign": "center",
+                  "marginBottom": 32,
+                  "fontSize": "var(--font-size-lg)"
+                }
+              },
+              {
+                "tag": "button",
+                "$id": "cta-btn",
+                "content": "Open ui-maker →",
+                "options": { "variant": "inverse", "size": "lg" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "section",
+        "$id": "section-footer",
+        "options": {
+          "bgColor": "var(--color-bg-dark)",
+          "paddingY": 40
+        },
+        "children": [
+          {
+            "tag": "container",
+            "$id": "footer-container",
+            "options": {},
+            "children": [
+              {
+                "tag": "paragraph",
+                "$id": "footer-copy",
+                "content": "© 2026 ui-maker. Built with ❤️ and React.",
+                "options": {
+                  "color": "var(--color-text-muted)",
+                  "textAlign": "center",
+                  "fontSize": "var(--font-size-sm)"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
