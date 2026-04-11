@@ -1,9 +1,9 @@
 {
   "id": "page-sample-001",
-  "name": "Landing Page Demo",
+  "name": "SEOVN.ORG Page Demo",
   "slug": "landing-demo",
   "seo": {
-    "title": "ui-maker Demo — Landing Page",
+    "title": "ui-maker SEOVN.ORG — Landing Page",
     "description": "Built with ui-maker page builder"
   },
   "theme": "default",
@@ -128,6 +128,22 @@
                     "options": { "variant": "outline-light", "size": "lg" }
                   }
                 ]
+              },
+              {
+                "$id": "image-qVMlknu6",
+                "tag": "image",
+                "options": {
+                  "src": "https://res.cloudinary.com/dycwkcxiu/image/upload/v1775768479/b3ob8zav4gufcdz75cfp.png",
+                  "alt": "",
+                  "width": "50%",
+                  "height": "50%",
+                  "objectFit": "cover",
+                  "borderRadius": "3%",
+                  "marginTop": "0px",
+                  "marginBottom": 0,
+                  "marginLeft": "auto",
+                  "marginRight": "auto"
+                }
               }
             ]
           }
@@ -338,7 +354,7 @@
               {
                 "tag": "paragraph",
                 "$id": "footer-copy",
-                "content": "© 2026 ui-maker. Built with ❤️ and React.",
+                "content": "© 2026 ui-maker. Built with ❤️ and SEOVN.ORG.",
                 "options": {
                   "color": "var(--color-text-muted)",
                   "textAlign": "center",

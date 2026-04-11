@@ -17,6 +17,7 @@ export function DropZone({ id }) {
   const dragType = useAppStore(s => s.dragType)
 
   // Layer 'move' drags use LayerDropZones in the panel — not canvas strips
+  // 'section' drags from SectionsPanel DO show canvas drop zones
   if (!isDragging || dragType === 'move') return null
 
   return (
@@ -114,7 +115,7 @@ export function EmptyDropZone({ id }) {
       ref={setNodeRef}
       data-dropzone={id}
       style={{
-        minHeight: 56,
+        minHeight: dragType === 'section' ? 80 : 56,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

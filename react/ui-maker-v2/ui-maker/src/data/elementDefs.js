@@ -253,7 +253,7 @@ export const ELEMENT_DEFS = {
     groups: [
       { label: 'Nguồn ảnh', defaultOpen: true,  fields: ['src', 'alt'] },
       { label: 'Kích thước', defaultOpen: true,  fields: ['width', 'height', 'objectFit'] },
-      { label: 'Style',      defaultOpen: false, fields: ['borderRadius', 'marginTop', 'marginBottom'] },
+      { label: 'Style',      defaultOpen: false, fields: ['borderRadius', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight'] },
     ],
     optionDefs: {
       src: {
@@ -308,6 +308,19 @@ export const ELEMENT_DEFS = {
         label: 'Margin Bottom',
         default: 0,
         min: 0, max: 80, step: 4, unit: 'px',
+      },
+      // ===== THÊM MARGIN LEFT & RIGHT =====
+      marginLeft: {
+        type: 'text',
+        label: 'Margin Left',
+        default: '',
+        placeholder: 'auto, 20px, 0...',
+      },
+      marginRight: {
+        type: 'text',
+        label: 'Margin Right',
+        default: '',
+        placeholder: 'auto, 20px, 0...',
       },
     },
   },

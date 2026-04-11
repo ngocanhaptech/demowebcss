@@ -103,6 +103,18 @@ export function DragDropContext({ children }) {
       return
     }
 
+    // Section drop — type: 'section' from SectionsPanel
+    if (dragData.type === 'section') {
+      if (!dragData.sectionTree) return
+      const tree = JSON.parse(JSON.stringify(dragData.sectionTree))
+      const newNode = parentNode.addChild(tree, insertIndex, true)
+      useAppStore.getState().syncHistoryState()
+      useAppStore.getState().selectElement(newNode.$id)
+      // Auto-switch to Layers so user sees the new section
+      useAppStore.getState().setActiveLeftTab('layers')
+      return
+    }
+
     // Palette drop — type: 'new' or no type field
     if (!dragData.defaultTree) return
     if (!parentNode.allows(dragData.tag)) return

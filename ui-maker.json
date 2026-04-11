@@ -1,6 +1,6 @@
 {
   "version": "2",
-  "savedAt": "2026-04-09T22:03:04.361Z",
+  "savedAt": "2026-04-11T09:03:20.533Z",
   "tree": {
     "$id": "root",
     "tag": "_root",
@@ -40,7 +40,7 @@
                       "marginBottom": 0,
                       "fontWeight": "var(--font-weight-bold)"
                     },
-                    "content": "seovn"
+                    "content": "ui-maker"
                   },
                   {
                     "$id": "nav-cta",
@@ -79,30 +79,6 @@
             "options": {},
             "children": [
               {
-                "$id": "row-OFzXtx4s",
-                "tag": "row",
-                "options": {
-                  "gap": 16,
-                  "justify": "center"
-                },
-                "children": [
-                  {
-                    "$id": "image-9c_WuAo-",
-                    "tag": "image",
-                    "options": {
-                      "src": "https://res.cloudinary.com/dycwkcxiu/image/upload/v1775768479/b3ob8zav4gufcdz75cfp.png",
-                      "alt": "",
-                      "width": "60%",
-                      "height": "auto",
-                      "objectFit": "contain",
-                      "borderRadius": "0",
-                      "marginTop": 0,
-                      "marginBottom": 0
-                    }
-                  }
-                ]
-              },
-              {
                 "$id": "hero-title",
                 "tag": "heading",
                 "options": {
@@ -133,6 +109,22 @@
                   "marginBottom": 40
                 },
                 "content": "Drag, drop, and export pixel-perfect HTML. No code required. Runs entirely in your browser."
+              },
+              {
+                "$id": "image-qVMlknu6",
+                "tag": "image",
+                "options": {
+                  "src": "https://res.cloudinary.com/dycwkcxiu/image/upload/v1775768479/b3ob8zav4gufcdz75cfp.png",
+                  "alt": "",
+                  "width": "250px",
+                  "height": "250px",
+                  "objectFit": "cover",
+                  "borderRadius": "3%",
+                  "marginTop": "0px",
+                  "marginBottom": "16px",
+                  "marginLeft": "auto",
+                  "marginRight": "auto"
+                }
               },
               {
                 "$id": "hero-buttons",
@@ -220,7 +212,7 @@
                     "tag": "card",
                     "options": {
                       "shadow": "var(--shadow-md)",
-                      "radius": "var(--radius-lg)",
+                      "radius": "var(--radius-sm)",
                       "bgColor": "var(--color-bg)",
                       "padding": "var(--card-padding)",
                       "flex": "1"
@@ -253,7 +245,7 @@
                     "tag": "card",
                     "options": {
                       "shadow": "var(--shadow-md)",
-                      "radius": "var(--radius-lg)",
+                      "radius": "var(--radius-sm)",
                       "bgColor": "var(--color-bg)",
                       "padding": "var(--card-padding)",
                       "flex": "1"
@@ -286,7 +278,7 @@
                     "tag": "card",
                     "options": {
                       "shadow": "var(--shadow-md)",
-                      "radius": "var(--radius-lg)",
+                      "radius": "var(--radius-sm)",
                       "bgColor": "var(--color-bg)",
                       "padding": "var(--card-padding)",
                       "flex": "1"
@@ -391,7 +383,7 @@
                   "textAlign": "center",
                   "fontSize": "var(--font-size-sm)"
                 },
-                "content": "© 2026 ui-maker. Built with ❤️ and React."
+                "content": "© 2026 ui-maker. Built with ❤️ and SEOVN.ORG."
               }
             ]
           }

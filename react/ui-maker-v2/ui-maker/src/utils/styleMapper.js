@@ -58,6 +58,9 @@ export function optionsToStyle(opts) {
     s.marginLeft  = opts.marginX
     s.marginRight = opts.marginX
   }
+  // Thêm marginLeft và marginRight riêng lẻ (hỗ trợ 'auto')
+  if (opts.marginLeft != null)      s.marginLeft   = numToPx(opts.marginLeft)
+  if (opts.marginRight != null)     s.marginRight  = numToPx(opts.marginRight)
 
   if (opts.maxWidth) {
     s.maxWidth    = opts.maxWidth

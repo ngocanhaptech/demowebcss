@@ -95,12 +95,12 @@ function resolveStyleVars(styleObj, vars) {
  * @param {Record<string,string|number>} styleObj
  * @returns {string}
  */
-function styleObjToString(styleObj) {
+function styleObjToString(styleObj, important = false) {
   return Object.entries(styleObj)
     .filter(([, v]) => v != null && v !== '')
     .map(([k, v]) => {
       const prop = k.replace(/([A-Z])/g, m => `-${m.toLowerCase()}`)
-      return `${prop}:${v}`
+      return important ? `${prop}:${v} !important` : `${prop}:${v}`
     })
     .join(';')
 }
@@ -229,7 +229,7 @@ function buildResponsiveCss(rootNode, themeVars) {
     const tabletStyle = resolveStyleVars(controller.resolveBaseStyle(tabletOpts), themeVars)
     const tabletDiff  = diffStyles(desktopStyle, tabletStyle)
     if (Object.keys(tabletDiff).length > 0 && node.$id) {
-      tabletRules.push(`  [data-uid="${node.$id}"] { ${styleObjToString(tabletDiff)} }`)
+      tabletRules.push(`  [data-uid="${node.$id}"] { ${styleObjToString(tabletDiff, true)} }`)
     }
 
     // Mobile override (bp=0)
@@ -237,7 +237,7 @@ function buildResponsiveCss(rootNode, themeVars) {
     const mobileStyle = resolveStyleVars(controller.resolveBaseStyle(mobileOpts), themeVars)
     const mobileDiff  = diffStyles(desktopStyle, mobileStyle)
     if (Object.keys(mobileDiff).length > 0 && node.$id) {
-      mobileRules.push(`  [data-uid="${node.$id}"] { ${styleObjToString(mobileDiff)} }`)
+      mobileRules.push(`  [data-uid="${node.$id}"] { ${styleObjToString(mobileDiff, true)} }`)
     }
 
     for (const child of node.children ?? []) visitNode(child)
