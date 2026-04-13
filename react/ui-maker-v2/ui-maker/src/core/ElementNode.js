@@ -24,7 +24,7 @@ const ALLOWED_CHILDREN = {
   navbar:    new Set(['container', 'row']),
   section:   new Set(['container', 'row', 'card', 'heading', 'paragraph', 'button', 'image']),
   container: new Set(['row', 'column', 'card', 'heading', 'paragraph', 'button', 'image']),
-  row:       new Set(['column', 'card', 'heading', 'paragraph', 'button', 'image']),
+  row:       new Set(['column', 'card']),
   column:    new Set(['heading', 'paragraph', 'button', 'card', 'row', 'image']),
   card:      new Set(['heading', 'paragraph', 'button', 'row', 'column', 'image']),
 }

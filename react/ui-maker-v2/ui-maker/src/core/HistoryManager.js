@@ -127,8 +127,19 @@ export class HistoryManager {
       case ACTION_TYPES.UPDATE_OPTION: {
         const node = reg.get(action.nodeId)
         if (!node) return
-        node.optionValues[action.key] = action.oldValue
-        node.applyOption()
+        if (action.key.startsWith('$responsive.')) {
+          // parse key: "$responsive.paddingY[0]" -> key="paddingY", bp=0
+          const match = action.key.match(/\$responsive\.(\w+)\[(\d)\]/);
+          if (match) {
+            const [, optKey, bp] = match;
+            node.responsiveValues[optKey][parseInt(bp)] = action.oldValue; // or newValue
+            node.applyOption();
+            return;
+          }
+        } else {
+          node.optionValues[action.key] = action.oldValue
+          node.applyOption()
+        }
         break
       }
 
@@ -202,8 +213,19 @@ export class HistoryManager {
       case ACTION_TYPES.UPDATE_OPTION: {
         const node = reg.get(action.nodeId)
         if (!node) return
-        node.optionValues[action.key] = action.newValue
-        node.applyOption()
+        if (action.key.startsWith('$responsive.')) {
+          // parse key: "$responsive.paddingY[0]" -> key="paddingY", bp=0
+          const match = action.key.match(/\$responsive\.(\w+)\[(\d)\]/);
+          if (match) {
+            const [, optKey, bp] = match;
+            node.responsiveValues[optKey][parseInt(bp)] = action.oldValue; // or newValue
+            node.applyOption();
+            return;
+          }
+        } else {
+          node.optionValues[action.key] = action.newValue
+          node.applyOption()
+        }
         break
       }
 

@@ -63,8 +63,11 @@ export function PropsPanel() {
 function PanelHeader({ node, def }) {
   const selectElement = useAppStore(s => s.selectElement)
   const deleteElement = useAppStore(s => s.deleteElement)
+  const duplicateElement = useAppStore(s => s.duplicateElement)
 
   const canDelete = !!node._parent  // root node has no parent
+  const canDuplicate = !!node._parent  // root node has no parent
+
 
   return (
     <div

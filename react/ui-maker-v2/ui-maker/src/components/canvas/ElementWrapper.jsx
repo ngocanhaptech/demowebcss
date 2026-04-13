@@ -1,3 +1,4 @@
+// src/components/canvas/ElementWrapper.jsx
 import { memo, useCallback } from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { useAppStore, registry } from '../../store/appStore.js'
@@ -6,20 +7,11 @@ import { ResponsiveManager } from '../../core/ResponsiveManager.js'
 import { getElementDef } from '../../data/elementDefs.js'
 import { ElementRenderer } from './ElementRenderer.jsx'
 
-/**
- * ElementWrapper — renders one ElementNode as its semantic HTML tag.
- *
- * Fine-grained subscriptions (D4):
- *  - optionVersions[nodeId] → re-render when THIS node's options change
- *  - selectedId / outlinedId → re-render only when THIS node's selection changes
- *  - breakpoint → re-render when viewport changes
- *
- * Canvas drag-sort (Phase 5):
- *  - useDraggable with type:'canvas-move' on each element
- *  - setDragRef on the element itself for stable rect tracking
- *  - listeners on a floating handle (⠿) that appears on hover/select
- *  - DragDropContext handles 'canvas-move' identically to 'move'
- */
+// Danh sách các tag được coi là container layout (có thể chứa children)
+const LAYOUT_CONTAINER_TAGS = new Set([
+  'section', 'container', 'row', 'column', 'card', 'navbar'
+])
+
 export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
   const _optV      = useAppStore(s => s.optionVersions[nodeId] ?? 0)
   const isSelected = useAppStore(s => s.selectedId === nodeId)
@@ -35,7 +27,6 @@ export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
   const def = getElementDef(node.tag)
   const displayName = node.optionValues?._name || def.label
 
-  // Resolve options at current breakpoint
   const resolvedOpts = ResponsiveManager.resolveAll(
     node.optionValues,
     node.responsiveValues,
@@ -43,18 +34,33 @@ export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
   )
   const baseStyle = controller.resolveBaseStyle(resolvedOpts)
 
-  // Selection / hover outline
+  // Kiểm tra nếu đây là container layout và hiện đang rỗng
+  const isLayoutContainer = LAYOUT_CONTAINER_TAGS.has(node.tag)
+  const isEmptyContainer = isLayoutContainer &&
+    Array.isArray(node.children) &&
+    node.children.length === 0
+
+  // Style tạm thời cho container rỗng để người dùng dễ nhìn thấy
+  const emptyContainerStyle = isEmptyContainer
+    ? {
+        minHeight: '50px',
+        backgroundColor: 'rgba(148, 163, 184, 0.08)',
+        outline: '1px dashed #cbd5e1',
+        outlineOffset: '-1px',
+      }
+    : {}
+
   const interactionStyle = isSelected
     ? { outline: '2px solid #2563eb', outlineOffset: '2px', position: 'relative' }
     : isOutlined
     ? { outline: '1px dashed #93c5fd', outlineOffset: '2px', position: 'relative' }
     : { position: 'relative' }
 
-  const style = { ...baseStyle, ...interactionStyle }
+  // Merge style: base -> empty container (nếu có) -> interaction
+  const style = { ...baseStyle, ...emptyContainerStyle, ...interactionStyle }
 
   const Tag = controller.getHtmlTag(node)
 
-  // ── Canvas drag-sort ────────────────────────────────────────────────────────
   const {
     attributes: dragAttr,
     listeners: dragListeners,
@@ -71,7 +77,6 @@ export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
     },
   })
 
-  // ── Interaction handlers ─────────────────────────────────────────────────────
   const handleClick = useCallback((e) => {
     e.stopPropagation()
     useAppStore.getState().selectElement(nodeId)
@@ -87,10 +92,8 @@ export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
     useAppStore.getState().selectElement(nodeId)
   }, [nodeId])
 
-  // Fade the element while it is being dragged
   const elementStyle = { ...style, opacity: isDraggingThis ? 0.35 : 1 }
 
-  // Drag handle — shown when element is selected or outlined
   const showHandle = (isSelected || isOutlined) && !isDraggingThis
   const handle = showHandle ? (
     <span
@@ -123,12 +126,10 @@ export const ElementWrapper = memo(function ElementWrapper({ nodeId }) {
     </span>
   ) : null
 
-  // ── Void-element branch (e.g. <img>) — cannot contain children ────────────
   const isVoid = typeof controller.isVoidElement === 'function' && controller.isVoidElement()
 
   if (isVoid) {
     const extraAttrs  = controller.resolveAttrs?.(resolvedOpts) ?? {}
-    // Extract margin from baseStyle to apply on wrapper div; rest goes on the <img>
     const { marginTop, marginBottom, ...imgOnlyStyle } = baseStyle
     const wrapperStyle = {
       ...interactionStyle,

@@ -337,6 +337,34 @@ export const useAppStore = create(
         })
       },
 
+      duplicateElement(id) {
+        const targetId = id ?? get().selectedId
+        if (!targetId) return
+
+        const node = registry.get(targetId)
+        if (!node || !node._parent) return // không thể duplicate root
+
+        const parent = node._parent
+        const insertAfter = node.index
+
+        // Gọi phương thức duplicate của ElementNode
+        const duplicatedNode = node.duplicate(insertAfter)
+
+        // Ghi nhận lịch sử (đã được ghi trong duplicate nếu cần, nhưng ta có thể tự push action)
+        // Phương thức duplicate hiện tại không tự ghi history, ta sẽ tự push.
+        historyManager.push({
+          type: ACTION_TYPES.ADD_ELEMENT,
+          nodeId: duplicatedNode.$id,
+          parentId: parent.$id,
+          index: insertAfter + 1,
+          snapshot: duplicatedNode.toPlain(),
+        })
+
+        get().syncHistoryState()
+        // Chọn phần tử mới
+        set(state => { state.selectedId = duplicatedNode.$id })
+      },
+
       /** Rename a page by id. */
       renamePage(pageId, newName) {
         const { pages } = get()

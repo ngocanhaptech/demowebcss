@@ -10,29 +10,11 @@ import {
 } from '@dnd-kit/core'
 import { registry, useAppStore } from '../store/appStore.js'
 
-/**
- * Combine pointerWithin + rectIntersection for reliable hit detection.
- * pointerWithin is preferred when the pointer is inside a droppable.
- * rectIntersection is the fallback when no droppable contains the pointer.
- */
 function combinedCollision(args) {
   const inner = pointerWithin(args)
   return inner.length > 0 ? inner : rectIntersection(args)
 }
 
-/**
- * DragDropContext — wraps the editor with @dnd-kit/core DndContext.
- *
- * Handles the full drag lifecycle:
- *  1. onDragStart  → store.setDragging(data)  — canvas shows DropZones
- *  2. onDragOver   → @dnd-kit handles internally
- *  3. onDragEnd    → parse drop zone id → parentNode.addChild() → select new node
- *  4. onDragCancel → store.setDragging(null)
- *
- * Drop zone id format: "drop:{parentId}:{insertIndex}"
- *  parentId    — $id of the parent ElementNode to insert into
- *  insertIndex — position in children array (0 = before first, length = after last)
- */
 export function DragDropContext({ children }) {
   const [overlayData, setOverlayData] = useState(null)
 
@@ -64,65 +46,78 @@ export function DragDropContext({ children }) {
     if (!dragData) return
 
     const overId = String(over.id)
-    if (!overId.startsWith('drop:')) return
+    let targetParent = null
+    let insertIndex = -1
 
-    // Parse "drop:{parentId}:{insertIndex}"
-    // Use lastIndexOf to handle parentIds that contain colons
-    const body = overId.slice(5)
-    const sepIdx = body.lastIndexOf(':')
-    if (sepIdx < 0) return
+    // === Trường hợp 1: Thả vào DropZone ===
+    if (overId.startsWith('drop:')) {
+      const body = overId.slice(5)
+      const sepIdx = body.lastIndexOf(':')
+      if (sepIdx >= 0) {
+        const parentId = body.slice(0, sepIdx)
+        const idx = parseInt(body.slice(sepIdx + 1), 10)
+        targetParent = registry.get(parentId)
+        if (!isNaN(idx)) insertIndex = idx
+      }
+    } else {
+      // === Trường hợp 2: Thả trực tiếp lên element (fallback) ===
+      const overNode = registry.get(overId)
+      if (!overNode) return
 
-    const parentId = body.slice(0, sepIdx)
-    const insertIndex = parseInt(body.slice(sepIdx + 1), 10)
-    if (isNaN(insertIndex)) return
+      // Nếu phần tử đích là container và cho phép tag đang kéo → thêm vào cuối
+      if (overNode.isParent && overNode.allows(dragData.tag)) {
+        targetParent = overNode
+        insertIndex = overNode.children.length
+      } else {
+        // Ngược lại, thêm vào sau phần tử đó (cùng cha)
+        const parent = overNode.parent
+        if (parent && parent.allows(dragData.tag)) {
+          targetParent = parent
+          insertIndex = overNode.index + 1
+        }
+      }
+    }
 
-    const parentNode = registry.get(parentId)
-    if (!parentNode || !Array.isArray(parentNode.children)) return
+    if (!targetParent || !Array.isArray(targetParent.children)) return
+    if (!targetParent.allows(dragData.tag)) return
 
+    // === Xử lý di chuyển node có sẵn ===
     if (dragData.type === 'move' || dragData.type === 'canvas-move') {
-      // Moving an existing node — from Layers panel OR canvas drag handle
       const movingNode = registry.get(dragData.nodeId)
       if (!movingNode) return
-      // Prevent circular: target parent cannot be inside the moving node
-      if (parentNode.isSelfOrDescendantOf(movingNode)) return
-      if (!parentNode.allows(movingNode.tag)) return
 
-      // When moving within the SAME parent, detaching shifts later siblings
-      // one index down — compensate so the visual drop position is exact.
+      if (targetParent.isSelfOrDescendantOf(movingNode)) return
+      if (!targetParent.allows(movingNode.tag)) return
+
       const originalParent = movingNode._parent
-      const originalIndex  = movingNode.index
+      const originalIndex = movingNode.index
       let targetIndex = insertIndex
-      if (originalParent === parentNode && originalIndex < insertIndex) {
+      if (originalParent === targetParent && originalIndex < insertIndex) {
         targetIndex = insertIndex - 1
       }
 
       movingNode.detach()
-      parentNode.addChild(movingNode, targetIndex, true)
+      targetParent.addChild(movingNode, targetIndex, true)
       useAppStore.getState().syncHistoryState()
       useAppStore.getState().selectElement(movingNode.$id)
       return
     }
 
-    // Section drop — type: 'section' from SectionsPanel
+    // === Section template ===
     if (dragData.type === 'section') {
       if (!dragData.sectionTree) return
       const tree = JSON.parse(JSON.stringify(dragData.sectionTree))
-      const newNode = parentNode.addChild(tree, insertIndex, true)
+      const newNode = targetParent.addChild(tree, insertIndex, true)
       useAppStore.getState().syncHistoryState()
       useAppStore.getState().selectElement(newNode.$id)
-      // Auto-switch to Layers so user sees the new section
       useAppStore.getState().setActiveLeftTab('layers')
       return
     }
 
-    // Palette drop — type: 'new' or no type field
+    // === Palette (element mới) ===
     if (!dragData.defaultTree) return
-    if (!parentNode.allows(dragData.tag)) return
-
-    // Deep clone the template to avoid shared references
     const tree = JSON.parse(JSON.stringify(dragData.defaultTree))
-    const newNode = parentNode.addChild(tree, insertIndex, true)
-
+    const newNode = targetParent.addChild(tree, insertIndex, true)
     useAppStore.getState().syncHistoryState()
     useAppStore.getState().selectElement(newNode.$id)
   }, [])
@@ -136,31 +131,27 @@ export function DragDropContext({ children }) {
       onDragEnd={handleDragEnd}
     >
       {children}
-
-      {/* DragOverlay renders in a portal — not clipped by overflow:hidden */}
       <DragOverlay dropAnimation={null}>
-        {overlayData ? (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '6px 14px',
-              background: '#2563eb',
-              color: '#fff',
-              borderRadius: 20,
-              fontSize: 12,
-              fontWeight: 600,
-              boxShadow: '0 6px 20px rgba(37,99,235,0.45)',
-              pointerEvents: 'none',
-              whiteSpace: 'nowrap',
-              userSelect: 'none',
-            }}
-          >
+        {overlayData && (
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '6px 14px',
+            background: '#2563eb',
+            color: '#fff',
+            borderRadius: 20,
+            fontSize: 12,
+            fontWeight: 600,
+            boxShadow: '0 6px 20px rgba(37,99,235,0.45)',
+            pointerEvents: 'none',
+            whiteSpace: 'nowrap',
+            userSelect: 'none',
+          }}>
             <span>{overlayData.icon}</span>
             <span>{overlayData.label}</span>
           </div>
-        ) : null}
+        )}
       </DragOverlay>
     </DndContext>
   )

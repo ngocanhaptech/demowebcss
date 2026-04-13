@@ -3,21 +3,13 @@ import { useAppStore } from '../../store/appStore.js'
 
 /**
  * DropZone — thin horizontal strip between sibling elements.
- *
- * Renders as an invisible 10px strip. When the dragged item is over it,
- * shows a 3px blue horizontal line with dot-caps (UX Builder style).
- *
- * Only visible during an active drag (isDragging from store).
- *
- * @param {{ id: string }} props
+ * Renders an invisible drop target with a visual indicator when hovered.
  */
 export function DropZone({ id }) {
   const { isOver, setNodeRef } = useDroppable({ id })
   const isDragging = useAppStore(s => s.isDragging)
   const dragType = useAppStore(s => s.dragType)
 
-  // Layer 'move' drags use LayerDropZones in the panel — not canvas strips
-  // 'section' drags from SectionsPanel DO show canvas drop zones
   if (!isDragging || dragType === 'move') return null
 
   return (
@@ -26,71 +18,49 @@ export function DropZone({ id }) {
       data-dropzone={id}
       style={{
         position: 'relative',
-        height: 10,
+        height: 24,               // Tăng chiều cao vùng hit
         flexShrink: 0,
         zIndex: 20,
       }}
     >
-      {/* Invisible wider hover target — fills the strip + extra area */}
-      <div
-        style={{
-          position: 'absolute',
-          top: -4,
-          left: 0,
-          right: 0,
-          bottom: -4,
-          zIndex: 0,
-        }}
-      />
-
-      {/* Visual indicator — only when isOver */}
       {isOver && (
         <>
-          {/* Center line */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 8,
-              right: 8,
-              height: 3,
-              background: '#2563eb',
-              transform: 'translateY(-50%)',
-              borderRadius: 2,
-              pointerEvents: 'none',
-              zIndex: 1,
-            }}
-          />
-          {/* Left dot */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 0,
-              width: 9,
-              height: 9,
-              borderRadius: '50%',
-              background: '#2563eb',
-              transform: 'translateY(-50%)',
-              pointerEvents: 'none',
-              zIndex: 1,
-            }}
-          />
-          {/* Right dot */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: 0,
-              width: 9,
-              height: 9,
-              borderRadius: '50%',
-              background: '#2563eb',
-              transform: 'translateY(-50%)',
-              pointerEvents: 'none',
-              zIndex: 1,
-            }}
-          />
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: 8,
+            right: 8,
+            height: 3,
+            background: '#2563eb',
+            transform: 'translateY(-50%)',
+            borderRadius: 2,
+            pointerEvents: 'none',
+            zIndex: 1,
+          }} />
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            width: 9,
+            height: 9,
+            borderRadius: '50%',
+            background: '#2563eb',
+            transform: 'translateY(-50%)',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }} />
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            right: 0,
+            width: 9,
+            height: 9,
+            borderRadius: '50%',
+            background: '#2563eb',
+            transform: 'translateY(-50%)',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }} />
         </>
       )}
     </div>
@@ -99,9 +69,7 @@ export function DropZone({ id }) {
 
 /**
  * EmptyDropZone — shown inside empty parent containers during a drag.
- * Displays a dashed rect with instructional text, lights up blue on hover.
- *
- * @param {{ id: string }} props
+ * Displays a dashed rectangle with text, lights up blue on hover.
  */
 export function EmptyDropZone({ id }) {
   const { isOver, setNodeRef } = useDroppable({ id })

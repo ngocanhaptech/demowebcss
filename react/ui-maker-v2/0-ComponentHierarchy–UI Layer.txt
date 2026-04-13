@@ -1,0 +1,23 @@
+App
+ ├── Header
+ │    ├── ViewportTabs
+ │    ├── Undo/Redo buttons
+ │    ├── Save/Open/Export buttons
+ │    └── PanelToggles
+ ├── LeftPanel (tabs: Elements, Sections, Pages, Layers)
+ │    ├── ElementsPalette (DraggableCards)
+ │    ├── SectionsPanel (SectionCard với drag)
+ │    ├── PagesPanel (PageRow + ContextMenu)
+ │    └── LayersPanel (LayerNode + LayerDropZone)
+ ├── Canvas
+ │    └── ViewportFrame
+ │         └── ElementRenderer (recursive)
+ │              └── ElementWrapper (dùng useDraggable)
+ │                   └── DropZone / EmptyDropZone (khi dragging)
+ └── PropsPanel
+      ├── ElementBreadcrumb
+      ├── ContentEditor (cho leaf nodes)
+      └── OptionGroup
+           └── OptionField (router)
+                ├── OptionText, OptionSelect, OptionColor, ...
+                └── OptionResponsive (wrapper)
