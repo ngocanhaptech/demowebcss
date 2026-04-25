@@ -19,7 +19,7 @@ define( 'TEAMEMBERS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
  */
 add_action( 'init', function() {
     $labels = array(
-        'name'               => __( 'Team Members', 'ux_team_member' ),
+        'name'               => __( 'Đội ngũ luật sư', 'ux_team_member' ),
         'singular_name'      => __( 'Team Member', 'ux_team_member' ),
         'add_new'            => __( 'Add New', 'ux_team_member' ),
         'add_new_item'       => __( 'Add New Team Member', 'ux_team_member' ),
@@ -39,9 +39,9 @@ add_action( 'init', function() {
         'show_ui'            => true,
         'show_in_menu'       => true,
         'menu_icon'          => 'dashicons-groups',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
-        'has_archive'        => false,
-        'rewrite'            => array( 'slug' => 'team' ),
+        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'),
+        'has_archive'        => 'doi-ngu-luat-su',
+        'rewrite'            => array( 'slug' => 'doi-ngu-luat-su' ),
         'show_in_rest'       => true,
     );
 
@@ -216,4 +216,24 @@ add_action( 'wp_enqueue_scripts', function() {
         '1.0.0',
         true   // load ở footer
     );
+} );
+add_filter( 'request', function ( $query_vars ) {
+    // CHỈ CHẠY Ở FRONTEND (Quan trọng nhất)
+    if ( is_admin() ) {
+        return $query_vars;
+    }
+
+    // Kiểm tra nếu request đang trỏ vào archive của team_member (không phải trang chi tiết)
+    if ( isset( $query_vars['post_type'] ) && 'team_member' === $query_vars['post_type'] && !isset($query_vars['name'])) {
+        
+        $page = get_page_by_path('doi-ngu-luat-su');
+        
+        if ( $page ) {
+            // Chuyển hướng yêu cầu từ Archive sang Page
+            unset( $query_vars['post_type'] );
+            $query_vars['pagename'] = 'doi-ngu-luat-su';
+        }
+    }
+    
+    return $query_vars;
 } );
