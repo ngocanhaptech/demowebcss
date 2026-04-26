@@ -1,0 +1,31 @@
+/* Quickview button */
+.lm-quickview-btn {
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+.lm-quickview-btn.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Popup quickview */
+.lm-quickview-content {
+    background: #fff;
+    padding: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    border-radius: 8px;
+}
+
+/* Category styling */
+.lawyer-category {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* Box lawyercol */
+.lawyercol {
+    margin-bottom: 30px;
+}
