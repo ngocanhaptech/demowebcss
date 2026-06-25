@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự Án | SafeHome Vietnam - Bảo Vệ Toàn Diện Chuẩn Mực An Sinh</title>
+  <meta name="description" content="Những công trình Hyper Standard đã được bảo vệ bởi SafeHome Vietnam. Xem danh sách các dự án tiêu biểu từ dân dụng đến công nghiệp.">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #003399;
+      --secondary: #0066cc;
+      --accent: #ff6b35;
+      --light: #f5f5f5;
+      --dark: #1a1a1a;
+      --gray: #666666;
+      --success: #28a745;
+      --border: #e0e0e0;
+    }
+
+    html {
+      background-color: #ffffff;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      color: var(--dark);
+      line-height: 1.6;
+      background: #ffffff;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 51, 153, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      opacity: 0.95;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 1rem;
+    }
+
+    /* FILTER TABS */
+    .filter-section {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.7rem 1.5rem;
+      border: 2px solid var(--border);
+      background: white;
+      color: var(--dark);
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    /* PROJECT GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 51, 153, 0.08);
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 1px solid var(--border);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 51, 153, 0.15);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #ccc;
+      overflow: hidden;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-service {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .service-seal {
+      background: #e3f2fd;
+      color: #003399;
+    }
+
+    .service-pest {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .service-integrated {
+      background: #fffde7;
+      color: #f57f17;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .project-meta {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-meta span {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .project-package {
+      display: inline-block;
+      background: var(--light);
+      color: var(--primary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 12px;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      width: 95%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-section {
+      margin-bottom: 2rem;
+    }
+
+    .modal-section h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-item {
+      background: var(--light);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .detail-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .detail-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-top: 0.3rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* CTA SECTION */
+    .final-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-radius: 12px;
+      margin: 3rem 0;
+    }
+
+    .final-cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: white;
+      color: var(--primary);
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 2.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .footer-section a,
+    .footer-section p {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid #333;
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filter-tabs {
+        gap: 0.5rem;
+      }
+
+      .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        width: 98%;
+        max-height: 95vh;
+      }
+
+      .final-cta h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .filter-tabs {
+        flex-direction: column;
+      }
+
+      .filter-btn {
+        width: 100%;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-header {
+        padding: 1.5rem;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">SafeHome Vietnam</a>
+      <nav>
+        <a href="./index.html">Trang chủ</a>
+        <a href="./gioi-thieu.html">Giới thiệu</a>
+        <a href="./dich-vu.html">Dịch vụ</a>
+        <a href="./du-an.html" style="color: var(--accent);">Dự án</a>
+        <a href="./tin-tuc.html">Tin tức</a>
+        <a href="./lien-he.html">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tag">DỰ ÁN TIÊU BIỂU</div>
+      <h1>Những Công Trình Hyper Standard Đã Được Bảo Vệ</h1>
+      <p>Từ nhà ở dân dụng đến công trình thương mại và công nghiệp — mỗi dự án là một cam kết về tiêu chuẩn Hyper Integrated Protection.</p>
+      <div class="breadcrumb">
+        <a href="index.html" style="color: white; text-decoration: none;">Trang chủ</a> > <span>Dự án</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="container">
+    <div class="filter-section">
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">Tất cả</button>
+        <button class="filter-btn" data-filter="seal">HyperSeal – Chống thấm</button>
+        <button class="filter-btn" data-filter="pest">HyperPest – Kiểm dịch</button>
+        <button class="filter-btn" data-filter="integrated">Safe Home Integrated</button>
+      </div>
+    </div>
+
+    <!-- PROJECTS GRID -->
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Projects populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="container">
+    <div class="final-cta">
+      <h2>Bạn Muốn Công Trình Của Mình Đạt Hyper Standard?</h2>
+      <button class="btn" onclick="alert('Cảm ơn bạn! Vui lòng liên hệ với chúng tôi qua số điện thoại hoặc email.')">Liên hệ tư vấn ngay</button>
+    </div>
+  </div>
+
+  <!-- PROJECT DETAIL MODAL -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 id="modalTitle"></h2>
+          <p id="modalService" style="margin-top: 0.5rem; opacity: 0.9;"></p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h3>Thông Tin Tóm Tắt</h3>
+          <div class="detail-grid" id="detailGrid"></div>
+        </div>
+        <div class="modal-section">
+          <h3>Mô Tả Chi Tiết</h3>
+          <p id="modalDescription"></p>
+        </div>
+        <div class="modal-section">
+          <h3>Hình Ảnh Thực Tế</h3>
+          <div class="gallery">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23e0e0e0' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' fill='%23999' font-size='18'%3EHình ảnh 1%3C/text%3E%3C/svg%3E" alt="Hình ảnh 1">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23e0e0e0' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' fill='%23999' font-size='18'%3EHình ảnh 2%3C/text%3E%3C/svg%3E" alt="Hình ảnh 2">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23e0e0e0' width='300' height='200'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' fill='%23999' font-size='18'%3EHình ảnh 3%3C/text%3E%3C/svg%3E" alt="Hình ảnh 3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>SafeHome Vietnam</h3>
+        <p>Hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp (Hyper Integrated Protection).</p>
+      </div>
+      <div class="footer-section">
+        <h3>Dịch Vụ</h3>
+        <a href="dich-vu.html#hyperseal">HyperSeal – Chống Thấm</a>
+        <a href="dich-vu.html#hyperpest">HyperPest – Kiểm Dịch</a>
+        <a href="dich-vu.html#integrated">Safe Home Integrated</a>
+      </div>
+      <div class="footer-section">
+        <h3>Liên Hệ</h3>
+        <p>📞 1900 xxxx xxx</p>
+        <p>📧 contact@safehomevietnam.com</p>
+        <p>🌐 safehomevietnam.com</p>
+      </div>
+      <div class="footer-section">
+        <h3>Theo Dõi</h3>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 SafeHome Vietnam. Bảo vệ toàn diện chuẩn mực an sinh.</p>
+    </div>
+  </footer>
+
+  <!-- PROJECT DATA & SCRIPT -->
+  <script>
+    // Sample project data
+    const projectsData = [
+      {
+        id: 1,
+        title: "Căn Hộ Cao Cấp The Ascent",
+        service: "HyperSeal – Chống thấm",
+        serviceTag: "seal",
+        location: "Hà Nội",
+        scale: "45,000 m²",
+        package: "HYPER PRIME",
+        description: "Vấn đề: Tầng mái căn hộ cao cấp bị thấm nước mưa gây mục nước trong các không gian sống cao cấp. Giải pháp Hyper: Áp dụng công nghệ HyperSeal với lớp chống thấm tích hợp nano-polymer, kết hợp màng thoát nước thông minh. Kết quả: Bảo vệ hoàn toàn trong 10 năm, chi phí bảo trì giảm 80%.",
+        details: {
+          serviceType: "HyperSeal – Chống Thấm",
+          location: "Hà Nội",
+          scale: "45,000 m²",
+          duration: "Q2 2023",
+          package: "HYPER PRIME"
+        }
+      },
+      {
+        id: 2,
+        title: "Khách Sạn 5 Sao Mường Thanh",
+        service: "Safe Home Integrated",
+        serviceTag: "integrated",
+        location: "Đà Nẵng",
+        scale: "28,500 m²",
+        package: "HYPER SHIELD",
+        description: "Vấn đề: Khách sạn chịu áp lực cao từ độ ẩm biển và thấm nước, đồng thời cần kiểm soát côn trùng cho môi trường thân thiện với khách. Giải pháp Hyper: Tích hợp HyperSeal + HyperPest với hệ thống monitoring IoT. Kết quả: Chứng chỉ 5-sao về kiểm soát côn trùng, không khí sạch, hài lòng 99% khách.",
+        details: {
+          serviceType: "Safe Home Integrated",
+          location: "Đà Nẵng",
+          scale: "28,500 m²",
+          duration: "Q1 2023",
+          package: "HYPER SHIELD"
+        }
+      },
+      {
+        id: 3,
+        title: "Công Ty Thực Phẩm AAA Foods",
+        service: "HyperPest – Kiểm dịch",
+        serviceTag: "pest",
+        location: "TP. Hồ Chí Minh",
+        scale: "15,000 m²",
+        package: "HYPER GUARD",
+        description: "Vấn đề: Nhà máy thực phẩm bị phát hiện mối và côn trùng gây nguy hiểm cho sản phẩm và sức khỏe. Giải pháp Hyper: Kiểm soát tích hợp với hóa chất an toàn tiêu chuẩn khách sạn 5 sao, kết hợp phòng ngừa sinh học. Kết quả: Đạt chuẩn HACCP quốc tế, sản phẩm xuất khẩu được 12 nước.",
+        details: {
+          serviceType: "HyperPest – Kiểm Dịch",
+          location: "TP. Hồ Chí Minh",
+          scale: "15,000 m²",
+          duration: "Q3 2023",
+          package: "HYPER GUARD"
+        }
+      },
+      {
+        id: 4,
+        title: "Tòa Văn Phòng Bitexco Tower",
+        service: "HyperSeal – Chống thấm",
+        serviceTag: "seal",
+        location: "TP. Hồ Chí Minh",
+        scale: "65,000 m²",
+        package: "HYPER PRIME",
+        description: "Vấn đề: Tòa nhà cao tầng chịu áp lực từ mưa gió, nước ngầm với hệ thống ống thoát nước phức tạp. Giải pháp Hyper: HyperSeal toàn diện với màng chống thấm tự hóa học, hệ thống thoát nước thông minh IoT. Kết quả: Đảm bảo 99.8% không bị thấm, giám sát real-time trên 500+ điểm.",
+        details: {
+          serviceType: "HyperSeal – Chống Thấm",
+          location: "TP. Hồ Chí Minh",
+          scale: "65,000 m²",
+          duration: "Q2-Q4 2023",
+          package: "HYPER PRIME"
+        }
+      },
+      {
+        id: 5,
+        title: "Bệnh Viện Quốc Tế Vinmec",
+        service: "Safe Home Integrated",
+        serviceTag: "integrated",
+        location: "Hà Nội",
+        scale: "35,000 m²",
+        package: "HYPER SHIELD",
+        description: "Vấn đề: Bệnh viện cần đảm bảo môi trường sạch sterile, kiểm soát tuyệt đối côn trùng, đồng thời chống thấm các khu vực phòng mổ. Giải pháp Hyper: Tích hợp HyperSeal + HyperPest với tiêu chuẩn y tế quốc tế, monitoring 24/7. Kết quả: Chứng chỉ an toàn y tế, không phát hiện côn trùng trong 18 tháng.",
+        details: {
+          serviceType: "Safe Home Integrated",
+          location: "Hà Nội",
+          scale: "35,000 m²",
+          duration: "Q4 2023",
+          package: "HYPER SHIELD"
+        }
+      },
+      {
+        id: 6,
+        title: "Kho Xuất Khẩu Rau Quả GreenFresh",
+        service: "HyperPest – Kiểm dịch",
+        serviceTag: "pest",
+        location: "Bình Dương",
+        scale: "12,000 m²",
+        package: "HYPER SAFE",
+        description: "Vấn đề: Kho bảo quản rau quả xuất khẩu bị côn trùng xâm nhập, gây mất mùa và bị các nước chặn nhập khẩu. Giải pháp Hyper: Kiểm soát tích hợp với công nghệ phòng ngừa sinh học và hóa chất hữu cơ an toàn. Kết quả: Đạt chứng chỉ GlobalGAP, sản phẩm xuất khẩu tăng 200%.",
+        details: {
+          serviceType: "HyperPest – Kiểm Dịch",
+          location: "Bình Dương",
+          scale: "12,000 m²",
+          duration: "Q1 2024",
+          package: "HYPER SAFE"
+        }
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    // Render projects
+    function renderProjects(filter = 'all') {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+
+      const filtered = filter === 'all' 
+        ? projectsData 
+        : projectsData.filter(p => p.serviceTag === filter);
+
+      filtered.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <div class="project-image">
+            🏢
+          </div>
+          <div class="project-content">
+            <span class="project-service ${project.serviceTag === 'seal' ? 'service-seal' : project.serviceTag === 'pest' ? 'service-pest' : 'service-integrated'}">
+              ${project.serviceTag === 'seal' ? 'HyperSeal' : project.serviceTag === 'pest' ? 'HyperPest' : 'Integrated'}
+            </span>
+            <h3 class="project-title">${project.title}</h3>
+            <div class="project-meta">
+              <span>📍 ${project.location}</span>
+              <span>📐 ${project.scale}</span>
+            </div>
+            <p class="project-desc">${project.description.substring(0, 80)}...</p>
+            <span class="project-package">${project.package}</span>
+          </div>
+        `;
+        
+        card.addEventListener('click', () => openModal(project));
+        grid.appendChild(card);
+      });
+    }
+
+    // Filter handler
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        renderProjects(currentFilter);
+      });
+    });
+
+    // Modal handlers
+    function openModal(project) {
+      const modal = document.getElementById('projectModal');
+      document.getElementById('modalTitle').textContent = project.title;
+      document.getElementById('modalService').textContent = project.service;
+      document.getElementById('modalDescription').textContent = project.description;
+
+      const detailGrid = document.getElementById('detailGrid');
+      detailGrid.innerHTML = `
+        <div class="detail-item">
+          <div class="detail-label">Loại Dịch Vụ</div>
+          <div class="detail-value">${project.details.serviceType}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Địa Điểm</div>
+          <div class="detail-value">${project.details.location}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Quy Mô</div>
+          <div class="detail-value">${project.details.scale}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Thời Gian</div>
+          <div class="detail-value">${project.details.duration}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Gói Sử Dụng</div>
+          <div class="detail-value">${project.details.package}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Tình Trạng</div>
+          <div class="detail-value">✓ Hoàn Thành</div>
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('active');
+    }
+
+    // Close modal on outside click
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById('projectModal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Initial render
+    renderProjects();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dịch Vụ - SafeHome Vietnam | Hyper Integrated Protection</title>
+  <meta name="description" content="Hệ sinh thái dịch vụ bảo vệ tích hợp: HyperSeal, HyperPest, Safe Home Integrated - Bảo vệ 360° cho công trình và không gian sống.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #003399;
+      --primary-dark: #001a4d;
+      --accent: #FF9500;
+      --accent-light: #FFB84D;
+      --neutral-light: #F8F9FA;
+      --neutral: #666;
+      --text: #1a1a1a;
+      --border: #E0E0E0;
+      --success: #2ecc71;
+      --danger: #e74c3c;
+      --warning: #f39c12;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: white;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* HERO SECTION */
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .page-hero .eyebrow {
+      font-size: 0.85rem;
+      color: var(--accent-light);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .page-hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 1.5rem auto;
+      opacity: 0.95;
+    }
+
+    .breadcrumb {
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      opacity: 0.8;
+    }
+
+    .breadcrumb a {
+      color: var(--accent-light);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--neutral);
+      max-width: 700px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    /* INTRO SECTION */
+    .intro-section {
+      background: var(--neutral-light);
+      border-radius: 12px;
+      padding: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .intro-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .intro-section p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    /* SERVICE CARDS */
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .service-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(255, 149, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .service-card .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .service-card .badge:hover {
+      background: var(--accent);
+    }
+
+    .service-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .service-card .subtitle {
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .service-card .tagline {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card p {
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .highlight-box {
+      background: #f0f4ff;
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+
+    .highlight-box strong {
+      color: var(--primary);
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      font-size: 0.95rem;
+    }
+
+    .checklist-item::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* PACKAGES */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .package {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .package.popular {
+      border-color: var(--accent);
+      background: #fffef5;
+    }
+
+    .package:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 51, 153, 0.15);
+    }
+
+    .package .icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .package h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .package .price {
+      font-size: 1.3rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 1rem 0;
+    }
+
+    .package ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--neutral);
+      margin: 1rem 0;
+      text-align: left;
+    }
+
+    .package li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .package li:last-child {
+      border-bottom: none;
+    }
+
+    /* COMBO SECTION */
+    .combo-banner {
+      background: linear-gradient(135deg, #FF9500 0%, #FFB84D 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .combo-banner .section-tag {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .combo-banner h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .combo-banner .tagline {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
+    }
+
+    .combo-benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 2rem auto;
+      text-align: left;
+    }
+
+    .combo-benefit {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .combo-benefit::before {
+      content: "✓";
+      font-weight: bold;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .combo-banner .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* COMING SOON SECTION */
+    .coming-soon {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .coming-soon .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .coming-soon h3 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .coming-soon p {
+      color: var(--neutral);
+      margin-bottom: 2rem;
+    }
+
+    .coming-card {
+      background: white;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .coming-card .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .coming-card h4 {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .email-form input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .email-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* WHY HYPER SECTION */
+    .hyper-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .hyper-pillar {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .hyper-pillar:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(255, 149, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .hyper-pillar .letter {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hyper-pillar h4 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hyper-pillar p {
+      font-size: 0.9rem;
+      color: var(--neutral);
+      line-height: 1.6;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 51, 153, 0.3);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 1.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-col h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col a,
+    .footer-col p {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 1.5rem;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .page-hero h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .service-grid,
+      .packages-grid,
+      .hyper-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hyper-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .page-hero {
+        padding: 2.5rem 1rem;
+      }
+
+      .page-hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .page-hero p {
+        font-size: 0.95rem;
+      }
+
+      .section {
+        padding: 2.5rem 0;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .service-grid,
+      .packages-grid,
+      .hyper-grid,
+      .combo-benefits,
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-section {
+        padding: 2rem;
+      }
+
+      .service-card {
+        padding: 2rem;
+      }
+
+      .combo-banner {
+        padding: 2rem 1.5rem;
+      }
+
+      .combo-banner h2 {
+        font-size: 1.5rem;
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hyper-pillar .letter {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .page-hero h1 {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+      }
+
+      .service-card,
+      .intro-section,
+      .combo-banner {
+        padding: 1.5rem;
+      }
+
+      .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .package {
+        padding: 1rem;
+      }
+
+      .package h4 {
+        font-size: 0.95rem;
+      }
+
+      .package .price {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">SafeHome Vietnam</a>
+      <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="gioi-thieu.html">Giới thiệu</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero" style="background: linear-gradient(135deg, #003399 0%, #001a4d 100%);">
+      <div class="container">
+        <div class="eyebrow">DỊCH VỤ CỦA CHÚNG TÔI</div>
+        <h1>Hệ Sinh Thái Bảo Vệ Tích Hợp — Hyper Integrated Protection</h1>
+        <p>Một lá chắn vật lý. Một màng lọc sinh học. Hoạt động tích hợp để bảo vệ toàn diện không có điểm mù.</p>
+        <div class="breadcrumb">
+          <a href="index.html">Trang chủ</a> > Dịch vụ
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO SECTION -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="intro-section">
+        <h3>Safe Home Vietnam – Hyper Integrated Protection</h3>
+        <p>Safe Home là hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp dành cho công trình và không gian sống cao cấp. Chúng tôi thiết lập tiêu chuẩn "Hyper" dựa trên sự giao thoa giữa Công nghệ và An sinh.</p>
+        <p>Hệ sinh thái lõi của chúng tôi gồm hai giải pháp hoạt động song song và bổ sung cho nhau: <strong>HyperSeal</strong> bảo vệ kết cấu từ bên ngoài, <strong>HyperPest</strong> bảo vệ không gian sống từ bên trong — cùng tạo nên lớp bảo vệ 360° hoàn toàn không có điểm mù.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HYPERSEAL SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="service-grid">
+        <div class="service-card">
+          <span class="badge" onclick="window.open('https://chongthamsronoi.vn', '_blank')">ChongThamTronDoi.vn</span>
+          <h3>HyperSeal</h3>
+          <div class="subtitle">Chống Thấm Kết Cấu Cao Cấp</div>
+          <div class="tagline">Lá chắn Vượt trội – Bền vững Trọn đời</div>
+          
+          <p>HyperSeal là lá chắn vật lý công nghệ cao — giải pháp chống thấm kết cấu chuyên sâu, bền vững trọn đời. Sử dụng vật liệu Sika (Thụy Sĩ) nhập khẩu chính ngạch, thi công bởi chuyên gia được đào tạo theo Hyper Standard, bảo hành 15 năm quản lý bằng QR Code điện tử minh bạch.</p>
+
+          <div class="highlight-box">
+            <strong>Điểm khác biệt:</strong> Không chỉ "chống thấm tạm thời" — HyperSeal xử lý tận gốc nguyên nhân kết cấu, đảm bảo hiệu quả bền vững trong toàn bộ 15 năm bảo hành. Thiết bị tầm nhiệt và radar phát hiện điểm thấm ngầm chính xác trước khi thi công.
+          </div>
+
+          <strong>Danh mục hạng mục:</strong>
+          <div class="checklist">
+            <div class="checklist-item">Sân thượng · Mái nhà · Ban công · Sê-nô</div>
+            <div class="checklist-item">Tầng hầm · Kết cấu bê tông</div>
+            <div class="checklist-item">Nhà vệ sinh · Tường giáp lai · Khu vực ẩm</div>
+            <div class="checklist-item">Chống thấm công trình dân dụng và thương mại</div>
+          </div>
+
+          <div class="cta-group">
+            <button class="btn btn-primary">Xem chi tiết & đặt lịch khảo sát</button>
+            <a href="https://chongthamsronoi.vn" target="_blank" class="btn btn-outline">Truy cập ChongThamTronDoi.vn →</a>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div>
+            <strong style="color: var(--primary); font-size: 1.05rem;">4 Gói HYPER — HyperSeal</strong>
+          </div>
+
+          <div class="packages-grid" style="grid-template-columns: 1fr;">
+            <div class="package">
+              <div class="icon">🟢</div>
+              <h4>HYPER SAFE</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Chống thấm cơ bản</p>
+              <div class="price">150k - 280k VNĐ/m²</div>
+              <ul>
+                <li>Màng 1 lớp hoặc Sika Transparente</li>
+                <li>Bảo hành 3–5 năm</li>
+                <li>Xử lý dột nhẹ, nhà ở nhỏ</li>
+              </ul>
+            </div>
+
+            <div class="package popular">
+              <div class="icon">⭐</div>
+              <h4>HYPER GUARD</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Chống thấm tiêu chuẩn [PHỔ BIẾN]</p>
+              <div class="price">220k - 350k VNĐ/m²</div>
+              <ul>
+                <li>Hệ 2 lớp Sika + lớp bảo vệ</li>
+                <li>Bảo hành 10 năm · Kiểm định 2 năm/lần</li>
+                <li>Nhà ở, chung cư, văn phòng</li>
+              </ul>
+            </div>
+
+            <div class="package">
+              <div class="icon">🔴</div>
+              <h4>HYPER SHIELD</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Hệ chống thấm cao cấp</p>
+              <div class="price">320k - 600k VNĐ/m²</div>
+              <ul>
+                <li>Sika Membrane + Sikalastic + UV</li>
+                <li>Bảo hành 15 năm · Hotline 24/7</li>
+                <li>Biệt thự, tòa nhà thương mại</li>
+              </ul>
+            </div>
+
+            <div class="package">
+              <div class="icon">💎</div>
+              <h4>HYPER PRIME</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Dự án tổng thể</p>
+              <div class="price">Liên hệ BGĐ</div>
+              <ul>
+                <li>Sika/Tremco theo yêu cầu</li>
+                <li>Bảo hành trọn đời · Account Manager</li>
+                <li>KCN, khách sạn, bệnh viện</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HYPERPEST SECTION -->
+  <section class="section" style="background: var(--neutral-light);">
+    <div class="container">
+      <div class="service-grid">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; order: 2;">
+          <div>
+            <strong style="color: var(--primary); font-size: 1.05rem;">4 Gói HYPER — HyperPest</strong>
+          </div>
+
+          <div class="packages-grid" style="grid-template-columns: 1fr;">
+            <div class="package">
+              <div class="icon">🟢</div>
+              <h4>HYPER SAFE</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Kiểm soát cơ bản</p>
+              <div class="price">990k VNĐ/lần</div>
+              <ul>
+                <li>Sinh học đạt chuẩn WHO</li>
+                <li>Bảo hành 6 tháng</li>
+                <li>Nhà dưới 80m², một lần</li>
+              </ul>
+            </div>
+
+            <div class="package popular">
+              <div class="icon">⭐</div>
+              <h4>HYPER GUARD</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Kiểm soát chủ lực [PHỔ BIẾN]</p>
+              <div class="price">2.49M VNĐ/gói</div>
+              <ul>
+                <li>Bayer (Đức) chính ngạch 2 lần</li>
+                <li>Bảo hành 12 tháng</li>
+                <li>Nhà 80–200m², văn phòng, F&B</li>
+              </ul>
+            </div>
+
+            <div class="package">
+              <div class="icon">🔴</div>
+              <h4>HYPER SHIELD</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Kiểm soát toàn diện</p>
+              <div class="price">5.5M VNĐ/6 tháng</div>
+              <ul>
+                <li>Bayer chuyên dụng định lượng</li>
+                <li>Bảo hành 18 tháng · Hotline 24/7</li>
+                <li>Trường học, F&B lớn, kho xưởng</li>
+              </ul>
+            </div>
+
+            <div class="package">
+              <div class="icon">💎</div>
+              <h4>HYPER PRIME</h4>
+              <p style="color: var(--neutral); font-size: 0.85rem; margin: 0.5rem 0;">Hợp đồng năm không giới hạn</p>
+              <div class="price">Liên hệ BGĐ</div>
+              <ul>
+                <li>Bayer + định kỳ theo hợp đồng</li>
+                <li>Bảo hành trọn năm · Account Manager</li>
+                <li>KCN, nhà máy, khách sạn, bệnh viện</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-card" style="order: 1;">
+          <span class="badge" onclick="window.open('https://kiemdich24h.vn', '_blank')">KiemDich24h.vn</span>
+          <h3>HyperPest</h3>
+          <div class="subtitle">Kiểm Soát Côn Trùng Sinh Học</div>
+          <div class="tagline">Kiểm soát Vượt trội – An toàn Sinh học</div>
+          
+          <p>HyperPest là màng lọc sinh học vượt trội — giải pháp kiểm soát côn trùng và triệt tiêu mầm bệnh an toàn tuyệt đối cho không gian sống và làm việc. Giải quyết hoàn toàn nỗi lo về hóa chất độc hại: HyperPest chỉ sử dụng hoạt chất sinh học nhập khẩu đạt tiêu chuẩn khách sạn 5 sao — an toàn cho trẻ em, người cao tuổi và thú cưng.</p>
+
+          <div class="highlight-box">
+            <strong>Điểm khác biệt:</strong> Công nghệ phát hiện bằng thiết bị tầm nhiệt xác định chính xác vị trí tổ mối và đường di chuyển côn trùng ẩn sâu trong kết cấu — thi công đúng điểm, hiệu quả tối đa, không xử lý tràn lan.
+          </div>
+
+          <strong>Danh mục dịch vụ:</strong>
+          <div class="checklist">
+            <div class="checklist-item">Diệt mối (mối đất · mối cánh · mối nền)</div>
+            <div class="checklist-item">Phun muỗi & khử khuẩn không gian</div>
+            <div class="checklist-item">Diệt gián · kiến · chuột</div>
+            <div class="checklist-item">Xử lý côn trùng gây hại khác</div>
+            <div class="checklist-item">Kiểm soát định kỳ theo hợp đồng</div>
+          </div>
+
+          <div class="cta-group">
+            <button class="btn btn-primary">Xem chi tiết & đặt lịch khảo sát</button>
+            <a href="https://kiemdich24h.vn" target="_blank" class="btn btn-outline">Truy cập KiemDich24h.vn →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMBO SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="combo-banner">
+        <div class="section-tag">GIẢI PHÁP TÍCH HỢP</div>
+        <h2>Gói Safe Home Integrated</h2>
+        <div class="tagline">Kiểm tra tổng thể và bảo trì an sinh định kỳ — một gói, hai lớp bảo vệ.</div>
+        
+        <p style="font-size: 1rem; margin: 1.5rem 0; opacity: 0.95;">Khi HyperSeal và HyperPest hoạt động cùng nhau, hiệu quả bảo vệ không phải 1+1=2 — mà là bảo vệ 360° không có điểm mù. Gói Safe Home Integrated kết hợp cả hai dịch vụ trong một hợp đồng duy nhất với ưu đãi đặc biệt và chỉ một Account Manager phụ trách.</p>
+
+        <div class="combo-benefits">
+          <div class="combo-benefit">Ưu đãi đến 40% so với mua riêng lẻ</div>
+          <div class="combo-benefit">1 Account Manager phụ trách toàn hợp đồng</div>
+          <div class="combo-benefit">Lịch bảo trì HyperSeal + HyperPest đồng bộ</div>
+          <div class="combo-benefit">Báo cáo tổng hợp định kỳ — tra cứu QR Code</div>
+          <div class="combo-benefit">Ưu tiên điều phối khẩn cấp trong 2 giờ</div>
+        </div>
+
+        <div class="cta-group">
+          <a href="#contact" class="btn btn-primary" style="background: white; color: var(--accent);">Nhận báo giá combo ngay</a>
+          <a href="tel:0123456789" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white;">Gọi tư vấn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON SECTION -->
+  <section class="section" style="background: var(--neutral-light);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="section-tag">ĐANG PHÁT TRIỂN</div>
+        <h2 class="section-title">Hệ Sinh Thái Không Ngừng Mở Rộng</h2>
+        <p class="section-desc">SafeHome Vietnam đang nghiên cứu mở rộng hệ sinh thái bảo vệ với các dịch vụ chuyên sâu mới, tiếp tục sứ mệnh thiết lập chuẩn mực An sinh cho công trình và không gian sống Việt Nam.</p>
+      </div>
+
+      <div class="coming-card">
+        <span class="badge">Sắp ra mắt</span>
+        <h4>Vệ Sinh Công Nghiệp</h4>
+        <p>Dịch vụ vệ sinh chuyên sâu theo chuẩn Hyper — dành cho khu công nghiệp, nhà máy, văn phòng và công trình xây dựng.</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <p style="color: var(--neutral); margin-bottom: 1rem;">Đăng ký nhận thông báo khi có dịch vụ mới</p>
+        <div class="email-form">
+          <input type="email" placeholder="Nhập email của bạn" required>
+          <button class="btn btn-primary">Đăng ký</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY HYPER SECTION -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="section-tag">TIÊU CHUẨN CHẤT LƯỢNG</div>
+        <h2 class="section-title">Tại Sao Gọi Là Hyper Standard?</h2>
+      </div>
+
+      <div class="hyper-grid">
+        <div class="hyper-pillar">
+          <div class="letter">H</div>
+          <h4>Hóa chất & Vật liệu</h4>
+          <p>Bayer (Đức) cho HyperPest, Sika (Thụy Sĩ) cho HyperSeal — nhập khẩu chính ngạch, MSDS đầy đủ. Không hóa chất không rõ nguồn gốc.</p>
+        </div>
+
+        <div class="hyper-pillar">
+          <div class="letter">Y</div>
+          <h4>Year-Long Warranty</h4>
+          <p>Bảo hành có hợp đồng pháp lý + QR Code quản lý điện tử. Khách hàng tra cứu ngay, không cần thương lượng khi có vấn đề.</p>
+        </div>
+
+        <div class="hyper-pillar">
+          <div class="letter">P</div>
+          <h4>Professional & Precision</h4>
+          <p>Thiết bị radar và tầm nhiệt phát hiện điểm thấm ngầm và tổ côn trùng ẩn sâu. Thi công đúng điểm — không lãng phí.</p>
+        </div>
+
+        <div class="hyper-pillar">
+          <div class="letter">E</div>
+          <h4>Express Response</h4>
+          <p>30 phút phản hồi · 2 giờ điều phối khẩn cấp · Hotline 24/7 không gián đoạn cho mọi yêu cầu của bạn.</p>
+        </div>
+
+        <div class="hyper-pillar">
+          <div class="letter">R</div>
+          <h4>Reliable Reporting</h4>
+          <p>Mỗi công trình có hồ sơ số hóa đầy đủ: vật liệu, quy trình, kết quả kiểm tra — tra cứu QR Code bất kỳ lúc nào.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section" style="background: var(--primary); color: white; text-align: center;">
+    <div class="container">
+      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Bắt Đầu Bảo Vệ Toàn Diện Hôm Nay</h2>
+      <p style="font-size: 1.05rem; margin-bottom: 2rem; opacity: 0.95;">Liên hệ chúng tôi để được tư vấn và định giá chi tiết theo nhu cầu cụ thể của bạn.</p>
+      <div class="cta-group" style="justify-content: center;">
+        <a href="tel:0123456789" class="btn btn-accent">Gọi tư vấn ngay</a>
+        <button class="btn" style="background: white; color: var(--primary);" onclick="scrollToForm()">Để lại thông tin</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>SafeHome Vietnam</h4>
+        <p>Hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp dành cho công trình và không gian sống cao cấp.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Kết Nhanh</h4>
+        <a href="index.html">Trang chủ</a>
+        <a href="gioi-thieu.html">Giới thiệu</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dịch Vụ Chính</h4>
+        <a href="https://chongthamsronoi.vn" target="_blank">HyperSeal</a>
+        <a href="https://kiemdich24h.vn" target="_blank">HyperPest</a>
+        <a href="#combo">Safe Home Integrated</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Hệ</h4>
+        <p>Hotline: <strong>0123 456 789</strong></p>
+        <p>Email: <strong>info@safehomevietnam.com</strong></p>
+        <p>Địa chỉ: TP. HCM, Việt Nam</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 SafeHome Vietnam. Tất cả quyền được bảo lưu. | <a href="#" style="color: var(--accent-light);">Chính sách bảo mật</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Header shadow on scroll
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          const header = document.querySelector('header');
+          if (window.scrollY > 50) {
+            header.style.boxShadow = '0 4px 16px rgba(0, 51, 153, 0.2)';
+          } else {
+            header.style.boxShadow = '0 2px 8px rgba(0, 51, 153, 0.1)';
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Button interactions
+    document.querySelectorAll('button.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (this.textContent.includes('Đăng ký')) {
+          const email = this.previousElementSibling.value;
+          if (email && email.includes('@')) {
+            alert('Cảm ơn bạn đã đăng ký! Chúng tôi sẽ gửi thông báo đến: ' + email);
+            this.previousElementSibling.value = '';
+          } else {
+            alert('Vui lòng nhập email hợp lệ');
+          }
+        }
+        this.style.opacity = '0.8';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 200);
+      });
+    });
+
+    function scrollToForm() {
+      document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Page load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[SafeHome Vietnam - Dịch Vụ] Website loaded successfully');
+    });
+  </script>
+</body>
+</html>
