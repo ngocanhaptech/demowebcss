@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeHome Vietnam - Bảo Vệ Toàn Diện Chuẩn Mực An Sinh</title>
+  <meta name="description" content="SafeHome Vietnam - Hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp dành cho công trình và không gian sống cao cấp.">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #003399;
+      --accent: #FF6600;
+      --accent-light: #FFF3E0;
+      --text-dark: #1a1a1a;
+      --text-light: #666;
+      --white: #ffffff;
+      --gray-light: #f5f5f5;
+      --gray-medium: #e0e0e0;
+      --success: #4caf50;
+      --base-spacing: 1rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background: var(--white);
+    }
+
+    /* HEADER & NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 51, 153, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-shield {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin: 0 1.5rem;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #002266 100%);
+      color: var(--white);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #e55a00;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: var(--white);
+      color: var(--primary);
+    }
+
+    /* SECTION STYLES */
+    section {
+      padding: 4rem 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-description {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      max-width: 700px;
+    }
+
+    /* ABOUT SECTION */
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 1rem;
+    }
+
+    .about-content h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .about-content p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .mini-card {
+      background: var(--gray-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .mini-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .mini-card h4 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .mini-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* GALLERY SECTION */
+    .gallery {
+      background: var(--gray-light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      position: relative;
+    }
+
+    .gallery-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .gallery-content {
+      padding: 1.5rem;
+    }
+
+    .gallery-caption {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* SERVICES SECTION */
+    .services {
+      background: var(--white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 2px solid var(--gray-medium);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(255, 102, 0, 0.1);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .service-domain {
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .service-tagline {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+
+    .service-description {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .service-highlights {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-highlights li {
+      padding: 0.5rem 0;
+      color: var(--text-light);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .service-highlights li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .service-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .combo-card {
+      grid-column: 1 / -1;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+    }
+
+    /* WHY CHOOSE SECTION */
+    .why-choose {
+      background: linear-gradient(135deg, var(--primary) 0%, #002266 100%);
+      color: var(--white);
+    }
+
+    .why-choose .section-tag {
+      color: var(--accent);
+    }
+
+    .why-choose .section-title,
+    .why-choose .section-description {
+      color: var(--white);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .why-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2rem;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .why-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent);
+    }
+
+    .why-card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .why-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .why-card-sub {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .why-card p {
+      color: #e0e0e0;
+      line-height: 1.7;
+    }
+
+    /* ECOSYSTEM SECTION */
+    .ecosystem {
+      background: var(--white);
+    }
+
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .eco-card {
+      background: var(--gray-light);
+      padding: 2rem;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .eco-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .eco-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .eco-subbrand {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .eco-domain {
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .eco-bullets {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .eco-bullets li {
+      padding: 0.4rem 0;
+      color: var(--text-light);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .eco-bullets li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .eco-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #002266 100%);
+      color: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .eco-banner p {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    /* PROJECTS SECTION */
+    .projects {
+      background: var(--gray-light);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-content h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-location {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-description {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials {
+      background: var(--white);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial-card {
+      background: var(--gray-light);
+      padding: 2rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .testimonial-stars {
+      color: #ffc107;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .testimonial-text {
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .testimonial-info h4 {
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-info p {
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    /* FINAL CTA SECTION */
+    .final-cta {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff8533 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .final-cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .final-cta p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #fff3e0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h3 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col a {
+      color: #b3d9ff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-slogan {
+      color: #b3d9ff;
+      font-size: 0.9rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      text-align: center;
+      color: #b3d9ff;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .services-grid,
+      .ecosystem-grid,
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .about-grid,
+      .gallery-grid,
+      .services-grid,
+      .why-grid,
+      .ecosystem-grid,
+      .projects-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid .combo-card {
+        grid-column: 1;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      nav a {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+      }
+
+      .section-tag {
+        font-size: 0.75rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      nav a {
+        margin: 0 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-shield">S</div>
+        <span>SafeHome Vietnam</span>
+      </div>
+      <nav>
+        <a href="#about">Về chúng tôi</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#projects">Dự án</a>
+        <a href="#testimonials">Khách hàng</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SESSION 1: HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Hyper Integrated Protection</div>
+      <h1>Bảo Vệ Toàn Diện <br><span class="accent">Chuẩn Mực An Sinh</span></h1>
+      <p class="hero-subtitle">SafeHome Vietnam — Hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp dành cho công trình và không gian sống cao cấp</p>
+      <p class="hero-description">Chúng tôi thiết lập tiêu chuẩn "Hyper" dựa trên sự giao thoa giữa Công nghệ và An sinh — mang đến sự bảo vệ toàn diện mà không một giải pháp đơn lẻ nào có thể thay thế.</p>
+      <div class="cta-group">
+        <button class="btn btn-primary">Nhận tư vấn miễn phí</button>
+        <button class="btn btn-secondary">Khám phá hệ sinh thái</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 2: ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-tag">Về Chúng Tôi</div>
+      
+      <div class="about-grid">
+        <div class="about-image">[Ảnh đội ngũ / Founder]</div>
+        
+        <div class="about-content">
+          <h2 class="section-title">Hơn 10 Năm Thiết Lập Chuẩn Mực An Sinh</h2>
+          
+          <p>SafeHome Vietnam là hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp (Hyper Integrated Protection) dành cho công trình và không gian sống cao cấp tại Việt Nam. Được thành lập năm 2015, chúng tôi thiết lập tiêu chuẩn "Hyper" dựa trên sự giao thoa giữa Công nghệ và An sinh.</p>
+
+          <p>Không đơn thuần là một nhà cung cấp dịch vụ — SafeHome là chiếc "ô bảo vệ" toàn diện, nơi mỗi giải pháp được thiết kế để bảo vệ cả kết cấu công trình lẫn sức khỏe của người sử dụng. Hệ sinh thái lõi gồm HyperSeal (lá chắn vật lý) và HyperPest (màng lọc sinh học) hoạt động tích hợp, bổ sung cho nhau.</p>
+
+          <p>Với đội ngũ chuyên gia giàu kinh nghiệm, thiết bị radar và tầm nhiệt hiện đại, cùng hệ thống quản lý bảo hành điện tử QR Code minh bạch — SafeHome tự hào là đối tác bảo vệ dài hạn của hơn 1.000 công trình trên toàn quốc.</p>
+
+          <div class="mini-cards">
+            <div class="mini-card">
+              <div class="mini-card-icon">👁️</div>
+              <h4>Tầm Nhìn</h4>
+              <p>Trở thành hệ thống Bảo vệ Tích hợp tiêu chuẩn cao nhất Việt Nam — nơi Công nghệ và An sinh giao thoa.</p>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-icon">❤️</div>
+              <h4>Sứ Mệnh</h4>
+              <p>Thiết lập chuẩn mực "Hyper" bảo vệ công trình và không gian sống — an toàn tuyệt đối cho mọi thế hệ.</p>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat-item">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Năm kinh nghiệm</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Chuyên gia kỹ thuật</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">1.000+</div>
+              <div class="stat-label">Công trình được bảo vệ</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">Hỗ trợ liên tục</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 3: GALLERY -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-tag">Hình Ảnh Hoạt Động</div>
+      <h2 class="section-title">Những Khoảnh Khắc Đáng Tin Cậy Từ Việc Thực Địa</h2>
+      <p class="section-description">Hình ảnh thực tế từ các công trình HyperSeal và HyperPest đã triển khai trên toàn quốc.</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <span class="gallery-badge">HyperPest</span>
+            [Ảnh 1]
+          </div>
+          <div class="gallery-content">
+            <p class="gallery-caption">Kỹ thuật viên sử dụng thiết bị tầm nhiệt khảo sát tổ mối</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <span class="gallery-badge">HyperSeal</span>
+            [Ảnh 2]
+          </div>
+          <div class="gallery-content">
+            <p class="gallery-caption">Thi công hệ chống thấm kết cấu tầng hầm công trình cao tầng</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <div class="gallery-image">
+            <span class="gallery-badge">Hyper Tech</span>
+            [Ảnh 3]
+          </div>
+          <div class="gallery-content">
+            <p class="gallery-caption">Hệ thống quản lý bảo hành điện tử QR Code — minh bạch mọi công trình</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 4: SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-tag">Dịch Vụ Của Chúng Tôi</div>
+      <h2 class="section-title">Hệ Sinh Thái Lõi — Hai Lớp Bảo Vệ Toàn Diện</h2>
+      <p class="section-description">Một lá chắn vật lý. Một màng lọc sinh học. Hai giải pháp phối hợp hoàn hảo — đó là chuẩn mực SafeHome.</p>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>HyperSeal</h3>
+          <div class="service-domain">Chống Thấm Kết Cấu Cao Cấp</div>
+          <div class="service-domain">ChongThamTronDoi.vn</div>
+          <p class="service-tagline">Lá chắn Vượt trội – Bền vững Trọn đời</p>
+          <p class="service-description">Giải pháp chống thấm công nghệ cao cho mọi kết cấu công trình. Vật liệu Sika (Thụy Sĩ) nhập khẩu. Bảo hành 15 năm có hợp đồng pháp lý, quản lý bằng QR Code minh bạch.</p>
+          <ul class="service-highlights">
+            <li>Lá chắn vật lý công nghệ cao</li>
+            <li>Vật liệu Sika Thụy Sĩ nhập khẩu</li>
+            <li>Bảo hành 15 năm — QR Code</li>
+          </ul>
+          <button class="btn btn-primary">Khám phá HyperSeal →</button>
+        </div>
+
+        <div class="service-card">
+          <h3>HyperPest</h3>
+          <div class="service-domain">Kiểm Soát Côn Trùng Sinh Học</div>
+          <div class="service-domain">KiemDich24h.vn</div>
+          <p class="service-tagline">Kiểm soát Vượt trội – An toàn Sinh học</p>
+          <p class="service-description">Giải pháp kiểm soát côn trùng và bảo vệ không gian sống theo tiêu chuẩn khách sạn 5 sao. Hóa chất sinh học an toàn cho sức khỏe — triệt tiêu mầm bệnh, không độc hại.</p>
+          <ul class="service-highlights">
+            <li>Màng lọc sinh học vượt trội</li>
+            <li>Chuẩn khách sạn 5 sao</li>
+            <li>An toàn tuyệt đối cho sức khỏe</li>
+          </ul>
+          <button class="btn btn-primary">Khám phá HyperPest →</button>
+        </div>
+
+        <div class="service-card combo-card">
+          <h3>Safe Home Integrated</h3>
+          <p class="service-description">Kiểm tra tổng thể và bảo trì an sinh định kỳ — kết hợp HyperSeal + HyperPest trong một gói bảo vệ toàn diện duy nhất.</p>
+          <p style="margin: 1rem 0; font-weight: 600; color: var(--primary);">1 đầu mối · Tiết kiệm đến 40% · Lịch bảo trì đồng bộ · Account Manager riêng</p>
+          <button class="btn btn-primary">Tìm hiểu gói tích hợp →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 5: WHY CHOOSE -->
+  <section class="why-choose">
+    <div class="container">
+      <div class="section-tag">Tại Sao Chọn SafeHome?</div>
+      <h2 class="section-title">Cam Kết Mang Đến Dịch Vụ Bảo Vệ Tốt Nhất</h2>
+      <p class="section-description">Ba trụ cột tạo nên tiêu chuẩn "Hyper" — khác biệt không thể sao chép</p>
+      
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-card-icon">✓</div>
+          <h3>Quy Chuẩn Kỹ Thuật Khắt Khe</h3>
+          <div class="why-card-sub">Hyper Standard</div>
+          <p>Mọi quy trình đều được chuẩn hóa theo Hyper Standard — từ khảo sát, thi công đến nghiệm thu. Không có ngoại lệ, không có rút gọn quy trình.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-icon">📡</div>
+          <h3>Đội Ngũ & Công Nghệ Vượt Trội</h3>
+          <div class="why-card-sub">Radar & Tầm nhiệt</div>
+          <p>Chuyên gia giàu kinh nghiệm kết hợp thiết bị radar và tầm nhiệt hiện đại — phát hiện chính xác vị trí thấm ngầm và tổ côn trùng ẩn sâu.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-icon">🔐</div>
+          <h3>Bảo Hành Điện Tử QR Code</h3>
+          <div class="why-card-sub">Minh bạch toàn diện</div>
+          <p>Hệ thống quản lý bảo hành điện tử bằng QR Code — khách hàng tra cứu ngay lập tức toàn bộ hồ sơ công trình và lịch bảo trì.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 6: ECOSYSTEM -->
+  <section class="ecosystem">
+    <div class="container">
+      <div class="section-tag">Hệ Sinh Thái Giải Pháp</div>
+      <h2 class="section-title">Hyper Integrated Protection — Bảo Vệ Không Có Điểm Mù</h2>
+      <p class="section-description">Không chỉ là dịch vụ đơn lẻ — đây là hệ sinh thái bảo vệ tích hợp, nơi mỗi giải pháp được thiết kế để bổ sung và tăng cường cho giải pháp còn lại.</p>
+      
+      <div class="ecosystem-grid">
+        <div class="eco-card">
+          <span class="eco-badge">Lá chắn vật lý</span>
+          <h3>HyperSeal</h3>
+          <div class="eco-subbrand">Chống thấm toàn diện</div>
+          <div class="eco-domain">ChongThamTronDoi.vn</div>
+          <p style="margin-bottom: 1rem; color: var(--text-light); line-height: 1.7;">Lá chắn vật lý công nghệ cao — chuyên sâu chống thấm kết cấu bền vững trọn đời. Vật liệu Sika Thụy Sĩ, bảo hành 15 năm.</p>
+          <ul class="eco-bullets">
+            <li>Chống thấm tuyệt đối 100%</li>
+            <li>Vật liệu nhập khẩu cao cấp</li>
+            <li>Bảo hành 15 năm</li>
+          </ul>
+          <a href="https://ChongThamTronDoi.vn" target="_blank" class="btn btn-primary" style="display: block; text-align: center;">Khám phá HyperSeal →</a>
+        </div>
+
+        <div class="eco-card">
+          <span class="eco-badge">Màng lọc sinh học</span>
+          <h3>HyperPest</h3>
+          <div class="eco-subbrand">Kiểm soát côn trùng & bảo vệ không gian sống</div>
+          <div class="eco-domain">KiemDich24h.vn</div>
+          <p style="margin-bottom: 1rem; color: var(--text-light); line-height: 1.7;">Màng lọc sinh học vượt trội — kiểm soát côn trùng và triệt tiêu mầm bệnh an toàn tuyệt đối. Không hóa chất độc hại, chuẩn khách sạn 5 sao.</p>
+          <ul class="eco-bullets">
+            <li>Diệt mối tận gốc</li>
+            <li>An toàn, thân thiện môi trường</li>
+            <li>Cam kết hiệu quả lâu dài</li>
+          </ul>
+          <a href="https://KiemDich24h.vn" target="_blank" class="btn btn-primary" style="display: block; text-align: center;">Khám phá HyperPest →</a>
+        </div>
+
+        <div class="eco-card">
+          <span class="eco-badge">Tiết kiệm 40%</span>
+          <h3>Safe Home Integrated</h3>
+          <p style="margin-bottom: 1rem; color: var(--text-light); line-height: 1.7;">Kiểm tra tổng thể và bảo trì an sinh định kỳ — một gói, hai lớp bảo vệ, tiết kiệm tối đa.</p>
+          <button class="btn btn-primary" style="width: 100%;">Đăng ký ngay →</button>
+        </div>
+      </div>
+
+      <div class="eco-banner">
+        <p>Giải pháp tích hợp – Tiết kiếm tối đa</p>
+        <p>Khi đăng ký combo 2 dịch vụ, nhận ưu đãi đặc biệt lên đến 40%</p>
+        <button class="btn" style="background: var(--white); color: var(--primary);">Liên hệ tư vấn combo: 1900.123.456</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 7: PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-tag">Dự Án Tiêu Biểu</div>
+      <h2 class="section-title">Những Công Trình Chúng Tôi Tự Hào Bảo Vệ</h2>
+      <p class="section-description">Hàng nghìn công trình đã được SafeHome bảo vệ toàn diện trên toàn quốc — từ nhà ở dân dụng đến công trình thương mại và công nghiệp.</p>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 1]</div>
+          <div class="project-content">
+            <span class="project-badge">HyperSeal</span>
+            <h4>Tòa nhà Cao Cấp Landmark Tower</h4>
+            <p class="project-location">📍 Hà Nội</p>
+            <p class="project-description">Thi công hệ chống thấm toàn bộ tầng hầm và kết cấu công trình. Sử dụng vật liệu Sika premium, bảo hành 15 năm quản lý QR Code.</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 2]</div>
+          <div class="project-content">
+            <span class="project-badge">HyperPest</span>
+            <h4>Khách sạn 5 Sao Diamond Luxury</h4>
+            <p class="project-location">📍 Hồ Chí Minh</p>
+            <p class="project-description">Kiểm soát côn trùng toàn bộ công trình theo chuẩn khách sạn 5 sao. Sử dụng hóa chất sinh học an toàn, lịch bảo trì định kỳ 24/7.</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 3]</div>
+          <div class="project-content">
+            <span class="project-badge">Integrated</span>
+            <h4>Khu Biệt Thự Cao Cấp Green Valley</h4>
+            <p class="project-location">📍 Đà Lạt</p>
+            <p class="project-description">Gói bảo vệ tích hợp: chống thấm tầng hầm + kiểm dịch toàn bộ. Tiết kiệm 40%, 1 Account Manager, lịch bảo trì đồng bộ.</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 4]</div>
+          <div class="project-content">
+            <span class="project-badge">HyperSeal</span>
+            <h4>Nhà Máy Công Nghiệp Hi-Tech</h4>
+            <p class="project-location">📍 Bình Dương</p>
+            <p class="project-description">Giải pháp chống thấm kết cấu công trình công nghiệp. Vật liệu nhập khẩu Thụy Sĩ, kiểm tra chất lượng bằng thiết bị hiện đại.</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 5]</div>
+          <div class="project-content">
+            <span class="project-badge">HyperPest</span>
+            <h4>Trung Tâm Thương Mại Premium Plaza</h4>
+            <p class="project-location">📍 Cần Thơ</p>
+            <p class="project-description">Kiểm soát côn trùng, triệt tiêu mầm bệnh an toàn. Chuẩn khách sạn 5 sao, hóa chất sinh học thân thiện môi trường, hiệu quả lâu dài.</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">[Ảnh dự án 6]</div>
+          <div class="project-content">
+            <span class="project-badge">Integrated</span>
+            <h4>Nhà Ở Riêng Lẻ Modern Home</h4>
+            <p class="project-location">📍 Hà Nội</p>
+            <p class="project-description">Gói bảo vệ toàn diện cho nhà ở dân dụng: chống thấm + kiểm dịch. Bảo hành 15 năm, quản lý điện tử QR Code, Account Manager riêng.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-primary">Xem tất cả dự án →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 8: TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-tag">Khách Hàng Nói Gì</div>
+      <h2 class="section-title">Sự Hài Lòng Của Khách Hàng Là Chuẩn Mực Của Chúng Tôi</h2>
+      
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Dịch vụ chống thấm HyperSeal đã giải quyết hoàn toàn vấn đề thấm nước tầng hầm của chúng tôi. Chuyên gia rất chuyên nghiệp, vật liệu chất lượng cao, bảo hành rõ ràng. Rất hài lòng!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">ND</div>
+            <div class="testimonial-info">
+              <h4>Nguyễn Đức</h4>
+              <p>Chủ công trình, Hà Nội</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"HyperPest giúp khách sạn của chúng tôi đạt chuẩn 5 sao về kiểm soát côn trùng. Hóa chất an toàn, không ảnh hưởng đến khách hàng, lịch bảo trì định kỳ rất đáng tin cậy."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">TH</div>
+            <div class="testimonial-info">
+              <h4>Trần Hương</h4>
+              <p>GM Khách sạn, TP.HCM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Gói Integrated của SafeHome giúp chúng tôi tiết kiệm 40% so với dùng riêng lẻ. Một Account Manager, một quy trình, mọi thứ đều hợp lý. Khuyến khích tất cả bạn bè!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LT</div>
+            <div class="testimonial-info">
+              <h4>Lê Tâm</h4>
+              <p>CEO Công ty BĐS, Đà Lạt</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 9: FINAL CTA -->
+  <section class="final-cta" id="contact">
+    <div class="container">
+      <h2>SẴN SÀNG BẢO VỆ TÀI SẢN CỦA BẠN?</h2>
+      <p>Hãy để chúng tôi bảo vệ những gì quan trọng nhất với bạn — tư vấn miễn phí, khảo sát tận nơi.</p>
+      <div class="cta-group">
+        <button class="btn" style="background: var(--white); color: var(--accent);">Liên hệ tư vấn ngay</button>
+        <button class="btn btn-secondary">Tải brochure</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION 10: FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="footer-logo">🛡️ SafeHome Vietnam</div>
+        <p class="footer-slogan">Bảo vệ Toàn diện – Chuẩn mực An sinh</p>
+        <div class="social-icons">
+          <a href="https://facebook.com/safehomevietnam" target="_blank" title="Facebook">f</a>
+          <a href="https://zalo.me/safehomevietnam" target="_blank" title="Zalo">Z</a>
+          <a href="https://tiktok.com/@safehomevietnam" target="_blank" title="TikTok">🎵</a>
+          <a href="https://maps.google.com" target="_blank" title="Google Maps">📍</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Dịch Vụ</h3>
+        <ul>
+          <li><a href="https://ChongThamTronDoi.vn" target="_blank">HyperSeal – Chống thấm</a></li>
+          <li><a href="https://KiemDich24h.vn" target="_blank">HyperPest – Kiểm dịch</a></li>
+          <li><a href="#">Safe Home Integrated</a></li>
+          <li><a href="#">Tư vấn miễn phí</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Thông Tin</h3>
+        <ul>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Dự án</a></li>
+          <li><a href="#">Tin tức</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Liên Hệ</h3>
+        <p style="color: #b3d9ff; margin-bottom: 0.5rem;">📍 Hà Nội, Việt Nam</p>
+        <p style="color: #b3d9ff; margin-bottom: 0.5rem;">📞 1900.123.456</p>
+        <p style="color: #b3d9ff;">✉️ info@safehomevietnam.com</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 SafeHome Vietnam. Bảo lưu mọi quyền.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Dynamic header shadow on scroll
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          const header = document.querySelector('header');
+          if (window.scrollY > 50) {
+            header.style.boxShadow = '0 4px 16px rgba(0, 51, 153, 0.2)';
+          } else {
+            header.style.boxShadow = '0 2px 8px rgba(0, 51, 153, 0.1)';
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Button click handler
+    document.querySelectorAll('button.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // Ngăn chặn sự kiện bubble
+        e.stopPropagation();
+        
+        // Thêm hiệu ứng visual
+        this.style.opacity = '0.8';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 200);
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0.95';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+
+    // Page load initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('[SafeHome Vietnam] Website loaded successfully');
+    });
+  </script>
+</body>
+</html>
