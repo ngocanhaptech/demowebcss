@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HyperSeal – thương hiệu chống thấm kết cấu thuộc SafeHome Vietnam. Vật liệu Sika Thụy Sĩ, radar GPR, bảo hành 15 năm QR Code. Hơn 1.000 công trình.">
+    <meta name="keywords" content="HyperSeal, chống thấm, Sika, GPR radar, bảo hành 15 năm">
+    <title>Về HyperSeal | Lá Chắn Chống Thấm Vượt Trội – ChongThamTronDoi</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --primary: #4F46E5;
+            --secondary: #7C3AED;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent: #10B981;
+            --border: #E2E8F0;
+            --indigo-50: #EEF2FF;
+            --indigo-100: #E0E7FF;
+            --indigo-900: #312E81;
+            --violet-900: #4C1D95;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            background-color: var(--bg);
+            scroll-behavior: smooth;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+            transition: all 200ms ease-out;
+        }
+
+        nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 200ms ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 42rem;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Sections */
+        section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .intro-section p {
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-muted);
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        /* Three Pillars - Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .pillar-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.1);
+            transition: all 200ms ease-out;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--indigo-100) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Ecosystem Section */
+        .ecosystem-box {
+            background: linear-gradient(135deg, var(--indigo-50) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ecosystem-box p {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--indigo-900) 0%, var(--violet-900) 100%);
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .cta-section h2 {
+            color: white;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            margin: 1rem auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 200ms ease-out;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px 0 rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--indigo-50);
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .cta-section .btn-primary:hover {
+            background: var(--indigo-50);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-main);
+            color: white;
+            padding: 3rem 1.5rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 200ms;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 200ms;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                display: block;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="nav-logo">ChongThamTronDoi</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="dich-vu.html">Dịch Vụ</a></li>
+                <li><a href="du-an.html">Dự Án</a></li>
+                <li><a href="gioi-thieu.html">Về Chúng Tôi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="breadcrumb">
+            <a href="index.html">Trang Chủ</a> / <a href="#gioi-thieu">Giới Thiệu</a> / HyperSeal
+        </div>
+        <h1>HyperSeal – Lá Chắn Vật Lý Công Nghệ Cao Bảo Vệ Kết Cấu Công Trình Trọn Đời</h1>
+        <p class="hero-subtitle">Không đơn thuần là thi công chống thấm — HyperSeal là hệ thống bảo vệ kết cấu với radar GPR, vật liệu Sika nhập khẩu, và bảo hành 15 năm với QR Code theo dõi.</p>
+    </section>
+
+    <!-- What is HyperSeal -->
+    <section id="gioi-thieu">
+        <h2>HyperSeal Là Gì?</h2>
+        <div class="intro-section">
+            <p>
+                HyperSeal là thương hiệu chống thấm kết cấu cao cấp thuộc hệ sinh thái SafeHome Vietnam (Hyper Integrated Protection) — vận hành tại <span class="highlight">ChongThamTronDoi.vn</span>. Chúng tôi không đơn thuần là đơn vị thi công chống thấm — HyperSeal là <span class="highlight">lá chắn vật lý công nghệ cao</span>, được thiết kế để bảo vệ kết cấu công trình bền vững trong toàn bộ thời hạn bảo hành <span class="highlight">15 năm</span>.
+            </p>
+            <div class="quote">
+                "Trọn đời" trong tên ChongThamTronDoi phản ánh cam kết: chúng tôi thi công để công trình của bạn không bao giờ phải lo về thấm dột trong suốt thời hạn bảo hành — và nếu có, chúng tôi xử lý lại hoàn toàn miễn phí.
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Leakage Recurs -->
+    <section>
+        <h2>Vì Sao Thấm Dột Tái Phát Liên Tục?</h2>
+        <div class="intro-section">
+            <p>
+                Thống kê cho thấy hơn <span class="highlight">60% trường hợp thấm dột tái phát</span> sau xử lý đến từ ba nguyên nhân chính:
+            </p>
+            <ul style="list-style: none; margin-left: 0;">
+                <li style="margin-bottom: 1rem;"><strong>1. Xác định sai điểm thấm thực sự</strong> — Các đơn vị thi công chỉ đoán mò dựa trên dấu hiệu bề ngoài, không phát hiện được điểm thấm ngầm.</li>
+                <li style="margin-bottom: 1rem;"><strong>2. Sử dụng vật liệu kém chất lượng</strong> — Vật liệu không phù hợp với hạng mục hoặc hạn sử dụng đã hết.</li>
+                <li style="margin-bottom: 1rem;"><strong>3. Thi công không đúng quy trình</strong> — Bỏ qua bước chuẩn bị bề mặt, không thực hiện water test (kiểm tra chịu nước).</li>
+            </ul>
+            <p>
+                <span class="highlight">HyperSeal giải quyết cả ba nguyên nhân này</span> bằng công nghệ khảo sát radar, vật liệu Sika nhập khẩu chính ngạch, và quy trình chuẩn hóa Hyper Standard.
+            </p>
+        </div>
+    </section>
+
+    <!-- Three Pillars -->
+    <section>
+        <h2>Ba Trụ Cột Tạo Nên HyperSeal</h2>
+        <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <div class="pillar-card">
+                <div class="pillar-icon">🛰️</div>
+                <h3>1. Công Nghệ Khảo Sát Chính Xác — Không Đoán Mò</h3>
+                <p>
+                    Thiết bị radar GPR và tầm nhiệt phát hiện chính xác điểm thấm ngầm trong lớp bê tông dày 20–30cm — không cần đục phá khảo sát. Kỹ thuật viên lập bản đồ điểm thấm đầy đủ trước khi đề xuất giải pháp. <strong>Khách hàng thấy bằng chứng khoa học trước khi ký hợp đồng</strong> — không mù quáng tin lời đơn vị thi công.
+                </p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="pillar-card">
+                <div class="pillar-icon">🏭</div>
+                <h3>2. Vật Liệu Sika Thụy Sĩ — Nhập Khẩu Chính Ngạch</h3>
+                <p>
+                    Sika AG (thành lập 1910, Thụy Sĩ) là thương hiệu vật liệu chống thấm được sử dụng tại hàng trăm dự án hạ tầng lớn trên toàn cầu. HyperSeal chỉ sử dụng <strong>Sika nhập khẩu chính ngạch</strong> — mỗi lô hàng có TDS, MSDS và số serial có thể tra cứu trực tiếp với nhà sản xuất. Vật liệu được ghi rõ trong hợp đồng và hồ sơ QR Code — không thể dùng hàng kém thay thế.
+                </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="pillar-card">
+                <div class="pillar-icon">✅</div>
+                <h3>3. Water Test Bắt Buộc — Không Đạt Không Bàn Giao</h3>
+                <p>
+                    Mọi công trình HyperSeal từ gói GUARD trở lên đều phải qua water test (đổ nước đứng ngập bề mặt từ 48–72 giờ) trước khi nghiệm thu. Đây là tiêu chuẩn bắt buộc theo Hyper Standard — nếu còn điểm thấm, xử lý ngay không tính thêm chi phí. <strong>Chỉ khi đạt 100% mới bàn giao.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem -->
+    <section>
+        <h2>HyperSeal Trong Hệ Sinh Thái SafeHome</h2>
+        <p>
+            HyperSeal là <span class="highlight">lá chắn vật lý</span> trong hệ sinh thái Hyper Integrated Protection — bảo vệ kết cấu công trình từ bên ngoài. Kết hợp với <span class="highlight">HyperPest</span> (màng lọc sinh học, KiemDich24h.vn), hai giải pháp tạo ra <strong>lớp bảo vệ 360° hoàn toàn không điểm mù</strong>.
+        </p>
+        <div class="ecosystem-box">
+            <h3>Gói Safe Home Integrated</h3>
+            <p>✨ Khách hàng đăng ký cả HyperSeal và HyperPest nhận <span class="highlight">ưu đãi đến 40%</span>, có <span class="highlight">1 Account Manager duy nhất</span> để quản lý toàn bộ bảo hành và hỗ trợ.</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Bảo Vệ Công Trình Của Bạn Ngay Hôm Nay</h2>
+        <p>Tư vấn miễn phí khảo sát radar GPR + báo cáo điểm thấm chuyên nghiệp. Cam kết bảo hành 15 năm với QR Code theo dõi.</p>
+        <a href="tel:0909123456" class="btn btn-primary">Gọi Tư Vấn Ngay</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>ChongThamTronDoi</h4>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="dich-vu.html">Dịch Vụ</a></li>
+                    <li><a href="du-an.html">Dự Án</a></li>
+                    <li><a href="gioi-thieu.html">Về Chúng Tôi</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Dịch Vụ</h4>
+                <ul>
+                    <li><a href="#">HyperSeal Chống Thấm</a></li>
+                    <li><a href="#">HyperPest Kiểm Soát Côn Trùng</a></li>
+                    <li><a href="#">Safe Home Integrated</a></li>
+                    <li><a href="#">Bảo Hành 15 Năm</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Liên Hệ</h4>
+                <ul>
+                    <li><a href="tel:0909123456">📞 0909.123.456</a></li>
+                    <li><a href="https://zalo.me/0909123456" target="_blank">💬 Zalo</a></li>
+                    <li><a href="mailto:support@chongthamtrondoi.vn">📧 support@chongthamtrondoi.vn</a></li>
+                    <li><a href="#">🗺️ TP.HCM, Hà Nội</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Mạng Xã Hội</h4>
+                <div class="footer-social">
+                    <a href="#" class="social-icon" title="Facebook">f</a>
+                    <a href="#" class="social-icon" title="Zalo">Z</a>
+                    <a href="#" class="social-icon" title="YouTube">▶</a>
+                    <a href="#" class="social-icon" title="Google Maps">📍</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ChongThamTronDoi.vn — Thương hiệu HyperSeal thuộc SafeHome Vietnam. Bảo hành 15 năm.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header shadow on scroll
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const header = document.querySelector('header');
+                    if (window.scrollY > 50) {
+                        header.style.boxShadow = '0 4px 16px rgba(79, 70, 229, 0.2)';
+                    } else {
+                        header.style.boxShadow = '0 2px 8px rgba(79, 70, 229, 0.1)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Page load initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[v0] ChongThamTronDoi HyperSeal Introduction page loaded');
+        });
+    </script>
+</body>
+</html>
