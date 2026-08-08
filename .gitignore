@@ -2,4 +2,5 @@
 **/.DS_Store
 target/
 *.class
-.idea/
+.idea/*.wpress
+.DS_Store
