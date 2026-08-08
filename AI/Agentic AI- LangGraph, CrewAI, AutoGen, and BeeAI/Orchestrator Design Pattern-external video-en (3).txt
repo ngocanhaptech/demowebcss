@@ -1,0 +1,114 @@
+Welcome to this video on the orchestrator design pattern.
+In this video, you'll understand the orchestrator design pattern for dynamic workflows.
+You'll see how task assignment and parallel worker coordination happen in real time.
+You'll explore the role of state variables and worker states and managing context.
+And you'll learn how outputs from workers combine into a final unified result.
+In earlier patterns, workflows were static.
+You had to know the problem in advance.
+But what if you don't know its complexity?
+That's where the orchestrator pattern comes in.
+Imagine a party planner for multi-themed dinners on a cruise ship.
+Guest requests are very daily, making menus unpredictable.
+The orchestrator coordinates tasks dynamically, adapting in real time.
+A party planner gets a request, prepare Italian pasta and Mexican tacos.
+The head chef or orchestrator analyzes the request, assigns specialist chefs, and creates
+work packages.
+Italian and Mexican chefs work in parallel, and a synthesizer combines outputs into a
+dinner guide.
+The next day, the request grows to include multiple international dishes.
+The orchestrator recruits five chefs, each contributing in parallel.
+A synthesizer merges all contributions into a buffet plan.
+In orchestrator design patterns, specialized agent workers replace chefs.
+A central orchestrator assigns tasks, manages context, and coordinates parallel execution.
+A synthesizer merges the outputs.
+A key difference from the other graphs is the assign workers node, which decides how
+many agents are needed and rots tasks.
+Using Lenggraph's send, it sends structured data for 2-10 plus workers based on complexity.
+Workers use worker state, a separate container for task-specific details, distinct from the
+shared state variable.
+The state and worker state variables share key-value pairs, letting workers access shared
+context while keeping their own task-specific details.
+Here's how it works.
+The planner provides input, the orchestrator outputs a sections list, and the send function
+passes each section to a worker.
+Now that the task assignment is clear, import the necessary libraries and initialize the
+LLM.
+You'll use a state variable to manage workflow data.
+Meals store user input.
+Sections hold dish objects with name, ingredients, and cuisine from the orchestrator.
+Completed underscore menu merges results from parallel workers via operator dot add.
+Final underscore meal underscore guide holds the formatted meal guide.
+These variables will be represented as a table, with completed underscore menu color-coded
+purple to indicate that it is shared between the state and worker state variable defined.
+Next, now, define the worker state variable.
+In the state's section list, the assign workers node uses send to pass each dish object in
+the section variable to the worker state to each worker agent.
+The worker state also includes the complete menu list shared through the state variable.
+The orchestrator uses the dish class to create structured outputs with three fields, name,
+ingredients, and location, packaged into a direction schema in the state's sections key.
+Next, create the orchestrator LLM using dish underscore prompt to break meal requests into
+dish names, ingredients, and cuisine types.
+Align it with planner underscore pipe to ensure the orchestrator returns properly formatted
+dish objects.
+The orchestrator takes the meal request from the state, passes it through planner underscore
+pipe using the meals key, and returns a structured dish list for worker agents.
+The input output process is as follows.
+The orchestrator receives the meal input, please prepare Italian pasta, Mexican tacos,
+Indian curry, Thai stir fry, and American burgers from the meals key.
+The orchestrator outputs a set of dish objects.
+Each dish object represented by a row in the table corresponds to a dish.
+Each object populates the state's sections field.
+The orchestrator's output is then passed to the assign workers node.
+Assign underscore workers conditionally accesses the state variable, extracts the sections
+key, and retrieves its dish objects.
+Each variable represents a dish in the section list, matching a table row.
+The send function passes each through the section variable in worker state to the chef
+underscore worker node.
+Next, create the LLM for each worker node.
+The chef underscore prompt uses the dish's location, name, and ingredients to create
+a chef persona that provides detailed cooking instructions.
+Chef underscore pipe chains this to the LLM for worker processing.
+Now create the chef underscore worker node.
+The chef underscore worker node builds a completed menu by receiving a dish object
+in worker state from the assign workers node.
+It extracts the name, location, and ingredients to generate cooking instructions through chef
+underscore pipe, and returns the meal plan in the completed underscore menu list, matching
+each entry to its corresponding table row.
+The chef node then takes the name, location, and ingredients from each section and outputs
+a chef introduction along with a detailed step-by-step recipe.
+The completed underscore menu key updates automatically as worker state and state share
+the key.
+Operator dot add appends each menu to completed underscore menu like a list.
+The synthesizer node takes all completed meal plans from the state variable completed underscore
+menu, combines them into a formatted string with separators, and returns the unified final
+underscore meal underscore guide in state for the complete dinner plan in the final
+underscore meal underscore guide.
+Next, create the workflow by initializing a state graph with the state schema, then
+add three nodes, orchestrator for task breakdown, chef underscore worker for cooking expertise,
+and synthesizer for combining results into the final meal guide.
+The assign workers node takes input from the orchestrator node and creates conditional
+edges to worker nodes, generating parallel execution paths based on the number of dishes.
+Now add edges for worker nodes to the synthesizer, a start edge to the orchestrator, and an end
+edge from the synthesizer.
+Finally compile the graph.
+You can invoke the graph to prepare given meals.
+Here we ask for pasta, tacos, curry, and other ingredients for each dish.
+The orchestrator provides a detailed recipe with cooking instructions for the chef worker
+agents.
+The output of the orchestrator contains the item name, location, and ingredients.
+Then request the lang graph workflow by passing in a meals key value to request preparation
+of multiple meals.
+The assign node takes the sections list from the orchestrator and sends each dish to separate
+worker nodes using send.
+Each worker outputs a completed menu that is stored in the key value completed underscore
+menu, just like an element in a list to be accessed by the synthesizer.
+Finally, elements in completed underscore menu are concatenated into final underscore
+meal underscore guide.
+In this video you learned that the orchestrator pattern manages dynamic workflows by breaking
+down complex requests and assigning tasks to specialized worker agents.
+Worker state and shared state variables keep task specific details and shared context separate
+yet accessible for coordinated processing.
+The assign workers node routes tasks in parallel and each worker generates detailed outputs
+based on structured inputs.
+A synthesizer node combines all worker outputs into a unified result enabling flexible and
+scalable workflow execution.

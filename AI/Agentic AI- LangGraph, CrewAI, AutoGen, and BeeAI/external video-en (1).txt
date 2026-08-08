@@ -1,0 +1,111 @@
+Welcome to this video on building AI agents with open source frameworks.
+In this video, you'll explore how agentic frameworks like Crew AI, Langraph, AutoGen,
+and BAI structure multi-agent workflows.
+You'll describe how agents are created, assigned tasks, and coordinated within each system.
+You'll also interpret code that defines workflows and control logic.
+And finally, you'll compare real-world use cases and limitations across these four open
+source frameworks.
+Agentic AI refers to autonomous systems that don't just talk, they think, plan, and act.
+Frameworks provide the infrastructure to build these smart agents, enabling multi-step reasoning,
+decision-making, and tool use.
+Think of Crew AI as an agentic framework for assembling virtual experts, with each playing
+a role, using tools, and working toward clear goals.
+They collaborate and solve problems as a team, helping us achieve more than ever.
+In Crew AI, define agents, each with specific roles and skills.
+Assign tasks with clear goals, then combine agents and tasks into a crew to execute seamlessly.
+Here's a standard pipeline.
+The generator creates a response and sends it to the evaluator.
+The evaluator checks it for quality and correctness.
+If rejected, feedback goes back to the generator.
+If accepted, the output is finalized.
+To implement the evaluator-optimizer pipeline, first set up the core environment.
+Begin by importing essential libraries and configuring the language model and search
+tool.
+Create a researcher and writer agent by specifying parameters such as role, goal, and backstory.
+These act as the generator and evaluator.
+Create tasks for each agent by specifying parameters such as description, agent assignment,
+and expected output.
+Finally, create a crew object combining agents and tasks with sequential processing.
+Then execute the pipeline.
+Crew AI excels in role-based team simulations with agents assigned specific roles, tools,
+and goals.
+It also supports collaborative task execution through structured coordination.
+The main drawback, limited flexibility and difficult debugging.
+LangGraph is a lower-level framework for building custom agent workflows using directed acyclic
+graphs or DAGs.
+It offers fine-grained control, better debugging, advanced memory, and error recovery at the
+cost of more verbose code.
+Ideal for complex, structured apps.
+Finally, it's part of the LangChain ecosystem.
+Set up your environment by importing libraries and defining the state structure that will
+hold and pass data between agents.
+Next, optionally define a schema to structure the evaluator's output.
+In LangGraph, LLMs are nodes in a graph, as shown in our reflection pattern example with
+evaluator and generator.
+This code defines the generator and evaluator nodes.
+Unlike Crew AI, LangGraph gives direct access to inputs and messages sent to each LLM.
+In LangGraph, routers are conditional nodes.
+Based on state parameters, you can route the workflow back to the generator or forward
+to complete the task.
+This code shows the router function, which will allow you to support many different types
+of graph structures.
+Finally, build a graph by adding nodes and defining their edges.
+The code is more verbose than other frameworks, but allows complex interactions and flexible
+workflow design, enabling custom LLM patterns with LangGraph.
+LangGraph excels in complex workflow automation, ideal for scenarios requiring advanced memory
+and structured workflows.
+For example, automating multi-step processes in industries such as finance or healthcare.
+It also supports multi-agent system management, suitable for applications needing precise
+control over interactions between multiple agents.
+Autogen's approach is dialogue-driven, enabling multi-agent conversations.
+It's great for quick prototyping with an intuitive chat interface and built-in code execution.
+Best suited for conversational agents and research assistants, originally developed
+by Microsoft.
+Autogen excels at building conversation-based workflows, perfect for virtual assistants
+or customer service bots that interact in a chatbot-like manner.
+It's also ideal for human-in-the-loop systems, such as content moderation platforms that
+blend automation with human review.
+In this Autogen use case, you'll build a simple yet powerful study assistant.
+It features three agents, each handling a specific task, understanding the query, analyzing
+it, and offering study tips based on the topic.
+This code defines the three agents, each initialized with a name, a system message to guide behavior,
+and a shared LLM config.
+System messages act as role definitions, enforcing a clear separation of responsibilities.
+This part of the code connects the agent team into a controlled conversation.
+The group chat manager facilitates turn-based collaboration, simulating a tutoring session.
+Group chat defines how agents interact.
+Max underscore round sets the number of turns.
+Speaker underscore selection underscore method equals round underscore robin ensures equal
+ordered turns.
+Group chat manager orchestrates the full conversation flow.
+This function prompts user input, starting the process with the student agent.
+The conversation then flows through the concept analysis and study tip agents automatically.
+If it fails, the final agent is triggered to ensure a response.
+In short, the student provides a topic and the system returns key concepts and learning
+strategies, just like a helpful tutor.
+The BAI framework allows developers to build modular agent workflows with tool integration.
+As an example, you can build a multi-agent system where three agents collaborate to generate
+a synthesized report on any location.
+A researcher who uses Wikipedia to provide topic history, a weather forecaster who uses
+OpenMeteo for live weather, and a data synthesizer who summarizes and fuses the results.
+Setup is simple.
+After installing the framework, load the LLM and define the workflow to manage multiple
+AI agents.
+Each agent has a specific goal and set of tools.
+Wikipedia and weather tools are assigned to the first two agents, while the data synthesizer
+combines their outputs into a coherent narrative.
+The workflow runs all agents in parallel or in sequence as appropriate, each handling
+its task.
+The final output is a fused summary of weather and historical context, ideal for a travel
+assistant or educational bot.
+In this video, you learned that, Crew AI enables multi-agent collaboration by defining agents
+with roles, tasks, and tools, then combining them into a crew object for sequential execution.
+Lingraph uses directed-access-select graphs, or DAGs, where agents are represented as nodes,
+allowing for structured workflows, routing logic, and custom evaluation patterns.
+AutoGen supports dialogue-driven collaboration between agents, with system messages defining
+agent roles and the group chat manager coordinating turn-based conversations.
+BAI is a modular, tool-integrated framework designed for building intelligent workflows
+that support both sequential and parallel execution, enabling scalable, interoperable,
+and context-aware agent collaboration across diverse tasks and environments.
+Each framework supports different workflow patterns, such as reflection, delegation,
+or turn-based exchange, and comes with tradeoffs in flexibility, verbosity, and debugging.

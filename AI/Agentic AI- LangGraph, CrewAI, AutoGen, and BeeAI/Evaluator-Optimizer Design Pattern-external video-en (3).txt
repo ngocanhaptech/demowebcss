@@ -1,0 +1,72 @@
+Dưới đây là bài giảng tiếng Việt về 
+
+Welcome to this video on the Evaluator-Optimizer design pattern.
+In this video, you'll understand the Evaluator-Optimizer pattern and how state management works.
+You'll build a workflow graph that connects the generator, evaluator, and feedback loops.
+You'll create investor personas and implement grading, evaluation, and routing logic.
+And finally, you'll assemble the full reflection loop for investment planning.
+This video takes a detailed look at the Evaluator-Optimizer pattern.
+In this example, a query goes to the generator LLM.
+Its output goes to the evaluator LLM.
+If rejected, feedback is given and the process repeats until the result meets the target
+criteria.
+This video will create a multi-agent investment advisor.
+Start by inputting the investor profile.
+An LLM suggests a target risk grade.
+The profile and grade are passed to the generator, which has two parts, Kathy Wood.
+She produces an investment plan for Warren Buffett's evaluator.
+Warren provides a risk grade and feedback estimate based on route underscore investment.
+The plan is sent to the second part of the generator, where Ray Dalio's LLM refines it
+using Warren Buffett's feedback.
+The plan is iteratively refined through feedback from Ray Dalio and Warren Buffett.
+The profile using Warren Buffett's feedback is finalized if the grade matches the target.
+If the investment targets cannot be aligned within a specific risk tolerance after a set
+number of iterations, the process will stop.
+The state variable holds key data for an investment advisor.
+Strings such as investment underscore plan and investor underscore profile, risk and
+target grades from ultra-conservative to high risk, feedback for improvement, and an iteration
+counter to track refinement cycles.
+Let's now create a specific example using a more detailed design pattern.
+Grade underscore prompt defines the instructions for the LLM to generate a risk score from
+ultra-conservative to high given an investor profile.
+Grade underscore pipe executes the pipeline by chaining the LLM with grade underscore
+prompt to return the computed risk score.
+Create the risk grading node.
+Insert the grade LLM into a node that uses the state variable to capture the investor
+profile and returns a target grade via the target grade variable.
+Create the first LLM persona in the generator node, Kathy Wood, a high risk, high reward
+investor who focuses on bold innovation driven strategies and chain it to the LLM.
+As the second part of the generator requires feedback from the evaluator, i.e. Warren Buffett,
+design the feedback schema for structured output that includes a grade field using risk
+lateral values and a feedback string explaining the risk classification reasoning.
+Create the Ray Dalio persona for the revised generator to take the investor profile, previous
+grade, and evaluator feedback and produce a new strategy addressing concerns while targeting
+specified returns.
+Combine Kathy Wood's and Ray Dalio's LLMs to create the generator node.
+Create the investment plan generator node.
+If the feedback key of the state variable exists, the Ray underscore Dalio underscore
+pipe with feedback for revisions is used, else Kathy underscore Wood underscore pipe
+for the initial strategy.
+Create the Warren Buffett style evaluator that takes a conservative value investing
+approach to assess investment plans, evaluates based on criteria such as capital preservation
+and business fundamentals, and using investor profile and risk grade, returns structured
+feedback with risk grade and reasoning using Buffett underscore evaluator underscore pipe.
+Create the Warren Buffett node.
+Evaluate underscore plan increments the counter, uses Buffett underscore evaluator underscore
+pipe to assess the plan, and returns the grade, feedback, and updated counter.
+Evaluate underscore investment compares the current and target grades.
+Returns accepted if they match or the iteration limit is reached, otherwise returns are rejected
+plus feedback for refinement.
+Create the graph connecting all nodes to define the full investment planning workflow.
+Add conditional edges for the reflection loop, and if accepted, if rejected, loop back to
+the generator with feedback, finally compile the workflow.
+Invoke the workflow with an example investor profile to see the full reflection process
+in action.
+In this video, you learned that the evaluator optimizer pattern refines LLM outputs through
+iteration until they meet the target criteria.
+State variables track investor profiles, target risk grades, evaluator feedback, and iteration
+counts.
+Generator and evaluator personas, Kathy Wood, Ray Dalio, and Warren Buffett drive strategy,
+creation, assessment, and refinement.
+LandGraph connects grading, generation, evaluation, and routing nodes into a reflection loop that
+assembles the full investment planning workflow.

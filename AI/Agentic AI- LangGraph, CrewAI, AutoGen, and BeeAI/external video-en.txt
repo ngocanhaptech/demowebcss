@@ -1,0 +1,115 @@
+Welcome to this video on understanding agentic AI and open-source frameworks.
+In this video, you'll identify the core traits that define agentic AI.
+You'll then describe the benefits and challenges of multi-agent systems.
+Next, you'll compare the strengths and ideal use cases of popular open-source frameworks.
+And finally, you'll recognize when to apply each framework so you can choose the right
+tool for your system's needs.
+Understanding agentic AI starts with defining AI agents.
+At their core, they're autonomous systems that make decisions and take action to achieve
+goals.
+Proactive problem solvers built to navigate complex environments.
+AI agents perform multi-step reasoning, breaking down complex tasks into manageable steps.
+They also engage in decision-making, helping choose the best course of action.
+AI agents can call external tools, APIs, or even other agents to extend their capabilities.
+They can also retain context from past interactions.
+Finally, their goal-oriented behavior ensures that decisions and actions achieve a defined
+objective.
+Agentic AI represents a shift from reactive to proactive systems.
+Think of the difference between a calculator and a research assistant.
+A calculator is reactive and responds only to inputs.
+Agentic AI is like a research assistant who understands your goal, breaks it into steps,
+uses tools to gather information, and keeps working until the problem is solved.
+You might wonder, why not build agents from scratch?
+These frameworks solve infrastructure problems such as memory, tool integration, and agent
+coordination so you can focus on your specific problem.
+Think of them as the rails of AI development.
+Before exploring frameworks, let's understand multi-agent systems.
+Instead of one AI doing everything, you have multiple agents working together, such as
+a software team with front-end developers, back-end developers, and testers, each contributing
+their expertise to achieve better results than anyone could alone.
+The key benefits of using multi-agent systems include specialization, where each agent is
+designed to excel at a specific task.
+Next is parallel processing, where multiple agents work simultaneously.
+Then comes fault tolerance, where the system continues to function smoothly.
+Next is scalability, where more agents are added as complexity grows.
+And finally, modularity, where it's easy to update or replace individual components.
+Building agentic systems from scratch is far more complex than working with single agents,
+and without frameworks, you're stuck managing complex message protocols, manually syncing
+state across agents, and writing custom coordination logic.
+You also need to handle errors across agents and monitoring or debugging challenges.
+Frameworks simplify all of this.
+Communication protocols are built in.
+There's automatic state management.
+You can use predefined coordination patterns instead of writing your own, while error handling
+is standardized and distributed.
+Multi-agent tools make it easier to monitor and debug your agentic system.
+This video introduces various agentic frameworks, such as Crew AI, Langraph, Autogen, AG2, Pydantic
+AI, and BAI.
+Let's get started.
+Crew AI shines at simulating multi-agent collaboration.
+You define agents with distinct roles, such as researcher, writer, and editor, each assigned
+specific tasks.
+Together they work as a coordinated crew to accomplish complex goals, such as writing
+a blog.
+Crew AI makes it easy for agents to collaborate by assigning clear roles and tasks.
+Structured outputs simplify collaboration among agents.
+Langraph lets you control workflows using a directed graph, where each node represents
+a step, such as calling a tool, prompting an LLM, or making a decision.
+And each edge defines what happens next, depending on the outcome.
+This structure gives you fine-grained control.
+You define how information flows by designing interactions between nodes and edges, when
+decisions happen, and how success or failure is handled.
+It's like building a flowchart for agents, perfect for visual debugging.
+Langraph is great for building complex workflows by integrating LLMs, tools, memory, and lang
+chain functionalities, all in one place.
+It's best suited for multi-step processes, document workflows, and decision trees.
+Autogen works by running conversations between agents, and between agents and humans.
+It's designed for intuitive collaboration, where each agent helps solve problems in real-time.
+It excels in conversational interactions, clarifying goals, asking questions, and delegating work.
+This makes it ideal for human-in-the-loop workflows, where users can step in to guide
+or approve actions.
+You can define agent personas and prototype how they work together.
+You can even embed live code execution into conversations.
+Autogen is especially useful in education, collaborative coding, and technical support
+systems.
+Pydantic AI brings structure to every step by combining language generation with type
+validation.
+It ensures that outputs follow clear schemas, reducing errors and ambiguity.
+Perfect for APIs, structured data, and enterprise use, especially in fields where stability
+matters.
+Its modular design makes schema management simple.
+From prototype to production, Pydantic AI delivers confidence and control.
+Note, we will not cover Pydantic AI in this course, as it is relatively new.
+BAI is flexible, letting you design the multi-agent system your use case needs.
+From simple React agents to complex setups, you control agent behavior.
+It integrates with tools such as Ollama, OpenAI, WatsonX.AI, and Grok.
+Plug-in lang chain tools connect via the model context protocol or build your own.
+BAI scales to production with memory, structured outputs, and state persistence.
+Its emitters track workflows while telemetry and logging support debugging.
+It's reliable, handling failures with clean exceptions.
+For enterprise-grade systems, BAI offers power, precision, and control.
+CruAI and Autogen offer the smoothest onboarding, ideal for rapid prototyping, education, or
+lightweight systems that benefit from conversational flow and collaboration.
+Langraph and Pydantic AI bring more complexity but offer greater control.
+Langraph suits structured workflows, state management, and error recovery.
+Pydantic AI ensures reliable, type-safe outputs, perfect for enterprise systems and APIs.
+BAI focuses on enterprise-grade deployment, built for scalability and operational robustness.
+Base frameworks are already in production.
+CruAI powers content pipelines and automated reporting.
+Langraph handles document workflows and customer service processes.
+Autogen supports educational platforms and technical support systems.
+Pydantic AI ensures reliable API services and data validation.
+BAI manages enterprise automation.
+Their applications are diverse and growing.
+In this video, you learned that…
+Agentic AI systems are autonomous systems that make decisions and take action to achieve
+goals.
+Multi-agent systems use specialized agents to work in parallel, offering benefits such
+as scalability, modularity, and fault tolerance.
+CruAI helps simulate team-style collaboration by assigning clear roles to agents.
+Langraph lets you build structured workflows using nodes and edges.
+Pydantic AI supports agent-to-agent and agent-to-human conversations.
+Pydantic AI ensures that outputs match defined schemas, reducing ambiguity, ideal for API
+interactions and production environments.
+BAI is built for enterprise deployment, offering tool integration, memory management, and scalable
+agent coordination.

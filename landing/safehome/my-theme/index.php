@@ -1,0 +1,1 @@
+<?php // Index template ?>

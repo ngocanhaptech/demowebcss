@@ -1,0 +1,1 @@
+<?php // Archive template ?>
