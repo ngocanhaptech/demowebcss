@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafeHome Vietnam — Bảo vệ toàn diện, chuẩn mực an sinh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10161F;
+    --navy:#0F1E2C;
+    --navy-2:#152A3B;
+    --line:#7FB4D6;
+    --line-dim:#3E5C70;
+    --copper:#C1683A;
+    --copper-dark:#8E4A28;
+    --seal:#3D6E8C;
+    --pest:#5C7A52;
+    --paper:#F4F3EE;
+    --paper-2:#EAE8E0;
+    --stone:#8A8C86;
+    --text:#151A16;
+    --text-soft:#54574F;
+    --white:#FFFFFF;
+    --radius:6px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    margin:0;
+    line-height:1.15;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  :focus-visible{outline:2px solid var(--copper);outline-offset:3px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+  }
+  .eyebrow.on-dark{color:#E7A87C;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ===== HEADER ===== */
+  .topbar{
+    background:var(--ink);
+    color:#B9BFC6;
+    font-size:12.5px;
+  }
+  .topbar .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    height:34px;
+  }
+  .topbar a{opacity:.85;}
+  .topbar a:hover{opacity:1;}
+  .topbar .brands{display:flex;gap:18px;}
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:rgba(244,243,238,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-2);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo-mark{
+    width:34px;height:34px;border-radius:4px;
+    background:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-mark svg{width:18px;height:18px;}
+  .logo-text{font-family:'Space Grotesk';font-weight:700;font-size:17px;letter-spacing:.01em;}
+  .logo-text span{color:var(--copper);}
+  nav.links{display:flex;gap:30px;font-size:14.5px;}
+  nav.links a{color:var(--text-soft);padding:6px 0;border-bottom:2px solid transparent;}
+  nav.links a:hover{color:var(--text);border-color:var(--copper);}
+  .nav-cta{display:flex;align-items:center;gap:16px;}
+  .phone{
+    display:flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono';font-size:14px;font-weight:500;
+  }
+  .phone .dot{width:7px;height:7px;border-radius:50%;background:var(--pest);flex:none;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 20px;border-radius:var(--radius);
+    font-size:14px;font-weight:500;border:1px solid transparent;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--copper);color:var(--white);}
+  .btn-primary:hover{background:var(--copper-dark);}
+  .btn-ghost{border-color:var(--line-dim);color:var(--paper);}
+  .btn-ghost.dark-ctx{color:var(--text);border-color:var(--stone);}
+  .btn-ghost:hover{border-color:var(--copper);color:var(--copper);}
+  .burger{display:none;background:none;border:1px solid var(--stone);border-radius:5px;width:40px;height:40px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:var(--navy);
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid #0A1520;
+  }
+  .hero .wrap{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:48px;
+    padding-top:76px;padding-bottom:64px;align-items:center;
+  }
+  .hero h1{
+    font-size:44px;color:var(--white);margin:14px 0 20px;letter-spacing:-.01em;
+  }
+  .hero p.lead{
+    font-size:17px;color:#C3CBD1;max-width:46ch;margin-bottom:30px;
+  }
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .diagram-frame{
+    border:1px solid var(--line-dim);border-radius:10px;
+    background:linear-gradient(180deg,#0C1826,#0F1E2C);
+    padding:18px;
+  }
+  .diagram-caption{
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono';font-size:11px;color:var(--line);
+    margin-bottom:10px;letter-spacing:.06em;
+  }
+  .radar-pulse{
+    transform-origin:center;
+    animation:pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{transform:scale(.4);opacity:.85;}
+    100%{transform:scale(2.6);opacity:0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .radar-pulse{animation:none;}
+  }
+
+  /* ===== SERVICE STRIP ===== */
+  .strip{
+    background:var(--paper);
+    border-bottom:1px solid var(--paper-2);
+  }
+  .strip .wrap{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1px;background:var(--paper-2);
+    margin-top:-1px;
+  }
+  .strip-item{
+    background:var(--paper);
+    padding:26px 26px 24px;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .strip-item .tag{
+    font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.08em;
+    color:var(--stone);text-transform:uppercase;
+  }
+  .strip-item h3{font-size:18px;}
+  .strip-item p{margin:0;font-size:14px;color:var(--text-soft);}
+  .strip-item .swatch{width:22px;height:3px;border-radius:2px;margin-bottom:2px;}
+  .sw-seal{background:var(--seal);}
+  .sw-pest{background:var(--pest);}
+  .sw-hip{background:var(--copper);}
+
+  /* ===== SECTION generic ===== */
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head h2{font-size:30px;margin-top:10px;}
+  .section-head p{color:var(--text-soft);margin-top:12px;font-size:15.5px;}
+
+  /* ===== SERVICE DOSSIERS ===== */
+  .dossier{
+    display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;
+    padding:48px 0;border-top:1px solid var(--paper-2);
+    align-items:start;
+  }
+  .dossier:first-of-type{border-top:none;}
+  .dossier-visual{
+    aspect-ratio:4/3;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--paper-2);
+  }
+  .dossier-visual.seal{background:linear-gradient(160deg,#EAF1F5,#DCE7ED);}
+  .dossier-visual.pest{background:linear-gradient(160deg,#EFF3EA,#E1E9DA);}
+  .brand-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Space Grotesk';font-weight:600;font-size:15px;
+    padding:6px 12px;border-radius:20px;margin-bottom:16px;
+  }
+  .brand-chip.seal{background:#DDE9EF;color:#1F4358;}
+  .brand-chip.pest{background:#E4EBDD;color:#39501F;}
+  .dossier h3{font-size:24px;margin-bottom:10px;}
+  .dossier .domain{font-family:'IBM Plex Mono';font-size:13px;color:var(--stone);margin-bottom:16px;}
+  .spec-list{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:9px;}
+  .spec-list li{
+    display:flex;gap:10px;font-size:14.5px;color:var(--text-soft);
+    padding-left:0;
+  }
+  .spec-list li::before{content:"—";color:var(--copper);font-weight:600;}
+  .dossier-link{
+    font-size:14px;font-weight:500;color:var(--text);
+    border-bottom:1px solid var(--copper);padding-bottom:2px;
+  }
+  .hip-banner{
+    margin-top:8px;
+    background:var(--navy);color:var(--paper);
+    border-radius:10px;padding:32px 36px;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .hip-banner h3{color:var(--white);font-size:20px;margin-bottom:6px;}
+  .hip-banner p{margin:0;color:#B9C3CA;font-size:14.5px;max-width:52ch;}
+  .hip-tags{display:flex;gap:22px;font-family:'IBM Plex Mono';font-size:12.5px;color:var(--line);flex-wrap:wrap;}
+
+  /* ===== ABOUT ===== */
+  .about-wrap{
+    background:var(--paper-2);
+  }
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .about-grid p{color:var(--text-soft);font-size:15.5px;margin-top:16px;max-width:52ch;}
+  .vm-grid{display:grid;gap:22px;}
+  .vm-card{background:var(--white);border:1px solid var(--paper-2);border-radius:8px;padding:22px 24px;}
+  .vm-card .mono{color:var(--stone);font-size:11px;letter-spacing:.08em;}
+  .vm-card p{margin:8px 0 0;font-size:15px;color:var(--text);}
+
+  /* ===== STATS ===== */
+  .stats-bar{background:var(--navy);color:var(--paper);}
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line-dim);border-left:1px solid var(--line-dim);
+  }
+  .stat{
+    border-right:1px solid var(--line-dim);border-bottom:1px solid var(--line-dim);
+    padding:30px 26px;
+  }
+  .stat .num{font-family:'Space Grotesk';font-size:32px;font-weight:700;color:var(--white);}
+  .stat .label{font-size:13px;color:#9FA9B2;margin-top:4px;}
+
+  /* ===== PILLARS ===== */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-2);border:1px solid var(--paper-2);}
+  .pillar{background:var(--paper);padding:30px 28px;}
+  .pillar .code{font-family:'IBM Plex Mono';font-size:12px;color:var(--copper);}
+  .pillar h3{font-size:18px;margin:10px 0 10px;}
+  .pillar p{font-size:14.5px;color:var(--text-soft);margin:0;}
+
+  /* ===== PROJECTS ===== */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .proj-card{border:1px solid var(--paper-2);border-radius:10px;overflow:hidden;background:var(--white);}
+  .proj-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#DCE7ED,#EAE8E0);position:relative;}
+  .proj-thumb .mono{position:absolute;bottom:10px;left:12px;font-size:11px;color:#4A5A63;}
+  .proj-body{padding:18px 20px 22px;}
+  .proj-body h3{font-size:15.5px;line-height:1.35;margin-bottom:8px;}
+  .proj-body p{font-size:13.5px;color:var(--text-soft);margin:0;}
+
+  /* ===== TESTIMONIALS ===== */
+  .testi-wrap{background:var(--paper-2);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .testi-card{background:var(--white);border-radius:10px;padding:26px 24px;border:1px solid #DEDBD1;}
+  .testi-card .quote{font-family:'Space Grotesk';font-size:15.5px;line-height:1.45;margin-bottom:16px;}
+  .testi-card .who{font-size:13px;color:var(--text-soft);}
+  .testi-card .who b{color:var(--text);font-weight:500;}
+
+  /* ===== PARTNERS ===== */
+  .partners-row{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;
+    padding-top:36px;border-top:1px solid var(--paper-2);
+  }
+  .partners-row .p-logo{
+    font-family:'IBM Plex Mono';font-size:13px;color:var(--stone);
+    letter-spacing:.05em;
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner{
+    background:var(--copper);color:var(--white);text-align:center;
+    padding:70px 0;
+  }
+  .cta-banner h2{color:var(--white);font-size:30px;}
+  .cta-banner p{color:#FBE3D3;margin:14px 0 30px;}
+  .cta-banner .btn-ghost{border-color:#F0C9AF;color:var(--white);}
+  .cta-banner .btn-primary{background:var(--ink);}
+  .cta-banner .btn-primary:hover{background:#000;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink);color:#9AA1A8;padding:64px 0 28px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
+  footer h4{color:var(--paper);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;font-family:'IBM Plex Mono';font-weight:500;}
+  footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:14px;}
+  footer ul a:hover{color:var(--paper);}
+  footer .foot-logo{font-family:'Space Grotesk';font-weight:700;color:var(--paper);font-size:18px;margin-bottom:10px;}
+  footer .foot-tag{font-size:13.5px;max-width:32ch;}
+  .foot-bottom{
+    margin-top:52px;padding-top:22px;border-top:1px solid #232C36;
+    display:flex;justify-content:space-between;font-size:12.5px;flex-wrap:wrap;gap:10px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;padding-top:44px;}
+    .diagram-frame{order:-1;}
+    nav.links{display:none;}
+    .burger{display:block;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .dossier{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr 1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px;}
+    .hero h1{font-size:32px;}
+    .strip .wrap{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .hip-banner{flex-direction:column;align-items:flex-start;}
+    section{padding:56px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brands">
+      <a href="#">SafeHome Vietnam</a>
+      <a href="#">HyperSeal</a>
+      <a href="#">HyperPest</a>
+    </div>
+    <a href="mailto:support@safehomevietnam.com">support@safehomevietnam.com</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7FB4D6" stroke-width="1.6"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/></svg>
+      </span>
+      <span class="logo-text">SAFE<span>HOME</span></span>
+    </a>
+    <nav class="links">
+      <a href="#about">Về chúng tôi</a>
+      <a href="#services">Dịch vụ</a>
+      <a href="#projects">Dự án</a>
+      <a href="#">Tin tức</a>
+      <a href="#">Tra cứu bảo hành</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="phone" href="tel:0567589888"><span class="dot"></span>0567 589 888</a>
+      <button class="burger" aria-label="Mở menu" id="burgerBtn">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0;">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow on-dark">Hyper Integrated Protection</span>
+        <h1>Bảo vệ toàn diện,<br>chuẩn mực an sinh</h1>
+        <p class="lead">Chống thấm kết cấu công trình và kiểm soát côn trùng chuẩn cao cấp — hai lớp bảo vệ tích hợp, bảo hành đến 15 năm, quản lý minh bạch bằng QR Code.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-primary">Nhận tư vấn miễn phí</a>
+          <a href="#services" class="btn btn-ghost">Khám phá hệ sinh thái</a>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div class="diagram-caption">
+          <span>SƠ ĐỒ KẾT CẤU — MẶT CẮT</span>
+          <span>KHẢO SÁT: RADAR + TẦM NHIỆT</span>
+        </div>
+        <svg viewBox="0 0 520 380" width="100%" role="img" aria-label="Sơ đồ mặt cắt công trình thể hiện hai lớp bảo vệ HyperSeal và HyperPest">
+          <rect x="90" y="40" width="340" height="260" fill="none" stroke="#3E5C70" stroke-width="1"/>
+          <line x1="60" y1="300" x2="460" y2="300" stroke="#7FB4D6" stroke-width="1.4"/>
+          <rect x="120" y="230" width="280" height="70" fill="none" stroke="#7FB4D6" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <line x1="90" y1="180" x2="430" y2="180" stroke="#3E5C70" stroke-width="1"/>
+          <line x1="90" y1="120" x2="430" y2="120" stroke="#3E5C70" stroke-width="1"/>
+          <polygon points="90,40 260,5 430,40" fill="none" stroke="#7FB4D6" stroke-width="1.2"/>
+
+          <circle cx="150" cy="265" r="3.5" fill="#E7A87C"/>
+          <circle class="radar-pulse" cx="150" cy="265" r="3.5" fill="none" stroke="#E7A87C" stroke-width="1.4"/>
+          <line x1="150" y1="265" x2="70" y2="230" stroke="#5C6B76" stroke-width="1"/>
+          <text x="20" y="222" fill="#C3CBD1" font-family="IBM Plex Mono" font-size="11">Lá chắn vật lý</text>
+          <text x="20" y="236" fill="#7FB4D6" font-family="IBM Plex Mono" font-size="11">HyperSeal</text>
+
+          <circle cx="330" cy="150" r="3.5" fill="#9CC08A"/>
+          <circle class="radar-pulse" cx="330" cy="150" r="3.5" fill="none" stroke="#9CC08A" stroke-width="1.4" style="animation-delay:1.1s"/>
+          <line x1="330" y1="150" x2="460" y2="115" stroke="#5C6B76" stroke-width="1"/>
+          <text x="365" y="108" fill="#C3CBD1" font-family="IBM Plex Mono" font-size="11">Màng lọc sinh học</text>
+          <text x="365" y="122" fill="#9CC08A" font-family="IBM Plex Mono" font-size="11">HyperPest</text>
+
+          <text x="96" y="316" fill="#5C6B76" font-family="IBM Plex Mono" font-size="10">MÓNG / TẦNG HẦM</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE STRIP -->
+  <section class="strip" style="padding:0;">
+    <div class="wrap">
+      <div class="strip-item">
+        <span class="swatch sw-seal"></span>
+        <span class="tag">01 · chongthamtrondoi.vn</span>
+        <h3>HyperSeal</h3>
+        <p>Chống thấm kết cấu cao cấp — vật liệu Sika, bảo hành 15 năm.</p>
+      </div>
+      <div class="strip-item">
+        <span class="swatch sw-pest"></span>
+        <span class="tag">02 · kiemdich24h.vn</span>
+        <h3>HyperPest</h3>
+        <p>Kiểm soát côn trùng sinh học — chuẩn khách sạn 5 sao.</p>
+      </div>
+      <div class="strip-item">
+        <span class="swatch sw-hip"></span>
+        <span class="tag">03 · gói tích hợp</span>
+        <h3>Safe Home Integrated</h3>
+        <p>Một đầu mối duy nhất — tiết kiệm đến 40% chi phí.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES DETAIL -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Dịch vụ của chúng tôi</span>
+        <h2>Hệ sinh thái lõi — hai lớp bảo vệ toàn diện</h2>
+        <p>Một lá chắn vật lý. Một màng lọc sinh học. Hai giải pháp phối hợp hoàn hảo — đó là chuẩn mực SafeHome.</p>
+      </div>
+
+      <div class="dossier">
+        <div class="dossier-visual seal">
+          <svg width="70%" viewBox="0 0 100 100" fill="none" stroke="#1F4358" stroke-width="1.4">
+            <rect x="15" y="15" width="70" height="70" rx="2"/>
+            <path d="M15 55 h70 M35 15 v70 M65 15 v70"/>
+            <circle cx="35" cy="35" r="3" fill="#1F4358"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-chip seal">HyperSeal</span>
+          <h3>Chống thấm kết cấu cao cấp</h3>
+          <div class="domain">chongthamtrondoi.vn — lá chắn vượt trội, bền vững trọn đời</div>
+          <ul class="spec-list">
+            <li>Lá chắn vật lý công nghệ cao cho mọi kết cấu công trình</li>
+            <li>Vật liệu Sika (Thụy Sĩ) nhập khẩu</li>
+            <li>Bảo hành 15 năm — hợp đồng pháp lý, quản lý bằng QR Code</li>
+          </ul>
+          <a class="dossier-link" href="#">Khám phá HyperSeal ↗</a>
+        </div>
+      </div>
+
+      <div class="dossier">
+        <div class="dossier-visual pest">
+          <svg width="70%" viewBox="0 0 100 100" fill="none" stroke="#39501F" stroke-width="1.4">
+            <circle cx="50" cy="50" r="34"/>
+            <circle cx="50" cy="50" r="20"/>
+            <circle cx="50" cy="50" r="3" fill="#39501F"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-chip pest">HyperPest</span>
+          <h3>Kiểm soát côn trùng sinh học</h3>
+          <div class="domain">kiemdich24h.vn — kiểm soát vượt trội, an toàn sinh học</div>
+          <ul class="spec-list">
+            <li>Kiểm soát côn trùng theo tiêu chuẩn khách sạn 5 sao</li>
+            <li>Hóa chất sinh học an toàn cho sức khỏe, không độc hại</li>
+            <li>Triệt tiêu mầm bệnh, diệt mối tận gốc</li>
+          </ul>
+          <a class="dossier-link" href="#">Khám phá HyperPest ↗</a>
+        </div>
+      </div>
+
+      <div class="hip-banner">
+        <div>
+          <span class="eyebrow on-dark">Gói Safe Home Integrated</span>
+          <h3>Bảo vệ kép — vận hành đơn nhất</h3>
+          <p>Kiểm tra tổng thể và bảo trì an sinh định kỳ — kết hợp HyperSeal + HyperPest trong một gói bảo vệ duy nhất.</p>
+        </div>
+        <div class="hip-tags">
+          <span>1 ĐẦU MỐI</span>
+          <span>TIẾT KIỆM 40%</span>
+          <span>ACCOUNT MANAGER RIÊNG</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-wrap" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <span class="eyebrow">Thành lập 2015</span>
+        <h2>Hơn 10 năm thiết lập chuẩn mực an sinh</h2>
+        <p>SafeHome Vietnam là hệ thống tiên phong cung cấp giải pháp Bảo vệ Tích hợp dành cho công trình và không gian sống cao cấp tại Việt Nam. Không đơn thuần là một nhà cung cấp dịch vụ — SafeHome là chiếc "ô bảo vệ" toàn diện, nơi mỗi giải pháp được thiết kế để bảo vệ cả kết cấu công trình lẫn sức khỏe người sử dụng.</p>
+      </div>
+      <div class="vm-grid">
+        <div class="vm-card">
+          <span class="mono">TẦM NHÌN</span>
+          <p>Trở thành hệ thống Bảo vệ Tích hợp tiêu chuẩn cao nhất Việt Nam — nơi Công nghệ và An sinh giao thoa.</p>
+        </div>
+        <div class="vm-card">
+          <span class="mono">SỨ MỆNH</span>
+          <p>Thiết lập chuẩn mực "Hyper" bảo vệ công trình và không gian sống — an toàn tuyệt đối cho mọi thế hệ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-bar" style="padding:0;">
+    <div class="wrap" style="padding-top:0;padding-bottom:0;">
+      <div class="stats-grid">
+        <div class="stat"><div class="num">500+</div><div class="label mono">Đội ngũ chuyên gia</div></div>
+        <div class="stat"><div class="num">10+ năm</div><div class="label mono">Kinh nghiệm</div></div>
+        <div class="stat"><div class="num">1000+</div><div class="label mono">Công trình bảo vệ</div></div>
+        <div class="stat"><div class="num">24/7</div><div class="label mono">Hỗ trợ khách hàng</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Tại sao chọn SafeHome</span>
+        <h2>Ba trụ cột tạo nên tiêu chuẩn "Hyper"</h2>
+        <p>Khác biệt không thể sao chép.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="code">TR—01</span>
+          <h3>Chuẩn kỹ thuật khắt khe</h3>
+          <p>Mọi quy trình đều chuẩn hóa theo Hyper Standard — từ khảo sát, thi công đến nghiệm thu. Không ngoại lệ.</p>
+        </div>
+        <div class="pillar">
+          <span class="code">TR—02</span>
+          <h3>Radar & tầm nhiệt</h3>
+          <p>Thiết bị radar và tầm nhiệt hiện đại — phát hiện chính xác vị trí thấm ngầm và tổ côn trùng ẩn sâu.</p>
+        </div>
+        <div class="pillar">
+          <span class="code">TR—03</span>
+          <h3>Minh bạch QR Code</h3>
+          <p>Hệ thống quản lý bảo hành điện tử — tra cứu ngay lập tức toàn bộ hồ sơ công trình.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Dự án tiêu biểu</span>
+        <h2>Những công trình chúng tôi tự hào bảo vệ</h2>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="mono">TÂY HỒ · 18 TẦNG</span></div>
+          <div class="proj-body">
+            <h3>Safehome Integrated cho tòa chung cư 18 tầng Tây Hồ</h3>
+            <p>Bảo vệ 360° không điểm mù.</p>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="mono">ĐỐNG ĐA · 680M²</span></div>
+          <div class="proj-body">
+            <h3>Chống thấm tầng hầm 680m² tòa văn phòng Đống Đa</h3>
+            <p>Gói HyperSeal PRIME.</p>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="mono">SÀI ĐỒNG · 2.000M²</span></div>
+          <div class="proj-body">
+            <h3>Diệt mối nhà xưởng sản xuất khu công nghiệp Sài Đồng</h3>
+            <p>Phát hiện tầm nhiệt, bảo hành 18 tháng.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi-wrap">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Review từ khách hàng</span>
+        <h2>Được tin tưởng bởi các chủ đầu tư và ban quản lý</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="quote">"Kỹ thuật viên dùng thiết bị tầm nhiệt soi chính xác vị trí nứt ngầm chứ không đoán mò."</p>
+          <p class="who"><b>Chị Minh Anh</b> — Chủ biệt thự, Vinhomes Ocean Park</p>
+        </div>
+        <div class="testi-card">
+          <p class="quote">"Cam kết hợp đồng pháp lý rõ ràng. Hơn 1 năm hầm xe tòa nhà luôn khô ráo."</p>
+          <p class="who"><b>Anh Quốc Tuấn</b> — Trưởng BQL Tòa nhà Văn phòng, Đống Đa</p>
+        </div>
+        <div class="testi-card">
+          <p class="quote">"Chỉ làm việc với một đầu mối duy nhất giúp tiết kiệm ngân sách gần 40%."</p>
+          <p class="who"><b>Ông Nguyễn Văn Hùng</b> — Đại diện BQT Chung cư, Tây Hồ</p>
+        </div>
+      </div>
+
+      <div class="partners-row">
+        <span class="p-logo">VINGROUP</span>
+        <span class="p-logo">MASAN</span>
+        <span class="p-logo">VINAMILK</span>
+        <span class="p-logo">NOVALAND</span>
+        <span class="p-logo">SABECO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner" id="contact">
+    <div class="wrap" style="max-width:640px;">
+      <h2>Sẵn sàng bảo vệ tài sản của bạn</h2>
+      <p>Hãy để chúng tôi bảo vệ những gì quan trọng nhất với bạn — tư vấn miễn phí, khảo sát tận nơi.</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="tel:0567589888" class="btn btn-primary">Liên hệ ngay</a>
+        <a href="#" class="btn btn-ghost">Tải brochure</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="foot-logo">SAFEHOME</div>
+      <p class="foot-tag">Bảo vệ toàn diện – chuẩn mực an sinh. Công ty SAFEHOME VIETNAM.</p>
+      <p class="foot-tag" style="margin-top:14px;">Số 113 ngõ 102 Đ. Khuất Duy Tiến, P. Thanh Xuân, TP. Hà Nội</p>
+    </div>
+    <div>
+      <h4>HyperSeal</h4>
+      <ul>
+        <li><a href="#">Dịch vụ chống thấm</a></li>
+        <li><a href="#">Bảng giá HyperSeal</a></li>
+        <li><a href="#">chongthamtrondoi.vn</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>HyperPest</h4>
+      <ul>
+        <li><a href="#">Dịch vụ kiểm soát côn trùng</a></li>
+        <li><a href="#">Bảng giá HyperPest</a></li>
+        <li><a href="#">kiemdich24h.vn</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Liên hệ</h4>
+      <ul>
+        <li class="mono">Hotline SafeHome: 0567 589 888</li>
+        <li class="mono">Hotline HyperSeal: 0585 655 888</li>
+        <li>info@safehomevietnam.com</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 SAFEHOME. Bảo lưu mọi quyền lợi.</span>
+    <span>Điều khoản sử dụng · Chính sách bảo mật · Chính sách bản quyền</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', function(){
+    var links = document.querySelector('nav.links');
+    var open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.cssText += 'flex-direction:column;position:absolute;top:106px;left:0;right:0;background:#F4F3EE;padding:20px 28px;gap:16px;border-bottom:1px solid #EAE8E0;';
+  });
+</script>
+
+</body>
+</html>
