@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kiln — Turn a prompt into a running workflow</title>
+<meta name="description" content="Kiln lets engineering teams describe an outcome, watch an agent draft the workflow, preview it against real data, and deploy with one click." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="container header-row">
+    <a class="logo" href="#top" aria-label="Kiln home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 28 28" width="28" height="28">
+          <path d="M4 20 L14 4 L24 20 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="14" cy="16.5" r="2.6" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="logo-word">Kiln</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <div class="mega-wrap">
+        <button class="nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="mega-product" data-nav="product">
+          Product
+          <svg class="nav-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+        </button>
+        <div class="mega-panel" id="mega-product" data-mega hidden>
+          <div class="mega-groups">
+            <div class="mega-group">
+              <h3>Build</h3>
+              <a href="#product">Workspace<span>Where a workflow gets drafted and edited</span></a>
+              <a href="#product">Agent runs<span>Step-by-step trace of what an agent did and why</span></a>
+              <a href="#product">Files &amp; connectors<span>Give a workflow access to specific tools and data</span></a>
+              <a href="#product">Preview mode<span>Test against real records before anyone else sees it</span></a>
+            </div>
+            <div class="mega-group">
+              <h3>Run</h3>
+              <a href="#product">Deploys &amp; rollback<span>Ship a version, revert it in one click</span></a>
+              <a href="#product">Scheduling<span>Run workflows on a timer or a trigger</span></a>
+              <a href="#developers">API &amp; webhooks<span>Call any workflow from your own backend</span></a>
+              <a href="#resources">Audit log<span>Who changed what, and when</span></a>
+            </div>
+          </div>
+          <div class="mega-featured">
+            <p class="mega-featured-label">New</p>
+            <h4>Pause on error, by default</h4>
+            <p>A failed step now stops the run and pings the owner, instead of finishing silently. Read the notes.</p>
+            <a class="mega-featured-link" href="#resources">See what changed</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mega-wrap">
+        <button class="nav-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="mega-solutions" data-nav="solutions">
+          Solutions
+          <svg class="nav-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+        </button>
+        <div class="mega-panel" id="mega-solutions" data-mega hidden>
+          <div class="mega-groups">
+            <div class="mega-group">
+              <h3>By team</h3>
+              <a href="#solutions">IT &amp; operations<span>Onboarding, offboarding, access requests</span></a>
+              <a href="#solutions">Support<span>Ticket triage and routing rules</span></a>
+              <a href="#solutions">Finance<span>Reconciliation and reporting runs</span></a>
+            </div>
+            <div class="mega-group">
+              <h3>By pattern</h3>
+              <a href="#solutions">Human-in-the-loop<span>Require approval before a step runs</span></a>
+              <a href="#solutions">Scheduled jobs<span>Nightly and weekly batch workflows</span></a>
+              <a href="#solutions">Event-driven<span>Triggered by a webhook or file change</span></a>
+            </div>
+          </div>
+          <div class="mega-featured">
+            <p class="mega-featured-label">Guide</p>
+            <h4>Choosing your first workflow</h4>
+            <p>A short framework for picking a task worth automating first — and one to skip for now.</p>
+            <a class="mega-featured-link" href="#resources">Read the guide</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="nav-link" href="#developers">Developers</a>
+      <a class="nav-link" href="#resources">Resources</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="icon-sun" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 1.5v2.2M10 16.3v2.2M2.4 10h2.2M15.4 10h2.2M4.6 4.6l1.6 1.6M13.8 13.8l1.6 1.6M4.6 15.4l1.6-1.6M13.8 6.2l1.6-1.6"/></g></svg>
+      </button>
+      <a class="btn btn-ghost" href="#signin">Sign in</a>
+      <a class="btn btn-primary" href="#start">Start building</a>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- UI-10 Dialog/Sheet primitive, dùng chung cho mobile menu -->
+<div class="sheet-overlay" id="sheet-overlay" hidden></div>
+<div class="sheet" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu" hidden>
+  <div class="sheet-header">
+    <span class="logo-word">Kiln</span>
+    <button class="icon-btn" id="sheet-close" aria-label="Close menu">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <nav class="sheet-nav" aria-label="Mobile">
+    <a href="#product">Product</a>
+    <a href="#solutions">Solutions</a>
+    <a href="#developers">Developers</a>
+    <a href="#resources">Resources</a>
+    <hr />
+    <a href="#signin">Sign in</a>
+    <a class="btn btn-primary sheet-cta" href="#start">Start building</a>
+  </nav>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">For engineering teams shipping internal tools</p>
+        <h1 class="hero-title">
+          Describe the outcome.<br />
+          Kiln ships the workflow.
+        </h1>
+        <p class="hero-desc">
+          Write what should happen in plain language. An agent drafts the workflow, runs it against your real files and tools in a live preview, and you deploy the version that works — no separate staging environment to babysit.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="#start" id="start">Start building — free</a>
+          <a class="btn btn-secondary btn-lg" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note">No credit card. Deploy your first workflow in under ten minutes.</p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="preview-window">
+          <div class="preview-chrome">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="preview-title">workspace / onboarding-agent</span>
+          </div>
+          <div class="preview-tabs">
+            <span class="tab is-active">Workspace</span>
+            <span class="tab">Files</span>
+            <span class="tab">Agent</span>
+            <span class="tab">Deploy</span>
+          </div>
+          <div class="preview-body">
+            <div class="preview-line"><span class="pill pill-user">You</span> When a new employee is added, create their accounts and send a welcome checklist.</div>
+            <div class="preview-line"><span class="pill pill-agent">Agent</span> Drafted 4 steps: create accounts → assign role → send checklist → notify manager.</div>
+            <div class="preview-run">
+              <span class="run-dot" aria-hidden="true"></span> Running against 3 sample records — <strong>3 / 3 succeeded</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust / proof — không có case study thật, dùng scenario thay vì logo/testimonial bịa -->
+  <section class="proof" aria-label="What Kiln is used for">
+    <div class="container proof-row">
+      <p class="proof-label">Common first workflows teams build</p>
+      <ul class="proof-list">
+        <li>Employee onboarding &amp; access provisioning</li>
+        <li>Support ticket triage &amp; routing</li>
+        <li>Nightly data reconciliation</li>
+        <li>Contract intake &amp; review reminders</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- S-01 / S-02 — Network diagram, animate có chủ đích, tắt theo reduced motion -->
+  <section class="diagram-section" id="product">
+    <div class="container diagram-grid">
+      <div class="diagram-copy" data-reveal>
+        <h2>One path, from words to a running system</h2>
+        <p>Every workflow in Kiln moves through the same five stops. You can inspect, pause, or edit at any of them — nothing runs as a black box.</p>
+        <ul class="diagram-legend">
+          <li><span class="legend-dot dot-user"></span> You describe the outcome</li>
+          <li><span class="legend-dot dot-agent"></span> Agent drafts the steps</li>
+          <li><span class="legend-dot dot-tool"></span> Steps call real tools &amp; files</li>
+          <li><span class="legend-dot dot-deploy"></span> Preview, then deploy</li>
+        </ul>
+      </div>
+      <div class="diagram-canvas" role="img" aria-label="Diagram: request flows from user to agent, to files and tools, into a live preview, then to deployment.">
+        <svg viewBox="0 0 620 380" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+          <g class="edges" fill="none" stroke-linecap="round">
+            <path class="edge" d="M90,80 C160,80 160,160 230,160" />
+            <path class="edge" d="M230,160 C280,160 280,90 340,90" />
+            <path class="edge" d="M230,160 C280,160 280,230 340,230" />
+            <path class="edge" d="M340,90 C400,90 400,160 460,160" />
+            <path class="edge" d="M340,230 C400,230 400,160 460,160" />
+            <path class="edge" d="M460,160 C500,160 500,300 560,300" />
+          </g>
+          <g class="nodes" font-family="var(--font-body)">
+            <g transform="translate(90,80)"><circle r="26" class="node node-user"/><text class="node-label" y="42">User</text></g>
+            <g transform="translate(230,160)"><circle r="26" class="node node-agent"/><text class="node-label" y="42">Agent</text></g>
+            <g transform="translate(340,90)"><circle r="24" class="node node-tool"/><text class="node-label" y="40">Files</text></g>
+            <g transform="translate(340,230)"><circle r="24" class="node node-tool"/><text class="node-label" y="40">Tools</text></g>
+            <g transform="translate(460,160)"><circle r="26" class="node node-preview"/><text class="node-label" y="42">Preview</text></g>
+            <g transform="translate(560,300)"><circle r="26" class="node node-deploy"/><text class="node-label" y="42">Deploy</text></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-01 How it works — numbering hợp lệ vì đúng là 1 sequence -->
+  <section class="how" id="how">
+    <div class="container">
+      <h2 class="section-title">How a workflow gets built</h2>
+      <ol class="how-steps">
+        <li data-reveal>
+          <span class="step-index">1</span>
+          <h3>Describe the outcome</h3>
+          <p>Write the result you want in plain sentences. No flowchart, no config file — Kiln asks follow-up questions if something is ambiguous.</p>
+        </li>
+        <li data-reveal>
+          <span class="step-index">2</span>
+          <h3>Review the draft</h3>
+          <p>The agent proposes each step it plans to take and which tools or files it needs access to. You approve, edit, or remove any step before it runs.</p>
+        </li>
+        <li data-reveal>
+          <span class="step-index">3</span>
+          <h3>Preview on real data</h3>
+          <p>Run the workflow against a small, real sample — not synthetic fixtures — so you see the actual output before anyone else does.</p>
+        </li>
+        <li data-reveal>
+          <span class="step-index">4</span>
+          <h3>Deploy with a rollback path</h3>
+          <p>Ship the version you previewed. Every deploy keeps the previous version one click away.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- S-04 Feature bento — 3 tier kích thước khác nhau, không đồng dạng -->
+  <section class="bento" id="solutions">
+    <div class="container">
+      <h2 class="section-title">Built for how engineering teams actually ship</h2>
+      <div class="bento-grid">
+        <article class="bento-card tier-primary" data-reveal>
+          <h3>Every run is inspectable</h3>
+          <p>See exactly which files, APIs, and records a workflow touched — before and after it runs. Nothing executes silently.</p>
+        </article>
+        <article class="bento-card tier-secondary" data-reveal>
+          <h3>Versioned by default</h3>
+          <p>Every edit creates a new version. Roll back without redeploying by hand.</p>
+        </article>
+        <article class="bento-card tier-secondary" data-reveal>
+          <h3>Scoped access per workflow</h3>
+          <p>A workflow only gets the tool and file permissions it was granted — not your whole workspace.</p>
+        </article>
+        <article class="bento-card tier-supporting" data-reveal>
+          <h3>Pause on error</h3>
+          <p>A failed step stops the run and notifies the owner instead of continuing partway.</p>
+        </article>
+        <article class="bento-card tier-supporting" data-reveal>
+          <h3>Shared components</h3>
+          <p>Reuse a step — like "send Slack message" — across workflows instead of rebuilding it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-03 Developer proof -->
+  <section class="dev-proof" id="developers">
+    <div class="container dev-grid">
+      <div class="dev-copy" data-reveal>
+        <h2 class="section-title">Trigger it from code, not just the UI</h2>
+        <p>Every workflow gets an endpoint. Call it from a cron job, a webhook, or your own backend.</p>
+        <ul class="dev-list">
+          <li>REST API and typed SDK</li>
+          <li>Signed webhook triggers</li>
+          <li>Self-hosted or managed deploy</li>
+        </ul>
+      </div>
+      <div class="code-panel" data-reveal>
+        <div class="code-panel-header">
+          <span>run-workflow.sh</span>
+          <button class="copy-btn" type="button" data-copy-target="code-snippet">Copy</button>
+        </div>
+        <pre id="code-snippet"><code>curl -X POST https://api.kiln.dev/v1/workflows/onboarding/run \
+  -H "Authorization: Bearer $KILN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"employee_id": "e_2291"}'</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-02 Security card, dùng Alert/Callout pattern -->
+  <section class="security" id="resources">
+    <div class="container security-grid">
+      <div data-reveal>
+        <h2 class="section-title">Access &amp; data handling</h2>
+        <p>This is a demo build — the items below describe the intended model, not a certified production posture. Replace with verified claims and links before this ships.</p>
+      </div>
+      <div class="security-list" data-reveal>
+        <div class="security-item">
+          <h3>Encryption in transit and at rest</h3>
+          <p>Workflow data is encrypted end to end between your tools and Kiln's runners.</p>
+        </div>
+        <div class="security-item">
+          <h3>Workspace isolation</h3>
+          <p>Each workspace runs in its own execution boundary — no shared runtime state between customers.</p>
+        </div>
+        <div class="security-item">
+          <h3>Retention controls</h3>
+          <p>Set how long run history and logs are kept, per workspace.</p>
+        </div>
+        <div class="security-item">
+          <h3>Audit log</h3>
+          <p>Every run, edit, and permission change is attributed to a person and timestamped.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- M-06 Final CTA -->
+  <section class="final-cta">
+    <div class="container final-cta-inner" data-reveal>
+      <h2>Build your first workflow today</h2>
+      <p>Free while in preview. No credit card required.</p>
+      <a class="btn btn-primary btn-lg" href="#start">Start building — free</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#top" aria-label="Kiln home">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 28 28" width="24" height="24">
+            <path d="M4 20 L14 4 L24 20 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="14" cy="16.5" r="2.6" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="logo-word">Kiln</span>
+      </a>
+      <p class="footer-tagline">Turn a prompt into a running workflow.</p>
+      <p class="footer-status"><span class="status-dot" aria-hidden="true"></span> All systems normal</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <div>
+        <h4>Product</h4>
+        <a href="#product">Overview</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#developers">Developers</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#resources">Docs</a>
+        <a href="#resources">Changelog</a>
+        <a href="#resources">Status</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 Kiln. Demo build for internal review — not a live product.</p>
+  </div>
+</footer>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>
