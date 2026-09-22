@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hướng dẫn quản trị website Flatsome — Posts / Pages / Media / UX Blocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5EF;
+    --paper-raised:#FFFFFF;
+    --ink:#1C2321;
+    --ink-soft:#5B6660;
+    --line:#DEDACD;
+    --teal:#2B6E77;
+    --teal-deep:#1D4E56;
+    --amber:#C4732E;
+    --amber-soft:#F4E4D3;
+    --danger-bg:#F6E4E1;
+    --danger-line:#D9938A;
+    --code-bg:#EFEAE0;
+    --radius:3px;
+    --sidebar-w:290px;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#181B18; --paper-raised:#20241F; --ink:#EDEAE0; --ink-soft:#A9AFA4;
+      --line:#33382F; --teal:#5FB3BC; --teal-deep:#7FC7CE; --amber:#E0A264;
+      --amber-soft:#3A2E1D; --danger-bg:#3A211F; --danger-line:#7A3B34; --code-bg:#242821;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#181B18; --paper-raised:#20241F; --ink:#EDEAE0; --ink-soft:#A9AFA4;
+    --line:#33382F; --teal:#5FB3BC; --teal-deep:#7FC7CE; --amber:#E0A264;
+    --amber-soft:#3A2E1D; --danger-bg:#3A211F; --danger-line:#7A3B34; --code-bg:#242821;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:calc(24px + env(safe-area-inset-top,0px));}
+  html,body{height:100%;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;}
+  a{color:var(--teal-deep);}
+
+  .topbar{
+    position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;
+    padding:calc(14px + env(safe-area-inset-top,0px)) 20px 14px;
+    background:var(--paper-raised);border-bottom:1px solid var(--line);
+  }
+  .topbar .mark{width:30px;height:30px;border-radius:7px;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;flex:none;}
+  .topbar .title-block{display:flex;flex-direction:column;line-height:1.25;}
+  .topbar .doc-name{font-weight:600;font-size:15px;}
+  .topbar .doc-sub{font-size:12.5px;color:var(--ink-soft);}
+  .menu-toggle{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);width:36px;height:36px;font-size:16px;cursor:pointer;}
+
+  .shell{display:flex;max-width:1200px;margin:0 auto;align-items:flex-start;}
+  .sidebar{width:var(--sidebar-w);flex:none;position:sticky;top:65px;max-height:calc(100vh - 65px - env(safe-area-inset-top,0px));overflow-y:auto;padding:28px 18px 60px 20px;border-right:1px solid var(--line);}
+  .sidebar h4{font-size:11.5px;letter-spacing:.03em;color:var(--ink-soft);margin:0 0 8px 10px;font-weight:600;}
+  .sidebar nav{display:flex;flex-direction:column;}
+  .sidebar a{text-decoration:none;color:var(--ink);font-size:14px;padding:6px 10px;border-radius:6px;border-left:2px solid transparent;}
+  .sidebar a.sub{padding-left:22px;font-size:13.3px;color:var(--ink-soft);}
+  .sidebar a:hover{background:var(--code-bg);}
+  .sidebar a.active{border-left:2px solid var(--teal);color:var(--teal-deep);background:var(--code-bg);font-weight:600;}
+
+  main{flex:1;min-width:0;padding:44px 40px 120px;}
+  .doc-header{margin-bottom:36px;}
+  .doc-header .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal-deep);}
+  h1{font-family:'Source Serif 4',serif;font-size:clamp(28px,4vw,38px);line-height:1.15;margin:10px 0 12px;font-weight:700;}
+  .doc-header p{color:var(--ink-soft);max-width:64ch;font-size:15.5px;margin:0;}
+
+  section.block{margin-bottom:56px;padding-top:14px;border-top:1px solid var(--line);}
+  section.block:first-of-type{border-top:none;padding-top:0;}
+  h2{font-family:'Source Serif 4',serif;font-size:24px;margin:0 0 6px;font-weight:600;display:flex;align-items:center;gap:10px;}
+  h2 .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-deep);border:1px solid var(--line);padding:2px 8px;border-radius:20px;font-weight:500;}
+  h3{font-size:16.5px;margin:28px 0 10px;font-weight:600;}
+  h2 + .lede{color:var(--ink-soft);font-size:14.5px;margin:0 0 20px;max-width:66ch;}
+  p{max-width:68ch;margin:0 0 14px;font-size:15px;}
+  ul.plain{max-width:68ch;margin:0 0 16px;padding-left:20px;}
+  ul.plain li{margin:5px 0;font-size:15px;}
+
+  .callout{border-left:3px solid var(--amber);background:var(--amber-soft);padding:12px 16px;border-radius:0 6px 6px 0;font-size:14px;max-width:64ch;margin:16px 0 20px;}
+  .callout strong{display:block;font-size:12.5px;letter-spacing:.02em;color:var(--amber);margin-bottom:3px;font-family:'IBM Plex Mono',monospace;font-weight:500;}
+  .callout.danger{border-left-color:var(--danger-line);background:var(--danger-bg);}
+  .callout.danger strong{color:var(--danger-line);}
+  .callout.info{border-left-color:var(--teal);background:var(--code-bg);}
+  .callout.info strong{color:var(--teal-deep);}
+
+  .steps{list-style:none;margin:18px 0 6px;padding:0;max-width:70ch;}
+  .steps li{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line);}
+  .steps li:first-child{border-top:none;}
+  .steps .num{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--teal);color:var(--teal-deep);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:2px;}
+  .steps .body p{margin-bottom:0;}
+  .steps .body h4{margin:0 0 4px;font-size:15px;font-weight:600;}
+
+  .path-pill{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:var(--code-bg);border:1px solid var(--line);padding:5px 10px;border-radius:5px;color:var(--ink);margin:2px 0 18px;}
+  .path-pill .sep{color:var(--ink-soft);}
+
+  .mock{max-width:660px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper-raised);margin:18px 0 24px;box-shadow:0 1px 0 var(--line);}
+  .mock .mock-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--code-bg);border-bottom:1px solid var(--line);}
+  .mock .mock-bar span{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .mock .mock-url{margin-left:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:2px 8px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .mock .mock-body{padding:16px;font-size:13px;}
+  .wp-row{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;border-bottom:1px solid var(--line);font-size:12.5px;gap:10px;}
+  .wp-row:last-child{border-bottom:none;}
+  .wp-row .chip{font-size:10.5px;border:1px solid var(--line);border-radius:20px;padding:1px 8px;color:var(--ink-soft);}
+  .wp-row .chip.live{color:var(--teal-deep);border-color:var(--teal);}
+  .wp-row .chip.draft{color:var(--amber);border-color:var(--amber);}
+  .btn-mock{font-size:11px;border:1px solid var(--teal);color:var(--teal-deep);padding:2px 8px;border-radius:4px;font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+
+  .grid-media{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+  .grid-media .tile{aspect-ratio:1;border-radius:5px;background:repeating-linear-gradient(45deg,var(--code-bg),var(--code-bg) 7px,var(--paper) 7px,var(--paper) 14px);border:1px solid var(--line);}
+
+  .tmpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .tmpl-grid .tmpl{border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center;font-size:11px;color:var(--ink-soft);}
+  .tmpl-grid .tmpl.on{border-color:var(--teal);color:var(--teal-deep);font-weight:600;}
+  .tmpl-grid .swatch{height:38px;border-radius:4px;background:var(--code-bg);margin-bottom:6px;}
+  .tmpl-grid .swatch.full{background:linear-gradient(var(--code-bg),var(--code-bg));}
+  .tmpl-grid .swatch.side{background:linear-gradient(90deg,var(--code-bg) 70%,var(--line) 70%);}
+
+  .def-grid{display:grid;grid-template-columns:150px 1fr;gap:0;max-width:70ch;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:16px 0 8px;}
+  .def-grid > div{padding:12px 16px;font-size:14px;}
+  .def-grid .term{background:var(--code-bg);font-weight:600;border-bottom:1px solid var(--line);border-right:1px solid var(--line);}
+  .def-grid .desc{border-bottom:1px solid var(--line);}
+  .def-grid > div:nth-last-child(-n+2){border-bottom:none;}
+
+  kbd{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:var(--code-bg);border:1px solid var(--line);border-bottom-width:2px;padding:1px 6px;border-radius:4px;}
+
+  footer{border-top:1px solid var(--line);padding:28px 40px 40px;font-size:12.5px;color:var(--ink-soft);max-width:1200px;margin:0 auto;}
+
+  @media (max-width: 860px){
+    .sidebar{position:fixed;top:0;left:0;height:100%;max-height:none;width:min(78vw,300px);background:var(--paper-raised);transform:translateX(-100%);transition:transform .22s ease;padding-top:calc(70px + env(safe-area-inset-top,0px));z-index:50;box-shadow:2px 0 18px rgba(0,0,0,.12);}
+    .sidebar.open{transform:translateX(0);}
+    .menu-toggle{display:block;}
+    main{padding:32px 20px 100px;}
+    .grid-media{grid-template-columns:repeat(4,1fr);}
+    .tmpl-grid{grid-template-columns:1fr 1fr;}
+    .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:45;}
+    .scrim.show{display:block;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="mark">FS</div>
+  <div class="title-block">
+    <span class="doc-name">Quản trị website Flatsome</span>
+    <span class="doc-sub">Posts · Pages · Media · UX Blocks</span>
+  </div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Mở mục lục">☰</button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <h4>Nội dung</h4>
+    <nav id="toc">
+      <a href="#tong-quan">1. Tổng quan hệ thống</a>
+      <a href="#posts">2. Quản lý Posts</a>
+      <a href="#pages">3. Quản lý Pages</a>
+      <a href="#media">4. Quản lý Media</a>
+      <a href="#blocks">5. Quản lý UX Blocks</a>
+      <a href="#blocks-tao" class="sub">Tạo Block</a>
+      <a href="#blocks-chen" class="sub">Chèn Block vào trang</a>
+      <a href="#blocks-sua" class="sub">Sửa Block đang dùng chung</a>
+      <a href="#blocks-footer" class="sub">Footer &amp; Widget</a>
+      <a href="#loi">6. Phụ lục: Lỗi thường gặp</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="doc-header">
+      <span class="eyebrow">Tài liệu quản trị</span>
+      <h1>Hướng dẫn quản trị website Flatsome</h1>
+      <p>Tài liệu dành cho quản trị viên nội dung: cách quản lý Bài viết (Posts), Trang (Pages), Thư viện ảnh (Media) và Khối nội dung dùng lại (UX Blocks) trên theme Flatsome.</p>
+    </div>
+
+    <section class="block" id="tong-quan">
+      <h2>1. Tổng quan hệ thống</h2>
+      <p class="lede">Bốn khu vực quản trị chính và khi nào dùng loại nội dung nào.</p>
+
+      <div class="def-grid">
+        <div class="term">Post (bài viết)</div>
+        <div class="desc">Nội dung dạng tin tức/blog, có ngày đăng và chuyên mục. Dùng cho: tin tức, thông báo, bài chia sẻ.</div>
+        <div class="term">Page (trang)</div>
+        <div class="desc">Nội dung tĩnh, không gắn ngày. Dùng cho: Trang chủ, Giới thiệu, Liên hệ, Landing page.</div>
+        <div class="term">Media</div>
+        <div class="desc">Thư viện lưu trữ toàn bộ ảnh/video đã tải lên, dùng chung cho cả Post và Page.</div>
+        <div class="term">UX Block</div>
+        <div class="desc">Khối nội dung tạo một lần, chèn lại được ở nhiều Post/Page/Widget/Footer khác nhau.</div>
+      </div>
+
+      <div class="callout info">
+        <strong>Hai chế độ chỉnh sửa</strong>
+        Trình soạn thảo WordPress mặc định dùng cho nội dung chữ đơn giản; nhấn <kbd>Edit with UX Builder</kbd> khi cần dàn Section/Row/Column, chèn ảnh nền, Block, v.v.
+      </div>
+    </section>
+
+    <section class="block" id="posts">
+      <h2>2. Quản lý Posts <span class="tag">Post ▸ blog</span></h2>
+      <p class="lede">Xem, lọc, thêm mới và thiết lập cách hiển thị trang Blog.</p>
+
+      <h3>Xem &amp; lọc danh sách bài viết</h3>
+      <span class="path-pill">Post <span class="sep">→</span> All Posts</span>
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span><div class="mock-url">wp-admin/edit.php</div></div>
+        <div class="mock-body">
+          <div class="wp-row"><span>10 mẹo bảo trì hệ thống điện lạnh</span><span class="chip live">Published</span><span class="btn-mock">Edit</span></div>
+          <div class="wp-row"><span>Thông báo lịch nghỉ lễ</span><span class="chip draft">Draft</span><span class="btn-mock">Edit</span></div>
+          <div class="wp-row"><span>Cập nhật quy trình vận hành mới</span><span class="chip live">Published</span><span class="btn-mock">Edit</span></div>
+        </div>
+      </div>
+      <p>Có thể lọc theo Category, Tag hoặc trạng thái (Published/Draft/Trash) bằng bộ lọc phía trên danh sách.</p>
+
+      <h3>Thêm bài viết mới</h3>
+      <span class="path-pill">Post <span class="sep">→</span> Add New</span>
+      <ul class="plain">
+        <li>Nhập tiêu đề, gán <strong>Category</strong> và <strong>Tag</strong> phù hợp ở cột bên phải.</li>
+        <li>Chọn <strong>Featured Image</strong> — ảnh này hiển thị ở danh sách blog và khi chia sẻ lên mạng xã hội.</li>
+        <li>Nhấn <kbd>Edit with UX Builder</kbd> để dàn nội dung trực quan, hoặc soạn trực tiếp bằng trình soạn thảo mặc định.</li>
+      </ul>
+
+      <h3>Thiết lập trang Blog</h3>
+      <p>Kiểu hiển thị danh sách bài viết (dạng lưới, danh sách, số cột…) được cấu hình chung tại <strong>Theme Options → Blog</strong>, áp dụng cho toàn bộ trang blog.</p>
+    </section>
+
+    <section class="block" id="pages">
+      <h2>3. Quản lý Pages <span class="tag">Page ▸ trang tĩnh</span></h2>
+      <p class="lede">Thêm trang mới, chọn khuôn mẫu bố cục và gán trang chủ.</p>
+
+      <h3>Thêm trang &amp; chọn Page Template</h3>
+      <span class="path-pill">Page <span class="sep">→</span> Add New</span>
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span><div class="mock-url">Page Attributes — Template</div></div>
+        <div class="mock-body tmpl-grid">
+          <div class="tmpl on"><div class="swatch full"></div>Full Width</div>
+          <div class="tmpl"><div class="swatch side"></div>Left Sidebar</div>
+          <div class="tmpl"><div class="swatch side"></div>Right Sidebar</div>
+        </div>
+      </div>
+      <p>Chọn Template ở khung <strong>Page Attributes</strong> bên phải: <strong>Full Width</strong> phù hợp cho landing page dàn bằng UX Builder; <strong>Left/Right Sidebar</strong> phù hợp cho trang có menu phụ (ví dụ trang tài liệu, danh mục dịch vụ).</p>
+
+      <h3>Sửa trang bằng UX Builder</h3>
+      <p>Nhấn <kbd>Edit with UX Builder</kbd> để dàn nội dung theo Section → Row → Column (xem chi tiết trong tài liệu "Hướng dẫn chỉnh sửa UX Builder").</p>
+
+      <h3>Gán trang làm Trang chủ</h3>
+      <span class="path-pill">Settings <span class="sep">→</span> Reading <span class="sep">→</span> A static page</span>
+      <p>Chọn trang cần làm Trang chủ (Homepage) và trang hiển thị danh sách bài viết (Posts page) nếu muốn tách riêng hai trang này.</p>
+
+      <div class="callout">
+        <strong>Landing page</strong>
+        Với các trang quảng cáo/landing page muốn ẩn tiêu đề hoặc ẩn header-footer mặc định, dùng mục <strong>Page Options</strong> ở cuối trang chỉnh sửa.
+      </div>
+    </section>
+
+    <section class="block" id="media">
+      <h2>4. Quản lý Media <span class="tag">thư viện ảnh</span></h2>
+      <p class="lede">Tải ảnh đúng chuẩn giúp trang tải nhanh và hiển thị sắc nét trên mọi thiết bị.</p>
+
+      <span class="path-pill">Media <span class="sep">→</span> Library</span>
+      <div class="mock">
+        <div class="mock-bar"><span></span><span></span><span></span><div class="mock-url">wp-admin/upload.php</div></div>
+        <div class="mock-body">
+          <div class="grid-media">
+            <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Chuẩn ảnh khi tải lên</h3>
+      <ul class="plain">
+        <li>Định dạng ưu tiên: <strong>JPG</strong> cho ảnh chụp, <strong>PNG</strong> cho ảnh có nền trong suốt, <strong>WebP</strong> nếu cần dung lượng nhẹ.</li>
+        <li>Nén ảnh trước khi tải lên (giữ dưới ~500KB/ảnh) để trang không bị chậm.</li>
+        <li>Trong UX Builder, phần Ảnh nền luôn chọn <strong>Size = Original</strong> để có chất lượng cao nhất — trình duyệt tự co giãn theo khung hiển thị.</li>
+      </ul>
+
+      <h3>Thay ảnh mà không vỡ link</h3>
+      <p>Chọn ảnh trong Media Library → <strong>Replace Media</strong> (nếu có cài plugin hỗ trợ) để tải ảnh mới đè lên ảnh cũ, mọi nơi đang dùng ảnh đó sẽ tự cập nhật mà không cần chèn lại từng vị trí.</p>
+
+      <h3>Khi nào cần Regenerate Thumbnails</h3>
+      <p>Sau khi đổi theme hoặc thay đổi kích thước ảnh đại diện mặc định, các ảnh cũ có thể hiển thị sai tỉ lệ. Lúc này cần chạy chức năng <strong>Regenerate Thumbnails</strong> (qua plugin hoặc WP-CLI) để tạo lại toàn bộ kích thước ảnh thu nhỏ cho ảnh đã tải lên trước đó.</p>
+
+      <div class="callout danger">
+        <strong>Dọn dẹp định kỳ</strong>
+        Xóa ảnh không còn dùng trong thư viện để tiết kiệm dung lượng lưu trữ — kiểm tra kỹ ảnh không còn gắn ở Post/Page nào trước khi xóa.
+      </div>
+    </section>
+
+    <section class="block" id="blocks">
+      <h2>5. Quản lý UX Blocks <span class="tag">nội dung dùng lại</span></h2>
+      <p class="lede">UX Block là khối nội dung tạo một lần và chèn lại được ở nhiều nơi — CTA, banner, bảng giá, footer tùy chỉnh…</p>
+
+      <h3 id="blocks-tao">Tạo Block mới</h3>
+      <ol class="steps">
+        <li><span class="num">1</span><div class="body"><h4>Vào UX Blocks → Add New</h4><p>Mục UX Blocks chỉ hiển thị trên menu khi theme Flatsome đang active.</p></div></li>
+        <li><span class="num">2</span><div class="body"><h4>Đặt tên Block</h4><p>Ví dụ: "CTA liên hệ", "Banner khuyến mãi" — tên này chỉ để quản trị viên nhận diện, không hiển thị ngoài site.</p></div></li>
+        <li><span class="num">3</span><div class="body"><h4>Dàn nội dung bằng UX Builder</h4><p>Nhấn <kbd>Edit with UX Builder</kbd>, thêm Text/Image/Button như một trang bình thường.</p></div></li>
+        <li><span class="num">4</span><div class="body"><h4>Lưu lại</h4><p>Nhấn <kbd>Apply</kbd> rồi <kbd>Update</kbd>.</p></div></li>
+      </ol>
+
+      <h3 id="blocks-chen">Chèn Block vào trang</h3>
+      <p>Trong UX Builder của Post/Page, bấm nút <kbd>+</kbd> để thêm phần tử → tìm từ khóa <strong>Block</strong> → chọn Block đã tạo từ danh sách thả xuống → <kbd>Apply</kbd> → <kbd>Update</kbd>.</p>
+
+      <h3 id="blocks-sua">Sửa Block đang dùng ở nhiều nơi</h3>
+      <div class="callout danger">
+        <strong>Lưu ý quan trọng</strong>
+        Một Block có thể đang được chèn ở nhiều Post/Page khác nhau. Khi sửa nội dung Block, thay đổi sẽ áp dụng <strong>đồng thời cho tất cả</strong> các vị trí đang dùng — nên kiểm tra trước khi sửa nếu không chắc Block đang xuất hiện ở đâu.
+      </div>
+
+      <h3 id="blocks-footer">Dùng Block cho Footer &amp; Widget</h3>
+      <ul class="plain">
+        <li><strong>Footer tùy chỉnh:</strong> tạo Block riêng → vào <span class="path-pill" style="margin:0;">Theme Options <span class="sep">→</span> Footer</span> → chọn Block đó áp dụng cho toàn site.</li>
+        <li><strong>Widget:</strong> vào <span class="path-pill" style="margin:0;">Appearance <span class="sep">→</span> Widgets</span> → kéo widget <strong>Flatsome Block</strong> vào khu vực mong muốn → chọn Block cần hiển thị.</li>
+      </ul>
+    </section>
+
+    <section class="block" id="loi">
+      <h2>6. Phụ lục: Lỗi thường gặp</h2>
+      <div class="def-grid">
+        <div class="term">Màn hình trắng khi bấm UX Builder</div>
+        <div class="desc">Thường do plugin cache hoặc xung đột plugin. Thử tắt cache, kiểm tra lại; nếu vẫn lỗi, tắt thử từng plugin không cần thiết.</div>
+        <div class="term">Ảnh vỡ layout trên di động</div>
+        <div class="desc">Kiểm tra lại Size ảnh (nên là Original) và không dùng ảnh có tỉ lệ quá khổ so với khung chứa.</div>
+        <div class="term">Sửa Block xong không thấy đổi trên trang</div>
+        <div class="desc">Xóa cache trình duyệt hoặc cache của plugin cache đang cài trên site (nếu có), sau đó tải lại trang.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>Tài liệu quản trị nội bộ — Flatsome / UX Builder.</footer>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('menuToggle');
+  const scrim = document.getElementById('scrim');
+  function closeSidebar(){ sidebar.classList.remove('open'); scrim.classList.remove('show'); }
+  toggle && toggle.addEventListener('click', () => { sidebar.classList.toggle('open'); scrim.classList.toggle('show'); });
+  scrim && scrim.addEventListener('click', closeSidebar);
+  document.querySelectorAll('#toc a').forEach(a => a.addEventListener('click', closeSidebar));
+
+  const links = Array.from(document.querySelectorAll('#toc a'));
+  const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function onScroll(){
+    let current = targets[0];
+    const y = window.scrollY + 90;
+    targets.forEach(t => { if (t.offsetTop <= y) current = t; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>
