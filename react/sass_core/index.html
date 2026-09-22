@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Meshflow — Kiến trúc Next.js App Router + MongoDB Atlas</title>
+<style>
+  @page { size: A4; margin: 18mm 15mm 18mm 15mm; }
+
+  :root{
+    --ink:#111827; --muted:#4b5563; --line:#e5e7eb;
+    --brand:#1d4ed8; --brand-soft:#eff6ff;
+    --accent:#0f766e; --warn:#b45309; --warn-soft:#fffbeb;
+    --code-bg:#f8fafc; --code-ink:#0f172a;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    color:var(--ink); font-size:10.5pt; line-height:1.55;
+    margin:0 auto; max-width:960px; padding:24px;
+  }
+
+  /* ---------- COVER ---------- */
+  .cover{
+    min-height:245mm; display:flex; flex-direction:column;
+    justify-content:center; page-break-after:always;
+    border-top:8px solid var(--brand); padding-top:40px;
+  }
+  .cover .kicker{
+    font-size:9pt; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--brand); font-weight:700; margin-bottom:18px;
+  }
+  .cover h1{
+    font-size:31pt; line-height:1.12; margin:0 0 14px;
+    letter-spacing:-.5px; border:0; padding:0;
+  }
+  .cover h2{
+    font-size:14pt; font-weight:500; color:var(--muted);
+    margin:0 0 34px; border:0; padding:0;
+  }
+  .cover .meta{
+    border-top:1px solid var(--line); padding-top:18px;
+    font-size:9.5pt; color:var(--muted);
+  }
+  .cover .meta b{ color:var(--ink); }
+  .cover .meta div{ margin-bottom:4px; }
+  .pill{
+    display:inline-block; background:var(--brand-soft); color:var(--brand);
+    border:1px solid #c7d7fe; border-radius:99px;
+    padding:3px 11px; font-size:8.5pt; font-weight:600; margin:2px 4px 2px 0;
+  }
+
+  /* ---------- HEADINGS ---------- */
+  h1{
+    font-size:19pt; margin:0 0 16px; padding-bottom:8px;
+    border-bottom:3px solid var(--brand); page-break-after:avoid;
+  }
+  h2{
+    font-size:13.5pt; margin:26px 0 10px; color:var(--brand);
+    padding-bottom:4px; border-bottom:1px solid var(--line);
+    page-break-after:avoid;
+  }
+  h3{ font-size:11.5pt; margin:18px 0 7px; page-break-after:avoid; }
+  h4{ font-size:10.5pt; margin:14px 0 5px; color:var(--accent); page-break-after:avoid; }
+
+  .chapter{ page-break-before:always; }
+
+  p{ margin:0 0 10px; text-align:justify; }
+  ul,ol{ margin:0 0 11px; padding-left:20px; }
+  li{ margin-bottom:4px; }
+  code{
+    font-family:"Cascadia Mono","Consolas","SF Mono",monospace;
+    background:#f1f5f9; padding:1px 4px; border-radius:3px;
+    font-size:9pt; color:#0b3a82;
+  }
+
+  pre{
+    background:var(--code-bg); color:var(--code-ink);
+    border:1px solid var(--line); border-left:3px solid var(--brand);
+    border-radius:5px; padding:11px 13px; overflow:visible;
+    font-family:"Cascadia Mono","Consolas","SF Mono",monospace;
+    font-size:7.6pt; line-height:1.42; white-space:pre-wrap;
+    word-break:break-word; margin:0 0 14px;
+    page-break-inside:avoid;
+  }
+  pre code{ background:none; padding:0; color:inherit; font-size:inherit; }
+  pre.diagram{
+    font-size:6.9pt; line-height:1.28; letter-spacing:0;
+    border-left-color:var(--accent); white-space:pre;
+    overflow-x:auto;
+  }
+  pre.tree{ font-size:7.4pt; line-height:1.35; white-space:pre; border-left-color:#7c3aed; }
+  pre.uml{ border-left-color:#be185d; font-size:7.2pt; }
+  pre.env{ border-left-color:var(--warn); }
+
+  .caption{
+    font-size:8.5pt; color:var(--muted); font-style:italic;
+    margin:-9px 0 15px 2px;
+  }
+
+  table{
+    width:100%; border-collapse:collapse; margin:0 0 15px;
+    font-size:9pt; page-break-inside:avoid;
+  }
+  th{
+    background:#1e293b; color:#fff; text-align:left;
+    padding:7px 9px; font-weight:600; font-size:8.8pt;
+  }
+  td{ border:1px solid var(--line); padding:6px 9px; vertical-align:top; }
+  tr:nth-child(even) td{ background:#f9fafb; }
+
+  .box{
+    border:1px solid var(--line); border-left:4px solid var(--brand);
+    background:#f8fafc; border-radius:5px; padding:11px 14px;
+    margin:0 0 15px; page-break-inside:avoid;
+  }
+  .box.warn{ border-left-color:var(--warn); background:var(--warn-soft); }
+  .box.ok{ border-left-color:#15803d; background:#f0fdf4; }
+  .box .t{
+    font-weight:700; font-size:9.5pt; display:block; margin-bottom:5px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  .box.warn .t{ color:var(--warn); }
+  .box.ok .t{ color:#15803d; }
+  .box.plain .t{ color:var(--brand); }
+  .box p:last-child, .box ul:last-child{ margin-bottom:0; }
+
+  .toc{ page-break-after:always; }
+  .toc ol{ list-style:none; padding-left:0; counter-reset:toc; }
+  .toc ol li{
+    counter-increment:toc; padding:6px 0;
+    border-bottom:1px dotted var(--line); font-size:10pt;
+  }
+  .toc ol li::before{
+    content:counter(toc) ". "; color:var(--brand); font-weight:700;
+  }
+  .toc ol li span{ color:var(--muted); font-size:9pt; display:block; padding-left:20px; }
+
+  .day{
+    border:1px solid var(--line); border-radius:5px;
+    padding:10px 13px; margin:0 0 11px; page-break-inside:avoid;
+  }
+  .day .h{
+    font-weight:700; color:var(--brand); font-size:10.5pt;
+    margin-bottom:5px; border-bottom:1px solid var(--line); padding-bottom:4px;
+  }
+  .day .done{
+    margin-top:7px; font-size:9pt; background:#f0fdf4;
+    border-left:3px solid #15803d; padding:5px 9px; border-radius:3px;
+  }
+  .day .done b{ color:#15803d; }
+
+  .kv{ display:table; width:100%; }
+  .kv div{ display:table-row; }
+  .kv span{ display:table-cell; padding:3px 8px 3px 0; font-size:9.2pt; }
+  .kv span:first-child{ width:34%; color:var(--muted); }
+
+  footer{
+    margin-top:34px; border-top:1px solid var(--line);
+    padding-top:10px; font-size:8.5pt; color:var(--muted); text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="kicker">Technical Architecture Document · v1.0</div>
+  <h1>Meshflow</h1>
+  <h2>Kiến trúc Next.js App Router + MongoDB Atlas + Vercel<br>cho website B2B SaaS (cảm hứng Tailscale)</h2>
+
+  <div>
+    <span class="pill">Next.js App Router</span>
+    <span class="pill">TypeScript</span>
+    <span class="pill">MongoDB Atlas M0</span>
+    <span class="pill">Tailwind CSS</span>
+    <span class="pill">Radix UI</span>
+    <span class="pill">Zod</span>
+    <span class="pill">Vercel</span>
+    <span class="pill">Clean Architecture-lite</span>
+  </div>
+
+  <div class="meta" style="margin-top:34px">
+    <div><b>Phạm vi:</b> CMS-lite · Landing page · Lead capture · Admin CRUD</div>
+    <div><b>Ngoài phạm vi:</b> AI worker · Job queue · WebSocket · Media pipeline</div>
+    <div><b>Nội dung:</b> Architecture decisions · UML Class &amp; Sequence · Data model · Implementation baseline · Roadmap 12 ngày</div>
+    <div><b>Đối tượng:</b> Fullstack developer / Solo builder / Portfolio–MVP</div>
+  </div>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="toc">
+  <h1>Mục lục</h1>
+  <ol>
+    <li>Tổng quan &amp; lý do chọn Next.js <span>So sánh với React/Vite, giới hạn phạm vi phù hợp</span></li>
+    <li>Mô hình hệ thống Next.js + Atlas <span>Sơ đồ tầng Browser → App Router → Atlas</span></li>
+    <li>Bảng quyết định kiến trúc <span>12 quyết định kỹ thuật cho MVP kèm lý do</span></li>
+    <li>Giới hạn MongoDB Atlas M0 <span>Quota, hệ quả thiết kế và chiến lược đối phó</span></li>
+    <li>Cấu trúc project chuẩn SaaS <span>Route group, feature layer, lib, scripts</span></li>
+    <li>UML Class Diagram <span>Domain · Ports · Application · Infrastructure · Delivery</span></li>
+    <li>Cách đọc Class Diagram <span>Vai trò từng lớp và nguyên tắc phụ thuộc</span></li>
+    <li>UML Sequence Diagrams <span>Public render · Lead capture · Admin publish</span></li>
+    <li>Data model &amp; MongoDB Indexes <span>PageDocument, discriminated union, TTL, index script</span></li>
+    <li>Implementation baseline <span>Mongo singleton, env validation, RSC, Route Handler</span></li>
+    <li>Caching &amp; Revalidation <span>Data Cache, revalidateTag, giảm read ops</span></li>
+    <li>Auth &amp; Middleware <span>JWT cookie, middleware guard, defense in depth</span></li>
+    <li>Lộ trình triển khai 12 ngày <span>Milestone kèm tiêu chí Done</span></li>
+    <li>Giới hạn nền tảng &amp; đường nâng cấp <span>Khi nào rời M0 / rời Vercel Function</span></li>
+    <li>Kết luận &amp; Checklist bàn giao <span>Tổng kết và danh sách kiểm tra trước release</span></li>
+  </ol>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="chapter">
+<h1>1. Tổng quan &amp; lý do chọn Next.js</h1>
+
+<p>Với một website clone lấy cảm hứng Tailscale — nặng về marketing, SEO và nội dung động do admin quản trị — <b>Next.js là lựa chọn tốt hơn React/Vite</b>. Bốn lý do trực tiếp:</p>
+
+<table>
+  <tr><th style="width:26%">Ưu thế</th><th>Tác động thực tế</th></tr>
+  <tr><td><b>SEO tốt hơn</b></td><td>Server rendering + <code>generateMetadata</code> cho từng route: title, description, canonical, Open Graph đều có sẵn khi crawler tải trang, không phụ thuộc JS hydration.</td></tr>
+  <tr><td><b>Server Components</b></td><td>Render nội dung MongoDB ngay tại server, không expose endpoint nội bộ, không tạo client-side fetch waterfall, không lộ credential.</td></tr>
+  <tr><td><b>Route Handlers</b></td><td>Thay thế hoàn toàn Fastify API cho phạm vi MVP: lead form, auth, admin CRUD — cùng một codebase, cùng một deploy.</td></tr>
+  <tr><td><b>Vercel zero-config</b></td><td>Deploy gần như không cấu hình; mọi route dưới <code>app/api/</code> tự động trở thành Function.</td></tr>
+</table>
+
+<h2>1.1 Giới hạn phạm vi — điều kiện để lựa chọn này đúng</h2>
+
+<div class="box ok">
+  <span class="t">Next.js / Vercel PHÙ HỢP</span>
+  <ul>
+    <li><b>CMS-lite</b> — nội dung có cấu trúc, số lượng editor nhỏ, workflow draft → publish đơn giản.</li>
+    <li><b>Landing page &amp; marketing site</b> — hero, feature grid, use case, pricing, security page.</li>
+    <li><b>Lead capture</b> — contact form, demo request, newsletter, kèm consent tracking.</li>
+    <li><b>Admin CRUD</b> — quản trị page, quản trị lead, phân quyền theo role.</li>
+  </ul>
+</div>
+
+<div class="box warn">
+  <span class="t">Next.js / Vercel KHÔNG phù hợp</span>
+  <ul>
+    <li><b>Tác vụ AI / inference dài</b> — vượt giới hạn thời gian thực thi của Function.</li>
+    <li><b>Worker &amp; job queue chạy liên tục</b> — serverless không giữ process nền.</li>
+    <li><b>WebSocket / kết nối bền</b> — cần server thường trú, không phải Function.</li>
+    <li><b>Media pipeline</b> — transcode, resize hàng loạt, xử lý binary lớn.</li>
+  </ul>
+  <p style="margin-top:8px">Với các nhu cầu trên, tách riêng service (Fly.io / Railway / Render / VPS) và để Next.js chỉ đóng vai trò web + BFF.</p>
+</div>
+
+<h2>1.2 Nền tảng cấu trúc App Router</h2>
+<p>Next.js App Router dùng <b>cấu trúc thư mục để định nghĩa route</b>. Các file quy ước:</p>
+<table>
+  <tr><th style="width:24%">File</th><th>Vai trò</th></tr>
+  <tr><td><code>page.tsx</code></td><td>UI của route, tạo ra URL public.</td></tr>
+  <tr><td><code>layout.tsx</code></td><td>Shell bao quanh, giữ state khi điều hướng giữa các route con.</td></tr>
+  <tr><td><code>loading.tsx</code></td><td>Suspense fallback tự động cho segment.</td></tr>
+  <tr><td><code>error.tsx</code></td><td>Error boundary phía client cho segment.</td></tr>
+  <tr><td><code>not-found.tsx</code></td><td>UI cho <code>notFound()</code> và 404.</td></tr>
+  <tr><td><code>route.ts</code></td><td>API endpoint dùng Web <code>Request</code>/<code>Response</code> chuẩn.</td></tr>
+</table>
+<p>MongoDB cũng có hướng dẫn tích hợp Next.js bằng Node driver kết hợp Route Handler tại <code>app/api/.../route.ts</code>, nên cấu trúc trong tài liệu này khớp với App Router hiện tại.</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="chapter">
+<h1>2. Mô hình hệ thống Next.js + Atlas</h1>
+
+<pre class="diagram">┌───────────────────────────────────────────────────────────────┐
+│                        Browser / Visitor                      │
+│                                                               │
+│  Public site                    Admin CMS                     │
+│  /, /product, /solutions        /admin/pages, /admin/leads    │
+└───────────────────────────┬───────────────────────────────────┘
+                            │ HTTPS
+                            ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    Next.js App Router                         │
+│                                                               │
+│  Server Components              Client Components             │
+│  ├─ render public page          ├─ menus                      │
+│  ├─ metadata/SEO                ├─ forms                      │
+│  ├─ MongoDB content read        ├─ table filters              │
+│  └─ cache/revalidate            └─ editor interactions        │
+│                                                               │
+│  Route Handlers: app/api/**/route.ts                          │
+│  ├─ POST   /api/leads                                         │
+│  ├─ POST   /api/auth/login                                    │
+│  ├─ GET/PATCH /api/admin/pages/:id                            │
+│  └─ GET/PATCH /api/admin/leads                                │
+│                                                               │
+│  Middleware                                                   │
+│  └─ auth guard cho /admin/**                                  │
+└────────────────────────────┬──────────────────────────────────┘
+                             │ MongoDB Node Driver
+                             ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    MongoDB Atlas Free / M0                    │
+│                                                               │
+│  pages · site_settings · leads · admin_users · audit_logs     │
+│  indexes · TTL cleanup                                        │
+└───────────────────────────────────────────────────────────────┘</pre>
+<p class="caption">Hình 2.1 — Kiến trúc ba tầng: Browser · Next.js App Router (RSC + Route Handlers + Middleware) · MongoDB Atlas M0.</p>
+
+<h2>2.1 Nguyên tắc dòng dữ liệu</h2>
+<table>
+  <tr><th style="width:30%">Loại thao tác</th><th>Đường đi</th></tr>
+  <tr><td><b>Đọc nội dung public</b></td><td>Server Component → Use case → Repository → Atlas. <i>Không</i> đi qua <code>fetch('/api/...')</code>.</td></tr>
+  <tr><td><b>Ghi dữ liệu</b></td><td>Client Component → Route Handler → validate → use case → Repository → Atlas.</td></tr>
+  <tr><td><b>Xác thực admin</b></td><td>Middleware chặn sớm → Route Handler verify lại session &amp; permission.</td></tr>
+  <tr><td><b>Invalidate cache</b></td><td>Sau mutation publish → <code>revalidateTag('page:slug')</code>.</td></tr>
+</table>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="chapter">
+<h1>3. Bảng quyết định kiến trúc</h1>
+
+<table>
+  <tr><th style="width:19%">Quyết định</th><th style="width:33%">Chọn cho MVP</th><th>Lý do</th></tr>
+  <tr><td>Framework</td><td>Next.js App Router + TypeScript</td><td>SEO, metadata API, server rendering, Route Handlers trong một codebase.</td></tr>
+  <tr><td>Styling</td><td>Tailwind CSS + CSS variables / design token</td><td>Dễ xây design system B2B SaaS, đổi theme không sửa markup.</td></tr>
+  <tr><td>UI primitive</td><td>Radix UI / shadcn-style composition</td><td>A11y behavior sẵn cho dialog, menu, tabs, tooltip; không tự viết focus trap.</td></tr>
+  <tr><td>Đọc dữ liệu public</td><td>Server Component + repository</td><td>Không lộ API/credential, giảm client fetch và waterfall.</td></tr>
+  <tr><td>Ghi dữ liệu</td><td>Route Handler</td><td>Lead form, admin CRUD, auth — có boundary rõ để validate và authorize.</td></tr>
+  <tr><td>Database</td><td>MongoDB Atlas M0</td><td>Free tier, schema linh hoạt, đủ cho CMS-lite MVP.</td></tr>
+  <tr><td>Auth admin</td><td>JWT signed session trong HTTP-only cookie</td><td>Đơn giản, stateless — phù hợp môi trường serverless của Vercel.</td></tr>
+  <tr><td>Validation</td><td>Zod</td><td>Validate tại boundary route/service; dùng chung schema client &amp; server.</td></tr>
+  <tr><td>Upload asset</td><td>Cloudinary / R2 / S3 (sau MVP)</td><td>Không lưu binary hay base64 trong Atlas — đốt quota 0.5&nbsp;GB rất nhanh.</td></tr>
+  <tr><td>Cache</td><td>Next Data Cache + <code>revalidateTag</code></td><td>Giảm read ops trên M0, giữ public page nhanh và ổn định.</td></tr>
+  <tr><td>Hosting</td><td>Vercel</td><td>Native support cho Next.js: build, Function, preview environment.</td></tr>
+  <tr><td>Kiến trúc code</td><td>Clean Architecture-lite theo feature</td><td><code>domain → application → infrastructure → presentation</code>, dễ test và thay adapter.</td></tr>
+</table>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="chapter">
+<h1>4. Giới hạn MongoDB Atlas M0</h1>
+
+<p>Atlas M0 miễn phí nhưng có các giới hạn đáng chú ý cần thiết kế xoay quanh:</p>
+
+<table>
+  <tr><th style="width:34%">Giới hạn</th><th>Hệ quả thiết kế</th></tr>
+  <tr><td><b>0.5 GB</b> tổng data + index</td><td>Chỉ lưu CMS data và lead nhỏ. Không lưu media, không lưu raw analytics, không lưu event stream.</td></tr>
+  <tr><td><b>~100 ops/giây</b></td><td>Bắt buộc cache public page. Không để mỗi page view sinh một query Atlas.</td></tr>
+  <tr><td><b>500 connections</b></td><td>Bắt buộc dùng client singleton cache theo <code>globalThis</code>, không tạo <code>MongoClient</code> mới mỗi request.</td></tr>
+  <tr><td><b>Giới hạn data transfer</b> theo cửa sổ 7 ngày</td><td>Projection chỉ lấy field cần; tránh trả toàn bộ document cho danh sách.</td></tr>
+  <tr><td><b>Không có managed backup</b></td><td>Phải tự lên kế hoạch <code>mongodump</code>/export định kỳ. Không coi M0 là source of truth duy nhất cho lead thật.</td></tr>
+</table>
+
+<div class="box plain">
+  <span class="t">Bốn nguyên tắc bắt buộc</span>
+  <ol>
+    <li><b>Chỉ lưu dữ liệu nhỏ</b> — CMS content và lead; asset đẩy sang object storage.</li>
+    <li><b>Tạo index đúng theo query</b> — không để collection scan trên <code>leads</code> hay <code>pages</code>.</li>
+    <li><b>Cache public page</b> — Next Data Cache + tag-based revalidation.</li>
+    <li><b>TTL cho audit log</b> — tự động dọn sau 90 ngày để giữ dung lượng ổn định.</li>
+  </ol>
+</div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="chapter">
+<h1>5. Cấu trúc project chuẩn SaaS</h1>
+
+<pre class="tree">meshflow/
+├── app/
+│   ├── (marketing)/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── product/page.tsx
+│   │   ├── solutions/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/page.tsx
+│   │   ├── pricing/page.tsx
+│   │   ├── resources/page.tsx
+│   │   ├── contact/page.tsx
+│   │   └── [...slug]/page.tsx
+│   │
+│   ├── (admin)/
+│   │   └── admin/
+│   │       ├── layout.tsx
+│   │       ├── page.tsx
+│   │       ├── login/page.tsx
+│   │       ├── pages/page.tsx
+│   │       ├── pages/[id]/page.tsx
+│   │       └── leads/page.tsx
+│   │
+│   ├── api/
+│   │   ├── health/route.ts
+│   │   ├── leads/route.ts
+│   │   ├── auth/
+│   │   │   ├── login/route.ts
+│   │   │   ├── logout/route.ts
+│   │   │   └── me/route.ts
+│   │   └── admin/
+│   │       ├── pages/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/
+│   │       │       ├── route.ts
+│   │       │       └── publish/route.ts
+│   │       └── leads/
+│   │           ├── route.ts
+│   │           └── [id]/status/route.ts
+│   │
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── error.tsx
+│   ├── not-found.tsx
+│   └── robots.ts
+│
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── input.tsx
+│   │   ├── dialog.tsx
+│   │   ├── badge.tsx
+│   │   └── data-table.tsx
+│   ├── marketing/
+│   │   ├── hero.tsx
+│   │   ├── flowline-canvas.tsx
+│   │   ├── feature-grid.tsx
+│   │   ├── site-header.tsx
+│   │   └── site-footer.tsx
+│   ├── admin/
+│   │   ├── page-editor.tsx
+│   │   ├── page-list.tsx
+│   │   └── lead-table.tsx
+│   └── shared/
+│       ├── logo.tsx
+│       ├── empty-state.tsx
+│       └── error-state.tsx
+│
+├── features/
+│   ├── content/
+│   │   ├── domain/
+│   │   │   ├── page.ts
+│   │   │   └── site-settings.ts
+│   │   ├── application/
+│   │   │   ├── get-public-page.ts
+│   │   │   ├── update-page.ts
+│   │   │   └── publish-page.ts
+│   │   ├── infrastructure/
+│   │   │   └── mongodb-page.repository.ts
+│   │   └── presentation/
+│   │       └── section-renderer.tsx
+│   │
+│   ├── leads/
+│   │   ├── domain/
+│   │   ├── application/
+│   │   ├── infrastructure/
+│   │   └── presentation/
+│   │
+│   └── auth/
+│       ├── domain/
+│       ├── application/
+│       └── infrastructure/
+│
+├── lib/
+│   ├── mongodb.ts
+│   ├── auth.ts
+│   ├── env.ts
+│   ├── cache.ts
+│   ├── permissions.ts
+│   └── utils.ts
+│
+├── schemas/
+│   ├── page.schema.ts
+│   ├── lead.schema.ts
+│   └── auth.schema.ts
+│
+├── scripts/
+│   ├── seed.ts
+│   ├── create-admin.ts
+│   └── ensure-indexes.ts
+│
+├── middleware.ts
+├── next.config.ts
+├── package.json
+├── tsconfig.json
+└── .env.example</pre>
+<p class="caption">Hình 5.1 — Cây thư mục: route group tách marketing/admin, feature layer theo Clean Architecture-lite.</p>
+
+<h2>5.1 Điểm chính</h2>
+<ul>
+  <li><b>Route group</b> <code>(marketing)</code> và <code>(admin)</code> không xuất hiện trong URL, nhưng cho phép hai <code>layout.tsx</code> hoàn toàn khác nhau.</li>
+  <li><b>Public page ưu tiên Server Components</b> — tránh gọi API vòng lại chính server của bạn.</li>
+  <li>Chỉ thêm <code>"use client"</code> vào: form, interactive menu, table filter, page editor, animation canvas.</li>
+  <li><b>Feature layer</b> theo thứ tự <code>domain → application → infrastructure → presentation</code>.</li>
+  <li><code>app/api</code> <b>chỉ xử lý HTTP</b>: auth → validate → gọi use case → response.</li>
+  <li><b>Không viết MongoDB query trực tiếp</b> trong React component hoặc <code>page.tsx</code>.</li>
+</ul>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="chapter">
+<h1>6. UML Class Diagram</h1>
+
+<p>Class diagram ở mức <i>logical application model</i>, có thể dán trực tiếp vào PlantUML để render. Nó mô tả domain entity, repository abstraction, use case / application service, MongoDB implementation và Route Handler boundary.</p>
+
+<pre class="uml">@startuml
+title Meshflow — Next.js + MongoDB Atlas Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+package "Content Domain" {
+  enum PageStatus {
+    DRAFT
+    PUBLISHED
+  }
+
+  enum SectionType {
+    HERO
+    FEATURE_GRID
+    WORKFLOW
+    INTEGRATION_GRID
+    CTA
+    RICH_TEXT
+  }
+
+  class Page {
+    +id: PageId
+    +slug: PageSlug
+    +title: string
+    +seo: SeoMetadata
+    +status: PageStatus
+    +sections: PageSection[]
+    +createdAt: Date
+    +updatedAt: Date
+    +publishedAt: Date?
+    +publish(at: Date): void
+    +unpublish(): void
+    +replaceSections(sections: PageSection[]): void
+  }
+
+  class SeoMetadata {
+    +title: string
+    +description: string
+    +ogImageUrl: string?
+    +canonicalUrl: string?
+  }
+
+  abstract class PageSection {
+    +id: string
+    +type: SectionType
+    +sortOrder: number
+  }
+
+  class HeroSection {
+    +eyebrow: string?
+    +headline: string
+    +description: string
+    +primaryCta: Cta
+    +secondaryCta: Cta?
+    +visualVariant: string
+  }
+
+  class FeatureGridSection {
+    +eyebrow: string?
+    +headline: string
+    +description: string?
+    +items: FeatureItem[]
+  }
+
+  class WorkflowSection {
+    +headline: string
+    +steps: WorkflowStep[]
+    +visualVariant: string
+  }
+
+  class CtaSection {
+    +headline: string
+    +description: string?
+    +primaryCta: Cta
+    +tone: string
+  }
+
+  class Cta {
+    +label: string
+    +href: string
+    +variant: string
+  }
+
+  class FeatureItem {
+    +title: string
+    +description: string
+    +iconName: string
+    +href: string?
+  }
+
+  class WorkflowStep {
+    +title: string
+    +description: string
+    +stepNumber: number
+  }
+
+  HeroSection --|&gt; PageSection
+  FeatureGridSection --|&gt; PageSection
+  WorkflowSection --|&gt; PageSection
+  CtaSection --|&gt; PageSection
+
+  Page *-- "1" SeoMetadata
+  Page *-- "1..*" PageSection
+  HeroSection *-- "1" Cta
+  HeroSection *-- "0..1" Cta
+  FeatureGridSection *-- "3..6" FeatureItem
+  WorkflowSection *-- "2..5" WorkflowStep
+  CtaSection *-- "1" Cta
+}
+
+package "Lead Domain" {
+  enum LeadSource {
+    CONTACT
+    DEMO
+    NEWSLETTER
+  }
+
+  enum LeadStatus {
+    NEW
+    CONTACTED
+    QUALIFIED
+    ARCHIVED
+  }
+
+  class Consent {
+    +privacyAccepted: boolean
+    +policyVersion: string
+    +acceptedAt: Date
+    +marketingAccepted: boolean
+  }
+
+  class Lead {
+    +id: LeadId
+    +name: string
+    +email: Email
+    +company: string?
+    +role: string?
+    +message: string?
+    +source: LeadSource
+    +pagePath: string
+    +status: LeadStatus
+    +consent: Consent
+    +createdAt: Date
+    +updatedAt: Date
+    +changeStatus(status: LeadStatus): void
+  }
+
+  Lead *-- "1" Consent
+}
+
+package "Identity &amp; Authorization" {
+  enum AdminRole {
+    OWNER
+    EDITOR
+    VIEWER
+  }
+
+  class AdminUser {
+    +id: AdminUserId
+    +email: Email
+    +name: string
+    +passwordHash: string
+    +role: AdminRole
+    +isActive: boolean
+    +lastLoginAt: Date?
+    +can(permission: Permission): boolean
+  }
+
+  class Session {
+    +userId: AdminUserId
+    +role: AdminRole
+    +issuedAt: Date
+    +expiresAt: Date
+  }
+
+  enum Permission {
+    PAGE_READ
+    PAGE_WRITE
+    PAGE_PUBLISH
+    LEAD_READ
+    LEAD_UPDATE
+    ADMIN_MANAGE
+  }
+}
+
+package "Audit Domain" {
+  class AuditLog {
+    +id: AuditLogId
+    +actorId: AdminUserId
+    +action: string
+    +entityType: string
+    +entityId: string
+    +summary: string
+    +createdAt: Date
+    +expiresAt: Date
+  }
+}
+
+package "Repository Ports" {
+  interface PageRepository {
+    +findPublishedBySlug(slug: string): Promise&lt;Page?&gt;
+    +findById(id: string): Promise&lt;Page?&gt;
+    +findAll(): Promise&lt;Page[]&gt;
+    +save(page: Page): Promise&lt;Page&gt;
+  }
+
+  interface LeadRepository {
+    +create(lead: Lead): Promise&lt;Lead&gt;
+    +findAll(filter: LeadFilter): Promise&lt;Paginated&lt;Lead&gt;&gt;
+    +findById(id: string): Promise&lt;Lead?&gt;
+    +save(lead: Lead): Promise&lt;Lead&gt;
+  }
+
+  interface AdminUserRepository {
+    +findByEmail(email: string): Promise&lt;AdminUser?&gt;
+    +findById(id: string): Promise&lt;AdminUser?&gt;
+    +save(user: AdminUser): Promise&lt;AdminUser&gt;
+  }
+
+  interface AuditLogRepository {
+    +append(log: AuditLog): Promise&lt;void&gt;
+  }
+
+  class LeadFilter {
+    +status: LeadStatus?
+    +source: LeadSource?
+    +page: number
+    +pageSize: number
+  }
+
+  class Paginated&lt;T&gt; {
+    +items: T[]
+    +page: number
+    +pageSize: number
+    +total: number
+  }
+}
+
+package "Application Layer" {
+  class GetPublishedPage {
+    -pageRepository: PageRepository
+    +execute(slug: string): Promise&lt;Page&gt;
+  }
+
+  class CreateLead {
+    -leadRepository: LeadRepository
+    +execute(input: CreateLeadInput): Promise&lt;Lead&gt;
+  }
+
+  class LoginAdmin {
+    -adminUserRepository: AdminUserRepository
+    -passwordHasher: PasswordHasher
+    -sessionService: SessionService
+    +execute(input: LoginInput): Promise&lt;Session&gt;
+  }
+
+  class UpdatePage {
+    -pageRepository: PageRepository
+    -auditLogRepository: AuditLogRepository
+    +execute(actor: AdminUser, input: UpdatePageInput): Promise&lt;Page&gt;
+  }
+
+  class PublishPage {
+    -pageRepository: PageRepository
+    -auditLogRepository: AuditLogRepository
+    +execute(actor: AdminUser, pageId: string): Promise&lt;Page&gt;
+  }
+
+  class UpdateLeadStatus {
+    -leadRepository: LeadRepository
+    -auditLogRepository: AuditLogRepository
+    +execute(actor: AdminUser, input: UpdateLeadStatusInput): Promise&lt;Lead&gt;
+  }
+
+  interface PasswordHasher {
+    +verify(plain: string, hash: string): Promise&lt;boolean&gt;
+    +hash(plain: string): Promise&lt;string&gt;
+  }
+
+  interface SessionService {
+    +create(user: AdminUser): Promise&lt;Session&gt;
+    +verify(token: string): Promise&lt;Session?&gt;
+  }
+}
+
+package "Infrastructure Layer" {
+  class MongoPageRepository {
+    -collection: Collection&lt;PageDocument&gt;
+    +findPublishedBySlug(slug: string): Promise&lt;Page?&gt;
+    +findById(id: string): Promise&lt;Page?&gt;
+    +findAll(): Promise&lt;Page[]&gt;
+    +save(page: Page): Promise&lt;Page&gt;
+  }
+
+  class MongoLeadRepository {
+    -collection: Collection&lt;LeadDocument&gt;
+    +create(lead: Lead): Promise&lt;Lead&gt;
+    +findAll(filter: LeadFilter): Promise&lt;Paginated&lt;Lead&gt;&gt;
+    +findById(id: string): Promise&lt;Lead?&gt;
+    +save(lead: Lead): Promise&lt;Lead&gt;
+  }
+
+  class MongoAdminUserRepository {
+    -collection: Collection&lt;AdminUserDocument&gt;
+    +findByEmail(email: string): Promise&lt;AdminUser?&gt;
+    +findById(id: string): Promise&lt;AdminUser?&gt;
+    +save(user: AdminUser): Promise&lt;AdminUser&gt;
+  }
+
+  class MongoAuditLogRepository {
+    -collection: Collection&lt;AuditLogDocument&gt;
+    +append(log: AuditLog): Promise&lt;void&gt;
+  }
+
+  class BcryptPasswordHasher {
+    +verify(plain: string, hash: string): Promise&lt;boolean&gt;
+    +hash(plain: string): Promise&lt;string&gt;
+  }
+
+  class JwtSessionService {
+    -secret: string
+    +create(user: AdminUser): Promise&lt;Session&gt;
+    +verify(token: string): Promise&lt;Session?&gt;
+  }
+
+  MongoPageRepository ..|&gt; PageRepository
+  MongoLeadRepository ..|&gt; LeadRepository
+  MongoAdminUserRepository ..|&gt; AdminUserRepository
+  MongoAuditLogRepository ..|&gt; AuditLogRepository
+  BcryptPasswordHasher ..|&gt; PasswordHasher
+  JwtSessionService ..|&gt; SessionService
+}
+
+package "Next.js Delivery Layer" {
+  class PublicPageServerComponent {
+    +render(params: {slug: string}): ReactNode
+  }
+
+  class LeadRouteHandler {
+    +POST(request: Request): Response
+  }
+
+  class LoginRouteHandler {
+    +POST(request: Request): Response
+  }
+
+  class AdminPagesRouteHandler {
+    +GET(request: Request): Response
+    +POST(request: Request): Response
+  }
+
+  class AdminPageByIdRouteHandler {
+    +GET(request: Request): Response
+    +PATCH(request: Request): Response
+  }
+
+  class PublishPageRouteHandler {
+    +POST(request: Request): Response
+  }
+
+  class AdminLeadsRouteHandler {
+    +GET(request: Request): Response
+  }
+
+  class LeadStatusRouteHandler {
+    +PATCH(request: Request): Response
+  }
+
+  class AdminMiddleware {
+    +authorize(request: NextRequest): NextResponse
+  }
+}
+
+GetPublishedPage --&gt; PageRepository
+CreateLead --&gt; LeadRepository
+LoginAdmin --&gt; AdminUserRepository
+LoginAdmin --&gt; PasswordHasher
+LoginAdmin --&gt; SessionService
+UpdatePage --&gt; PageRepository
+UpdatePage --&gt; AuditLogRepository
+PublishPage --&gt; PageRepository
+PublishPage --&gt; AuditLogRepository
+UpdateLeadStatus --&gt; LeadRepository
+UpdateLeadStatus --&gt; AuditLogRepository
+
+PublicPageServerComponent --&gt; GetPublishedPage
+LeadRouteHandler --&gt; CreateLead
+LoginRouteHandler --&gt; LoginAdmin
+AdminPagesRouteHandler --&gt; UpdatePage
+AdminPageByIdRouteHandler --&gt; UpdatePage
+PublishPageRouteHandler --&gt; PublishPage
+AdminLeadsRouteHandler --&gt; LeadRepository
+LeadStatusRouteHandler --&gt; UpdateLeadStatus
+AdminMiddleware --&gt; SessionService
+
+AdminUser --&gt; Permission
+Session --&gt; AdminUser
+AuditLog --&gt; AdminUser
+
+@enduml</pre>
+<p class="caption">Hình 6.1 — Class diagram đầy đủ. Render tại plantuml.com/plantuml hoặc extension PlantUML trong VS Code.</p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="chapter">
+<h1>7. Cách đọc Class Diagram</h1>
+
+<table>
+  <tr><th style="width:32%">Thành phần</th><th>Ý nghĩa</th></tr>
+  <tr><td><code>Page</code>, <code>Lead</code>, <code>AdminUser</code>, <code>AuditLog</code></td><td><b>Domain entity</b> — chứa dữ liệu và invariant nghiệp vụ.</td></tr>
+  <tr><td><code>PageSection</code></td><td><b>Abstract base class</b>; <code>HeroSection</code>, <code>FeatureGridSection</code>, <code>WorkflowSection</code>, <code>CtaSection</code> là concrete section type.</td></tr>
+  <tr><td><code>PageRepository</code>, <code>LeadRepository</code></td><td><b>Interface / port</b>. Application layer chỉ biết interface, không biết MongoDB.</td></tr>
+  <tr><td><code>MongoPageRepository</code> và các <code>Mongo*Repository</code></td><td><b>Adapter</b> triển khai port bằng Atlas; chịu trách nhiệm mapping document ↔ entity.</td></tr>
+  <tr><td><code>GetPublishedPage</code>, <code>CreateLead</code>, <code>PublishPage</code></td><td><b>Use case</b> — đây là nơi chứa business rule.</td></tr>
+  <tr><td>Route Handler</td><td>Chỉ làm HTTP concerns: parse request, validate, authorize, gọi use case, tạo response.</td></tr>
+  <tr><td><code>AdminMiddleware</code></td><td>Chỉ kiểm tra session và redirect. <b>Authorization thực sự vẫn phải kiểm tra lại</b> trong route/use case để tránh bypass.</td></tr>
+</table>
+
+<div class="box plain">
+  <span class="t">Nguyên tắc phụ thuộc (Dependency Rule)</span>
+  <p style="margin:0">Mũi tên phụ thuộc luôn hướng vào trong: <b>Delivery → Application → Domain</b>. Infrastructure phụ thuộc vào Ports (đảo chiều phụ thuộc). Domain <b>không</b> import bất cứ thứ gì từ Next.js hay MongoDB driver — nhờ đó test được domain và use case mà không cần database.</p>
+</div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="chapter">
+<h1>8. UML Sequence Diagrams</h1>
+
+<h2>8.1 Public page render</h2>
+<p>Next.js Server Component có thể query MongoDB trực tiếp qua repository thay vì để browser gọi <code>/api/pages/home</code>. Điều này giảm client-side waterfall và không expose endpoint nội bộ khi không cần.</p>
+
+<pre class="uml">@startuml
+title Public Marketing Page Render
+
+actor Visitor
+participant "Next.js App Router" as Next
+participant "Marketing Page\nServer Component" as Page
+participant "GetPublishedPage\nUse Case" as UseCase
+participant "MongoPageRepository" as Repo
+database "MongoDB Atlas M0" as Atlas
+participant "SectionRenderer" as Renderer
+
+Visitor -&gt; Next: GET /product
+Next -&gt; Page: render(params)
+Page -&gt; UseCase: execute("product")
+UseCase -&gt; Repo: findPublishedBySlug("product")
+Repo -&gt; Atlas: findOne({ slug, status: PUBLISHED })
+Atlas --&gt; Repo: PageDocument
+Repo --&gt; UseCase: Page
+UseCase --&gt; Page: Page
+Page -&gt; Renderer: render(page.sections)
+Renderer --&gt; Page: React component tree
+Page --&gt; Next: HTML + RSC payload
+Next --&gt; Visitor: Cached HTML response
+
+@enduml</pre>
+
+<h2>8.2 Lead submission</h2>
+<pre class="uml">@startuml
+title Lead Capture Flow
+
+actor Visitor
+participant "LeadForm\nClient Component" as Form
+participant "POST /api/leads\nRoute Handler" as Handler
+participant "CreateLead\nUse Case" as UseCase
+participant "MongoLeadRepository" as Repo
+database "MongoDB Atlas M0" as Atlas
+
+Visitor -&gt; Form: Fill form and click Submit
+Form -&gt; Form: Client validation (Zod)
+Form -&gt; Handler: POST JSON payload
+Handler -&gt; Handler: Validate + honeypot + rate limit
+Handler -&gt; UseCase: execute(CreateLeadInput)
+UseCase -&gt; UseCase: Normalize email, build consent
+UseCase -&gt; Repo: create(Lead)
+Repo -&gt; Atlas: insertOne(lead document)
+Atlas --&gt; Repo: insertedId
+Repo --&gt; UseCase: Lead
+UseCase --&gt; Handler: Lead created
+Handler --&gt; Form: 201 Created
+Form --&gt; Visitor: Success state / confirmation
+
+@enduml</pre>
+
+<h2>8.3 Admin publish page</h2>
+<pre class="uml">@startuml
+title Admin Publish Page Flow
+
+actor Editor
+participant "Admin Page Editor\nClient Component" as EditorUI
+participant "Next Middleware" as Middleware
+participant "POST /api/admin/pages/:id/publish" as Handler
+participant "PublishPage\nUse Case" as UseCase
+participant "MongoPageRepository" as PageRepo
+participant "MongoAuditLogRepository" as AuditRepo
+database "MongoDB Atlas M0" as Atlas
+participant "Next Cache" as Cache
+
+Editor -&gt; EditorUI: Click Publish
+EditorUI -&gt; Middleware: Request with session cookie
+Middleware -&gt; Middleware: Verify session / role
+Middleware -&gt; Handler: Authorized request
+Handler -&gt; UseCase: execute(actor, pageId)
+UseCase -&gt; PageRepo: findById(pageId)
+PageRepo -&gt; Atlas: findOne(_id)
+Atlas --&gt; PageRepo: Page
+UseCase -&gt; UseCase: page.publish(now)
+UseCase -&gt; PageRepo: save(page)
+PageRepo -&gt; Atlas: updateOne(page)
+UseCase -&gt; AuditRepo: append(page.published)
+AuditRepo -&gt; Atlas: insertOne(audit log)
+UseCase --&gt; Handler: Published page
+Handler -&gt; Cache: revalidateTag("page:slug")
+Handler --&gt; EditorUI: 200 OK + updated page
+EditorUI --&gt; Editor: Show "Published" state
+
+@enduml</pre>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="chapter">
+<h1>9. Data model &amp; MongoDB Indexes</h1>
+
+<div class="box plain">
+  <span class="t">Nguyên tắc mapping</span>
+  <p style="margin:0">Class domain <b>không bắt buộc trùng tuyệt đối</b> với MongoDB document. Repository chịu trách nhiệm mapping <code>ObjectId ↔ string</code>, <code>Date</code>, <code>enum</code> và <b>discriminated union</b> cho section.</p>
+</div>
+
+<h2>9.1 Collection <code>pages</code></h2>
+<pre><code>import { ObjectId } from "mongodb";
+
+export type PageDocument = {
+  _id: ObjectId;
+  slug: string;
+  title: string;
+
+  seo: {
+    title: string;
+    description: string;
+    ogImageUrl?: string;
+    canonicalUrl?: string;
+  };
+
+  status: "draft" | "published";
+
+  sections: Array&lt;
+    | {
+        id: string;
+        type: "hero";
+        sortOrder: number;
+        eyebrow?: string;
+        headline: string;
+        description: string;
+        primaryCta: {
+          label: string;
+          href: string;
+          variant: "primary" | "secondary";
+        };
+        secondaryCta?: {
+          label: string;
+          href: string;
+          variant: "secondary" | "ghost";
+        };
+        visualVariant: "flowline" | "workspace" | "network";
+      }
+    | {
+        id: string;
+        type: "featureGrid";
+        sortOrder: number;
+        eyebrow?: string;
+        headline: string;
+        description?: string;
+        items: Array&lt;{
+          title: string;
+          description: string;
+          iconName: string;
+          href?: string;
+        }&gt;;
+      }
+    | {
+        id: string;
+        type: "workflow";
+        sortOrder: number;
+        headline: string;
+        visualVariant: "flowline" | "system-map";
+        steps: Array&lt;{
+          stepNumber: number;
+          title: string;
+          description: string;
+        }&gt;;
+      }
+    | {
+        id: string;
+        type: "cta";
+        sortOrder: number;
+        headline: string;
+        description?: string;
+        primaryCta: {
+          label: string;
+          href: string;
+          variant: "primary";
+        };
+        tone: "default" | "inverse" | "accent";
+      }
+  &gt;;
+
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+};</code></pre>
+
+<h2>9.2 Index script</h2>
+<pre><code>// scripts/ensure-indexes.ts
+import { getDb } from "../lib/mongodb";
+
+async function ensureIndexes() {
+  const db = await getDb();
+
+  await db.collection("pages").createIndexes([
+    {
+      key: { slug: 1 },
+      name: "pages_slug_unique",
+      unique: true,
+    },
+    {
+      key: { status: 1, publishedAt: -1 },
+      name: "pages_published_by_date",
+    },
+  ]);
+
+  await db.collection("leads").createIndexes([
+    {
+      key: { createdAt: -1 },
+      name: "leads_by_created_at",
+    },
+    {
+      key: { status: 1, createdAt: -1 },
+      name: "leads_by_status_created_at",
+    },
+    {
+      key: { email: 1 },
+      name: "leads_by_email",
+    },
+  ]);
+
+  await db.collection("admin_users").createIndex(
+    { email: 1 },
+    {
+      name: "admin_users_email_unique",
+      unique: true,
+    },
+  );
+
+  await db.collection("audit_logs").createIndex(
+    { expiresAt: 1 },
+    {
+      name: "audit_logs_ttl_90_days",
+      expireAfterSeconds: 0,
+    },
+  );
+}
+
+ensureIndexes()
+  .then(() =&gt; {
+    console.info("MongoDB indexes created successfully.");
+    process.exit(0);
+  })
+  .catch((error) =&gt; {
+    console.error(error);
+    process.exit(1);
+  });</code></pre>
+
+<h2>9.3 Tổng quan collection</h2>
+<table>
+  <tr><th style="width:22%">Collection</th><th style="width:30%">Mục đích</th><th>Index chính</th></tr>
+  <tr><td><code>pages</code></td><td>Nội dung CMS theo section</td><td><code>slug</code> unique · <code>status + publishedAt</code></td></tr>
+  <tr><td><code>site_settings</code></td><td>Nav, footer, SEO mặc định</td><td>Singleton document</td></tr>
+  <tr><td><code>leads</code></td><td>Lead form + consent</td><td><code>createdAt</code> · <code>status + createdAt</code> · <code>email</code></td></tr>
+  <tr><td><code>admin_users</code></td><td>Tài khoản quản trị</td><td><code>email</code> unique</td></tr>
+  <tr><td><code>audit_logs</code></td><td>Vết thao tác admin</td><td><code>expiresAt</code> TTL 90 ngày</td></tr>
+</table>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="chapter">
+<h1>10. Implementation baseline</h1>
+
+<h2>10.1 MongoDB singleton</h2>
+<pre><code>// lib/mongodb.ts
+import { Db, MongoClient, ServerApiVersion } from "mongodb";
+import { env } from "./env";
+
+type MongoGlobal = typeof globalThis &amp; {
+  mongoClientPromise?: Promise&lt;MongoClient&gt;;
+};
+
+const globalForMongo = globalThis as MongoGlobal;
+
+const clientPromise =
+  globalForMongo.mongoClientPromise ??
+  new MongoClient(env.MONGODB_URI, {
+    maxPoolSize: 10,
+    minPoolSize: 0,
+    serverSelectionTimeoutMS: 5_000,
+    connectTimeoutMS: 5_000,
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    },
+  }).connect();
+
+globalForMongo.mongoClientPromise = clientPromise;
+
+export async function getDb(): Promise&lt;Db&gt; {
+  return (await clientPromise).db(env.MONGODB_DB_NAME);
+}</code></pre>
+
+<h2>10.2 Environment validation</h2>
+<pre><code>// lib/env.ts
+import { z } from "zod";
+
+const serverEnvSchema = z.object({
+  MONGODB_URI: z.string().url(),
+  MONGODB_DB_NAME: z.string().min(1).default("meshflow_dev"),
+  JWT_SECRET: z.string().min(32),
+  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+});
+
+const parsed = serverEnvSchema.safeParse({
+  MONGODB_URI: process.env.MONGODB_URI,
+  MONGODB_DB_NAME: process.env.MONGODB_DB_NAME,
+  JWT_SECRET: process.env.JWT_SECRET,
+  NODE_ENV: process.env.NODE_ENV,
+});
+
+if (!parsed.success) {
+  console.error("Invalid server environment:", parsed.error.flatten().fieldErrors);
+  throw new Error("Invalid server environment variables.");
+}
+
+export const env = parsed.data;</code></pre>
+
+<h4><code>.env.example</code></h4>
+<pre class="env"><code>MONGODB_URI=mongodb+srv://&lt;username&gt;:&lt;encoded-password&gt;@&lt;cluster&gt;.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=meshflow
+MONGODB_DB_NAME=meshflow_dev
+
+JWT_SECRET=replace-with-a-random-secret-at-least-32-characters</code></pre>
+
+<div class="box warn">
+  <span class="t">Cảnh báo bảo mật</span>
+  <p style="margin:0">Không thêm tiền tố <code>NEXT_PUBLIC_</code> vào <code>MONGODB_URI</code> hoặc <code>JWT_SECRET</code>. Bất cứ biến nào bắt đầu bằng <code>NEXT_PUBLIC_</code> đều được nhúng vào JavaScript bundle của browser.</p>
+</div>
+
+<h2>10.3 Public page Server Component</h2>
+<pre><code>// app/(marketing)/[...slug]/page.tsx
+import { notFound } from "next/navigation";
+import { getPublishedPage } from "@/features/content/application/get-published-page";
+import { SectionRenderer } from "@/features/content/presentation/section-renderer";
+
+type PageProps = {
+  params: Promise&lt;{
+    slug?: string[];
+  }&gt;;
+};
+
+export default async function MarketingPage({ params }: PageProps) {
+  const { slug = [] } = await params;
+  const pageSlug = slug.length === 0 ? "home" : slug.join("-");
+
+  const page = await getPublishedPage(pageSlug);
+
+  if (!page) {
+    notFound();
+  }
+
+  return &lt;SectionRenderer sections={page.sections} /&gt;;
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug = [] } = await params;
+  const pageSlug = slug.length === 0 ? "home" : slug.join("-");
+
+  const page = await getPublishedPage(pageSlug);
+
+  if (!page) {
+    return {};
+  }
+
+  return {
+    title: page.seo.title,
+    description: page.seo.description,
+    alternates: {
+      canonical: page.seo.canonicalUrl,
+    },
+    openGraph: {
+      title: page.seo.title,
+      description: page.seo.description,
+      images: page.seo.ogImageUrl ? [page.seo.ogImageUrl] : [],
+    },
+  };
+}</code></pre>
+
+<h2>10.4 Route Handler cho lead form</h2>
+<pre><code>// app/api/leads/route.ts
+import { NextResponse } from "next/server";
+import { createLeadSchema } from "@/schemas/lead.schema";
+import { createLead } from "@/features/leads/application/create-lead";
+
+export const runtime = "nodejs";
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const parsed = createLeadSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        {
+          error: "Please check the form fields.",
+          fields: parsed.error.flatten().fieldErrors,
+        },
+        { status: 422 },
+      );
+    }
+
+    if (parsed.data.website) {
+      return new NextResponse(null, { status: 204 });
+    }
+
+    const lead = await createLead(parsed.data);
+
+    return NextResponse.json(
+      {
+        id: lead.id,
+        message: "Thanks — we'll be in touch shortly.",
+      },
+      { status: 201 },
+    );
+  } catch (error) {
+    console.error("Unable to create lead", error);
+
+    return NextResponse.json(
+      { error: "Unable to submit the form. Please try again." },
+      { status: 503 },
+    );
+  }
+}</code></pre>
+<p>Route Handlers dùng standard Web <code>Request</code>/<code>Response</code> API và nằm trong file <code>route.ts</code>; đây là cơ chế API đúng cho Next App Router. Trường <code>website</code> là honeypot — bot điền vào thì trả về <code>204</code> im lặng.</p>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="chapter">
+<h1>11. Caching &amp; Revalidation</h1>
+
+<h2>11.1 Cache tại tầng use case</h2>
+<pre><code>// features/content/application/get-published-page.ts
+import { unstable_cache } from "next/cache";
+import { mongoPageRepository } from "../infrastructure/mongodb-page.repository";
+
+export async function getPublishedPage(slug: string) {
+  return unstable_cache(
+    async () =&gt; mongoPageRepository.findPublishedBySlug(slug),
+    ["published-page", slug],
+    {
+      revalidate: 300,
+      tags: [`page:${slug}`],
+    },
+  )();
+}</code></pre>
+
+<h2>11.2 Invalidate khi admin publish</h2>
+<pre><code>import { revalidateTag } from "next/cache";
+
+revalidateTag(`page:${page.slug}`);</code></pre>
+
+<h2>11.3 Mục tiêu</h2>
+<ul>
+  <li>Public page <b>không đọc Atlas quá thường xuyên</b> — bảo vệ quota 100 ops/giây.</li>
+  <li>Sau publish, cache content <b>bị invalidate sớm</b> thay vì chờ hết TTL.</li>
+  <li><b>Không dùng client polling</b> để lấy homepage content.</li>
+</ul>
+
+<div class="box warn">
+  <span class="t">Lưu ý phiên bản</span>
+  <p style="margin:0">Cần cân nhắc API cache của Next/Vercel theo phiên bản đang dùng (<code>unstable_cache</code>, <code>"use cache"</code>, <code>cacheTag</code>…). Hãy viết test <b>publish → refresh public page</b> để xác minh behavior thực tế trên môi trường production, không chỉ trên dev server.</p>
+</div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="chapter">
+<h1>12. Auth &amp; Middleware</h1>
+
+<p>Middleware rất tốt để redirect sớm user chưa có session khỏi <code>/admin</code>, nhưng <b>không dùng middleware như lớp authorization duy nhất</b>. Vercel middleware có thể chạy với matcher theo path, do đó nên giới hạn nó cho <code>/admin/:path*</code> và tránh chạy trên toàn bộ asset/public route.</p>
+
+<pre><code>// middleware.ts
+import { NextRequest, NextResponse } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("meshflow_session")?.value;
+
+  if (!token) {
+    const loginUrl = new URL("/admin/login", request.url);
+    loginUrl.searchParams.set(
+      "next",
+      `${request.nextUrl.pathname}${request.nextUrl.search}`,
+    );
+
+    return NextResponse.redirect(loginUrl);
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};</code></pre>
+
+<h2>12.1 Defense in depth — bắt buộc trong mọi <code>POST /api/admin/**</code></h2>
+<ol>
+  <li><b>Đọc cookie</b> session từ request.</li>
+  <li><b>Verify JWT signature</b> và kiểm tra session expiry.</li>
+  <li><b>Load hoặc trust role claim</b> theo chính sách đã chọn.</li>
+  <li><b>Kiểm tra permission</b> editor / owner tương ứng hành động.</li>
+  <li>Chỉ sau đó mới <b>gọi use case mutation</b>.</li>
+</ol>
+
+<h2>12.2 Phân quyền theo role</h2>
+<table>
+  <tr><th style="width:16%">Role</th><th>Quyền</th></tr>
+  <tr><td><b>VIEWER</b></td><td><code>PAGE_READ</code>, <code>LEAD_READ</code> — chỉ đọc.</td></tr>
+  <tr><td><b>EDITOR</b></td><td>Thêm <code>PAGE_WRITE</code>, <code>PAGE_PUBLISH</code>, <code>LEAD_UPDATE</code>.</td></tr>
+  <tr><td><b>OWNER</b></td><td>Toàn quyền, gồm <code>ADMIN_MANAGE</code> (quản lý tài khoản).</td></tr>
+</table>
+
+<div class="box plain">
+  <span class="t">Cookie configuration</span>
+  <div class="kv">
+    <div><span>httpOnly</span><span><code>true</code> — JS client không đọc được token</span></div>
+    <div><span>secure</span><span><code>true</code> trong production</span></div>
+    <div><span>sameSite</span><span><code>lax</code> — chống CSRF cơ bản cho form</span></div>
+    <div><span>path</span><span><code>/</code></span></div>
+    <div><span>maxAge</span><span>Ngắn (ví dụ 8–24 giờ), có refresh khi cần</span></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="chapter">
+<h1>13. Lộ trình triển khai 12 ngày</h1>
+
+<div class="day">
+  <div class="h">Ngày 1 — Setup platform</div>
+  <ul>
+    <li>Tạo repo Next.js TypeScript App Router.</li>
+    <li>Cài Tailwind, MongoDB driver, Zod, React Hook Form, Radix UI, Lucide.</li>
+    <li>Tạo Atlas M0, database user, network access, <code>.env.local</code>.</li>
+    <li>Viết MongoDB singleton, <code>/api/health</code>, script <code>ensure-indexes</code>.</li>
+    <li>Deploy "Hello Next" lên Vercel.</li>
+  </ul>
+  <div class="done"><b>Done:</b> Vercel Function ping được Atlas; secret không lộ vào client bundle.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 2–3 — Design system</div>
+  <ul>
+    <li>Cài đặt token CSS: primitive + semantic colors, typography, spacing, radius, shadows.</li>
+    <li>Tạo <code>Button</code>, <code>Input</code>, <code>FormField</code>, <code>Badge</code>, <code>Card</code>, <code>Container</code>.</li>
+    <li>Tạo header/footer, responsive nav.</li>
+    <li>Viết accessibility baseline: focus ring, keyboard state, reduced motion.</li>
+    <li>Tạo Storybook nếu muốn phát triển system dài hạn.</li>
+  </ul>
+  <div class="done"><b>Done:</b> marketing shell được dùng lại bởi ít nhất 3 routes.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 4–5 — Marketing frontend</div>
+  <ul>
+    <li>Hero với SVG <code>FlowlineCanvas</code> tự thiết kế.</li>
+    <li>Build workflow, feature bento, use-case, security và final CTA blocks.</li>
+    <li>Build <code>SectionRenderer</code> với discriminated union.</li>
+    <li>Seed static page content.</li>
+    <li>Implement <code>generateMetadata</code>, <code>robots.ts</code>, sitemap.</li>
+  </ul>
+  <div class="done"><b>Done:</b> <code>/</code>, <code>/product</code>, <code>/solutions/*</code>, <code>/pricing</code>, <code>/contact</code> đều server-render có metadata riêng.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 6 — Content read + cache</div>
+  <ul>
+    <li>Implement <code>PageRepository</code>.</li>
+    <li>Implement <code>GetPublishedPage</code>.</li>
+    <li>Query MongoDB trực tiếp trong Server Component.</li>
+    <li>Add cache/revalidate tags.</li>
+    <li>Test missing page → <code>notFound()</code>.</li>
+  </ul>
+  <div class="done"><b>Done:</b> sửa content trong Atlas rồi revalidate được output public đúng.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 7 — Lead form</div>
+  <ul>
+    <li>React Hook Form + Zod client schema.</li>
+    <li><code>POST /api/leads</code>, Zod server validation.</li>
+    <li>Honeypot, same-origin checks, rate-limit strategy.</li>
+    <li>Store consent / version / timestamp / source / page path.</li>
+    <li>Success / error UX.</li>
+  </ul>
+  <div class="done"><b>Done:</b> lead valid được lưu; spam/invalid payload không tạo document.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 8–9 — Admin auth và content CRUD</div>
+  <ul>
+    <li>Admin seed account / password hash.</li>
+    <li>Login route + JWT HTTP-only cookie.</li>
+    <li>Middleware redirect cho <code>/admin</code>.</li>
+    <li>Page listing / editor / draft / publish.</li>
+    <li>Audit log và <code>revalidateTag</code>.</li>
+  </ul>
+  <div class="done"><b>Done:</b> editor update/publish homepage không cần deploy lại.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 10 — Lead management</div>
+  <ul>
+    <li>Lead table với server pagination / filter.</li>
+    <li>Status workflow: <code>new → contacted → qualified → archived</code>.</li>
+    <li>Restrict role: viewer read-only, editor can update, owner can manage users.</li>
+    <li>Audit status changes.</li>
+  </ul>
+  <div class="done"><b>Done:</b> admin có thể xử lý lead an toàn, audit được hành động.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 11 — Quality</div>
+  <ul>
+    <li>Unit test domain / use cases.</li>
+    <li>Route handler tests cho validation / auth.</li>
+    <li>Playwright: public navigation, lead submit, admin publish.</li>
+    <li>Lighthouse / a11y audit.</li>
+    <li>Error boundaries, loading UI, empty states.</li>
+  </ul>
+  <div class="done"><b>Done:</b> release candidate vượt qua critical flow tests.</div>
+</div>
+
+<div class="day">
+  <div class="h">Ngày 12 — Deploy và runbook</div>
+  <ul>
+    <li>Production env variables trên Vercel.</li>
+    <li>Vercel Preview environment dùng database/collection riêng hoặc data namespace riêng.</li>
+    <li>Atlas allowlist và least-privilege DB user.</li>
+    <li><code>mongodump</code>/export strategy do M0 không có managed backup.</li>
+    <li>Viết README + architecture + deployment/runbook.</li>
+  </ul>
+  <div class="done"><b>Done:</b> production demo có monitoring tối thiểu, rollback plan, data recovery plan.</div>
+</div>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="chapter">
+<h1>14. Giới hạn nền tảng &amp; đường nâng cấp</h1>
+
+<h2>14.1 Rủi ro cần theo dõi</h2>
+<ul>
+  <li><b>Public read traffic cần cache</b> — nếu mỗi request đều query MongoDB, bạn có thể sớm chạm quota/limit Atlas.</li>
+  <li><b>Serverless cold start + Mongo network latency</b> vẫn có thể xảy ra, đặc biệt sau thời gian idle.</li>
+  <li><b>Không dùng Atlas M0 làm sole source of truth</b> cho lead/customer data quan trọng nếu chưa có export/backup.</li>
+  <li><b>Không lưu vào M0</b>: media, event stream, session trace, raw analytics.</li>
+  <li><b>Vercel serverless không phải nơi</b> chạy Fastify server, worker lâu, WebSocket hoặc job queue liên tục.</li>
+</ul>
+
+<h2>14.2 Khi nào nâng cấp và nâng cấp sang đâu</h2>
+<table>
+  <tr><th style="width:34%">Tín hiệu</th><th>Hành động</th></tr>
+  <tr><td>Cần nhiều editor, versioning mạnh, workflow approval, asset pipeline</td><td>Chuyển content sang Sanity / Contentful / Strapi, hoặc xây admin riêng ở phase sau.</td></tr>
+  <tr><td>Data hoặc index vượt ~400 MB; ops/giây thường xuyên chạm ngưỡng</td><td>Nâng lên Atlas Flex hoặc dedicated cluster; bật backup.</td></tr>
+  <tr><td>Có upload ảnh/video từ admin</td><td>Cloudinary / Cloudflare R2 / S3 + CDN; chỉ lưu URL trong Mongo.</td></tr>
+  <tr><td>Cần AI inference, worker, WebSocket, cron dài</td><td>Tách service riêng (Fly.io / Railway / Render / VPS); Next.js chỉ còn là web + BFF.</td></tr>
+  <tr><td>Website trở thành thương mại / production thật</td><td>Kiểm tra plan Vercel phù hợp; thêm error tracking (Sentry), uptime monitor, log drain.</td></tr>
+</table>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="chapter">
+<h1>15. Kết luận &amp; Checklist bàn giao</h1>
+
+<div class="box ok">
+  <span class="t">Kết luận</span>
+  <p style="margin:0"><b>Next.js App Router + MongoDB Atlas Free + Vercel</b> là mô hình hợp lý nhất cho giai đoạn clone UI/UX Tailscale theo hướng portfolio/MVP: vừa có <b>SEO</b>, vừa có <b>CMS-lite</b>, vừa <b>server-side an toàn</b>, và tái sử dụng được <b>design system</b> cho SaaS product tiếp theo.</p>
+</div>
+
+<h2>15.1 Checklist trước release</h2>
+
+<h4>Bảo mật</h4>
+<ul>
+  <li>☐ Không có <code>NEXT_PUBLIC_</code> gắn với secret; kiểm tra bundle client.</li>
+  <li>☐ <code>JWT_SECRET</code> ≥ 32 ký tự, khác nhau giữa preview và production.</li>
+  <li>☐ Session cookie: <code>httpOnly</code> + <code>secure</code> + <code>sameSite</code>.</li>
+  <li>☐ Mọi route <code>/api/admin/**</code> verify session và permission độc lập với middleware.</li>
+  <li>☐ Atlas DB user least-privilege; IP allowlist đã cấu hình.</li>
+  <li>☐ Rate limit + honeypot cho <code>POST /api/leads</code>.</li>
+</ul>
+
+<h4>Dữ liệu</h4>
+<ul>
+  <li>☐ <code>scripts/ensure-indexes.ts</code> đã chạy trên production.</li>
+  <li>☐ TTL index cho <code>audit_logs</code> hoạt động.</li>
+  <li>☐ Export/backup thủ công đã chạy thử và restore thành công.</li>
+  <li>☐ Preview environment dùng database riêng, không ghi vào data production.</li>
+</ul>
+
+<h4>Hiệu năng &amp; SEO</h4>
+<ul>
+  <li>☐ Public page có cache tag; publish → revalidate hoạt động đúng.</li>
+  <li>☐ Mỗi route có <code>generateMetadata</code> riêng (title, description, canonical, OG).</li>
+  <li>☐ <code>robots.ts</code> và <code>sitemap</code> trả về đúng URL production.</li>
+  <li>☐ Lighthouse Performance / SEO / Accessibility đạt ngưỡng mục tiêu.</li>
+</ul>
+
+<h4>Chất lượng</h4>
+<ul>
+  <li>☐ Unit test cho domain và use case.</li>
+  <li>☐ E2E: public navigation · lead submit · admin login → publish.</li>
+  <li>☐ <code>error.tsx</code>, <code>not-found.tsx</code>, <code>loading.tsx</code>, empty state đầy đủ.</li>
+  <li>☐ README + architecture doc + runbook đã viết.</li>
+</ul>
+
+<footer>
+  Meshflow — Technical Architecture Document · v1.0<br>
+  Next.js App Router · TypeScript · MongoDB Atlas M0 · Vercel
+</footer>
+</section>
+
+</body>
+</html>
