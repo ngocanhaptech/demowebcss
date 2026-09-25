@@ -1,0 +1,104 @@
+/* Shared reading sizes at browser zoom 100%. No CSS zoom or text scaling. */
+body{font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:15px;line-height:1.55;color:#263244}
+body :is(button,input,select,textarea){font-family:inherit}
+.ict-product-page,.ict-pdp,body.checkout-page{font-size:15px;line-height:1.55}
+.ict-pdp :is(.ict-product-article p,.ict-product-article li,.ict-feature-summary p,.ict-feature-summary li){font-size:16px!important;line-height:1.65!important}
+.ict-pdp :is(.ict-specifications td,.ict-specifications th,.ict-specifications td p,.ict-gifts .ict-cms-content,.ict-gifts .ict-cms-content p,.ict-gifts .ict-cms-content li,.ict-software-included li,.ict-software-note){font-size:15px!important;line-height:1.6!important}
+.ict-pdp :is(.ict-kickers,.ict-sku-copy,.ict-gallery-caption,.ict-cta-note,.ict-price-policy,.ict-deposit-summary,.ict-price-saving,.ict-secondary-actions>a,.ict-colors label,.ict-variant-card small,.ict-model-note,.ict-quantity-note,.ict-purchase-note,.ict-muted,.ict-section-header p,.ict-rental-step p,.ict-trust-item small,.ict-filler-promo small){font-size:14px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-kickers,.ict-sku-copy,.ict-gallery-caption,.ict-price-policy,.ict-deposit-summary,.ict-cta-note,.ict-model-note,.ict-variant-card small,.ict-trust-item small,.ict-filler-promo small,.ict-muted){color:#475569!important}
+.ict-pdp :is(.ict-model-name,.ict-model-price,.ict-variant-name,.ict-variant-card strong,.ict-quantity-row>label,.ict-colors legend,.ict-software-details summary strong,.ict-product-meta,.ict-finance-link,.ict-price-service-link){font-size:15px!important;line-height:1.45!important}
+.ict-pdp .ict-button,.ict-pdp .ict-quantity .qty{font-size:16px!important;line-height:1.4!important}
+.ict-pdp .ict-button{height:auto;min-height:48px}
+.ict-pdp .ict-business-contact strong{font-size:15px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-business-contact small,.ict-software-details summary small,.ict-software-details [data-ict-software-picked],.ict-software-option small,.ict-buy-option-copy small,.ict-buybar-summary,.ict-sheet-summary small,.ict-sheet-total,.ict-sheet-software-summary){font-size:14px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-software-option strong,.ict-question-list h3,.ict-question-answer p,.ict-related-card h3,.ict-accessory-table td>a,.ict-accessory-table td>strong){font-size:15px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-question-answer small,.ict-question-answer>div>strong,.ict-reviews .score-count,.ict-review-filters,.ict-review-card,.ict-accessory-table td>small,.ict-gift-value){font-size:14px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-product-tabs a,.ict-compare-all,.ict-expand-button,.ict-rental-software>h2){font-size:15px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-button,.ict-secondary-actions>a,.ict-stock,.ict-gallery-certification,.ict-section-header h2){align-items:center}
+.ict-pdp :is(.ict-button,.ict-secondary-actions>a,.ict-stock,.ict-gallery-certification)>svg{display:block;flex:none;vertical-align:middle}
+.ict-pdp :is(.ict-cta-note,.ict-price-policy,.ict-deposit-summary)>svg{margin-top:.2em;display:block;flex:none}
+.ict-pdp .ict-kickers{flex-wrap:wrap;row-gap:6px}
+.ict-pdp .ict-sku-copy{display:inline-flex;align-items:center;gap:5px}
+.ict-pdp .ict-spec-group-heading{align-items:flex-start;line-height:1.6}
+.ict-pdp .ict-spec-group-icon{margin-top:.2em}
+.ict-pdp .ict-model-card{gap:10px;min-width:0}
+.ict-pdp .ict-model-copy{min-width:0;overflow-wrap:anywhere}
+.ict-product-page :is(.breadcrumb,.ict-share-button,.top-header,.ict-footer li,.ict-footer p){font-size:14px;line-height:1.5}
+.ict-product-page :is(.ict-design-cart-content,.ict-design-cart-content .cart_list li a,.ict-design-cart-content .cart_quantity,.ict-design-cart-content .cart_list .ict-cart-title){font-size:15px!important;line-height:1.5!important}
+.ict-product-page :is(.ict-design-cart-content .ict-cart-attributes,.ict-design-cart-content small,.ict-design-cart-content .cart-note){font-size:14px!important;line-height:1.5!important;color:#475569}
+.ict-product-page .ict-design-cart .cart_buttons a{font-size:16px!important;line-height:1.5!important}
+body.checkout-page :is(.form-control,.form-select,.ec-checkout-quantity input){font-size:16px!important;line-height:1.5!important}
+.ict-checkout :is(.form-input-wrapper,.phone-input-wrapper)>label{font-size:14px!important;line-height:1.5!important;color:#475569!important}
+.ict-checkout :is(.form-input-wrapper,.phone-input-wrapper):has(input:required)>label:after{content:none}
+.ict-checkout .form-control::placeholder{font-size:14px;color:#64748b}
+.ict-checkout :is(.ec-checkout-quantity-control,.ict-order-bolt){display:inline-grid;place-items:center;vertical-align:middle;flex:none}
+.ict-checkout .list_payment_method .list-group-item{min-width:0}
+.ict-checkout .list_payment_method label{padding-top:0;line-height:1.5!important}
+.ict-checkout .shipping-method-wrapper .list-group-item label{font-size:15px!important;line-height:1.5!important}
+.ict-checkout :is(.shipping-method-wrapper,.list_payment_method) .magic-radio+label:before,
+.ict-checkout :is(.shipping-method-wrapper,.list_payment_method) .magic-radio+label:after{top:50%!important;transform:translateY(-50%)}
+.ict-rental-line-details{font-size:14px;line-height:1.5;color:#475569;margin:8px 0;text-transform:none}
+.ict-rental-line-details p{font-size:inherit!important;line-height:inherit!important}
+.ict-checkout .cart-item{grid-template-columns:54px minmax(0,1fr)}
+.ict-checkout .cart-item>.col-auto{grid-column:2;position:static;max-width:none;text-align:left!important;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.ict-checkout .cart-item>.ict-rental-line-details{grid-column:1/-1;padding:10px;background:#f8fafc;border-radius:8px;margin:0}
+.ict-checkout .cart-item .ec-checkout-item-total{max-width:none}
+.form--shopping-cart .product-thumbnail{width:112px;min-width:112px}
+.form--shopping-cart .product-thumbnail img{width:96px;height:96px;object-fit:contain}
+.form--shopping-cart .product-name>a{font-size:15px;line-height:1.5;text-transform:none}
+.form--shopping-cart :is(.product-name small,.cart_total_label){font-size:14px;line-height:1.5}
+.ict-checkout :is(.form-label,.form-check-label,.payment-method-item>label,.checkout-summary-block,.cart-item>div.col>p:first-of-type,.ec-checkout-item-price,.ec-checkout-item-total,.ict-checkout-notes label){font-size:15px!important;line-height:1.5!important}
+.ict-checkout :is(small,.checkout-login-prompt,.text-muted,.payment_collapse_wrap,.invalid-feedback,.text-danger,.help-block,.ict-checkout-note,.ict-checkout-total-note,.ict-checkout-agreement,.ict-checkout-secure,.ict-checkout-gifts,.ict-checkout-remove,.ict-checkout-commitments,.ict-checkout-breadcrumb,.ict-invoice-toggle small){font-size:14px!important;line-height:1.5!important}
+.ict-checkout :is(.text-muted,.ict-checkout-note,.ict-checkout-total-note,.ict-checkout-agreement,.ict-checkout-secure,.ict-invoice-toggle small){color:#475569!important}
+.ict-checkout :is(.payment-checkout-btn,.apply-coupon-code){font-size:16px!important;line-height:1.4!important;min-height:44px;height:auto}
+.ict-checkout :is(.ict-checkout-card h2,.ict-checkout-coupon h2,.ict-invoice-toggle,.shipping-method-item>label){display:flex;align-items:center;gap:8px}
+.ict-checkout :is(h2,.ict-invoice-toggle,.ict-checkout-gifts>strong)>svg{display:block;flex:none}
+.ict-checkout :is(.ict-checkout-commitments li,.ict-checkout-secure,.ict-checkout-gifts li){align-items:flex-start}
+.ict-checkout :is(.ict-checkout-commitments li,.ict-checkout-secure,.ict-checkout-gifts li)>svg{display:block;flex:none;margin-top:.2em}
+.ict-success :is(p,li,.info-item,.product-name,.info-block-title){font-size:15px!important;line-height:1.6!important}
+.ict-success :is(small,.ict-success-confirmation,.ict-success-code,.product-quantity-badge){font-size:14px!important;line-height:1.5!important}
+.ict-success .order-product-item{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px}
+.ict-success .order-product-item>.ict-rental-line-details{grid-column:1/-1;background:#f8fafc;padding:10px;border-radius:8px;margin:0}
+/* Older rental rules use three-class !important selectors. Match that scope. */
+.ict-pdp .ict-variant-card .ict-variant-note{font-size:14px!important;line-height:1.5!important;color:#475569!important}
+.ict-pdp :is(.ict-rental-kicker,.ict-stock,.ict-variant-price-unit,.ict-model-unit,.ict-rental-period-note,.ict-rental-subtotal small,.ict-rental-period-summary small,.ict-software-group h4,.ict-addon-period,.ict-addon-period label,.ict-addon-period>span,.ict-service-quantity>span,.ict-request-services footer p,.ict-request-services footer small,.ict-process p,.ict-review-score p,.ict-review-write p,.ict-review-filters button,.ict-review-filters span,.ict-review-filters select,.ict-review-search,.ict-review-search button,.ict-question-filter,.ict-question-filter [role=status],.ict-related-brand,.ict-related-stock,.ict-related-unit,.ict-section-kicker,.ict-gift-condition,.ict-video-pill){font-size:14px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-rental-service-info label,.ict-rental-service-info strong,.ict-rental-service-info strong span,.ict-desktop-label,.ict-related-prices strong){font-size:15px!important;line-height:1.5!important}
+.ict-pdp :is(.ict-rental-service-info small,.ict-software-option small span,.ict-software-summary-meta [data-ict-software-count],.ict-review-card time,.ict-review-verified){font-size:14px!important;line-height:1.5!important}
+.ict-pdp .ict-variant-badge{font-size:12px;line-height:1.25}
+.ict-pdp .ict-rental-term-card:has(.ict-variant-badge){padding-top:24px!important}
+.ict-pdp .ict-review-filters{flex-wrap:wrap}
+.ict-pdp :is(.ict-rental-estimate small,.ict-software-options h4,.ict-software-option b span,.ict-software-option b small){font-size:14px!important;line-height:1.5!important}
+@media(min-width:1024px) and (max-width:1199px){
+ .ict-pdp .ict-variant-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ict-pdp .ict-model-grid{grid-template-columns:1fr}
+}
+@media(max-width:767px){
+ .ict-success .order-product-item{grid-template-columns:54px minmax(0,1fr)}
+ .ict-success .order-product-item>.product-price-col{grid-column:2;text-align:left!important}
+ .ict-pdp .ict-model-grid{grid-template-columns:1fr}
+ .ict-pdp :is(.ict-buybar .ict-button,.ict-buy-dialog .ict-button){font-size:15px!important}
+ .ict-pdp .ict-buybar .ict-button-primary strong{font-size:15px!important}
+ .ict-pdp .ict-buybar .ict-button-primary small{font-size:12px!important;line-height:1.4!important}
+ .ict-pdp :is(.ict-gallery-caption,.ict-gallery-certification){flex-wrap:wrap}
+ .ict-checkout .ict-checkout-commitments{flex-wrap:wrap}
+}
+/* Product-owned policies may contain paragraphs and lists from the CMS editor. */
+.ict-checkout-gifts [data-ict-gift-row] { margin-top: 12px; }
+.ict-checkout-gifts [data-ict-gift-row] > b { display: block; margin-bottom: 6px; overflow-wrap: anywhere; }
+.ict-checkout-gifts .ict-cms-content { font-size: 14px; line-height: 1.55; }
+.ict-checkout-gifts .ict-cms-content p { margin: 5px 0; }
+.ict-checkout-gifts .ict-cms-content ul, .ict-checkout-gifts .ict-cms-content ol { padding-left: 18px; margin: 6px 0; }
+.ict-checkout-gifts .ict-cms-content li { display: list-item; margin: 5px 0; }
+.ict-checkout-gifts .ict-cms-content li > strong { display: inline; font-size: inherit; }
+.ict-checkout-gifts .ict-cms-content img { max-width: 100%; height: auto; }
+
+/* All product form controls remain readable and tappable at browser zoom 100%. */
+.ict-pdp :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea){font-size:16px!important;line-height:1.5!important}
+.ict-pdp button{min-width:40px;min-height:40px}
+
+/* Catalog card colors belong to the shared card, including cards inside PDP. */
+.product{color:#263244}
+.product .product_title a{color:#13172b}
+
+/* Preserve the same inherited footer text color in every page shell. */
+.footer_blue{color:#263244}

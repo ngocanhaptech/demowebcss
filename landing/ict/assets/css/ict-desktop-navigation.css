@@ -1,0 +1,310 @@
+/* Desktop popovers from the approved standalone; all links/content remain native CMS. */
+.ict-desktop-nav-panel[hidden]{display:none!important}
+.ict-desktop-nav-panel{display:none}
+:root{--ict-nav-category-width:230px}
+.ict-desktop-nav-home{display:none}
+@media(min-width:1200px){:root{--ict-nav-category-width:275px}}
+/* ---------------------------------------------------------------------------
+ * Things the sticky header breaks once it engages. Measured 19/09/2026 at 1920px, scrolled past the 200px threshold.
+ * ------------------------------------------------------------------------ */
+
+
+@media(min-width:1200px){
+ /* The compact header kept the tall search band: 88px of block around 56px of content, so the logo/search row sat 6px
+    from the top edge and 38px from the menu below it, which reads as stuck to the top rather than centred. */
+ html.ict-scrolled .header_wrap .middle-header{height:auto!important;min-height:0!important}
+
+ /* home.js walks the side banners upwards with `top = 242 - scrollTop` until the 200px mark, on the assumption that
+    the header scrolls away. It does not: it is pinned at 36..189 from the first pixel, so between roughly 55px and
+    200px of scroll the banners slide straight under it — measured 19/09: 47px of the banner lost at scroll 100, 97px
+    at 150, 146px at 199. Below the 200px mark the banners simply stay where they start, and above it they clear the
+    compact header. Both values are `!important` because the JS writes an inline `top`. */
+ html:not(.ict-scrolled) .section-banner-scroll .banner-scroll-item{top:174px!important}
+ html.ict-scrolled .section-banner-scroll .banner-scroll-item{top:128px!important}
+
+ /* Every item in the horizontal menu is a 48px row, but the plain links rendered 43px tall against the top of it while
+    the outlined "Cho thuê thiết bị" button rendered 36px and centred — the eight items sat on centres 4.0px apart.
+    Centring the row content puts them all on one line without changing the li box, so the dropdowns stay put. */
+ .row-menu .navbar-nav > li{display:flex;align-items:center}
+}
+
+/* The homepage banner row shares its category width with the navigation button.
+   Until 19/09/2026 that panel lived inside the sticky header, absolutely positioned 188px from the viewport top. It
+   therefore stopped lining up with the banner row the moment the page moved, and rode the header down over the
+   products - so it was hidden past 40px of scroll, which left the reserved column empty: a measured 245 x 489px of
+   white from scroll 41 until the banner row went off screen. That gap is item 13 of Hoang's September review.
+
+   ict-design-shell.js now moves the panel into the banner row itself, so the two scroll together and no flag, no
+   scroll handler and no clipping are involved. It stays position:absolute, so it takes up no space in the flow and
+   adds nothing to CLS. The header keeps its own z-index, so the panel slides under it like any other content.
+
+   Measured on the live homepage before writing this: panel top 189/129/39/-111 at scroll 0/60/150/300, always
+   245 x 530 flush with the reserved column, 0px overhang, nothing covered, CLS unchanged at 0.0257, and the
+   "Danh muc san pham" dropdown (a separate 1920x474 panel built from this one) still opens. */
+@media(min-width:1200px){
+ .page-home .banner_section .ict-hero-row{position:relative;margin-left:0;margin-right:0}
+ .page-home .banner_section .ict-hero-row>.home-slide-col{
+  margin-left:var(--ict-nav-category-width);
+  flex:0 0 calc(100% - var(--ict-nav-category-width));
+  max-width:calc(100% - var(--ict-nav-category-width));
+  padding-left:15px;padding-right:0}
+ .ict-hero-row>#navCatContent.nav_cat{
+  display:block!important;visibility:visible!important;
+  position:absolute!important;top:0!important;left:0!important;right:auto!important;
+  margin:0!important;padding:0!important;
+  /* No max-height and no overflow: the list is 541px against a 530px banner row, and clamping it put a scrollbar
+     down the middle of the panel with the last category ("Hang Cu") cut off - which is what the owner saw. Letting
+     it run its full height overhangs the row by 11px, and since the panel is absolutely positioned that costs
+     nothing in the flow. The hover flyout was measured identical either way (960x311, 141 links visible). */
+  width:var(--ict-nav-category-width)!important;z-index:5!important}
+}
+@media(max-width:1199px){
+ .banner_section .home-slide-col{flex:0 0 100%;max-width:100%;margin-left:0}
+}
+@media(min-width:992px) and (max-width:1199px){
+ .banner_section.slide_medium,.banner_section.slide_medium .banner-left .carousel-item{height:auto}
+ .banner_section .banner-left .bg-img-home{position:static;display:block;height:auto;object-fit:contain}
+}
+@media(min-width:1024px){
+ .ict-desktop-nav-source{display:none!important;visibility:hidden!important}
+ .ict-desktop-nav-panel{display:block;position:fixed;left:0;right:0;z-index:1070;box-sizing:border-box;margin:0;background:#fff;color:#333;border-top:1px solid #e4e9ef;border-bottom:1px solid #e4e9ef;box-shadow:0 8px 24px -8px #1d273324,0 2px 6px #1d27330f;overflow:auto;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:14px;line-height:1.5;text-align:left;animation:ictDesktopNavEnter .35s ease-out}
+ .ict-desktop-nav-panel *{box-sizing:border-box}
+ .ict-desktop-nav-panel a{color:inherit;text-decoration:none}
+ .ict-desktop-nav-panel button{font:inherit;cursor:pointer}
+ .ict-desktop-nav-panel :focus-visible{outline:3px solid #1b98e0;outline-offset:2px}
+ .ict-desktop-nav-inner{width:100%;max-width:var(--ict-site-width,1400px);margin:0 auto;padding:0 15px;display:grid;grid-template-columns:260px minmax(0,1fr);align-items:stretch}
+ .ict-desktop-nav-category .ict-desktop-nav-inner{height:472px;max-height:inherit}
+ .ict-desktop-nav-category .ict-desktop-nav-sidebar,.ict-desktop-nav-category .ict-desktop-nav-main{overflow-y:auto;scrollbar-width:thin;min-height:0}
+ .ict-desktop-nav-sidebar{padding:12px 8px;background:#fff;border-right:1px solid #e4e9ef;min-width:0}
+ .ict-desktop-nav-group-button{display:flex;align-items:center;width:100%;height:48px;gap:12px;padding:0 12px;margin:0 0 2px;border:1px solid transparent;border-radius:8px;background:transparent;color:#334155;font-size:14px;font-weight:600;text-align:left}
+ .ict-desktop-nav-group-button:hover{background:#fff}
+ .ict-desktop-nav-group-button[aria-selected="true"]{background:#fff;color:#0e7cc0;border-color:#90d0ee;box-shadow:0 2px 8px -2px #1d273314,0 1px 2px #1d27330a}
+ .ict-desktop-nav-group-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .ict-desktop-nav-icon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:0 0 20px;color:inherit;font-size:18px}
+ .ict-desktop-nav-icon img,.ict-desktop-nav-icon svg,.ict-desktop-nav-icon i{display:block;width:20px;height:20px;object-fit:contain;margin:0}
+ .ict-desktop-nav-chevron{font-size:20px;line-height:1;color:#94a3b8}
+ .ict-desktop-nav-main{padding:24px;min-width:0}
+ .ict-desktop-nav-titlebar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+ .ict-desktop-nav-titlebar h4{display:flex;align-items:center;gap:8px;font:700 18px/1.4 "Be Vietnam Pro",system-ui,sans-serif;color:#202733;margin:0}
+ .ict-desktop-nav-panel .ict-desktop-nav-all{font-size:12px;font-weight:600;color:#0e7cc0;white-space:nowrap}
+ .ict-desktop-nav-groups{display:grid;grid-template-columns:repeat(var(--ict-menu-columns,3),minmax(0,1fr));gap:24px}
+ .ict-desktop-nav-group{min-width:0}
+ .ict-desktop-nav-panel .ict-desktop-nav-group-title{display:flex;align-items:center;gap:4px;color:#0a4ea8;font-size:12px;line-height:1.5;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+ .ict-desktop-nav-links{display:flex;flex-direction:column;gap:2px}
+ .ict-desktop-nav-panel .ict-desktop-nav-link{display:flex;align-items:baseline;gap:8px;padding:4px 0;font-size:14px;line-height:1.5;color:#334155;overflow-wrap:anywhere}
+ .ict-desktop-nav-link::before{content:"›";color:#cbd5e1;flex:0 0 auto}
+ .ict-desktop-nav-panel a.ict-desktop-nav-link:hover,.ict-desktop-nav-panel .ict-desktop-nav-all:hover{color:#0e7cc0}
+ .ict-desktop-nav-panel a.ict-desktop-nav-link:hover::before{color:#1b98e0}
+ .ict-desktop-nav-panel span.ict-desktop-nav-link{color:#64748b}
+ .ict-desktop-nav-groups.is-flat{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+ .ict-desktop-nav-services .ict-desktop-nav-inner{grid-template-columns:280px minmax(0,1fr)}
+ .ict-desktop-nav-services .ict-desktop-nav-group-button{height:56px}
+ .ict-desktop-nav-services .ict-desktop-nav-group-button>.ict-desktop-nav-icon{width:36px;height:36px;flex-basis:36px;border:1px solid #e2e8f0;background:#fff;border-radius:8px}
+ .ict-desktop-nav-services .ict-desktop-nav-group-button[aria-selected="true"]>.ict-desktop-nav-icon{background:#1b98e0;border-color:#1b98e0;color:#fff}
+ .ict-desktop-nav-services .ict-desktop-nav-groups.is-flat{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 24px}
+ .ict-desktop-nav-commitments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border-top:1px solid #f1f5f9;margin-top:24px;padding-top:16px}
+ .ict-desktop-nav-commitments>div{display:flex;align-items:center;gap:8px;font-size:12px;line-height:1.4;color:#64748b}
+ .ict-desktop-nav-commitments>div>span:first-child{display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex:0 0 28px;color:#0e7cc0;background:#e8f4fb;border-radius:6px;font-size:16px}
+ .ict-desktop-nav-service-media{display:flex;justify-content:flex-end;border-top:1px solid #e2e8f0;margin-top:24px;padding-top:16px}
+ .ict-desktop-nav-service-media img{max-width:100%;height:112px;object-fit:contain;border-radius:8px}
+ .ict-desktop-nav-support{left:auto;width:760px;max-width:calc(100vw - 32px);border:1px solid #e2e8f0;border-radius:12px}
+ .ict-desktop-nav-support-head{display:flex;align-items:center;gap:12px;padding:12px 20px;background:#0a4ea8;color:#fff}
+ .ict-desktop-nav-support-head>div{flex:1}
+ .ict-desktop-nav-support-head strong{display:block;font-size:12px;letter-spacing:.08em;color:#ffda80}
+ .ict-desktop-nav-support-head p{margin:3px 0 0;font-size:14px;font-weight:600;color:#fff}
+ .ict-desktop-nav-dismiss{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;border-radius:50%;background:#ffffff26;color:#fff;font-size:24px!important;line-height:1}
+ .ict-desktop-nav-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;padding:16px}
+ .ict-desktop-nav-contact-group{min-width:0;margin:0}
+ .ict-desktop-nav-contact-title{display:flex;align-items:center;gap:8px;margin:0 0 8px;padding:0 0 6px;border-bottom:1px solid #f1f5f9;font-size:12px;line-height:1.35;font-weight:700;letter-spacing:.05em;color:#0a4ea8;text-transform:uppercase}
+ .ict-desktop-nav-contact-title .ict-desktop-nav-icon{width:24px;height:24px;flex-basis:24px;border-radius:6px;background:#e8f4fb}
+ .ict-desktop-nav-contact-title img{width:16px;height:16px}
+ .ict-desktop-nav-panel .ict-desktop-nav-contact{display:flex;align-items:baseline;gap:8px;padding:4px 6px;font-size:12px;line-height:1.5;border-radius:4px;color:#64748b;min-width:0}
+ .ict-desktop-nav-contact strong{color:#202733;font-size:12px;white-space:nowrap}
+ .ict-desktop-nav-contact>span:last-child{overflow-wrap:anywhere}
+ .ict-desktop-nav-contact.ict-desktop-nav-contact:hover{background:#e8f4fb}
+ .ict-desktop-nav-phone-icon{color:#0e7cc0;font-size:12px}
+ [data-ict-desktop-navigation] .categories_btn[aria-expanded="true"]{background:#ffffff33}
+ @keyframes ictDesktopNavEnter{from{opacity:0}to{opacity:1}}
+}
+@media(min-width:1024px) and (max-width:1279px){
+ .ict-desktop-nav-groups{grid-template-columns:repeat(var(--ict-menu-columns-tablet,2),minmax(0,1fr))}
+ .ict-desktop-nav-services .ict-desktop-nav-groups.is-flat{gap:8px 16px}
+}
+@media(prefers-reduced-motion:reduce){.ict-desktop-nav-panel{animation:none!important}}
+
+/* Effective GRAY CANVAS source tokens, including its final white bg-*-50 overrides. */
+@media(min-width:1024px){
+ .ict-desktop-nav-panel :focus-visible{outline:2px solid #0e7cc0;outline-offset:2px}
+ .ict-desktop-nav-panel .ict-desktop-nav-link{color:#333;transition:transform .15s,color .15s}
+ .ict-desktop-nav-panel a.ict-desktop-nav-link:hover{transform:translateX(4px)}
+ .ict-desktop-nav-services a.ict-desktop-nav-link:hover{transform:translateX(2px)}
+ .ict-desktop-nav-all:hover{text-decoration:underline!important}
+ .ict-desktop-nav-titlebar h4{color:#333}
+ .ict-desktop-nav-titlebar .ict-desktop-nav-icon{color:#1b98e0}
+ .ict-desktop-nav-count{font-size:12px;font-weight:500;color:#64748b;white-space:nowrap}
+ .ict-desktop-nav-small-chevron{width:12px;height:12px;flex:none}
+ .ict-desktop-nav-panel .ict-desktop-nav-group-button{color:#333;font-weight:600;transition:background .15s,color .15s,border-color .15s,box-shadow .15s}
+ .ict-desktop-nav-panel .ict-desktop-nav-group-button[aria-selected="true"]{color:#0e7cc0}
+ .ict-desktop-nav-chevron{width:16px;height:16px;opacity:.4;color:currentColor}
+ .ict-desktop-nav-services .ict-desktop-nav-sidebar{display:flex;flex-direction:column}
+ .ict-desktop-nav-service-promise{margin:12px 0 0;padding:12px;border-radius:8px;background:#202733;color:#fff}
+ .ict-desktop-nav-services .ict-desktop-nav-group-button:last-of-type{margin-bottom:auto}
+ .ict-desktop-nav-services .ict-desktop-nav-group-button>.ict-desktop-nav-icon svg{width:16px;height:16px}
+ .ict-desktop-nav-services .ict-desktop-nav-titlebar .ict-desktop-nav-icon{color:#1b98e0}
+ .ict-desktop-nav-services .ict-desktop-nav-link{padding-top:6px;padding-bottom:6px}
+ .ict-desktop-nav-badge{padding:2px 6px;border-radius:4px;background:#202733;color:#fff;font-size:12px;font-weight:700;line-height:1;flex:none}
+ .ict-desktop-nav-service-promise strong{font-size:12px;letter-spacing:.1em;color:#6fa9e2}
+ .ict-desktop-nav-service-promise p{font-size:12px;font-weight:600;line-height:1.25;color:#fff;margin:4px 0 0}
+ .ict-desktop-nav-service-promise a{display:flex;gap:6px;align-items:center;font-size:14px;font-weight:800;color:#f8a53a;margin-top:8px}
+ .ict-desktop-nav-service-promise svg{width:14px;height:14px}
+ .ict-desktop-nav-commitments>div>span:first-child,.ict-desktop-nav-contact-title .ict-desktop-nav-icon{background:#fff}
+ .ict-desktop-nav-commitments svg{width:16px;height:16px}
+ .ict-desktop-nav-support-head strong{letter-spacing:.1em;color:#f9b85c}
+ .ict-desktop-nav-dismiss svg{width:16px;height:16px}
+ .ict-desktop-nav-dismiss:hover{background:#ffffff40}
+ .ict-desktop-nav-contact-title img,.ict-desktop-nav-contact-title svg{width:14px;height:14px}
+ .ict-desktop-nav-phone-icon svg{width:14px;height:14px;display:block}
+ .ict-desktop-nav-promo{display:none}
+}
+@media(min-width:1280px){
+ .ict-desktop-nav-category.has-promotion .ict-desktop-nav-inner{grid-template-columns:var(--ict-menu-sidebar-width,260px) minmax(0,1fr) 260px}
+ .ict-desktop-nav-category.has-promotion .ict-desktop-nav-promo{display:block;background:linear-gradient(135deg,#202733,#0a335c);color:#fff;padding:20px;overflow:hidden}
+ .ict-desktop-nav-promo img{display:block;width:100%;height:auto;border-radius:8px}
+ .ict-desktop-nav-promo a{color:#fff}
+}
+@media(prefers-reduced-motion:reduce){.ict-desktop-nav-panel *{transition:none!important}}
+
+/* ICT 19/09/2026 - item 12 of Hoang's September review, "keo len keo xuong hay bi loi giat man hinh".
+ *
+ * .ict-site-header is position:sticky, so it still takes up space in the flow. Past scroll 200 the compact state
+ * drops .top-bar and .banner-top with display:none and trims the middle row, which takes the header from 189px to
+ * 121px - and because that 68px leaves the FLOW, the document shrinks and Chrome's scroll anchoring drags the
+ * viewport with it. Measured with a real wheel: -68px going down at y~200 and +68px coming back up, every time.
+ *
+ * Fix: pin the space the header reserves, and let the bars inside shrink as they already do. The lower 68px is then
+ * an empty, transparent, click-through strip that content scrolls under, exactly as it looks today.
+ * 189px is the header's natural height, identical at 1024/1280/1366/1600/1920 (measured before writing this).
+ * background:transparent matters - without it the element's own #f4f6f8 paints a grey band over the content.
+ *
+ * Measured on the live homepage, before vs after: wheel drift 2 events -> 0, document height 9676->9608 -> constant
+ * at 9676, CLS 0.2736 -> 0.0362, and the rendered viewport is pixel-identical to today's. */
+@media (min-width: 1024px) {
+    .ict-site-header {
+        /* 36px promo + 88px search + 48px navigation + 1px border.
+           Keep the scroll-stability reservation, excluding the removed 16px mb-3. */
+        height: 173px;
+        background: transparent;
+        pointer-events: none;
+    }
+
+    .ict-site-header > * {
+        pointer-events: auto;
+    }
+}
+
+/* ICT 19/09/2026 - two things the owner flagged on the mega menu, measured before and after on the live site.
+
+   (1) The panel bled past the page frame. .ict-desktop-nav-panel is position:fixed with left:0;right:0, so its white
+   card spanned the whole window while .ict-desktop-nav-inner kept the content at --ict-site-width. The card now sits on the page
+   frame (.mega-width), the same edge the support card was moved to, while .ict-desktop-nav-inner keeps its 15px
+   padding so the text inside still lines up with the page content below. Measured at 1728px: card 164..1564 against
+   a frame of 164..1564, text 179..1549 against content 179..1549.
+
+   Centred with auto margins, not transform: the opening animation (ictDesktopNavEnter) animates transform:translateY
+   and would overwrite a translateX here mid-animation.
+
+   (2) The category list had to be scrolled. .ict-desktop-nav-category .ict-desktop-nav-inner pinned the panel at
+   472px while the 12 categories need 624px, so only 9 fitted and the rest sat behind a scrollbar. Letting the row
+   size to its content shows all 12. max-height keeps the panel inside the window on short screens - at 1440x768 it
+   caps at 580px and the panel itself scrolls rather than spilling off the bottom. */
+@media (min-width: 1024px) {
+    /* :not(.ict-desktop-nav-support) matters. The support card is its own size - width:760px with left:auto so it
+       hangs off the hotline button - and this rule has the same specificity but comes later in the file, so without
+       the exclusion it stretched that card to the full frame. That is exactly what the owner caught. */
+    .ict-desktop-nav-panel:not(.ict-desktop-nav-support) {
+        width: min(100%, var(--ict-site-width, 1400px));
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ict-desktop-nav-panel {
+        max-height: calc(100vh - 190px);
+    }
+
+
+    .ict-desktop-nav-category .ict-desktop-nav-inner {
+        height: auto;
+        max-height: none;
+    }
+
+    .ict-desktop-nav-category .ict-desktop-nav-sidebar {
+        overflow-y: visible;
+    }
+}
+/* Separate navigation text from the disclosure control. */
+.ict-desktop-nav-group-row{position:relative}
+.ict-desktop-nav-group-row>.ict-desktop-nav-group-button{padding-right:40px;text-decoration:none}
+.ict-desktop-nav-expand{position:absolute;right:3px;top:3px;bottom:5px;width:34px;display:flex;align-items:center;justify-content:center;border:0;border-radius:6px;background:transparent;color:#334155}
+.ict-desktop-nav-expand:hover,.ict-desktop-nav-expand:focus-visible{background:#e8f4fb;color:#0e7cc0}
+
+/* Match the dropdown frame and divider to the measured navigation controls. */
+@media(min-width:1024px){
+ .ict-desktop-nav-category.is-cascade{background:#fff;border:0;overflow:hidden}
+ .ict-desktop-nav-category.is-cascade .ict-desktop-nav-inner{align-items:stretch}
+ .ict-desktop-nav-category.is-cascade .ict-desktop-nav-sidebar,
+ .ict-desktop-nav-category.is-cascade .ict-desktop-nav-main{background:#fff}
+ .ict-desktop-nav-category.is-cascade .ict-desktop-nav-sidebar{max-height:var(--ict-menu-available-height);overflow-y:auto}
+ .ict-desktop-nav-category.is-cascade .ict-desktop-nav-main{padding:0;overflow:hidden}
+ .ict-desktop-nav-cascade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));height:100%;min-height:min(310px,var(--ict-menu-available-height))}
+ .ict-desktop-nav-cascade-column{min-width:0;padding:10px 8px;max-height:var(--ict-menu-available-height);overflow-y:auto;scrollbar-width:thin}
+ .ict-desktop-nav-cascade-column+.ict-desktop-nav-cascade-column{border-left:1px solid #e1e5e9}
+ .ict-desktop-nav-cascade-row{display:flex;align-items:stretch;min-height:34px;border-radius:4px}
+ .ict-desktop-nav-cascade-row:hover,.ict-desktop-nav-cascade-row.is-active{background:#f0f7fc;color:#0e7cc0}
+ .ict-desktop-nav-panel .ict-desktop-nav-cascade-link{display:flex;align-items:center;flex:1;min-width:0;padding:6px 12px;border:0;background:transparent;color:inherit;text-align:left;font-size:14px;font-weight:500;line-height:1.55;overflow-wrap:anywhere}
+ .ict-desktop-nav-cascade-expand{display:flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;border:0;background:transparent;color:inherit}
+ .ict-desktop-nav-cascade-expand svg{width:17px;height:17px}
+}
+@media(min-width:1024px){
+ .ict-desktop-nav-panel:not(.ict-desktop-nav-support) .ict-desktop-nav-inner{
+  padding:0;
+  grid-template-columns:var(--ict-menu-sidebar-width,230px) minmax(0,1fr);
+ }
+ .ict-desktop-nav-category .ict-desktop-nav-group-name{white-space:normal;line-height:1.35}
+}
+@media(min-width:1024px){
+ .header_wrap .bottom_header .row-menu-cat-item{width:var(--ict-nav-category-width);max-width:var(--ict-nav-category-width);flex:0 0 var(--ict-nav-category-width)}
+ .header_wrap .bottom_header .categories_wrap{width:100%}
+ .header_wrap .bottom_header .categories_btn{width:100%;max-width:none}
+}
+/* The approved offer occupies the outer edge, without a container gutter. */
+/* The homepage and popover use the same sidebar DOM and row geometry.
+   Native CMS markup remains available to mobile/data readers, never a second desktop flyout. */
+@media(min-width:1200px){
+ .ict-desktop-nav-home-source>.main-mega-menu{display:none!important;visibility:hidden!important}
+ .ict-desktop-nav-home{display:block;width:100%;background:#fff;color:#333;font:14px/1.5 "Be Vietnam Pro",system-ui,sans-serif}
+ .ict-desktop-nav-home *{box-sizing:border-box}
+ .ict-desktop-nav-home a{text-decoration:none}
+ .ict-desktop-nav-home button{font:inherit;cursor:pointer}
+ .ict-desktop-nav-home :focus-visible{outline:2px solid #0e7cc0;outline-offset:2px}
+ .ict-desktop-nav-home .ict-desktop-nav-sidebar,
+ .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-sidebar{padding:0 8px}
+ .ict-desktop-nav-home .ict-desktop-nav-group-button,
+ .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-group-button{height:45px;margin-bottom:0;color:#333;font-weight:600;white-space:normal;line-height:1.35}
+ .ict-desktop-nav-home .ict-desktop-nav-group-button[aria-selected="true"],
+ .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-group-button[aria-selected="true"]{color:#0e7cc0}
+ .ict-desktop-nav-home .ict-desktop-nav-group-name{white-space:normal;line-height:1.35}
+}
+@media(min-width:1280px){
+ .ict-desktop-nav-panel.ict-desktop-nav-category.has-promotion .ict-desktop-nav-inner{grid-template-columns:var(--ict-menu-sidebar-width,275px) minmax(0,1fr) 260px}
+ .ict-desktop-nav-category.has-promotion .ict-desktop-nav-promo{display:block;position:relative;align-self:stretch;min-height:100%;margin:0;padding:20px;background:linear-gradient(150deg,#1c2b3b,#0a2f52);overflow:hidden}
+ .ict-desktop-nav-offer{position:relative;z-index:0;min-height:100%}
+ .ict-desktop-nav-offer-kicker{margin:0 0 10px;color:#ffb64b;font-size:12px;font-weight:700;letter-spacing:.08em}
+ .ict-desktop-nav-offer h4{margin:0 0 8px;color:#fff;font-size:20px;font-weight:700;line-height:1.25}
+ .ict-desktop-nav-offer-description{margin:0 0 16px;color:#8ad0eb;font-size:12px;font-weight:500;line-height:1.5}
+ .ict-desktop-nav-panel .ict-desktop-nav-offer-cta{display:flex;align-items:center;justify-content:center;min-height:42px;padding:10px 8px;border-radius:8px;background:#ffb217;color:#263344;font-size:14px;font-weight:700;box-shadow:0 6px 18px #ffb21738}
+ .ict-desktop-nav-offer-cta:hover{background:#ffc140}
+ .ict-desktop-nav-offer-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px}
+ .ict-desktop-nav-offer-badges span{padding:4px 6px;border-radius:3px;background:#ffffff1c;color:#e2e8f0;font-size:12px;font-weight:600}
+ .ict-desktop-nav-offer-decoration{position:absolute;right:-26px;bottom:-20px;width:116px;height:116px;color:#7bbde5;opacity:.14;pointer-events:none;z-index:-1}
+ .ict-desktop-nav-offer-decoration svg{width:100%;height:100%}
+}
