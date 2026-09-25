@@ -1,0 +1,2148 @@
+/* ICT review fixes 18/09/2026 (owner mobile/desktop review of the release candidate). Loaded after style.css and
+   ict-compatibility.css on every storefront page. Each block names the issue it fixes. */
+
+/* 1. Breadcrumb divider: style.css and style.integration.css (loaded later) draw it with the swiper-icons ligature
+      "next", a font only product pages load. Same glyph and spacing as the product-page rule, with enough specificity
+      to win over both files on every page. */
+body ol.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "\203A";
+    font-family: inherit;
+    border: 0;
+    transform: none;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0 8px;
+    font-size: 14px;
+    line-height: 1;
+    color: #b0b8c4;
+}
+/* Long breadcrumbs on phones scroll sideways instead of being clipped. */
+.breadcrumb_section ol.breadcrumb {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.breadcrumb_section ol.breadcrumb::-webkit-scrollbar {
+    display: none;
+}
+.breadcrumb_section ol.breadcrumb .breadcrumb-item {
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+/* 2. Homepage category/hero geometry is owned by ict-desktop-navigation.css.
+      Do not reintroduce independent 230/245px overrides here: the header button,
+      persistent categories and reserved banner column share --ict-nav-category-width. */
+
+/* 3. Product cards: equal heights whatever the stock state, description shown on mobile like the live site. */
+.shop_container.grid > .col {
+    /* Long model codes must not enlarge a flex column beyond its assigned share. */
+    min-width: 0;
+}
+.product_slider.owl-carousel .owl-stage,
+.slider-featured_news.owl-carousel .owl-stage {
+    display: flex;
+}
+.product_slider.owl-carousel .owl-item,
+.slider-featured_news.owl-carousel .owl-item {
+    display: flex;
+    height: auto;
+}
+.product_slider.owl-carousel .owl-item > .item {
+    display: flex;
+    width: 100%;
+}
+.product_slider .product_wrap,
+.shop_container .product {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.product_slider .product_wrap > .product_info,
+.shop_container .product > .product_info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+.product_slider .product_wrap .deal_foot,
+.shop_container .product .deal_foot {
+    margin-top: auto;
+    min-height: 46px;
+}
+.product_slider .product_wrap .product_desc,
+.shop_container .product .product_desc {
+    flex: 0 0 auto;
+}
+@media (max-width: 767px) {
+    .product_wrap .product_desc,
+    .product .product_desc {
+        display: block;
+        height: auto;
+        max-height: 118px;
+        overflow: hidden;
+    }
+    .product_wrap .product_desc *,
+    .product .product_desc * {
+        font-size: 12px !important;
+        line-height: 20px;
+    }
+    .product_wrap .deal_foot,
+    .product .deal_foot {
+        min-height: 40px;
+    }
+}
+
+/* 4. Product page gallery on phones: show the whole picture instead of cropping tall images. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage .ict-gallery-slide img,
+    .ict-gallery-stage .ict-gallery-slide img {
+        object-fit: contain !important;
+        background: #fff;
+    }
+}
+
+/* 5. News cards on phones: same height per card, title clamped to two lines, date pinned to the bottom,
+      side gutter aligned with the section heading. */
+.slider-featured_news .featured-news-slider-item {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.slider-featured_news .featured-news-slider-item > a {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.slider-featured_news .featured-news-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+.slider-featured_news .featured-news-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 44px;
+}
+.slider-featured_news .featured-news-slider-date {
+    margin-top: auto;
+}
+@media (max-width: 767px) {
+    .slider-featured_news.owl-carousel {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .slider-featured_news .featured-news-title {
+        font-size: 15px;
+        line-height: 21px;
+        min-height: 42px;
+    }
+}
+
+/* 6. Mobile menu drawer, aligned with the approved design: white head with the logo only, the two tabs,
+      service/category rows, then a "Liên kết nhanh" heading with a two-column bulleted list. */
+dialog.ict-design-menu .ict-menu-head {
+    background: #fff;
+    color: #202733;
+    border-bottom: 1px solid #eef2f6;
+    padding: 14px 16px 12px;
+}
+dialog.ict-design-menu .ict-menu-head > button {
+    background: #f1f5f9;
+    color: #202733;
+}
+dialog.ict-design-menu .ict-menu-head .ict-menu-hotlines,
+dialog.ict-design-menu .ict-menu-head p {
+    display: none;
+}
+dialog.ict-design-menu .ict-menu-tabs button {
+    font-size: 14px;
+}
+dialog.ict-design-menu .ict-menu-scroll summary > span:nth-child(2) {
+    font-size: 14px;
+}
+dialog.ict-design-menu .ict-menu-quick-title {
+    margin: 18px 20px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+dialog.ict-design-menu .ict-menu-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    padding: 4px 20px 0;
+}
+dialog.ict-design-menu .ict-menu-links a {
+    border: 0;
+    background: none;
+    border-radius: 0;
+    padding: 0 0 0 14px;
+    position: relative;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #202733;
+    line-height: 20px;
+}
+dialog.ict-design-menu .ict-menu-links a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #94a3b8;
+}
+
+/* 7. Product page on phones (owner review 12:40): the picture spans the full width at its own aspect ratio (no crop,
+      no side bands, thumbnails follow); the kicker badges use the design's compact size. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage {
+        aspect-ratio: auto;
+        min-height: 220px;
+    }
+    .ict-pdp .ict-gallery-stage .ict-gallery-slide {
+        height: auto;
+    }
+    .ict-pdp .ict-gallery-stage .ict-gallery-slide img {
+        height: auto;
+        max-height: 88vh;
+        object-fit: contain !important;
+    }
+    .ict-pdp .ict-kickers {
+        font-size: 12px !important;
+        line-height: 16px;
+        gap: 6px;
+    }
+    .ict-pdp .ict-kickers > a,
+    .ict-pdp .ict-kickers > span,
+    .ict-pdp .ict-kickers > strong {
+        font-size: 12px !important;
+        line-height: 16px;
+        padding: 4px 9px;
+        border-radius: 6px;
+    }
+}
+
+/* 8. Product page on phones (owner review 12:55): the two compact meta rows of the design (stars + reviews + SKU,
+      then stock), the savings pill shown again as an orange pill, and the "best price" assurance line. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-product-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 10px;
+        margin-top: 8px;
+        font-size: 12.5px !important;
+        line-height: 16px !important;
+        color: #64748b;
+    }
+    .ict-pdp .ict-product-meta .ict-rating {
+        font-size: 12.5px !important;
+        line-height: 16px;
+        gap: 4px;
+    }
+    .ict-pdp .ict-product-meta .ict-rating > span:first-child {
+        font-size: 13px;
+    }
+    .ict-pdp .ict-product-meta .ict-stock {
+        flex-basis: 100%;
+        font-size: 12.5px !important;
+        line-height: 16px !important;
+        margin: 2px 0 0;
+    }
+    .ict-pdp .ict-kickers > .ict-sku-copy,
+    .ict-pdp .ict-sku-copy {
+        font-size: 12px !important;
+        line-height: 16px !important;
+        padding: 0 !important;
+        background: none !important;
+        color: #64748b !important;
+    }
+    .ict-pdp .ict-price-saving {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding: 9px 12px;
+        border-radius: 10px;
+        background: #fff4e6;
+        color: #b45309;
+        font-size: 12.5px !important;
+        line-height: 18px;
+        font-weight: 500;
+    }
+    .ict-pdp .ict-price-saving strong {
+        font-weight: 700;
+        color: #9a3412;
+    }
+    .ict-pdp .ict-price-saving svg {
+        width: 16px;
+        height: 16px;
+        color: #f59e0b;
+        flex: none;
+    }
+    .ict-pdp-rental .ict-price-saving {
+        display: none !important;
+    }
+}
+.ict-pdp .ict-price-assurance {
+    margin: 6px 0 0;
+    font-size: 12.5px;
+    line-height: 18px;
+    color: #64748b;
+}
+/* When the timed-sale countdown pill is visible it already states the saving; do not show both pills. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-price-box:has(.ict-countdown:not([hidden])) .ict-price-saving {
+        display: none !important;
+    }
+}
+
+/* 9. Owner review 13:05: no focus ring on the menu logo; on phones the image caption moves under the thumbnails
+      (same element the desktop uses) and up to seven thumbnails share the width instead of overflowing. */
+dialog.ict-design-menu .ict-menu-head > a:focus,
+dialog.ict-design-menu .ict-menu-head > a:focus-visible,
+dialog.ict-design-menu .ict-menu-head > a img:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage .ict-gallery-counter {
+        display: none !important;
+    }
+    .ict-pdp .ict-gallery-navigation .ict-gallery-caption {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        padding: 0 12px 10px;
+        font-size: 12px;
+        line-height: 16px;
+        color: #64748b;
+    }
+
+}
+/* The "Video review" pill sat over the image and was clipped on the right on phones. Revision of 18/09/2026 16:05:
+   "position: static" put it outside the square stage, whose overflow is hidden, so the pill vanished; bringing it back
+   as an overlay covered the wording printed on the product picture. The last thumbnail carries the very same
+   data-ict-video trigger and is labelled "Video", so on phones the pill is simply dropped: nothing is lost, nothing
+   covers the picture. On a computer the pill keeps its usual place. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage .ict-video-pill,
+    .ict-gallery-stage .ict-video-pill {
+        display: none !important;
+    }
+}
+/* 10. Owner review 13:15: the business-quote line stays on one row on phones (shrink-to-fit, ellipsis if needed). */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-business-contact {
+        flex-wrap: nowrap;
+    }
+    .ict-pdp .ict-business-contact > span:nth-child(2) {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+    .ict-pdp .ict-business-contact strong {
+        display: block;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        font-size: 12.5px !important;
+        line-height: 17px !important;
+        text-wrap: balance;
+    }
+    .ict-pdp .ict-business-contact .ict-heading-icon {
+        flex: none;
+    }
+    .ict-pdp .ict-business-arrow {
+        flex: none;
+    }
+}
+
+/* 11. Owner review 13:35: short labels that must not break mid-phrase on phones (the "Cấu hình đang chọn"/"Gói đang
+       chọn" line of the specs header, the copy-specs row, and the section kickers). */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-detail-section .ict-section-header {
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .ict-pdp .ict-detail-section .ict-section-header > div {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+    .ict-pdp #specs .ict-section-header p {
+        margin: 2px 0 0;
+        font-size: 12.5px;
+        line-height: 18px;
+        text-wrap: balance;
+    }
+    .ict-pdp #specs .ict-section-header p > strong {
+        display: block;
+    }
+    .ict-pdp .ict-copy-specs {
+        flex: none;
+    }
+    .ict-pdp .ict-section-kicker {
+        text-wrap: balance;
+    }
+}
+
+/* 12. Owner review 13:45: the rating breakdown on phones matches the design — the star label stays on one line,
+       every row has the same height and the counts line up on the right. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-review-bars > button {
+        min-height: 26px;
+        gap: 8px;
+        margin: 4px 0;
+    }
+    .ict-pdp .ict-review-bars > button > span:first-child {
+        width: 34px;
+        flex: none;
+        white-space: nowrap;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: left;
+    }
+    .ict-pdp .ict-review-bars > button > .ict-review-track {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .ict-pdp .ict-review-bars > button > small {
+        width: 28px;
+        flex: none;
+        text-align: right;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+/* 13. Owner review 14:00: the section headings on phones ("Chọn cấu hình", "Phần mềm cài sẵn", "Quà tặng kèm",
+       "Mua kèm", "Đặc điểm nổi bật", "Chính sách giao nhận", "Bạn dùng máy để làm gì", "Dự án đã triển khai", …)
+       were 15px, too small next to the body copy; lift them to 17px and the group sub-headings to 15px. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-section-header h2,
+    .ict-pdp .ict-card > h2,
+    .ict-pdp .ict-variant-heading h2,
+    .ict-pdp .ict-gifts h2,
+    .ict-pdp .ict-rental-software h2,
+    .ict-pdp .ict-why-ict .ict-section-header h2,
+    .ict-pdp .ict-customer-logos .ict-section-header h2,
+    .ict-pdp .ict-related-section .ict-section-header h2,
+    .ict-pdp .ict-accessories .ict-section-header h2,
+    .ict-pdp .ict-use-cases .ict-section-header h2,
+    .ict-pdp .ict-process .ict-section-header h2,
+    .ict-pdp .ict-projects .ict-section-header h2,
+    .ict-pdp .ict-feature-summary h2,
+    .ict-pdp-rental .ict-rental-software h2,
+    .ict-pdp .ict-reviews > h2.ict-mobile-label {
+        font-size: 17px !important;
+        line-height: 24px !important;
+        font-weight: 700;
+    }
+    .ict-pdp .ict-section-kicker {
+        font-size: 11.5px;
+        line-height: 16px;
+    }
+    .ict-pdp .ict-section-header p,
+    .ict-pdp .ict-software-group h4,
+    .ict-pdp .ict-gift-heading-copy small {
+        font-size: 13px;
+        line-height: 19px;
+    }
+}
+
+/* 14. Owner review 14:15: the specification table on phones keeps a fixed, narrow label column so the values fill the
+       rest of the row instead of wrapping one or two words per line. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-specifications table {
+        table-layout: fixed !important;
+        width: 100% !important;
+    }
+    .ict-pdp .ict-specifications table colgroup col:first-child {
+        width: 34% !important;
+    }
+    .ict-pdp .ict-specifications table colgroup col:not(:first-child) {
+        width: auto !important;
+    }
+    .ict-pdp .ict-specifications td:first-child,
+    .ict-pdp .ict-specifications th:first-child {
+        width: 34% !important;
+        padding: 9px 10px 9px 12px !important;
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+    .ict-pdp .ict-specifications td:not(:first-child),
+    .ict-pdp .ict-specifications th:not(:first-child) {
+        padding: 9px 12px 9px 10px !important;
+        font-size: 12.5px !important;
+        line-height: 18px !important;
+        overflow-wrap: break-word;
+        hyphens: none;
+    }
+    .ict-pdp .ict-specifications td[colspan] {
+        width: auto !important;
+        font-size: 12.5px !important;
+    }
+}
+
+/* 15. Owner review 15:05: the stock line showed two markers on phones — the green dot from ict-product-design plus the
+       check icon that ict-readability (loaded later) forces back to display:block. Keep only the dot. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-stock > svg,
+    .ict-pdp .ict-product-meta .ict-stock > svg {
+        display: none !important;
+    }
+}
+
+/* 16. Owner review 15:40 — mobile space and stability.
+   a) The gallery keeps one fixed square stage, so stepping through pictures never changes the page height
+      (images are contained, never cropped).
+   b) The search row is replaced by an icon in the header; tapping it reveals the field with a "Huỷ" button.
+   c) The buy bar is slimmer (56px instead of 72px) yet keeps "Mua ngay" always visible.
+   d) The quantity stepper inside the buy sheet no longer runs past the right edge. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage {
+        aspect-ratio: 1 / 1 !important;
+        min-height: 0;
+    }
+    .ict-pdp .ict-gallery-stage .ict-gallery-slide {
+        height: 100%;
+    }
+    .ict-pdp .ict-gallery-stage .ict-gallery-slide img {
+        height: 100%;
+        max-height: none;
+        object-fit: contain !important;
+    }
+
+    .header-mobile .header-mobile-bottom {
+        display: none;
+    }
+    body.ict-search-open .header-mobile .header-mobile-bottom {
+        display: block;
+    }
+    .ict-mobile-search-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        margin-right: 2px;
+        border: 0;
+        border-radius: 10px;
+        background: #f1f5f9;
+        color: #202733;
+        padding: 0;
+    }
+    body.ict-search-open .ict-mobile-search-toggle {
+        background: #e2e8f0;
+    }
+    .header-mobile .header-mobile-bottom .input-group-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .ict-mobile-search-cancel {
+        flex: none;
+        border: 0;
+        background: none;
+        padding: 0 2px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    .ict-pdp .ict-buybar-inner {
+        gap: 6px;
+        padding: 6px 10px max(6px, env(safe-area-inset-bottom));
+    }
+    .ict-pdp .ict-buybar-contact {
+        height: 44px;
+        flex: 0 0 46px;
+        font-size: 9.5px;
+    }
+    .ict-pdp .ict-buybar-contact svg {
+        width: 16px;
+        height: 16px;
+    }
+    .ict-pdp .ict-buybar .ict-button {
+        height: 44px;
+        min-height: 44px;
+        font-size: 12px !important;
+        padding: 4px 6px;
+    }
+    .ict-pdp .ict-buybar .ict-button-primary strong {
+        font-size: 12.5px;
+    }
+    .ict-pdp .ict-buybar .ict-button-primary small {
+        font-size: 10.5px;
+    }
+
+    .ict-buy-dialog .ict-quantity-row {
+        flex-wrap: wrap;
+        gap: 8px 12px;
+        padding-right: 2px;
+    }
+    .ict-buy-dialog .ict-quantity-row > label {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .ict-pdp .ict-buy-dialog .ict-quantity {
+        flex: none;
+        margin-left: auto !important;
+        width: max-content;
+        max-width: 100%;
+    }
+    .ict-pdp .ict-buy-dialog .ict-quantity button,
+    .ict-pdp .ict-buy-dialog .ict-quantity input[type=button] {
+        width: 36px;
+        flex-basis: 36px;
+        height: 38px;
+        line-height: 38px;
+    }
+    .ict-pdp .ict-buy-dialog .ict-quantity .qty {
+        width: 40px;
+        flex-basis: 40px;
+        height: 38px;
+    }
+}
+
+/* 17. Owner review 15:55: the "ICT Sài Gòn vs nơi khác" table was squeezed to 11px to fit the screen. Give it readable
+       text (13px) on its natural width and let the block scroll sideways; the three provider columns read left-aligned. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-why-ict .ict-comparison-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 16px 14px;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll::-webkit-scrollbar {
+        display: none;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll table {
+        table-layout: auto !important;
+        width: auto !important;
+        min-width: 620px !important;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll th,
+    .ict-pdp .ict-why-ict .ict-comparison-scroll td {
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        padding: 10px 12px !important;
+        overflow-wrap: normal;
+        text-align: left !important;
+        vertical-align: top;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll th:first-child,
+    .ict-pdp .ict-why-ict .ict-comparison-scroll td:first-child {
+        width: 34% !important;
+        min-width: 150px;
+        padding-left: 12px !important;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll th small {
+        font-size: 11px;
+    }
+    .ict-pdp .ict-why-ict .ict-comparison-scroll td > span {
+        display: block;
+        text-align: left;
+        margin-inline: 0;
+    }
+}
+
+/* 18. Owner review 16:10: the corner chat button sits above the buy bar so it never covers prices or buttons.
+       Revision of 18/09/2026 15:50 (owner: "phần chát trên mobile bị che mất"): the button used to slide 58% of its
+       width past the right edge while scrolling down, so more than half of it was off-screen — it now stays put. */
+@media (max-width: 1023px) {
+    a.scrollup.toggle-chat {
+        bottom: 96px;
+        right: 12px;
+        transition: opacity 200ms ease;
+    }
+    a.scrollup.toggle-chat.ict-corner-tucked {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+/* 19. Owner-approved quick-support panel (design 18/09/2026): the corner button opens it; it stays a plain dialog so it
+       works without extra libraries, and the phone rows are tap targets of at least 44px. */
+dialog.ict-support-sheet {
+    width: min(420px, calc(100% - 24px));
+    max-width: 420px;
+    border: 0;
+    border-radius: 18px;
+    padding: 16px;
+    background: #fff;
+    color: #202733;
+    box-shadow: 0 24px 60px #20273333;
+}
+dialog.ict-support-sheet::backdrop {
+    background: #0f172a66;
+}
+dialog.ict-support-sheet .ict-support-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+dialog.ict-support-sheet .ict-support-head > div {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+dialog.ict-support-sheet .ict-support-head strong {
+    display: block;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 700;
+}
+dialog.ict-support-sheet .ict-support-head span {
+    display: block;
+    margin-top: 2px;
+    font-size: 12.5px;
+    line-height: 18px;
+    color: #64748b;
+}
+dialog.ict-support-sheet .ict-support-head button {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #202733;
+    font-size: 19px;
+    line-height: 1;
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+dialog.ict-support-sheet .ict-support-channels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+dialog.ict-support-sheet .ict-support-channels a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    border-radius: 12px;
+    background: #1b6ef3;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+dialog.ict-support-sheet .ict-support-zalo span {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #ffffff2e;
+    font-size: 12px;
+    font-weight: 800;
+}
+dialog.ict-support-sheet .ict-support-list-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+dialog.ict-support-sheet .ict-support-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+dialog.ict-support-sheet .ict-support-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 8px 12px;
+    border: 1px solid #eef2f6;
+    border-radius: 12px;
+}
+dialog.ict-support-sheet .ict-support-avatar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff4e6;
+    color: #dc7d0c;
+}
+dialog.ict-support-sheet .ict-support-person {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+dialog.ict-support-sheet .ict-support-person strong {
+    display: block;
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 700;
+}
+dialog.ict-support-sheet .ict-support-person small {
+    display: block;
+    font-size: 12px;
+    line-height: 17px;
+    color: #64748b;
+}
+dialog.ict-support-sheet .ict-support-call {
+    flex: none;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #1b6ef3;
+    text-decoration: none;
+}
+@media (max-width: 1023px) {
+    dialog.ict-support-sheet {
+        width: calc(100% - 20px);
+        margin: auto auto 12px;
+        border-radius: 18px 18px 14px 14px;
+    }
+}
+
+/* 20. Owner review 16:45: the mobile header row was exactly 40px tall, so the logo and the icons touched its top and
+       bottom edges. Give the row breathing room, cap the logo, drop the duplicate call icon (the buy bar already has
+       "Liên hệ") and space the remaining icons evenly. */
+@media (max-width: 1023px) {
+    .ict-product-page .header-mobile,
+    .header-mobile {
+        padding-top: 4px;
+    }
+    .ict-product-page .header-mobile-top,
+    .header-mobile .header-mobile-top {
+        height: 54px !important;
+        min-height: 54px !important;
+        align-items: center;
+        padding: 0;
+    }
+    .ict-product-page .header-mobile-top .navbar-brand img,
+    .header-mobile .header-mobile-top .navbar-brand img {
+        height: 30px !important;
+        width: auto;
+        max-height: 30px;
+    }
+    .ict-product-page .header-mobile-menu,
+    .ict-product-page .header-mobile-menu button,
+    .ict-product-page .header-mobile-right a {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+    .header-mobile .ict-header-phone {
+        display: none !important;
+    }
+    .header-mobile .header-mobile-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: auto;
+    }
+    .header-mobile .header-mobile-right .cart_dropdown {
+        margin-left: 0 !important;
+        height: 36px;
+        display: flex;
+        align-items: center;
+    }
+    .header-mobile .header-mobile-right .cart_dropdown > a {
+        height: 36px;
+    }
+    .ict-mobile-search-toggle {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+    }
+    .header-mobile .header-mobile-menu .side_navbar_toggler {
+        height: 36px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* 21. Owner review 17:05: the logo sat left of centre because the right icon group is wider than the hamburger.
+       Give both sides equal flexible width so the logo is truly centred, and make it slightly larger. */
+@media (max-width: 1023px) {
+    .ict-product-page .header-mobile-top,
+    .header-mobile .header-mobile-top {
+        justify-content: space-between;
+    }
+    .ict-product-page .header-mobile-top > .header-mobile-menu,
+    .header-mobile .header-mobile-top > .header-mobile-menu {
+        flex: 1 1 0 !important;
+        min-width: 36px;
+        justify-content: flex-start;
+    }
+    .ict-product-page .header-mobile-top > .header-mobile-right,
+    .header-mobile .header-mobile-top > .header-mobile-right {
+        flex: 1 1 0 !important;
+        justify-content: flex-end;
+    }
+    .ict-product-page .header-mobile-top > .navbar-brand,
+    .header-mobile .header-mobile-top > .navbar-brand {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ict-product-page .header-mobile-top .navbar-brand img,
+    .header-mobile .header-mobile-top .navbar-brand img {
+        height: 36px !important;
+        max-height: 36px;
+        width: auto;
+    }
+}
+
+/* 22. Owner review 17:15: on phones the gallery caption line ("1/8 · Hình ảnh sản phẩm · kéo ngang…") is hidden
+       altogether; the thumbnails already show where the visitor is. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-navigation .ict-gallery-caption,
+    .ict-pdp .ict-gallery-stage .ict-gallery-counter {
+        display: none !important;
+    }
+}
+
+/* 23. Owner review 17:25: the business-quote line shows its full wording (up to two rows) instead of being cut. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-business-contact {
+        flex-wrap: nowrap;
+        align-items: center;
+        min-height: 56px;
+        padding: 10px 12px !important;
+    }
+    .ict-pdp .ict-business-contact > span:nth-child(2) {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .ict-pdp .ict-business-arrow {
+        flex: none;
+        align-self: center;
+    }
+}
+
+/* 24. Interface audit 18/09/2026: enlarge the tap areas the audit found under 30px on phones (text links in the footer
+       and section headers, rating and compare links, carousel dots, review filters). Only the touch area grows. */
+@media (max-width: 1023px) {
+    .ict-design-footer a,
+    .ict-footer-links a,
+    footer .widget_links > li > a,
+    .widget_links > li > a,
+    .heading-h2-view-more,
+    .post-widget-readmore,
+    .button-read-more,
+    .ict-rental-product-link,
+    .ict-compare-link,
+    .ict-rating {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+    }
+    .owl-dots button.owl-dot,
+    .owl-theme .owl-dots button.owl-dot,
+    .owl-carousel .owl-dots .owl-dot {
+        min-width: 26px !important;
+        min-height: 26px !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;
+    }
+    .ict-pdp .ict-review-bars > button {
+        min-height: 30px;
+    }
+    .ict-review-filters button,
+    .ict-pdp .ict-review-star-filter {
+        min-height: 32px;
+    }
+}
+/* Remaining links the audit found under 30px on phones: the footer brand/logo link, the finance link on the product
+   page, the contact e-mail and the two links on the login form. */
+@media (max-width: 1023px) {
+    .ict-finance-link,
+    .ict-price-service-link,
+    .ict-variant-comparison td > a,
+    .ict-comparison-scroll td > a,
+    .ict-contact-info a,
+    .contact_wrap a,
+    .customer-login-page a,
+    .login-form a,
+    .login_wrap a,
+    .login_footer a,
+    .form-note a,
+    a.forgot-pass,
+    .ict-design-footer .ict-footer-brand,
+    footer .widget_f2 a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+    }
+}
+
+/* Thumbnail scrolling is owned by ict-product-design.css (21/09/2026). */
+
+/* 26. Owner review 18/09/2026 15:15 ("hình ảnh sản phẩm bị chòi ra bên phải chưa auto cân khung"): the related-products
+       row and the "what will you use it for" row were horizontal scrollers 965px and 912px wide, so cards hung past the
+       right edge and the page slid sideways under a slightly diagonal swipe. Two columns that wrap, no sideways travel. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-related-grid,
+    .ict-pdp .ict-use-case-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        overflow: visible !important;
+        scroll-snap-type: none;
+        padding-bottom: 0;
+    }
+    .ict-pdp .ict-related-grid > .ict-catalog-card,
+    .ict-pdp .ict-use-case-grid > * {
+        flex: none !important;
+        width: auto !important;
+        min-width: 0;
+        scroll-snap-align: none;
+    }
+}
+
+/* 27. Owner review 18/09/2026 15:15: the version-comparison table was 809px tall over 13 rows, so a phone could not show
+       "giá bán / đặc điểm / bộ nhớ RAM…" and the rows below in one view. Tighten the rows (padding 14px → 7px 10px,
+       line-height 1.6 → 1.35) and narrow the label column; the table keeps its own horizontal scroller for the columns. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll th,
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll td {
+        padding: 7px 10px !important;
+        line-height: 1.35 !important;
+        font-size: 12px !important;
+        vertical-align: middle;
+    }
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll th:first-child {
+        width: 112px !important;
+        min-width: 112px !important;
+    }
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll table {
+        min-width: 620px !important;
+    }
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll thead th > small {
+        margin-top: 1px;
+        font-size: 11px;
+    }
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll .ict-button {
+        min-height: 34px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    .ict-pdp .ict-variant-comparison .ict-comparison-scroll .ict-capacity-bar {
+        margin-top: 3px;
+    }
+}
+
+/* 28. Owner review 18/09/2026 15:15 ("phần chát trên mobile bị che mất"): the product page hid the corner chat button
+       altogether (ict-design-shell.css), so a phone had no way into the support panel there. Bring it back on phones
+       only — it sits at 96px, clear of the 57px buy bar — and leave the desktop rule as it is. */
+@media (max-width: 1023px) {
+    .ict-product-page a.scrollup.toggle-chat {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* 29. Owner review 18/09/2026 15:40 ("chỗ sao này làm 1 hàng"): the review filter chips wrapped onto four rows, 201px
+       tall, on a phone. Keep the five chips of the approved design on one row — Tất cả · 5★ · 4★ · Doanh nghiệp ·
+       Cá nhân — and hide the rest on phones only; every filter stays available on a computer. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-reviews .ict-review-filters > span,
+    .ict-pdp .ict-reviews .ict-review-filters button[data-ict-review-kind="verified"],
+    .ict-pdp .ict-reviews .ict-review-filters button[data-ict-review-kind="images"],
+    .ict-pdp .ict-reviews .ict-review-filters button[data-ict-review-unavailable="video"],
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter[data-star="3"],
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter[data-star="2"],
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter[data-star="1"] {
+        display: none !important;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters {
+        gap: 6px;
+        padding: 10px 16px;
+        align-items: center;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters button {
+        font-size: 12px !important;
+        line-height: 18px !important;
+        padding: 5px 9px;
+        min-height: 30px;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter {
+        font-size: 0 !important;
+        padding: 5px 8px;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter::after {
+        content: attr(data-star) " ★";
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 600;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters button[data-ict-review-kind="all"] {
+        order: 1;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter[data-star="5"] {
+        order: 2;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters .ict-review-star-filter[data-star="4"] {
+        order: 3;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters button[data-ict-review-unavailable="segment"] {
+        order: 4;
+    }
+    .ict-pdp .ict-reviews .ict-review-filters select[data-ict-review-sort] {
+        order: 5;
+    }
+}
+
+/* 30. Owner review 18/09/2026 15:40 ("trên pc baner này bị hụt thiếu"): the two scroll banners beside the home hero are
+       fixed at top: 242px, a figure tuned to the old 184px-tall header. The new header is 153px tall, so the hero now
+       starts at 189px and a 53px white strip showed above the right banner. Re-align them with the hero.
+       If the header height ever changes again, this number has to follow it. */
+.section-banner-scroll .banner-scroll-item {
+    top: 190px;
+}
+
+/* 31. Same review, desktop side of the same defect: ict-product-design.css sets .ict-related-section{padding:0;
+       background:transparent} after .ict-card, so adding the card class alone gave the block its rounded corner and
+       shadow but left it transparent and edge-to-edge. Give it the white panel and the padding of its neighbours. */
+@media (min-width: 1024px) {
+    .ict-pdp .ict-related-section.ict-card {
+        background: #fff;
+        padding: 24px;
+    }
+}
+
+/* 32. Owner review 18/09/2026 16:10 ("dấu x ở đây cũng bị lệch"): in the four .ict-contact-sheet dialogs (báo giá,
+       liên hệ, điều khoản thuê, trả góp) the close button is a 40px grid whose row is sized by a 23px line box, so the
+       14px × icon was measured 7.5px above the centre. A flex box with an explicitly blocked icon centres it exactly.
+       The other close buttons on the site measured 0–1.4px off, i.e. centred, and are left alone. */
+.ict-contact-sheet .ict-contact-sheet-head > button,
+dialog.ict-contact-sheet .ict-contact-sheet-head > button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+}
+.ict-contact-sheet .ict-contact-sheet-head > button > svg,
+dialog.ict-contact-sheet .ict-contact-sheet-head > button > svg {
+    display: block;
+    flex: none;
+    /* The legacy sheet gives every SVG a 15px bottom margin; inside a centred flex box that pushes the icon up by
+       half of it (measured: 5.5px top gap against 20.5px bottom in a 40px button). */
+    margin: 0 !important;
+}
+
+/* 33. Owner review 18/09/2026 16:35 ("cảm giác bị tràn qua bên phải, ko có khung bao nó lại"): the picture ran from
+       edge to edge (x=0, width 412 in a 412px screen) while the thumbnail strip below it is inset 12px and every text
+       band is inset 16px — with no border and no rounded corner the eye reads it as spilling out, not as a deliberate
+       full-bleed. Put it in a frame aligned with the thumbnails underneath.
+       NOTE: this deliberately reverses the 12:40 request of the same day ("cho ảnh full đều ra"); do not flip it back
+       without asking. The square ratio and "contain" fit of blocks 16a/25 stay as they are. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gallery-stage {
+        margin: 0 12px;
+        border: 1px solid #eef2f6;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+    }
+}
+
+/* 34. Owner design 18/09/2026 (bộ ảnh menu mobile): the drawer gets the account row, three-level categories, the
+       "Khám phá" list and the pinned hotline footer. Written with dialog.ict-design-menu specificity because
+       ict-design-shell.css loads AFTER this file and would otherwise win on plain class selectors. */
+dialog.ict-design-menu .ict-menu-head > [data-ict-menu-close] {
+    clip-path: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    border-radius: 50%;
+}
+dialog.ict-design-menu .ict-menu-account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: none;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eef2f6;
+    color: #202733;
+}
+dialog.ict-design-menu .ict-menu-account-avatar {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #eaf5fd;
+    color: #0e7cc0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+dialog.ict-design-menu .ict-menu-account-avatar svg {
+    margin: 0;
+    display: block;
+}
+dialog.ict-design-menu .ict-menu-account-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+dialog.ict-design-menu .ict-menu-account-text strong {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19px;
+}
+dialog.ict-design-menu .ict-menu-account-text small {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 16px;
+}
+dialog.ict-design-menu .ict-menu-account-chevron {
+    flex: none;
+    color: #c2cad6;
+    margin: 0;
+}
+/* Level one: the name is a link, the chevron is the toggle. */
+dialog.ict-design-menu .ict-menu-scroll .ict-menu-group-link {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: inherit;
+    line-height: 20px;
+}
+dialog.ict-design-menu .ict-menu-scroll details[open] > summary .ict-menu-group-link {
+    color: #0e7cc0;
+}
+/* Level two: the sub-group heading with its own count. */
+dialog.ict-design-menu .ict-menu-subgroup {
+    border: 0;
+}
+dialog.ict-design-menu .ict-menu-subgroup > summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 0;
+    list-style: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+dialog.ict-design-menu .ict-menu-subgroup > summary::-webkit-details-marker {
+    display: none;
+}
+dialog.ict-design-menu .ict-menu-subgroup > summary > span {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+dialog.ict-design-menu .ict-menu-subgroup > summary > small {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 0;
+}
+dialog.ict-design-menu .ict-menu-subgroup[open] > summary {
+    color: #0e7cc0;
+}
+dialog.ict-design-menu .ict-menu-subgroup > summary .ict-menu-chevron {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
+dialog.ict-design-menu .ict-menu-subgroup[open] > summary .ict-menu-chevron {
+    transform: rotate(180deg);
+}
+dialog.ict-design-menu .ict-menu-sublinks {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 6px 4px;
+}
+dialog.ict-design-menu .ict-menu-sublinks a {
+    font-size: 13.5px;
+    color: #4a5260;
+    line-height: 1.35;
+    padding: 9px 0;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+dialog.ict-design-menu .ict-menu-sublinks a::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #c2e4f8;
+    flex: none;
+}
+dialog.ict-design-menu .ict-menu-children {
+    padding: 0 16px 10px 60px;
+}
+dialog.ict-design-menu .ict-menu-children .ict-menu-flat-link {
+    font-size: 13.5px;
+}
+/* "Khám phá": one column, icon on the left, chevron on the right. */
+dialog.ict-design-menu .ict-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 2px 16px 0;
+}
+dialog.ict-design-menu .ict-menu-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 0;
+    border: 0;
+    border-bottom: 1px solid #f4f6f8;
+    border-radius: 0;
+    background: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #202733;
+    line-height: 20px;
+    position: relative;
+}
+dialog.ict-design-menu .ict-menu-links a::before {
+    content: "";
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    border-radius: 0;
+}
+dialog.ict-design-menu .ict-menu-links a::after {
+    content: "";
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid #c2cad6;
+    border-bottom: 2px solid #c2cad6;
+    transform: rotate(-45deg);
+    margin-left: auto;
+}
+dialog.ict-design-menu .ict-menu-links a:last-child {
+    border-bottom: 0;
+}
+dialog.ict-design-menu .ict-menu-link-icon {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #f4f6f8;
+    color: #0e7cc0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+dialog.ict-design-menu .ict-menu-link-icon svg {
+    margin: 0;
+    display: block;
+}
+/* Hotline block pinned to the bottom of the drawer. */
+dialog.ict-design-menu .ict-menu-foot {
+    flex: none;
+    border-top: 1px solid #eef2f6;
+    background: #fff;
+    padding: 10px 16px 14px;
+}
+dialog.ict-design-menu .ict-menu-foot-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+dialog.ict-design-menu .ict-menu-foot-head span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #94a3b8;
+}
+dialog.ict-design-menu .ict-menu-foot-head small {
+    font-size: 11px;
+    color: #94a3b8;
+}
+dialog.ict-design-menu .ict-menu-foot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+dialog.ict-design-menu .ict-menu-foot-grid a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 8px;
+    border: 1px solid #eef2f6;
+    border-radius: 10px;
+    color: #0e7cc0;
+}
+dialog.ict-design-menu .ict-menu-foot-grid a svg {
+    flex: none;
+    margin: 0;
+}
+dialog.ict-design-menu .ict-menu-foot-grid a > span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+dialog.ict-design-menu .ict-menu-foot-grid a strong {
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 17px;
+    white-space: nowrap;
+}
+dialog.ict-design-menu .ict-menu-foot-grid a small {
+    font-size: 10.5px;
+    color: #94a3b8;
+    line-height: 14px;
+}
+dialog.ict-design-menu .ict-menu-hot-badge {
+    background: #e00611;
+}
+/* Open rows follow the design: a light blue tint with a blue bar on the left, not the legacy cream. */
+dialog.ict-design-menu .ict-menu-scroll details[open] > summary {
+    background: #f0f8fd;
+    color: #0e7cc0;
+    box-shadow: inset 3px 0 0 #1b98e0;
+}
+dialog.ict-design-menu .ict-menu-scroll .ict-menu-subgroup[open] > summary {
+    background: none;
+    box-shadow: none;
+}
+
+/* 35. Owner review 18/09/2026 17:00 ("thanh menu trên đầu kéo xuống vẫn hiện cố định"): style.css already declares
+       .header_wrap{position:sticky;top:0} below 991px, but on every page except the product detail page the header
+       sits in a wrapper that is exactly as tall as the header itself (measured: 55px), and a sticky box cannot travel
+       beyond its own container — so it scrolled away at once (measured: top:-2200 after scrolling 2200px).
+       Make the wrapper itself the sticky box; its parent is <body>, 10.333px tall. Phones and tablets only: on a
+       computer the product page already pins its own summary bar at the top. */
+@media (max-width: 1023px) {
+    .ict-site-header {
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        background: #fff;
+        box-shadow: 0 1px 0 #eef2f6;
+    }
+}
+
+/* 36. Owner review 18/09/2026 17:00 ("icon lỗi chỗ khách hàng nói về chúng tôi"): under 481px _custom.scss gives the
+       carousel arrows "position: initial !important", which computes to static and strips them of their containing
+       block. The arrow is a PNG sprite positioned absolutely, so both arrows escaped their buttons and stacked in the
+       corner of the row, leaving two empty white circles. Give the buttons a containing block back. */
+@media (max-width: 480px) {
+    .tes-section .owl-nav button.owl-prev,
+    .tes-section .owl-nav button.owl-next {
+        position: relative !important;
+    }
+}
+/* The Ionicons font is not loaded by this theme, so the five rating stars in each testimonial rendered as nothing.
+   Draw them with a plain character instead of pulling in a whole icon font. */
+.tes-ava-right .ion-ios-star::before {
+    content: "\2605";
+    background: none;
+    width: auto;
+    height: auto;
+    position: static;
+    transform: none;
+    color: #ffb01f;
+    font-size: 13px;
+    line-height: 1;
+}
+
+/* 37. Owner review 18/09/2026 17:05: on phones the breadcrumb shows the current page in dark bold and its parents in
+       grey, so the reader sees where they are at a glance. */
+@media (max-width: 1023px) {
+    .breadcrumb_section ol.breadcrumb .breadcrumb-item,
+    .ict-product-breadcrumb .breadcrumb .breadcrumb-item {
+        color: #94a3b8;
+        font-weight: 400;
+    }
+    .breadcrumb_section ol.breadcrumb .breadcrumb-item a,
+    .ict-product-breadcrumb .breadcrumb .breadcrumb-item a {
+        color: #94a3b8;
+        font-weight: 400;
+    }
+    .breadcrumb_section ol.breadcrumb .breadcrumb-item:last-child,
+    .breadcrumb_section ol.breadcrumb .breadcrumb-item.active,
+    .ict-product-breadcrumb .breadcrumb .breadcrumb-item:last-child,
+    .ict-product-breadcrumb .breadcrumb .breadcrumb-item.active {
+        color: #202733;
+        font-weight: 600;
+    }
+}
+
+/* 39. Owner review 18/09/2026 18:50 ("trên desktop lăn chuột lên xuống ko hiện menu giống mobile"): pin the header on
+       computers too. The full header is 189px (36 top bar + 88 middle row + 48 nav), too tall to pin whole, so once the
+       page is scrolled the top bar is dropped and the middle row shrinks — the pinned block is about 100px and still
+       carries the logo, the search box, the cart and the whole menu bar. The class comes from ict-design-shell.js. */
+@media (min-width: 1024px) {
+    .ict-site-header {
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        background: #fff;
+    }
+    html.ict-scrolled .ict-site-header .top-bar,
+    html.ict-scrolled .ict-site-header .banner-top {
+        display: none !important;
+    }
+    html.ict-scrolled .ict-site-header .middle-header {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    html.ict-scrolled .ict-site-header .middle-header .navbar-brand img {
+        height: 40px;
+        width: auto;
+    }
+    html.ict-scrolled .ict-site-header .middle-header .search_wrap,
+    html.ict-scrolled .ict-site-header .middle-header form,
+    html.ict-scrolled .ict-site-header .middle-header input[type="text"],
+    html.ict-scrolled .ict-site-header .middle-header input[type="search"] {
+        height: 40px;
+        min-height: 40px;
+    }
+}
+
+/* 40. Owner review 18/09/2026 18:50: the rating / SKU / stock rows were 15px against an 18px title, so the block read
+       as heavy as the product name itself. Bring them down to a proper caption size. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-product-meta,
+    .ict-pdp .ict-product-meta a,
+    .ict-pdp .ict-product-meta span,
+    .ict-pdp .ict-product-meta small,
+    .ict-pdp .ict-product-meta strong {
+        font-size: 13px !important;
+        line-height: 18px !important;
+    }
+    .ict-pdp .ict-product-meta {
+        gap: 2px 10px;
+        margin-top: 6px;
+    }
+    .ict-pdp .ict-product-meta .ict-rating-stars svg {
+        width: 14px;
+        height: 14px;
+    }
+    .ict-pdp .ict-product-meta .ict-stock,
+    .ict-pdp .ict-product-meta .ict-stock span {
+        font-size: 13px !important;
+        line-height: 18px !important;
+    }
+}
+
+/* 41. Owner review 18/09/2026 18:50 ("phần chọn cấu hình mặc định cho ẩn hết text mô tả dưới"): each option card kept
+       a sentence under the price, which made the four cards tall and noisy. Name and price only on phones; the same
+       wording still shows in the specification block and in the quote dialog. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-variant-card .ict-variant-note {
+        display: none;
+    }
+    .ict-pdp .ict-pdp-rental .ict-variant-card .ict-variant-note,
+    .ict-pdp-rental .ict-variant-card .ict-variant-note {
+        display: block;
+    }
+}
+
+/* 42. Owner review 18/09/2026 18:50: the product name in "Mua kèm theo" was as large as the price. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-accessory-table tr.attach-box-item > td:nth-child(2) > a {
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+/* 43. Owner review 18/09/2026 18:50 ("sản phẩm liên quan trên mobile làm 1 hàng trượt qua lại"): back to a single
+       swipeable row, but with snap points and the same 16px gutter as the block so no card is left half-cut at rest. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-related-grid {
+        display: flex !important;
+        grid-template-columns: none;
+        flex-wrap: nowrap;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 10px;
+        padding-bottom: 4px;
+    }
+    .ict-pdp .ict-related-grid::-webkit-scrollbar {
+        display: none;
+    }
+    .ict-pdp .ict-related-grid > .ict-catalog-card {
+        flex: 0 0 calc(50% - 5px) !important;
+        width: calc(50% - 5px) !important;
+        min-width: 0;
+        scroll-snap-align: start;
+    }
+}
+
+/* 44. Owner review 18/09/2026 18:50 ("bên dưới khách hàng tiêu biểu bị trống"): the grey band was the 90px bottom
+       padding reserved for the floating buy bar. Move that reservation onto the footer, which is what the bar actually
+       overlaps at the end of the page, and the band disappears. */
+@media (max-width: 1023px) {
+    .ict-pdp {
+        padding-bottom: 16px;
+    }
+    .ict-product-page footer.footer_blue,
+    body.ict-product-page footer {
+        padding-bottom: 62px;
+    }
+}
+
+/* 45. Owner review 18/09/2026 18:50 ("quà tặng kèm mobile làm nét chữ nhỏ gọn, giống thiết kế"): tighter rows, smaller
+       icon tile, value aligned right on one line. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-gifts .ict-cms-content li,
+    .ict-pdp .ict-gifts li {
+        font-size: 12.5px !important;
+        line-height: 17px !important;
+        padding: 7px 0 !important;
+        gap: 9px;
+    }
+    .ict-pdp .ict-gifts .ict-cms-content li:before {
+        width: 26px !important;
+        height: 26px !important;
+        flex-basis: 26px !important;
+        background-size: 14px !important;
+        border-radius: 7px !important;
+    }
+    .ict-pdp .ict-gifts .ict-gift-detail {
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+    }
+    .ict-pdp .ict-gifts .ict-gift-condition {
+        font-size: 11px !important;
+        line-height: 15px !important;
+        margin-top: 1px;
+    }
+    .ict-pdp .ict-gifts .ict-cms-content .ict-gift-value,
+    .ict-pdp .ict-gifts .ict-gift-value {
+        font-size: 11px !important;
+        line-height: 15px !important;
+    }
+    .ict-pdp .ict-gifts h2 {
+        font-size: 14px !important;
+        line-height: 20px !important;
+        margin-bottom: 8px;
+    }
+    .ict-pdp .ict-gift-total {
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+    }
+}
+
+/* 46. Blocks 39, 40, 44 and 45 were written with the same weight as the rules they had to replace, and this file is
+       loaded BEFORE ict-product-design.css and ict-readability.css, so those won on source order. Same intent, stated
+       with enough specificity to actually apply. Measured before: meta 15px/62px tall, gift rows 15px, a 98px grey band
+       before the footer, and the desktop header still 153px when pinned. */
+@media (max-width: 1023px) {
+    main.ict-pdp {
+        padding-bottom: 16px !important;
+    }
+    .ict-pdp .ict-product-heading .ict-product-meta,
+    .ict-pdp .ict-product-heading .ict-product-meta a,
+    .ict-pdp .ict-product-heading .ict-product-meta span,
+    .ict-pdp .ict-product-heading .ict-product-meta small,
+    .ict-pdp .ict-product-heading .ict-product-meta strong {
+        font-size: 13px !important;
+        line-height: 18px !important;
+    }
+    .ict-pdp .ict-product-heading .ict-product-meta .ict-rating-stars svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+    .ict-pdp .ict-gifts .ict-cms-content li,
+    .ict-pdp .ict-gifts ul li,
+    .ict-pdp .ict-gifts .ict-cms-content li .ict-gift-copy,
+    .ict-pdp .ict-gifts ul li .ict-gift-copy {
+        font-size: 12.5px !important;
+        line-height: 17px !important;
+    }
+    .ict-pdp .ict-gifts .ict-cms-content li .ict-gift-detail,
+    .ict-pdp .ict-gifts ul li .ict-gift-detail {
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+    }
+}
+@media (min-width: 1024px) {
+    html.ict-scrolled .ict-site-header .middle-header {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
+    html.ict-scrolled .ict-site-header .middle-header .navbar-brand img,
+    html.ict-scrolled .ict-site-header .middle-header .navbar-brand > img {
+        height: 40px !important;
+        max-height: 40px !important;
+        width: auto !important;
+    }
+    html.ict-scrolled .ict-site-header .middle-header .search_wrap,
+    html.ict-scrolled .ict-site-header .middle-header input[type="text"],
+    html.ict-scrolled .ict-site-header .middle-header input[type="search"],
+    html.ict-scrolled .ict-site-header .middle-header button[type="submit"] {
+        height: 40px !important;
+        min-height: 40px !important;
+    }
+}
+
+/* 47. Two leftovers from block 46, measured again: the gift rows still read 15px because ict-readability.css matches
+       them through a long :is() list that ends up at the same weight and is loaded later, and the pinned desktop row
+       stayed 88px tall because its inner nav block is 64px regardless of the padding. Both stated one class higher. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-card.ict-gifts .ict-cms-content li,
+    .ict-pdp .ict-card.ict-gifts .ict-cms-content li .ict-gift-copy,
+    .ict-pdp .ict-card.ict-gifts ul li,
+    .ict-pdp .ict-card.ict-gifts ul li .ict-gift-copy {
+        font-size: 12.5px !important;
+        line-height: 17px !important;
+    }
+    .ict-pdp .ict-card.ict-gifts .ict-cms-content li .ict-gift-detail,
+    .ict-pdp .ict-card.ict-gifts ul li .ict-gift-detail {
+        font-size: 11.5px !important;
+        line-height: 16px !important;
+    }
+    .ict-pdp .ict-card.ict-gifts .ict-cms-content li .ict-gift-condition,
+    .ict-pdp .ict-card.ict-gifts ul li .ict-gift-condition {
+        font-size: 11px !important;
+        line-height: 15px !important;
+    }
+}
+@media (min-width: 1024px) {
+    html.ict-scrolled .ict-site-header .middle-header .nav_block,
+    html.ict-scrolled .ict-site-header .middle-header .cart-user-cs > li,
+    html.ict-scrolled .ict-site-header .middle-header .cart-user-cs .nav-link {
+        height: 44px !important;
+        min-height: 0 !important;
+    }
+    html.ict-scrolled .ict-site-header .middle-header .container {
+        min-height: 0 !important;
+    }
+}
+
+/* 48. Owner review 18/09/2026 20:35: two related cards filled the row exactly, so nothing on screen said the row could
+       be swiped. Widen the card so the second one is cut at the right edge — the usual signal that more follows. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-related-grid > .ict-catalog-card {
+        flex: 0 0 62% !important;
+        width: 62% !important;
+    }
+}
+
+/* 49. Owner review 18/09/2026 20:50 ("số sao 5 4 này trên pc bị lệch"): the label box in the rating breakdown is 26px
+       wide, just under what "4 ★" needs, so that one row wrapped onto two lines (measured 47px tall against 23px for
+       its neighbours) and pushed the bars out of line. Keep every label on one line at all widths. */
+.ict-pdp .ict-review-bars button > span:first-child,
+.ict-review-bars button > span:first-child {
+    white-space: nowrap;
+    min-width: 34px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+}
+.ict-pdp .ict-review-bars button,
+.ict-review-bars button {
+    align-items: center;
+}
+
+/* 50. Owner review 18/09/2026 21:00 ("menu pc hiện đang full ra hai bên, edit cho vừa vặn khung web"): measured, the
+       panel never crosses the 1400px site frame — what spreads it out is a hard height. style.css forces
+       `height:100%!important` on the category panel and `height:530px` on the services panel, so a category with a
+       little content still renders a 960x541 box with 232px of empty white below its 299px of content. Let both
+       panels take the height of what is inside them, and cap their width to the frame for the breakpoints where
+       style.css falls back to `width:300%`. */
+@media (min-width: 1024px) {
+    #navCatContent ul.main-mega-menu > li > div.dropdown-menu {
+        height: auto !important;
+        max-height: calc(100vh - 200px) !important;
+        overflow-y: auto;
+        max-width: calc(var(--ict-site-width, 1400px) - 260px);
+        padding-bottom: 14px !important;
+    }
+    .header_wrap .mega-menu-container {
+        height: auto !important;
+        max-height: calc(100vh - 190px) !important;
+        max-width: calc(var(--ict-site-width, 1400px) - 30px) !important;
+    }
+    .header_wrap .mega-menu-container > ul {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+    .header_wrap .mega-menu-container .mega-menu-child-dv {
+        height: auto !important;
+        min-height: 100%;
+    }
+}
+
+/* 51. Customer logos: real brand marks instead of the initial-letter chips. Greyed by default so sixteen different
+       brand palettes sit quietly together, full colour on hover. */
+.ict-customer-logos .ict-customer-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 10px;
+}
+.ict-customer-logos .ict-customer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+.ict-customer-logos .ict-customer-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+    filter: grayscale(1);
+    opacity: .72;
+    transition: filter .2s ease, opacity .2s ease;
+}
+.ict-customer-logos .ict-customer-logo:hover img {
+    filter: none;
+    opacity: 1;
+}
+@media (max-width: 1279px) {
+    .ict-customer-logos .ict-customer-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+@media (max-width: 1023px) {
+    .ict-customer-logos .ict-customer-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+    .ict-customer-logos .ict-customer-logo {
+        height: 46px;
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+    .ict-customer-logos .ict-customer-grid > .ict-customer-logo:nth-child(n + 10) {
+        display: none;
+    }
+}
+/* ict-product-design.css gives the old chips an aspect ratio, a border and a hidden tail; the logo cells set their own
+   height, so those have to be undone here (this file is loaded before it, hence the extra class). */
+.ict-customer-logos .ict-customer-grid > .ict-customer-logo {
+    aspect-ratio: auto;
+    border: 1px solid #eef2f6;
+    flex-direction: row;
+    gap: 0;
+}
+@media (max-width: 1023px) {
+    .ict-customer-logos .ict-customer-grid > .ict-customer-logo:nth-child(-n + 9) {
+        display: flex;
+    }
+}
+
+/* 24/09/2026: "Liên hệ trực tiếp" dialog (owner design, desktop header "HỖ TRỢ ONLINE"). New class, so cached pages that still carry the old
+   .ict-support-sheet markup keep the rules above until they are rebuilt. Font sizes stay at or above 13px. */
+dialog.ict-direct-contact {
+    width: min(928px, calc(100vw - 32px));
+    max-width: none;
+    max-height: calc(100vh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 16px;
+    background: #f3f5f8;
+    color: #1f2937;
+    box-shadow: 0 24px 64px rgba(15, 35, 75, .28);
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.4;
+}
+dialog.ict-direct-contact[open] {
+    display: flex;
+    flex-direction: column;
+}
+dialog.ict-direct-contact::backdrop {
+    background: rgba(15, 23, 42, .45);
+}
+.ict-direct-contact .ict-dc-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 22px 18px 24px;
+    background: #1f4fa0;
+    color: #fff;
+}
+.ict-direct-contact .ict-dc-heading {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.ict-direct-contact .ict-dc-head h2 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: none;
+}
+.ict-direct-contact .ict-dc-hours {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin: 0;
+    color: rgba(255, 255, 255, .85);
+    font-size: 13px;
+}
+.ict-direct-contact .ict-dc-hours strong {
+    color: #fff;
+    font-weight: 600;
+}
+.ict-direct-contact .ict-dc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .6);
+}
+.ict-direct-contact .is-open .ict-dc-dot {
+    background: #34d17b;
+    box-shadow: 0 0 0 3px rgba(52, 209, 123, .25);
+}
+.ict-direct-contact .is-closed .ict-dc-dot {
+    background: #f5b335;
+}
+.ict-direct-contact .ict-dc-switchboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, .55);
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.ict-direct-contact .ict-dc-switchboard:hover,
+.ict-direct-contact .ict-dc-switchboard:focus {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+}
+.ict-direct-contact .ict-dc-switchboard strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+.ict-direct-contact .ict-dc-switchboard span {
+    font-size: 13px;
+    opacity: .9;
+}
+.ict-direct-contact .ict-dc-close {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+    font-size: 22px;
+    line-height: 40px;
+    cursor: pointer;
+}
+.ict-direct-contact .ict-dc-close:hover {
+    background: rgba(255, 255, 255, .28);
+}
+.ict-direct-contact .ict-dc-body {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    min-height: 0;
+    padding: 14px;
+    overflow: auto;
+}
+.ict-direct-contact .ict-dc-dept {
+    padding: 14px 16px 6px;
+    border-radius: 12px;
+    background: #fff;
+}
+.ict-direct-contact .ict-dc-dept.is-wide {
+    grid-column: 1 / -1;
+}
+.ict-direct-contact .ict-dc-dept h3 {
+    margin: 0;
+    color: #1f4fa0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: none;
+}
+.ict-direct-contact .ict-dc-dept > p {
+    margin: 3px 0 8px;
+    color: #4b5563;
+    font-size: 13px;
+}
+.ict-direct-contact .ict-dc-people {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 22px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ict-direct-contact .is-wide .ict-dc-people {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ict-direct-contact .ict-dc-people li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 8px 0;
+    border-top: 1px solid #e5e8ee;
+    list-style: none;
+}
+.ict-direct-contact .ict-dc-person {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+}
+.ict-direct-contact .ict-dc-person strong {
+    color: #1f2937;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .2px;
+    white-space: nowrap;
+}
+.ict-direct-contact .ict-dc-person small {
+    color: #4b5563;
+    font-size: 13px;
+}
+.ict-direct-contact .ict-dc-call,
+.ict-direct-contact .ict-dc-zalo {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+.ict-direct-contact .ict-dc-call {
+    background: #f5b335;
+    color: #1f2937;
+}
+.ict-direct-contact .ict-dc-call:hover,
+.ict-direct-contact .ict-dc-call:focus {
+    background: #eba317;
+    color: #1f2937;
+}
+.ict-direct-contact .ict-dc-zalo {
+    border: 1px solid #d6dbe3;
+    background: #fff;
+}
+.ict-direct-contact .ict-dc-zalo:hover,
+.ict-direct-contact .ict-dc-zalo:focus {
+    border-color: #0068ff;
+}
+.ict-direct-contact .ict-dc-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 22px;
+    border-top: 1px solid #e5e8ee;
+    background: #fff;
+    color: #4b5563;
+    font-size: 13px;
+}
+.ict-direct-contact .ict-dc-foot a {
+    color: #1f4fa0;
+    font-weight: 600;
+    text-decoration: none;
+}
+@media (max-width: 900px) {
+    .ict-direct-contact .ict-dc-body {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ict-direct-contact .is-wide .ict-dc-people {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+[data-ict-support-open] {
+    cursor: pointer;
+}
+[data-ict-support-open]:focus-visible {
+    outline: 2px solid #ffb01f;
+    outline-offset: 2px;
+}
+
+/* 24/09/2026 (owner, "cạnh này chưa bo lại hài hòa"): the homepage category menu has a 10px rounded frame, but its two
+   inner white layers were square and covered the bottom corners. Round them the same way. No overflow clipping: on
+   hover the list moves into the wide category panel, which keeps its own square edges. */
+.ict-desktop-nav-home-source .ict-desktop-nav-home,
+.ict-desktop-nav-home-source .ict-desktop-nav-home > .ict-desktop-nav-sidebar {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* 24/09/2026 (owner, 12–13" FHD screens: "bị chòi xuống"): the homepage category menu had 12 rows of 45px (540px) while
+   the hero slider next to it steps down with the window in style.css (530px; 485px at 1250–1280px; 447px below
+   1250px), so the menu ran into the row below. The rows now follow the same steps, so the 12 rows fit the slider:
+   44px (528px), 40px (480px), 37px (444px). ict-desktop-navigation.js sizes the menu box from this content height.
+   The hover panel uses the same height, so the list does not jump when it moves there. Text size is unchanged. */
+@media (min-width: 1200px) {
+    body .ict-desktop-nav-home .ict-desktop-nav-group-button,
+    body .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-group-button {
+        height: 44px;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1280.98px) {
+    body .ict-desktop-nav-home .ict-desktop-nav-group-button,
+    body .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-group-button {
+        height: 40px;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1249.98px) {
+    body .ict-desktop-nav-home .ict-desktop-nav-group-button,
+    body .ict-desktop-nav-category.has-home-sidebar .ict-desktop-nav-group-button {
+        height: 37px;
+    }
+}

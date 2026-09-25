@@ -1,0 +1,533 @@
+/* The one place text size is decided. Loaded last, after ict-readability.css.
+ *
+ * Measured on the live site 19/09/2026 at 390px: a product page used 16 distinct sizes and 42 distinct
+ * size x line-height combinations, including half-pixel steps (8.5, 9.5, 10.5, 11.5, 12.5, 13.5) that never land on a
+ * device pixel; 80% of the home page text was under 14px. Six CSS files each decided sizes for the same elements, so a
+ * gift row rendered at 12.5px, 13px or 15px depending only on which of five data sources filled it.
+ *
+ * The ramp below is six steps, floor 13px, and it matches what the owner asked for: the old site's gift block
+ * (font-size:16px; line-height:1.4) is the reference, and 16px is also Google's published guidance for body text on a
+ * phone. Comparable Vietnamese retailers measured the same way use 6-7 sizes (FPT Shop: 6 sizes, 9 combinations).
+ *
+ * Rules here exist to REPLACE a size decided elsewhere, not to add another layer. Each one names the file it supersedes
+ * so the loser can be deleted once this file has proven itself.
+ */
+
+:root {
+    --ict-fs-h1: 22px;
+    --ict-fs-h2: 18px;
+    --ict-fs-body: 16px;
+    --ict-fs-md: 15px;
+    --ict-fs-sm: 14px;
+    --ict-fs-xs: 13px;
+
+    --ict-lh-tight: 1.35;
+    --ict-lh-heading: 1.4;
+    --ict-lh-body: 1.55;
+    --ict-lh-ui: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+ * 1. The catalogue card.
+ * It renders on the home page, every category page, the related row and the flash sale, and by itself it accounted for
+ * roughly 85% of the small text on the home page (509 spec lines at 12px, 101 titles at 13px, 101 stock labels at 12px,
+ * 38 struck prices at 12px, 38 discount badges at 10px, 21 flash badges at 11px).
+ * Supersedes: style.css (.product_desc * 12px!important), ict-review-20260918.css:90-107 (12px/20px).
+ * ------------------------------------------------------------------------ */
+
+/* Two different wrappers render the same card: the category grid and the related row use `.product`, the home page
+ * sliders use `.product_wrap`. Both have to be named or the home page keeps its old sizes — measured 19/09, that alone
+ * left 735 of the home page's text elements under 13px after the first attempt. */
+
+.product_wrap .product_title,
+.product_wrap .product_title a,
+.product .product_title,
+.product .product_title a {
+    font-size: var(--ict-fs-md) !important;
+    line-height: 1.45 !important;
+}
+
+.product_wrap .product_desc,
+.product_wrap .product_desc *,
+.product .product_desc,
+.product .product_desc * {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: 21px !important;
+}
+
+/* The five spec lines are one text run per line, separated by <br>, straight out of description_popover. They cannot be
+ * aligned into columns without changing the data, so the most that can be done here is make them legible and cap the
+ * block at four lines so a taller line-height does not push the card down. */
+.product_wrap .product_desc,
+.product .product_desc {
+    height: auto !important;
+    /* style.css adds 10px of top padding, so the cap has to include it or the fourth line is sliced in half. */
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+    max-height: calc(21px * 4 + 10px) !important;
+    overflow: hidden;
+}
+
+/* Stock state has four class names depending on the state, and they were not all sized together. */
+.product-stt,
+.instock,
+.outstock,
+.outofstock,
+.backorder {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+.product_wrap del,
+.product_wrap .product_price del,
+.product del,
+.product .product_price del {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+/* "Sale"/"Hot" corner flag and the "-8%" saving chip. */
+.product_wrap .pr_flash,
+.product .pr_flash,
+.product_wrap .badge,
+.product .badge,
+.pr_flash,
+.badge.bg-reduce {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.3 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. The specification table.
+ * ict-readability.css:6 puts the label cell and the value cell in the same :is() list at 15px, so a 38%-wide label
+ * column carries the same size as the value column and both wrap. Labels are a different kind of text from values and
+ * get a different step; the column is widened so a label like "DUNG TÍCH THÙNG CHỨA" fits on one line.
+ * Supersedes: ict-readability.css:6, ict-product-design.css:83/88/144/226, ict-review-20260918.css:505-522.
+ * ------------------------------------------------------------------------ */
+
+.ict-pdp .ict-specifications td:not(:first-child),
+.ict-pdp .ict-specifications th:not(:first-child),
+.ict-pdp .ict-specifications td:not(:first-child) p {
+    font-size: var(--ict-fs-body) !important;
+    line-height: var(--ict-lh-body) !important;
+}
+
+.ict-pdp .ict-specifications td:first-child,
+.ict-pdp .ict-specifications th:first-child {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.4 !important;
+    font-weight: 600 !important;
+    letter-spacing: .01em;
+}
+
+.ict-pdp .ict-specifications td[colspan] {
+    font-size: var(--ict-fs-md) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+@media (max-width: 1023px) {
+    .ict-pdp .ict-specifications td,
+    .ict-pdp .ict-specifications th {
+        padding: 10px 12px !important;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. The gift rows — the block the owner named as the reference.
+ * The old site rendered these at font-size:16px / line-height:1.4 with 10px of padding above and below each row. Five
+ * different data sources fill this block and two of them produce different markup (.ict-cms-content li versus a bare
+ * ul li), which is why the same row measured 12.5px, 13px or 15px depending on the product. Both shapes are named here
+ * so they finally agree.
+ * Supersedes: ict-product-design.css:80/88/112, ict-review-20260918.css blocks 45/46/47, ict-readability.css:6.
+ * ------------------------------------------------------------------------ */
+
+.ict-pdp .ict-card.ict-gifts .ict-cms-content,
+.ict-pdp .ict-card.ict-gifts .ict-cms-content p,
+.ict-pdp .ict-card.ict-gifts .ict-cms-content li,
+.ict-pdp .ict-card.ict-gifts .ict-cms-content li .ict-gift-copy,
+.ict-pdp .ict-card.ict-gifts ul li,
+.ict-pdp .ict-card.ict-gifts ul li .ict-gift-copy {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+.ict-pdp .ict-card.ict-gifts .ict-cms-content li,
+.ict-pdp .ict-card.ict-gifts ul li {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+.ict-pdp .ict-card.ict-gifts .ict-gift-detail,
+.ict-pdp .ict-card.ict-gifts .ict-gift-value {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: 1.45 !important;
+}
+
+.ict-pdp .ict-card.ict-gifts .ict-gift-condition {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* The heading text lives in .ict-desktop-label / .ict-mobile-label spans, which carry their own size from
+ * ict-readability.css:65 — setting the h2 alone left the heading smaller than the rows beneath it. */
+.ict-pdp .ict-card.ict-gifts h2,
+.ict-pdp .ict-card.ict-gifts h2 .ict-desktop-label,
+.ict-pdp .ict-card.ict-gifts h2 .ict-mobile-label,
+.ict-pdp .ict-card .ict-section-header h2,
+.ict-pdp .ict-card .ict-section-header h2 .ict-desktop-label,
+.ict-pdp .ict-card .ict-section-header h2 .ict-mobile-label {
+    font-size: var(--ict-fs-h2) !important;
+    line-height: var(--ict-lh-heading) !important;
+}
+
+.ict-pdp .ict-gift-heading-copy small,
+.ict-pdp .ict-gift-total {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. The four service badges.
+ * ict-readability.css:7 sets .ict-trust-item small to 14px while the title above it renders at 12px from
+ * ict-product-design.css:170 — the subtitle was larger than the heading it belongs to. The four titles are 18, 20, 23
+ * and 23 characters and the first subtitle carries a hard <br>, so the cells resolved to four different heights.
+ * Supersedes: ict-readability.css:7 (for .ict-trust-item small), ict-product-design.css:140/170/88/106.
+ * ------------------------------------------------------------------------ */
+
+.ict-pdp .ict-trust-item strong {
+    font-size: var(--ict-fs-md) !important;
+    line-height: 1.35 !important;
+    /* At 15px every title takes two lines in a 174px column; balance them so none ends on a single orphan word. */
+    text-wrap: balance;
+}
+
+.ict-pdp .ict-trust-item small {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+    margin-top: 3px !important;
+}
+
+.ict-pdp .ict-trust-strip {
+    align-items: stretch;
+}
+
+.ict-pdp .ict-trust-item {
+    align-items: flex-start;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. Everything that was still below the 13px floor.
+ * These are the remaining ad-hoc steps measured on the page: 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5px.
+ * ------------------------------------------------------------------------ */
+
+.ict-pdp .ict-kickers,
+.ict-pdp .ict-section-kicker,
+.ict-pdp .ict-gallery-caption,
+.ict-pdp .ict-gallery-counter,
+.ict-pdp .ict-gallery-thumb small,
+.ict-pdp .ict-variant-badge,
+.ict-pdp .ict-model-badge,
+.ict-pdp .ict-related-stock,
+.ict-pdp .ict-related-brand,
+.ict-pdp .ict-question-answer small,
+.ict-pdp .ict-why-ict th small,
+.ict-pdp .ict-buybar-contact,
+.ict-pdp .ict-buybar .ict-button-primary small,
+.ict-pdp .ict-gifts-expand {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.4 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 6. The shared shell: header, menu drawer, footer. Same floor applies.
+ * Supersedes the 10px/10.5px/11px/11.5px/12px steps in ict-design-shell.css and ict-desktop-navigation.css.
+ * ------------------------------------------------------------------------ */
+
+.ict-site-header small,
+.ict-menu-subgroup summary small,
+.ict-menu-hot-badge,
+.ict-footer small,
+.ict-footer li,
+.ict-footer p {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+/* Desktop chrome: the promo bar, the header extras and the main navigation kept 12px and a 13.5px half-step. */
+.top-bar,
+.top-bar a,
+.top-bar span,
+.top-bar div,
+.ict-top-promo,
+.ict-top-promo a,
+.ict-top-promo span,
+.ict-top-promo .ict-top-shipping,
+.top-bar .ict-top-shipping,
+.ict-top-shipping,
+.ict-pdp del,
+.ict-pdp .ict-price-old,
+.ict-header-extra b,
+.ict-header-extra span,
+.acc-rs,
+.acc-m-rs,
+.navbar-nav > li > .nav-link,
+.navbar-nav .nav_item,
+.ict-breadcrumb-share span,
+.ict-sticky-meta span,
+.ict-sticky-sku {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* The breadcrumb renders at 11.5px, a half-pixel step that never lands on a device pixel. */
+.breadcrumb,
+.breadcrumb li,
+.breadcrumb li a,
+.breadcrumb li span,
+.ict-breadcrumb,
+.ict-breadcrumb a,
+.ict-breadcrumb span {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+/* Home page odds and ends that kept their own steps. */
+.featured-news-slider-date,
+.slider-tes .company,
+.tes-section .company,
+.company,
+.heading_tab_header .nav a,
+.heading_tab_header .more a {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+/* The badge strip above the product title ("CHÍNH HÃNG Magitech", "Máy đẹp 95%", "Full VAT") sizes its children, not
+ * the container, so the container rule in section 5 never reached the text. */
+/* Four classes deep, because the badge strip is scoped as .ict-pdp .ict-product-heading .ict-kickers span elsewhere. */
+.ict-pdp .ict-kickers,
+.ict-pdp .ict-kickers *,
+.ict-pdp .ict-product-heading .ict-kickers,
+.ict-pdp .ict-product-heading .ict-kickers * {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.4 !important;
+}
+
+.ict-pdp .ict-mobile-article-heading,
+.ict-pdp .ict-mobile-article-heading span,
+.ict-pdp .ict-mobile-customer-title,
+.ict-pdp .ict-card .ict-review-filters button,
+.ict-pdp .ict-card .ict-review-filters span,
+.ict-pdp .ict-card .ict-review-filters select,
+.ict-pdp .ict-card .ict-review-empty p,
+.ict-pdp .ict-review-filters button,
+.ict-pdp .ict-review-empty p,
+.ict-pdp .ict-review-filters span,
+.ict-pdp .ict-review-filters select {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* Blog listing dates and the flash-sale strip label were the last two steps below the floor.
+ * The dates use Bootstrap's `.small` CLASS (0.875em), not the <small> element — targeting the tag missed them. */
+body .blog_post small,
+body .post_content small,
+body .small,
+body small.m-0,
+body .fs-section span,
+body .fs-section strong,
+body .heading_tab_header span {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* Last sweep: the classes still carrying their own step after the sections above, measured 19/09 on the preview.
+ * Half-pixel sizes (11.5, 12.5) are the ones that make neighbouring blocks look mismatched. */
+.ict-pdp .ict-discount-badge,
+.ict-pdp .ict-mobile-label,
+.ict-pdp .ict-use-case-card small,
+.ict-pdp .ict-use-case-chip,
+.fs-section .kts,
+.fs-section .text-white,
+.heading_tab_header .kts,
+.post-meta small,
+.blog_post small,
+.single_post small,
+small.m-0 {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.4 !important;
+}
+
+.ict-pdp .ict-price-assurance,
+.ict-pdp .ict-sheet-link,
+.ict-pdp .ict-price-saving {
+    font-size: var(--ict-fs-sm) !important;
+    line-height: var(--ict-lh-ui) !important;
+}
+
+.ict-pdp .ict-buy-option-prices del,
+.ict-pdp .ict-projects figcaption,
+.ict-pdp .ict-project-grid figcaption {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* ICT 19/09/2026 — item 17 of Hoang's September review, "bo dem thoi gian chu hoi nho".
+ * That was self-inflicted: the sweep above was aimed at the flash-sale strip LABEL, but `body .fs-section span`
+ * also matched the countdown digits inside #countdown-flashsale and pulled them from the theme's designed 17px
+ * (assets/sass/_custom.scss:8737-8746) down to 13px, leaving the numbers floating inside their 36x36 tiles.
+ * Measured on the live homepage before writing this: digits 13px -> 17px, tiles stay 36x36 with no overflow,
+ * the "Ket thuc sau" label stays at 13px, and the section height is unchanged at 198px, so nothing shifts. */
+#countdown-flashsale .countdown {
+    /* 18px since the 25/09/2026 design audit: the ramp step above the owner's 17px; still inside the 36x36 tiles. */
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+}
+
+/* Mobile two-column widths have one owner; multi-column CMS tables and merged headings keep their structure. */
+@media(max-width:767px){
+ .ict-pdp .ict-specifications table:not(:has(tr>:nth-child(3))){width:100%!important;max-width:100%;table-layout:fixed!important}
+ .ict-pdp .ict-specifications table:not(:has(tr>:nth-child(3))) :is(col:first-child,td:first-child:not([colspan]),th:first-child:not([colspan])){width:35%!important}
+ .ict-pdp .ict-specifications table:not(:has(tr>:nth-child(3))) :is(col:nth-child(2),td:nth-child(2),th:nth-child(2)){width:65%!important}
+ .ict-pdp .ict-specifications :is(td,th){overflow-wrap:anywhere;padding:10px!important}
+ .ict-pdp .ict-specifications :is(td,th)[colspan]{width:auto!important}
+}
+
+/* Owner request 21/09/2026: this secondary finance link is 13px on every viewport.
+ * Supersedes the shared 15px label list in ict-readability.css. */
+.ict-pdp .ict-price-box .ict-finance-link {
+    font-size: var(--ict-fs-xs) !important;
+}
+
+/* Owner request 21/09/2026: feature heading is 18px on desktop and mobile. */
+.ict-pdp .ict-feature-summary h2,
+.ict-pdp .ict-feature-summary h2 .ict-desktop-label,
+.ict-pdp .ict-feature-summary h2 .ict-mobile-label {
+    font-size: var(--ict-fs-h2) !important;
+    line-height: var(--ict-lh-heading) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 7. Product page, 25/09/2026 design audit (Claude Design handoff), checked against the live page first.
+ * Measured at 390/1440px, still off the ramp: comparison tables 12px, use cases 11.5-12.5px, accessory links 11.5px,
+ * tab counters 10.5-12px, countdown labels 12px, review bars 12px, product badge 11px, video thumb label 10px,
+ * headings at 17/19/24px, the price at 40px (24px on phones) and the review score at 40px (34px).
+ * Prices take the two steps above the ramp: 28px, 26px on phones.
+ * ------------------------------------------------------------------------ */
+
+/* Supersedes ict-product-design.css:11/83/106 and ict-review-20260918.css:636/651/1033/1047/1051 (11-13px). */
+.ict-pdp .ict-comparison-scroll :is(table, th, td, th > strong, th > small, td > a),
+.ict-pdp .ict-variant-comparison .ict-comparison-scroll :is(table, th, td, th > strong, th > small, td > a, .ict-button),
+.ict-pdp .ict-why-ict .ict-comparison-scroll :is(table, th, td, th > strong, th > small, td > a) {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* Supersedes ict-product-design.css:82/88/106 (11-12.5px). */
+.ict-pdp .ict-use-case p,
+.ict-pdp .ict-use-case-config,
+.ict-pdp .ict-use-case-config span,
+.ict-pdp .ict-use-case-number {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.45 !important;
+}
+
+/* Phones only: ict-review-20260918.css:1585 (11.5px!) and ict-product-design.css:5/68/88/106 (10.5-12.5px).
+ * Desktop keeps 15px from ict-readability.css:13. */
+@media (max-width: 1023px) {
+    .ict-pdp .ict-accessory-table tr.attach-box-item > td:nth-child(2) > a,
+    .ict-pdp .ict-accessory-table tr.attach-box-item .ict-accessory-price del {
+        font-size: var(--ict-fs-xs) !important;
+        line-height: 1.45 !important;
+    }
+}
+
+/* Supersedes ict-product-design.css:81/88 (10.5-12px), :142/171 (tab counter 10.5-12px), :160 and
+ * ict-rental-request.css:24 (countdown labels 12px), :84/88/147 and ict-review-20260918.css:406/418 (review bars). */
+.ict-pdp .ict-accessories-footer > div > span,
+.ict-pdp .ict-tab-count,
+.ict-pdp .ict-countdown-blocks small,
+.ict-pdp .ict-review-bars > button > span,
+.ict-pdp .ict-review-bars > button > span b,
+.ict-pdp .ict-review-bars > button > small,
+.ict-pdp .ict-review-bars > div,
+.ict-pdp .ict-review-bars small {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.4 !important;
+}
+
+/* Supersedes ict-product-design.css:80 (badge 11px) and :3 (video thumbnail label 10px!, same weight as this rule),
+ * and the 24px! that .ict-icon-button (ict-product-design.css:3) passes to the zoom button's "Phóng to" label. */
+.ict-pdp .ict-product-badge,
+.ict-pdp .ict-gallery-thumb.ict-gallery-video small,
+.ict-pdp .ict-gallery-zoom > span {
+    font-size: var(--ict-fs-xs) !important;
+    line-height: 1.3 !important;
+}
+
+/* Floating compare button counter (ict-storefront.css:23, 11px; that file loads after this one), and the desktop
+ * header's "HỖ TRỢ ONLINE" label, 12px at 1024-1279px. */
+.open-compare-modal.ict-compare-has-items #compare-count,
+#navbarSidetoggle .navbar-support .acc-m-rb {
+    font-size: var(--ict-fs-xs) !important;
+}
+
+/* Phones: the owner lifted these headings from 15 to 17px on 18/09 (ict-review-20260918.css:431). 18px is the ramp
+ * step above, so they grow by one pixel. Same list as that rule, one element heavier. */
+@media (max-width: 1023px) {
+    body .ict-pdp .ict-section-header h2,
+    body .ict-pdp .ict-card > h2,
+    body .ict-pdp .ict-variant-heading h2,
+    body .ict-pdp .ict-gifts h2,
+    body .ict-pdp .ict-rental-software h2,
+    body .ict-pdp .ict-why-ict .ict-section-header h2,
+    body .ict-pdp .ict-customer-logos .ict-section-header h2,
+    body .ict-pdp .ict-related-section .ict-section-header h2,
+    body .ict-pdp .ict-accessories .ict-section-header h2,
+    body .ict-pdp .ict-use-cases .ict-section-header h2,
+    body .ict-pdp .ict-process .ict-section-header h2,
+    body .ict-pdp .ict-projects .ict-section-header h2,
+    body .ict-pdp .ict-feature-summary h2,
+    body .ict-pdp-rental .ict-rental-software h2,
+    body .ict-pdp .ict-reviews > h2.ict-mobile-label {
+        font-size: var(--ict-fs-h2) !important;
+        line-height: 24px !important;
+    }
+}
+
+/* Desktop H1 (ict-product-design.css:3, 24px) takes the ramp's h1 step; phones keep 18px (:62). The link and the
+ * rental subtitle inside it inherit (:11 font:inherit!important). */
+@media (min-width: 1024px) {
+    .ict-pdp h1.product_title {
+        font-size: var(--ict-fs-h1) !important;
+    }
+}
+
+/* Main price: ict-product-design.css:3/36/59 (36-40px) and :162 (40px!, the same selector weight, loaded earlier);
+ * phones :5/:64 (24-26px). */
+.ict-pdp .ict-price-line #product-price-main {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+}
+
+@media (max-width: 1023px) {
+    .ict-pdp .ict-price-line #product-price-main {
+        font-size: 26px !important;
+    }
+}
+
+/* Review score: ict-product-design.css:84/88/106/172 (32-40px). */
+.ict-pdp .ict-review-score strong {
+    font-size: 28px !important;
+    line-height: 1.1 !important;
+}
+
+/* CMS callout title (style.css, 19px) and the footer hotline (style.css .tvdh_card a, 24px): nearest ramp steps. */
+.product-desc-box-callout-style-1 .box-callout-title,
+.product-desc-box-callout-style-2 .box-callout-title {
+    font-size: var(--ict-fs-h2) !important;
+}
+
+.tvdh_card a {
+    font-size: var(--ict-fs-h1) !important;
+}

@@ -1,0 +1,7 @@
+/* Preserve the ICT breadcrumb separator without requiring a legacy icon font. */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    font-family: Arial, sans-serif;
+    font-size: 1.15em;
+    line-height: inherit;
+}

@@ -1,0 +1,44 @@
+/* Match the first visible row before Owl wraps the server-rendered items. */
+.page-home .product_slider.ict-carousel-pending:not(.owl-loaded) {
+    display: flex;
+    gap: var(--ict-preview-gap, 15px);
+    overflow: hidden;
+}
+.page-home .product_slider.ict-carousel-pending:not(.owl-loaded) > * {
+    flex: 0 0 calc((100% - (var(--ict-preview-items, 4) - 1) * var(--ict-preview-gap, 15px)) / var(--ict-preview-items, 4));
+    min-width: 0;
+}
+.page-home .banner-right-carousel:not(.owl-loaded),
+.page-home .slider-banner-ad:not(.owl-loaded),
+.page-home .slider-dvnb:not(.owl-loaded) {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: minmax(0, 1fr);
+}
+.page-home .banner-right-carousel:not(.owl-loaded) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 10px;
+}
+.page-home .slider-banner-ad:not(.owl-loaded),
+.page-home .slider-dvnb:not(.owl-loaded) { padding-bottom: 24px; }
+.page-home .banner-right-carousel:not(.owl-loaded) > :nth-child(n+3),
+.page-home .slider-banner-ad:not(.owl-loaded) > :nth-child(n+2),
+.page-home .slider-dvnb:not(.owl-loaded) > :nth-child(n+2) { display: none; }
+@media (min-width: 768px) {
+    .page-home .banner-right-carousel:not(.owl-loaded) { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 15px; }
+    .page-home .banner-right-carousel:not(.owl-loaded) > :nth-child(3) { display: block; }
+    .page-home .slider-banner-ad:not(.owl-loaded) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 15px; }
+    .page-home .slider-banner-ad:not(.owl-loaded) > :nth-child(2) { display: block; }
+}
+@media (min-width: 991px) {
+    .page-home .slider-banner-ad:not(.owl-loaded) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .page-home .slider-banner-ad:not(.owl-loaded) > :nth-child(3) { display: block; }
+    .page-home .slider-dvnb:not(.owl-loaded) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+    .page-home .slider-dvnb:not(.owl-loaded) > :nth-child(2) { display: block; }
+}
+@media (min-width: 1200px) {
+    .page-home .banner-right-carousel:not(.owl-loaded) { grid-template-columns: minmax(0, 1fr); }
+    .page-home .banner-right-carousel:not(.owl-loaded) > :nth-child(3) { display: none; }
+}
+.page-home .slider-banner-ad.dot_bottom:not(.owl-loaded) { grid-template-columns: minmax(0, 1fr); padding-bottom: 0; }
+.page-home .slider-banner-ad.dot_bottom:not(.owl-loaded) > :nth-child(n+2) { display: none; }

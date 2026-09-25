@@ -1,0 +1,10 @@
+/* Match ictsaigon.com.vn: native responsive containers cap at 1400px.
+ * Keep the shared token for header, navigation, product, footer and buy bar.
+ * Side advertisements retain their native 1560px visibility breakpoint.
+ */
+:root{--ict-site-width:1400px}
+/* Native menu JS recalculates geometry on resize; do not animate old widths. */
+body .mega-menu-container,body .mega-menu-child-dv{transition-property:opacity,visibility!important}
+
+.ict-cart-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}.ict-cart-tabs a{display:inline-flex;align-items:center;gap:8px;border:1px solid #cbd5e1;background:white;border-radius:10px;padding:10px 18px;color:#334155;font-size:16px;font-weight:700;text-decoration:none}.ict-cart-tabs a[aria-current=page]{color:#0055a4;border-color:#087ec1;background:#e8f4fb}.ict-cart-tabs a:focus-visible{outline:3px solid #087ec1;outline-offset:3px}.ict-cart-scope-note{font-size:14px;line-height:1.5;color:#64748b;margin:0 0 16px}
+@media(max-width:575px){.ict-cart-tabs,.ict-cart-scope-note{margin-left:16px;margin-right:16px}.ict-cart-tabs a{flex:1;justify-content:center;padding:10px}}
