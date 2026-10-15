@@ -1,0 +1,161 @@
+/* ==========================================================
+   TRIPO PAGE LIGHT THEME — opt-in body class
+   Recommended body class: theme-light
+   Apply: <body class="theme-light">
+   Default page styling stays unchanged when the class is absent.
+========================================================== */
+/* ==========================================================
+   LIGHT MODE OVERRIDES
+   White / warm-neutral canvas, charcoal typography, Tripo yellow.
+   Keeps the original responsive layout and component structure.
+========================================================== */
+body.theme-light{
+  color-scheme:light;
+  --t3d-bg:#ffffff;
+  --t3d-surface:#ffffff;
+  --t3d-surface-2:#ffffff;
+  --t3d-surface-3:#f7f6f1;
+  --t3d-border:#e7e4dc;
+  --t3d-text:#20211e;
+  --t3d-muted:#686a64;
+  --t3d-soft:#80827b;
+  --t3d-yellow:#f9cf00;
+  --t3d-yellow-pale:#ffe982;
+}
+html:has(body.theme-light){background:#fff;color-scheme:light}
+body.theme-light{background:#fff;color:#20211e}
+body.theme-light .t3d-page{background:#fff;color:#20211e}
+body.theme-light .t3d-muted{color:#686a64}
+body.theme-light .t3d-yellow{color:#8b6a00}
+body.theme-light .t3d-kicker{color:#866500}
+body.theme-light .t3d-kicker:before{box-shadow:0 0 0 3px #f9cf0026}
+body.theme-light .t3d-rule{background:linear-gradient(90deg,transparent,#e7e4dc 14%,#e7e4dc 86%,transparent)}
+
+/* Header */
+body.theme-light .t3d-header{background:rgba(255,255,255,.96);border-bottom-color:#e7e4dc;box-shadow:0 3px 18px #28231305}
+body.theme-light .t3d-brand-word{color:#22231f}
+body.theme-light .t3d-brand-word span{color:#74756f}
+body.theme-light .t3d-brand-symbol{box-shadow:0 2px 6px #7e65001a}
+body.theme-light .t3d-nav a{color:#555750}
+body.theme-light .t3d-nav a:hover,
+body.theme-light .t3d-nav a[aria-current="page"]{color:#806100}
+body.theme-light .t3d-nav a[aria-current="page"]:after{background:#d7aa00}
+body.theme-light .t3d-header-cta{background:#f9cf00;color:#17150c;border-color:#e6bd00}
+body.theme-light .t3d-header-cta:hover{background:#ffdf40;border-color:#e6bd00;box-shadow:0 4px 16px #a987001c}
+body.theme-light .t3d-mobile-menu summary{color:#24251f;border-color:#dedbd2;background:#fff}
+body.theme-light .t3d-menu-icon,
+body.theme-light .t3d-menu-icon:before,
+body.theme-light .t3d-menu-icon:after{background:currentColor}
+body.theme-light .t3d-mobile-menu[open] .t3d-mobile-links{background:#fff;border-color:#e4e1d8;box-shadow:0 20px 50px #30280d1a}
+body.theme-light .t3d-mobile-links a{color:#34352f}
+body.theme-light .t3d-mobile-links a:hover{background:#f7f4e8;color:#7d6000}
+
+/* Hero: let the reference art remain subtle under a bright wash. */
+body.theme-light .t3d-hero{background-color:#fff;background-image:url("https://cdn-blog.holymolly.ai/media/production/hero-bg.webp");background-position:center 46%;}
+body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#fffffff2 0%,#ffffffdf 24%,#ffffffea 72%,#fff 100%),linear-gradient(90deg,#ffffffef 0%,#ffffffd9 46%,#ffffffd9 100%)}
+body.theme-light .t3d-hero:after{height:24%;background:linear-gradient(0deg,#fff,transparent)}
+body.theme-light .t3d-hero-chip{border-color:#e3d8a3;background:#ffffffdb;color:#57513b;box-shadow:0 2px 10px #30280b08}
+body.theme-light .t3d-hero-chip i{background:#d9ae00}
+body.theme-light .t3d-hero h1{color:#20211e;text-shadow:none}
+body.theme-light .t3d-hero h1 .t3d-hero-serif{color:#9a7600}
+body.theme-light .t3d-hero-description{color:#555750;text-shadow:none}
+body.theme-light .t3d-button-primary{background:#f9cf00;border-color:#e3b900;color:#17150c}
+body.theme-light .t3d-button-primary:hover{background:#ffdf40;border-color:#e3b900;box-shadow:0 6px 20px #a987001e}
+body.theme-light .t3d-button-ghost{background:#ffffffbd;color:#24251f;border-color:#d4d1c8;backdrop-filter:blur(7px)}
+body.theme-light .t3d-button-ghost:hover{background:#fff;border-color:#c39a00;color:#785d00}
+body.theme-light .t3d-scroll-cue{color:#676961}
+body.theme-light .t3d-scroll-cue:after{border-color:#d5d2c9;color:#826300;background:#ffffffaa}
+
+/* Overview and learning cards */
+body.theme-light .t3d-overview{background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
+body.theme-light .t3d-overview-copy h2{color:#20211e}
+body.theme-light .t3d-overview-copy h2 .t3d-yellow{color:#8b6a00}
+body.theme-light .t3d-overview-copy p{color:#666860}
+body.theme-light .t3d-overview-note{border-top-color:#e4e1d8;color:#62645e}
+body.theme-light .t3d-overview-note strong{color:#272821}
+body.theme-light .t3d-note-mark{border-color:#e6c94b;background:#fffdf4;color:#886800}
+body.theme-light .t3d-learning-card{border-color:#e8e5dc;background:linear-gradient(145deg,#fff,#faf9f5);box-shadow:0 5px 20px #28231306}
+body.theme-light .t3d-learning-card:hover{border-color:#d9b52a;box-shadow:0 10px 25px #7f65000c}
+body.theme-light .t3d-learning-icon{border-color:#eadb99;background:#fffbea;color:#866600}
+body.theme-light .t3d-learning-card h3{color:#262720}
+body.theme-light .t3d-learning-card p{color:#686a64}
+
+/* Categories */
+body.theme-light .t3d-category-strip{background:#fff;border-color:#e6e3da;box-shadow:0 5px 22px #28231305}
+body.theme-light .t3d-category-link{border-color:#e7e4dc}
+body.theme-light .t3d-category-link:hover{background:#fffbed}
+body.theme-light .t3d-category-number{color:#8c6a00}
+body.theme-light .t3d-category-link strong{color:#282923}
+body.theme-light .t3d-category-link small{color:#6a6c65}
+
+/* Tutorial cards */
+body.theme-light .t3d-tutorial-section{border-top-color:#eeece6}
+body.theme-light .t3d-list-number{border-color:#e1c54e;background:#fffbed;color:#856400}
+body.theme-light .t3d-list-title h2{color:#20211e}
+body.theme-light .t3d-list-title p{color:#696b65}
+body.theme-light .t3d-see-all,
+body.theme-light .t3d-card-read{color:#856400}
+body.theme-light .t3d-see-all:hover{color:#604900}
+body.theme-light .t3d-tutorial-card{border-color:#e5e2d9;background:#fff;box-shadow:0 4px 18px #28231307}
+body.theme-light .t3d-tutorial-card:hover{border-color:#d5b128;box-shadow:0 14px 34px #28231312}
+body.theme-light .t3d-card-image{background:#eeece6}
+body.theme-light .t3d-card-label{border-color:#ffffff80;background:#fffdf0ed;color:#755800;backdrop-filter:blur(7px)}
+body.theme-light .t3d-card-meta{color:#777971}
+body.theme-light .t3d-card-meta:before{background:#ba9200}
+body.theme-light .t3d-card-content h3{color:#282923}
+body.theme-light .t3d-card-content p{color:#696b65}
+body.theme-light .t3d-card-footer{border-top-color:#efede6}
+body.theme-light .t3d-read-time{color:#85877f}
+
+/* Expert media cards retain readable white overlays on photography. */
+body.theme-light .t3d-expert{background:#f8f7f3;border-block-color:#e7e4dc}
+body.theme-light .t3d-expert-card{border-color:#e0ddd4;background:#ebe9e1;box-shadow:0 5px 18px #28231308}
+body.theme-light .t3d-expert-card img{opacity:.85}
+body.theme-light .t3d-expert-card:hover img{opacity:1}
+body.theme-light .t3d-expert-card:after{background:linear-gradient(0deg,#000c 0%,#0005 54%,#0001 100%)}
+body.theme-light .t3d-play{border-color:#ffffffab;background:#1119;color:#fff}
+body.theme-light .t3d-expert-content{color:#fff}
+body.theme-light .t3d-expert-content small{color:#ffe05b}
+body.theme-light .t3d-expert-content h3{color:#fff;text-shadow:0 2px 10px #0008}
+
+/* FAQ */
+body.theme-light .t3d-faq{background:linear-gradient(180deg,#fff 0%,#faf9f5 100%)}
+body.theme-light .t3d-faq-list{border-top-color:#e6e3db}
+body.theme-light .t3d-faq-item{border-bottom-color:#e6e3db}
+body.theme-light .t3d-faq-item summary{color:#282923}
+body.theme-light .t3d-faq-item summary:after{border-color:#d7d2c4;background:#fff;color:#806100}
+body.theme-light .t3d-faq-item[open] summary:after{border-color:#d3b23e;background:#fffbed}
+body.theme-light .t3d-faq-item p{color:#666860}
+
+/* CTA and footer */
+body.theme-light .t3d-cta-panel{border-color:#e9d67b;background:radial-gradient(ellipse at 50% 120%,#f9cf0033,transparent 62%),linear-gradient(120deg,#fffdf5,#f8f6ec);box-shadow:0 8px 32px #28231307}
+body.theme-light .t3d-cta-panel:before{background:linear-gradient(115deg,transparent 20%,#ffffff80 50%,transparent 80%)}
+body.theme-light .t3d-cta-panel h2{color:#22231f}
+body.theme-light .t3d-cta-panel p{color:#65675f}
+body.theme-light .t3d-footer{border-top-color:#e7e4dc;background:#fff}
+body.theme-light .t3d-footer-about p{color:#73756e}
+body.theme-light .t3d-footer-col h3{color:#34352f}
+body.theme-light .t3d-footer-col a{color:#676962}
+body.theme-light .t3d-footer-col a:hover{color:#806100}
+body.theme-light .t3d-footer-bottom{border-top-color:#eeece6;color:#82847c}
+body.theme-light .t3d-footer-legal a:hover{color:#34352f}
+body.theme-light .t3d-skip-link{background:#f9cf00;color:#17150c}
+body.theme-light .t3d-page a:focus-visible,
+body.theme-light .t3d-page summary:focus-visible{outline-color:#b58b00}
+
+/* Mobile-specific light surfaces: keep horizontal category scroller intact. */
+@media(max-width:767px){
+  body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#ffffffd9 0%,#ffffffc9 32%,#ffffffe8 74%,#fff 100%),linear-gradient(90deg,#ffffffd9, #ffffff8f 100%)}
+  body.theme-light .t3d-category-strip{background:transparent;scrollbar-color:#c7c3b8 transparent}
+  body.theme-light .t3d-category-link,
+body.theme-light .t3d-category-link:nth-child(n){background:#fff;border-color:#e4e1d8;box-shadow:0 3px 12px #28231306}
+  body.theme-light .t3d-category-link:hover,
+body.theme-light .t3d-category-link:focus-visible{background:#fffbed}
+  body.theme-light .t3d-tutorial-card{background:#fff}
+  body.theme-light .t3d-card-image:after{background:linear-gradient(90deg,transparent,#0002)}
+  body.theme-light .t3d-card-label{background:#fffdf0ed;color:#755800;border-color:#ffffffc7}
+  body.theme-light .t3d-cta-panel{background:radial-gradient(ellipse at 50% 120%,#f9cf0030,transparent 62%),linear-gradient(120deg,#fffdf6,#f8f6ed)}
+}
+@media(max-width:420px){
+  body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#ffffffe3 0%,#ffffffd7 42%,#fffffff0 78%,#fff 100%)}
+}
