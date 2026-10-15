@@ -1,0 +1,792 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="LAVA mang tới cho doanh nghiệp giải pháp khởi tạo, phát triển thương hiệu chuyên nghiệp và bền vững."><title>Lava Design — Thiết kế thương hiệu đồng bộ – bài bản</title><style>
+/* ==========================================================
+   TRIPO3D TUTORIAL CENTER — STATIC RECONSTRUCTION
+   Style references: public tutorial hub + supplied CSS tokens.
+   Page-local classes are prefixed with t3d to avoid theme clash.
+========================================================== */
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:100 600;font-display:swap;src:none format("woff2")}
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:700 900;font-display:swap;src:none format("woff2")}
+@font-face{font-family:"Sorts Mill Goudy";font-style:normal;font-weight:400;font-display:swap;src:none format("truetype")}
+:root{
+  --t3d-bg:#000;
+  --t3d-surface:#0c0d10;
+  --t3d-surface-2:#101114;
+  --t3d-surface-3:#1b1d20;
+  --t3d-border:#27292c;
+  --t3d-text:#f2f2f2;
+  --t3d-muted:#a5a7ab;
+  --t3d-soft:#74777d;
+  --t3d-yellow:#f9cf00;
+  --t3d-yellow-pale:#fff2b2;
+  --t3d-radius:12px;
+  --t3d-container:1280px;
+  --t3d-gutter:clamp(20px,4.2vw,64px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px;background:var(--t3d-bg)}
+body{margin:0;background:var(--t3d-bg);color:var(--t3d-text);font-family:"Noto Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body,button,a{font-family:"Noto Sans",system-ui,sans-serif}
+img{display:block;width:100%;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.t3d-page{overflow:clip;background:var(--t3d-bg);min-height:100vh}
+.t3d-container{width:min(calc(100% - 2 * var(--t3d-gutter)),var(--t3d-container));margin-inline:auto}
+.t3d-muted{color:var(--t3d-muted)}
+.t3d-yellow{color:var(--t3d-yellow)}
+.t3d-kicker{display:inline-flex;align-items:center;gap:9px;color:var(--t3d-yellow);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.t3d-kicker:before{content:"";display:inline-block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--t3d-yellow);box-shadow:0 0 13px #f9cf0055}
+.t3d-section{padding-block:clamp(64px,8vw,112px)}
+.t3d-section-heading{max-width:760px;margin:0 auto clamp(30px,4vw,48px);text-align:center}
+.t3d-section-heading h2{margin:12px 0 15px;font-size:clamp(30px,4vw,48px);line-height:1.13;letter-spacing:-.045em;font-weight:800}
+.t3d-section-heading p{max-width:690px;margin:0 auto;color:var(--t3d-muted);font-size:14px;line-height:1.9}
+.t3d-rule{height:1px;background:linear-gradient(90deg,transparent,var(--t3d-border) 14%,var(--t3d-border) 86%,transparent)}
+
+/* Top navigation */
+.t3d-header{position:relative;z-index:20;background:rgba(0,0,0,.92);border-bottom:1px solid #ffffff12}
+.t3d-header-inner{min-height:76px;display:flex;align-items:center;gap:32px}
+.t3d-brand{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;white-space:nowrap}
+.t3d-brand-symbol{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:9px;color:#000;background:var(--t3d-yellow);font-size:21px;font-weight:900;line-height:1;transform:skew(-5deg)}
+.t3d-brand-word{font-size:19px;font-weight:900;letter-spacing:-.055em}
+.t3d-brand-word span{font-weight:500;color:#b7b7b7}
+.t3d-nav{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2vw,29px);margin-left:auto}
+.t3d-nav a{position:relative;padding-block:27px;color:#c4c5c7;font-size:12px;font-weight:600;white-space:nowrap;transition:color .18s ease}
+.t3d-nav a:hover,.t3d-nav a[aria-current="page"]{color:var(--t3d-yellow)}
+.t3d-nav a[aria-current="page"]:after{content:"";position:absolute;right:0;bottom:17px;left:0;height:2px;background:var(--t3d-yellow)}
+.t3d-header-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;flex:0 0 auto;min-height:42px;padding:0 16px;border:1px solid var(--t3d-yellow);border-radius:7px;background:var(--t3d-yellow);color:#080808;font-size:12px;font-weight:900;white-space:nowrap;transition:background .2s,color .2s,box-shadow .2s}
+.t3d-header-cta:hover{background:var(--t3d-yellow-pale);border-color:var(--t3d-yellow-pale);box-shadow:0 0 24px #f9cf0027}
+.t3d-mobile-menu{display:none;position:relative;margin-left:auto}
+.t3d-mobile-menu summary{list-style:none;display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--t3d-border);border-radius:8px;cursor:pointer;color:#fff}
+.t3d-mobile-menu summary::-webkit-details-marker{display:none}
+.t3d-menu-icon,.t3d-menu-icon:before,.t3d-menu-icon:after{display:block;width:18px;height:2px;background:currentColor;border-radius:2px;content:""}
+.t3d-menu-icon{position:relative}
+.t3d-menu-icon:before{position:absolute;top:-6px}
+.t3d-menu-icon:after{position:absolute;top:6px}
+.t3d-mobile-menu[open] .t3d-mobile-links{position:absolute;top:52px;right:0;display:grid;gap:0;width:min(86vw,310px);padding:8px;border:1px solid var(--t3d-border);border-radius:12px;background:#101114;box-shadow:0 20px 70px #000b}
+.t3d-mobile-links a{display:flex;align-items:center;min-height:46px;padding:0 13px;border-radius:7px;color:#e5e5e5;font-size:13px}
+.t3d-mobile-links a:hover{background:#ffffff0b;color:var(--t3d-yellow)}
+
+/* Hero */
+.t3d-hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(560px,54vw,720px);padding:88px 0 78px;background:#090a0c none center 46%/cover no-repeat}
+.t3d-hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,#000 0%,#0007 18%,#0006 60%,#000 100%),linear-gradient(90deg,#000c 0%,#0007 38%,#0003 72%,#0007 100%)}
+.t3d-hero:after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:28%;background:linear-gradient(0deg,#000,transparent);pointer-events:none}
+.t3d-hero-content{width:min(100%,900px);margin-inline:auto;text-align:center}
+.t3d-hero-chip{display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid #ffffff32;border-radius:99px;background:#08080885;color:#f7f7f7;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.t3d-hero-chip i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--t3d-yellow)}
+.t3d-hero h1{max-width:900px;margin:25px auto 20px;font-size:clamp(44px,7vw,84px);line-height:.99;letter-spacing:-.065em;font-weight:900;text-wrap:balance;text-shadow:0 3px 32px #0008}
+.t3d-hero h1 .t3d-hero-serif{color:var(--t3d-yellow);font-family:"Sorts Mill Goudy",Georgia,serif;font-size:1.06em;font-weight:400;font-style:italic;letter-spacing:-.045em}
+.t3d-hero-description{max-width:680px;margin:0 auto;color:#e0e0e0;font-size:clamp(14px,1.35vw,17px);line-height:1.9;text-shadow:0 2px 14px #000b}
+.t3d-hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.t3d-button{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:48px;padding:0 22px;border:1px solid transparent;border-radius:7px;font-size:12px;font-weight:900;letter-spacing:.015em;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
+.t3d-button:hover{transform:translateY(-2px)}
+.t3d-button-primary{background:var(--t3d-yellow);color:#050505;border-color:var(--t3d-yellow)}
+.t3d-button-primary:hover{background:var(--t3d-yellow-pale);border-color:var(--t3d-yellow-pale);box-shadow:0 0 25px #f9cf0038}
+.t3d-button-ghost{background:#08080860;color:#fff;border-color:#ffffff5c;backdrop-filter:blur(6px)}
+.t3d-button-ghost:hover{border-color:var(--t3d-yellow);color:var(--t3d-yellow)}
+.t3d-button-arrow{font-size:17px;line-height:1}
+.t3d-scroll-cue{position:absolute;bottom:23px;left:50%;display:flex;align-items:center;gap:11px;transform:translateX(-50%);color:#c7c7c7;font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.t3d-scroll-cue:after{content:"↓";display:grid;place-items:center;width:25px;height:25px;border:1px solid #ffffff4a;border-radius:50%;color:var(--t3d-yellow);font-size:15px}
+
+/* Intro / learning outcomes */
+.t3d-overview{background:linear-gradient(180deg,#000 0%,#070809 100%)}
+.t3d-overview-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(42px,7vw,100px)}
+.t3d-overview-copy h2{margin:15px 0 18px;font-size:clamp(32px,4.1vw,52px);line-height:1.1;letter-spacing:-.055em;font-weight:900}
+.t3d-overview-copy p{max-width:590px;margin:0;color:var(--t3d-muted);font-size:14px;line-height:1.95}
+.t3d-overview-note{display:flex;align-items:flex-start;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid var(--t3d-border);color:#c9c9c9;font-size:12px;line-height:1.8}
+.t3d-overview-note strong{display:block;margin-bottom:3px;color:#fff;font-size:13px}
+.t3d-note-mark{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border:1px solid #f9cf0055;border-radius:9px;color:var(--t3d-yellow);font-size:19px}
+.t3d-learning-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.t3d-learning-card{min-height:174px;padding:23px;border:1px solid var(--t3d-border);border-radius:var(--t3d-radius);background:linear-gradient(145deg,#111214,#08090a);transition:border-color .2s,transform .2s}
+.t3d-learning-card:hover{border-color:#f9cf0075;transform:translateY(-3px)}
+.t3d-learning-icon{display:grid;place-items:center;width:37px;height:37px;margin-bottom:18px;border:1px solid #f9cf0040;border-radius:10px;background:#f9cf000d;color:var(--t3d-yellow);font-size:18px}
+.t3d-learning-card h3{margin:0 0 7px;font-size:14px;line-height:1.4;font-weight:800}
+.t3d-learning-card p{margin:0;color:var(--t3d-muted);font-size:12px;line-height:1.8}
+
+/* Category navigation: horizontal, scrollable on small screens */
+.t3d-category-section{padding-top:66px;padding-bottom:36px}
+.t3d-category-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--t3d-border);border-radius:12px;overflow:hidden;background:#08090a}
+.t3d-category-link{display:flex;align-items:flex-start;gap:13px;min-height:108px;padding:20px 19px;border-right:1px solid var(--t3d-border);border-bottom:1px solid var(--t3d-border);transition:background .2s}
+.t3d-category-link:nth-child(4n){border-right:0}
+.t3d-category-link:nth-child(n+5){border-bottom:0}
+.t3d-category-link:hover{background:#f9cf000a}
+.t3d-category-number{flex:0 0 auto;color:var(--t3d-yellow);font-size:11px;font-weight:900;letter-spacing:.04em;padding-top:2px}
+.t3d-category-link strong{display:block;margin-bottom:4px;color:#f3f3f3;font-size:12px;line-height:1.5}
+.t3d-category-link small{display:block;color:var(--t3d-muted);font-size:10px;line-height:1.65}
+
+/* Tutorial lists */
+.t3d-tutorial-section{border-top:1px solid #ffffff0b}
+.t3d-list-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:27px}
+.t3d-list-title{display:flex;align-items:flex-start;gap:17px}
+.t3d-list-number{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border:1px solid #f9cf0066;border-radius:10px;color:var(--t3d-yellow);font-size:14px;font-weight:900;background:#f9cf0008}
+.t3d-list-title h2{margin:0 0 6px;font-size:clamp(25px,3vw,36px);line-height:1.18;letter-spacing:-.04em;font-weight:900}
+.t3d-list-title p{max-width:590px;margin:0;color:var(--t3d-muted);font-size:12px;line-height:1.8}
+.t3d-see-all{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;padding-bottom:4px;color:var(--t3d-yellow);font-size:11px;font-weight:800;white-space:nowrap}
+.t3d-see-all:hover{color:var(--t3d-yellow-pale)}
+.t3d-tutorial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.t3d-tutorial-card{min-width:0;overflow:hidden;border:1px solid var(--t3d-border);border-radius:12px;background:var(--t3d-surface-2);transition:border-color .22s,transform .22s,box-shadow .22s}
+.t3d-tutorial-card:hover{border-color:#f9cf007d;transform:translateY(-4px);box-shadow:0 14px 44px #0007}
+.t3d-card-image{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#17191c}
+.t3d-card-image:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(180deg,transparent,#0007)}
+.t3d-card-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;filter:saturate(.92)}
+.t3d-tutorial-card:hover .t3d-card-image img{transform:scale(1.045)}
+.t3d-card-label{position:absolute;z-index:1;top:12px;left:12px;padding:5px 8px;border:1px solid #ffffff26;border-radius:4px;background:#000a;color:var(--t3d-yellow);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(6px)}
+.t3d-card-content{display:flex;flex-direction:column;min-height:210px;padding:18px 19px 17px}
+.t3d-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#96989d;font-size:10px}
+.t3d-card-meta:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--t3d-yellow)}
+.t3d-card-content h3{margin:0 0 9px;color:#f7f7f7;font-size:16px;line-height:1.4;letter-spacing:-.015em;font-weight:800}
+.t3d-card-content p{display:-webkit-box;overflow:hidden;margin:0 0 19px;color:var(--t3d-muted);font-size:12px;line-height:1.8;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.t3d-card-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:13px;border-top:1px solid #ffffff10}
+.t3d-card-read{display:inline-flex;align-items:center;gap:8px;color:var(--t3d-yellow);font-size:11px;font-weight:900}
+.t3d-card-read span{transition:transform .2s}
+.t3d-tutorial-card:hover .t3d-card-read span{transform:translateX(4px)}
+.t3d-read-time{color:#85878c;font-size:10px;white-space:nowrap}
+
+/* Expert examples */
+.t3d-expert{background:#08090b;border-block:1px solid #ffffff0b}
+.t3d-expert-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.t3d-expert-card{position:relative;min-height:205px;overflow:hidden;border:1px solid var(--t3d-border);border-radius:12px;background:#101114}
+.t3d-expert-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .4s,opacity .3s}
+.t3d-expert-card:hover img{transform:scale(1.05);opacity:.88}
+.t3d-expert-card:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000e,#0002 80%)}
+.t3d-expert-content{position:absolute;z-index:2;right:20px;bottom:18px;left:20px}
+.t3d-expert-content small{color:var(--t3d-yellow);font-size:9px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+.t3d-expert-content h3{margin:7px 0 0;font-size:17px;line-height:1.35;font-weight:800}
+.t3d-play{position:absolute;z-index:3;top:15px;right:15px;display:grid;place-items:center;width:38px;height:38px;border:1px solid #ffffff75;border-radius:50%;background:#0008;color:#fff;font-size:13px}
+
+/* FAQ */
+.t3d-faq{background:linear-gradient(180deg,#000,#08090b)}
+.t3d-faq-list{max-width:880px;margin-inline:auto;border-top:1px solid var(--t3d-border)}
+.t3d-faq-item{border-bottom:1px solid var(--t3d-border)}
+.t3d-faq-item summary{position:relative;display:flex;align-items:center;min-height:72px;padding:18px 48px 18px 2px;cursor:pointer;list-style:none;color:#f1f1f1;font-size:14px;font-weight:700}
+.t3d-faq-item summary::-webkit-details-marker{display:none}
+.t3d-faq-item summary:after{content:"+";position:absolute;right:5px;top:50%;display:grid;place-items:center;width:27px;height:27px;transform:translateY(-50%);border:1px solid #ffffff30;border-radius:50%;color:var(--t3d-yellow);font-size:18px;font-weight:400}
+.t3d-faq-item[open] summary:after{content:"−";border-color:#f9cf0080}
+.t3d-faq-item p{max-width:760px;margin:-2px 0 22px;padding-right:25px;color:var(--t3d-muted);font-size:13px;line-height:1.9}
+
+/* Final CTA and footer */
+.t3d-cta{padding:0 0 clamp(70px,8vw,110px)}
+.t3d-cta-panel{position:relative;isolation:isolate;overflow:hidden;padding:clamp(40px,6vw,74px) 25px;border:1px solid #f9cf003f;border-radius:15px;background:radial-gradient(ellipse at 50% 120%,#f9cf001f,transparent 62%),linear-gradient(120deg,#141414,#080808);text-align:center}
+.t3d-cta-panel:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(115deg,transparent 20%,#ffffff04 50%,transparent 80%)}
+.t3d-cta-panel h2{margin:13px 0 15px;font-size:clamp(30px,4.6vw,54px);line-height:1.08;letter-spacing:-.055em;font-weight:900}
+.t3d-cta-panel p{max-width:570px;margin:0 auto;color:var(--t3d-muted);font-size:13px;line-height:1.9}
+.t3d-cta-panel .t3d-button{margin-top:24px}
+.t3d-footer{border-top:1px solid var(--t3d-border);background:#030303}
+.t3d-footer-main{display:grid;grid-template-columns:1.3fr repeat(3,minmax(0,1fr));gap:35px;padding-block:48px}
+.t3d-footer-about p{max-width:260px;margin:15px 0 0;color:#85878c;font-size:11px;line-height:1.9}
+.t3d-footer-col h3{margin:0 0 15px;color:#e9e9e9;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.t3d-footer-col a{display:block;width:fit-content;margin:9px 0;color:#9d9fa4;font-size:11px;transition:color .18s}
+.t3d-footer-col a:hover{color:var(--t3d-yellow)}
+.t3d-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:17px;border-top:1px solid #ffffff10;color:#6f7176;font-size:10px}
+.t3d-footer-bottom p{margin:0}
+.t3d-footer-legal{display:flex;gap:19px;flex-wrap:wrap}
+.t3d-footer-legal a:hover{color:#d6d6d6}
+
+/* Accessibility */
+.t3d-page a:focus-visible,.t3d-page summary:focus-visible{outline:2px solid var(--t3d-yellow);outline-offset:4px}
+.t3d-skip-link{position:absolute;top:-100px;left:15px;z-index:100;padding:10px 14px;background:var(--t3d-yellow);color:#000}
+.t3d-skip-link:focus{top:10px}
+
+/* Wide and tablet breakpoints use the supplied stylesheet's scale:
+   40rem / 48rem / 64rem / 80rem / 96rem. */
+@media (max-width:1279px){
+  .t3d-header-inner{gap:20px}
+  .t3d-nav{gap:15px}
+  .t3d-nav a{font-size:11px}
+  .t3d-header-cta{padding-inline:12px;font-size:11px}
+  .t3d-category-link{padding:18px 15px}
+  .t3d-card-content{padding:16px}
+}
+@media (max-width:1023px){
+  :root{--t3d-gutter:32px}
+  .t3d-nav{gap:12px}
+  .t3d-nav a{font-size:10px}
+  .t3d-brand-word{font-size:17px}
+  .t3d-header-cta{min-height:38px}
+  .t3d-overview-layout{grid-template-columns:1fr;gap:36px}
+  .t3d-learning-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .t3d-learning-card{min-height:160px;padding:18px}
+  .t3d-category-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .t3d-category-link:nth-child(2n){border-right:0}
+  .t3d-category-link:nth-child(4n){border-right:0}
+  .t3d-category-link:nth-child(n+5){border-bottom:1px solid var(--t3d-border)}
+  .t3d-category-link:nth-child(n+7){border-bottom:0}
+  .t3d-tutorial-grid,.t3d-expert-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .t3d-footer-main{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:767px){
+  :root{--t3d-gutter:22px}
+  html{scroll-padding-top:20px}
+  .t3d-header-inner{min-height:66px;gap:14px}
+  .t3d-nav,.t3d-header>.t3d-container>.t3d-header-cta{display:none}
+  .t3d-mobile-menu{display:block}
+  .t3d-hero{min-height:570px;padding:78px 0 74px;background-position:54% center}
+  .t3d-hero:before{background:linear-gradient(180deg,#0007 0%,#0004 32%,#0009 74%,#000 100%),linear-gradient(90deg,#0008,transparent 100%)}
+  .t3d-hero h1{max-width:600px;margin:22px auto 17px;font-size:clamp(43px,10vw,66px);line-height:1.01;letter-spacing:-.06em}
+  .t3d-hero-description{max-width:510px;font-size:14px;line-height:1.8}
+  .t3d-hero-actions{gap:10px;margin-top:25px}
+  .t3d-button{min-height:46px;padding-inline:17px;font-size:11px}
+  .t3d-scroll-cue{bottom:17px;font-size:9px}
+  .t3d-section{padding-block:62px}
+  .t3d-section-heading{margin-bottom:28px}
+  .t3d-section-heading h2{font-size:clamp(29px,7vw,38px);letter-spacing:-.04em}
+  .t3d-section-heading p{font-size:13px;line-height:1.8}
+  .t3d-overview-copy h2{font-size:clamp(32px,8vw,43px)}
+  .t3d-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .t3d-learning-card{min-height:156px;padding:16px}
+  .t3d-learning-icon{width:32px;height:32px;margin-bottom:13px;font-size:16px}
+  .t3d-learning-card h3{font-size:13px}
+  .t3d-learning-card p{font-size:11px;line-height:1.7}
+  .t3d-category-section{padding-top:35px;padding-bottom:28px}
+  .t3d-category-strip{display:flex;gap:8px;overflow-x:auto;margin-inline:calc(-1 * var(--t3d-gutter));padding:0 var(--t3d-gutter) 8px;border:0;border-radius:0;background:transparent;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#555 transparent}
+  .t3d-category-link,.t3d-category-link:nth-child(n){display:flex;flex:0 0 min(76vw,275px);min-height:103px;padding:16px;border:1px solid var(--t3d-border);border-radius:10px;background:#0b0c0e;scroll-snap-align:start}
+  .t3d-category-link strong{font-size:12px}
+  .t3d-category-link small{font-size:10px}
+  .t3d-list-head{align-items:flex-start;gap:13px;margin-bottom:21px}
+  .t3d-list-title{gap:12px}
+  .t3d-list-number{flex-basis:38px;width:38px;height:38px;border-radius:8px;font-size:12px}
+  .t3d-list-title h2{font-size:clamp(23px,6vw,30px)}
+  .t3d-list-title p{font-size:11px;line-height:1.75}
+  .t3d-see-all{font-size:10px;margin-top:7px}
+  .t3d-tutorial-grid,.t3d-expert-grid{grid-template-columns:1fr;gap:13px}
+  /* Mobile cards switch to compact horizontal layout to reduce scrolling. */
+  .t3d-tutorial-card{display:grid;grid-template-columns:minmax(112px,32%) minmax(0,1fr);align-items:stretch;border-radius:10px}
+  .t3d-card-image{height:100%;min-height:170px;aspect-ratio:auto}
+  .t3d-card-image img{position:absolute;inset:0;width:100%;height:100%}
+  .t3d-card-image:after{inset:0;background:linear-gradient(90deg,transparent,#0003)}
+  .t3d-card-label{top:8px;left:7px;padding:4px 6px;font-size:8px;letter-spacing:.04em}
+  .t3d-card-content{min-height:170px;padding:13px 13px 12px}
+  .t3d-card-meta{margin-bottom:7px;font-size:9px}
+  .t3d-card-content h3{margin-bottom:7px;font-size:13px;line-height:1.4}
+  .t3d-card-content p{margin-bottom:10px;font-size:10px;line-height:1.65;-webkit-line-clamp:2}
+  .t3d-card-footer{padding-top:9px;gap:8px}
+  .t3d-card-read{font-size:10px}
+  .t3d-read-time{font-size:9px}
+  .t3d-expert-card{min-height:190px}
+  .t3d-faq-item summary{min-height:66px;padding:16px 42px 16px 0;font-size:13px;line-height:1.55}
+  .t3d-faq-item p{font-size:12px}
+  .t3d-cta{padding-bottom:65px}
+  .t3d-cta-panel{padding:43px 18px;border-radius:12px}
+  .t3d-cta-panel h2{font-size:clamp(30px,8vw,42px)}
+  .t3d-cta-panel p{font-size:12px}
+  .t3d-footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px;padding-block:35px}
+  .t3d-footer-about{grid-column:1/-1}
+  .t3d-footer-about p{max-width:350px}
+  .t3d-footer-bottom{align-items:flex-start;flex-direction:column;gap:10px;padding-block:16px}
+}
+@media (max-width:420px){
+  :root{--t3d-gutter:16px}
+  .t3d-brand-symbol{width:29px;height:29px}
+  .t3d-brand-word{font-size:17px}
+  .t3d-hero{min-height:555px;padding-top:70px}
+  .t3d-hero-chip{font-size:9px;letter-spacing:.09em}
+  .t3d-hero h1{font-size:clamp(40px,11vw,48px)}
+  .t3d-hero-description{font-size:13px}
+  .t3d-hero-actions{align-items:stretch;flex-direction:column;width:min(100%,270px);margin:24px auto 0}
+  .t3d-button{width:100%}
+  .t3d-learning-card{padding:13px;min-height:150px}
+  .t3d-learning-card p{font-size:10px}
+  .t3d-list-head{display:block}
+  .t3d-see-all{margin-left:50px;margin-top:12px}
+  .t3d-tutorial-card{grid-template-columns:168px minmax(0,1fr)}
+  .t3d-card-image{min-height:174px}
+  .t3d-card-content{padding:12px 11px}
+  .t3d-card-content h3{font-size:12px}
+  .t3d-card-content p{font-size:10px}
+  .t3d-read-time{display:none}
+  .t3d-footer-main{gap:25px 15px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.t3d-page *,.t3d-page *:before,.t3d-page *:after{transition:none!important;animation:none!important}}
+
+
+/* ==========================================================
+   INTEGRATED TRIPO-STYLE MOBILE OFF-CANVAS NAVIGATION
+   Drawer remains dark to match Tripo.ai; page itself stays light.
+========================================================== */
+:root {
+  --onm-bg: #101114;
+  --onm-panel: #101114;
+  --onm-text: #fff;
+  --onm-muted: rgb(255 255 255 / 62%);
+  --onm-hover: rgb(255 255 255 / 8%);
+  --onm-border: rgb(255 255 255 / 9%);
+  --onm-yellow: #f9cf00;
+  --onm-header-height: 56px;
+  --onm-drawer-width: min(75vw, 384px);
+  --onm-motion: cubic-bezier(.22, 1, .36, 1);
+}
+body.onm-lock-scroll { overflow: hidden; }
+.t3d-mobile-menu.onm-trigger,
+.onm-trigger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: auto;
+  border: 1px solid #dedbd2;
+  border-radius: 9px;
+  background: #fff;
+  color: #24251f;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.t3d-mobile-menu.onm-trigger:hover,
+.t3d-mobile-menu.onm-trigger:focus-visible,
+.onm-trigger:hover,
+.onm-trigger:focus-visible {
+  border-color: #d8bd4a;
+  background: #fffbed;
+  color: #6d5300;
+  outline: none;
+}
+.onm-trigger-lines { display: flex; width: 20px; flex-direction: column; gap: 5px; }
+.onm-trigger-lines i { display: block; width: 100%; height: 2px; border-radius: 2px; background: currentColor; transition: transform .22s ease, opacity .16s ease; }
+.onm-overlay {
+  position: fixed;
+  z-index: 99998;
+  inset: 0;
+  overflow: hidden;
+  background: rgb(0 0 0 / 0%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease, background .25s ease;
+  overscroll-behavior: contain;
+}
+.onm-overlay.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  background: rgb(0 0 0 / 58%);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.onm-drawer {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  width: var(--onm-drawer-width);
+  min-width: min(240px, calc(100vw - 24px));
+  max-width: 384px;
+  height: 100vh;
+  height: 100dvh;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  border-right: 1px solid rgb(255 255 255 / 5%);
+  background: var(--onm-panel);
+  color: #f4f4f5;
+  box-shadow: 18px 0 70px rgb(0 0 0 / 28%);
+  transform: translate3d(-103%, 0, 0);
+  transition: transform .32s var(--onm-motion);
+  will-change: transform;
+  outline: none;
+  touch-action: pan-y;
+  font-family: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+.onm-overlay.is-open .onm-drawer { transform: translate3d(0, 0, 0); }
+.onm-drawer *, .onm-drawer *::before, .onm-drawer *::after { box-sizing: border-box; }
+.onm-drawer a { color: inherit; text-decoration: none; }
+.onm-drawer-header {
+  display: flex;
+  height: var(--onm-header-height);
+  min-height: var(--onm-header-height);
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid transparent;
+}
+.onm-drawer-brand { display: inline-flex; min-width: 0; align-items: center; flex: 0 0 auto; gap: 7px; padding: 6px; border-radius: 7px; }
+.onm-drawer-brand img { display: block; width: auto; max-width: none; height: 20px; object-fit: contain; }
+.onm-drawer-brand .onm-logo-symbol { width: 20px; height: 20px; }
+.onm-drawer-brand .onm-logo-wordmark { width: 72px; height: 20px; }
+.onm-close {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #77787c;
+  cursor: pointer;
+  transition: color .18s ease, background .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.onm-close:hover, .onm-close:focus-visible { color: #fff; background: #292b30; outline: none; }
+.onm-close svg { display: block; }
+.onm-drawer-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 12px 18px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #38393d transparent;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+.onm-drawer-scroll::-webkit-scrollbar { width: 4px; }
+.onm-drawer-scroll::-webkit-scrollbar-track { background: transparent; }
+.onm-drawer-scroll::-webkit-scrollbar-thumb { border-radius: 4px; background: #38393d; }
+.onm-menu { display: flex; flex-direction: column; gap: 18px; padding: 14px 0 8px; }
+.onm-menu-group { display: flex; min-width: 0; flex-direction: column; margin: 0; }
+.onm-menu-group h2 { margin: 0 0 6px; padding: 0 6px; color: #fff; font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: .025em; }
+.onm-menu-group a {
+  display: block;
+  min-height: 36px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  color: var(--onm-muted);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+  transition: color .16s ease, background .16s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.onm-menu-group a:hover, .onm-menu-group a:focus-visible { color: rgb(255 255 255 / 94%); background: var(--onm-hover); outline: none; }
+.onm-menu-group a:active { background: rgb(255 255 255 / 12%); }
+.onm-external { padding-left: 3px; color: #77787c; font-size: 12px; }
+.onm-drawer a:focus-visible, .onm-close:focus-visible { outline: 2px solid var(--onm-yellow); outline-offset: 2px; }
+@media (max-width: 767px) {
+  .t3d-mobile-menu.onm-trigger, .onm-trigger { display: inline-flex; }
+}
+@media (max-width: 320px) {
+  :root { --onm-drawer-width: 82vw; }
+  .onm-drawer-header { padding-inline: 12px; }
+  .onm-drawer-scroll { padding-inline: 9px; }
+}
+@media (min-width: 901px) {
+  .onm-overlay { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .onm-overlay, .onm-drawer, .onm-trigger, .onm-trigger-lines i, .onm-menu-group a, .onm-close { transition-duration: .01ms !important; }
+}
+
+
+
+/* ==========================================================
+   OFFSET NAVIMOBILE — LIGHT MODE MODIFIER
+   Activate by adding class "light-mode" to .onm-drawer:
+   <aside class="onm-drawer light-mode" ...>
+
+   Load this file AFTER the base mobile-drawer stylesheet.
+   This stylesheet only changes the drawer surface; the page
+   and the dimmed overlay are not recolored.
+========================================================== */
+
+.onm-drawer.light-mode {
+  --onm-panel: #ffffff;
+  --onm-text: #242424;
+  --onm-muted: #62656c;
+  --onm-hover: #f4f2eb;
+  --onm-border: #e8e6df;
+  --onm-yellow: #b58b00;
+
+  color-scheme: light;
+  color: var(--onm-text);
+  background: #fff;
+  border-right: 1px solid #e7e5df;
+  box-shadow: 18px 0 70px rgb(15 15 15 / 15%);
+}
+
+.onm-drawer.light-mode .onm-drawer-header {
+  border-bottom: 1px solid #f0eee8;
+}
+
+/* The official wordmark is light-colored; darken it for the white panel. */
+.onm-drawer.light-mode .onm-drawer-brand .onm-logo-wordmark {
+  filter: brightness(0) saturate(100%);
+}
+
+.onm-drawer.light-mode .onm-close {
+  color: #686b72;
+  background: transparent;
+}
+
+.onm-drawer.light-mode .onm-close:hover,
+.onm-drawer.light-mode .onm-close:focus-visible {
+  color: #242424;
+  background: #f0efe9;
+}
+
+.onm-drawer.light-mode .onm-drawer-scroll {
+  scrollbar-color: #c9c8c1 transparent;
+}
+
+.onm-drawer.light-mode .onm-drawer-scroll::-webkit-scrollbar-thumb {
+  background: #c9c8c1;
+}
+
+.onm-drawer.light-mode .onm-drawer-scroll::-webkit-scrollbar-thumb:hover {
+  background: #aaa9a1;
+}
+
+.onm-drawer.light-mode .onm-menu-group h2 {
+  color: #24252a;
+  font-weight: 600;
+}
+
+.onm-drawer.light-mode .onm-menu-group a {
+  color: #62656c;
+}
+
+.onm-drawer.light-mode .onm-menu-group a:hover,
+.onm-drawer.light-mode .onm-menu-group a:focus-visible {
+  color: #17181b;
+  background: #f4f2eb;
+}
+
+.onm-drawer.light-mode .onm-menu-group a:active {
+  background: #ebe8dc;
+}
+
+.onm-drawer.light-mode .onm-menu-group a .onm-external {
+  color: #888a90;
+}
+
+.onm-drawer.light-mode a:focus-visible,
+.onm-drawer.light-mode .onm-close:focus-visible {
+  outline: 2px solid #b58b00;
+  outline-offset: 2px;
+}
+
+@media (prefers-contrast: more) {
+  .onm-drawer.light-mode {
+    border-right-color: #777;
+  }
+
+  .onm-drawer.light-mode .onm-menu-group a {
+    color: #414247;
+  }
+}
+
+
+/* ==========================================================
+   TRIPO PAGE LIGHT THEME — opt-in body class
+   Recommended body class: theme-light
+   Apply: <body class="theme-light">
+   Default page styling stays unchanged when the class is absent.
+========================================================== */
+/* ==========================================================
+   LIGHT MODE OVERRIDES
+   White / warm-neutral canvas, charcoal typography, Tripo yellow.
+   Keeps the original responsive layout and component structure.
+========================================================== */
+body.theme-light{
+  color-scheme:light;
+  --t3d-bg:#ffffff;
+  --t3d-surface:#ffffff;
+  --t3d-surface-2:#ffffff;
+  --t3d-surface-3:#f7f6f1;
+  --t3d-border:#e7e4dc;
+  --t3d-text:#20211e;
+  --t3d-muted:#686a64;
+  --t3d-soft:#80827b;
+  --t3d-yellow:#f9cf00;
+  --t3d-yellow-pale:#ffe982;
+}
+html:has(body.theme-light){background:#fff;color-scheme:light}
+body.theme-light{background:#fff;color:#20211e}
+body.theme-light .t3d-page{background:#fff;color:#20211e}
+body.theme-light .t3d-muted{color:#686a64}
+body.theme-light .t3d-yellow{color:#8b6a00}
+body.theme-light .t3d-kicker{color:#866500}
+body.theme-light .t3d-kicker:before{box-shadow:0 0 0 3px #f9cf0026}
+body.theme-light .t3d-rule{background:linear-gradient(90deg,transparent,#e7e4dc 14%,#e7e4dc 86%,transparent)}
+
+/* Header */
+body.theme-light .t3d-header{background:rgba(255,255,255,.96);border-bottom-color:#e7e4dc;box-shadow:0 3px 18px #28231305}
+body.theme-light .t3d-brand-word{color:#22231f}
+body.theme-light .t3d-brand-word span{color:#74756f}
+body.theme-light .t3d-brand-symbol{box-shadow:0 2px 6px #7e65001a}
+body.theme-light .t3d-nav a{color:#555750}
+body.theme-light .t3d-nav a:hover,
+body.theme-light .t3d-nav a[aria-current="page"]{color:#806100}
+body.theme-light .t3d-nav a[aria-current="page"]:after{background:#d7aa00}
+body.theme-light .t3d-header-cta{background:#f9cf00;color:#17150c;border-color:#e6bd00}
+body.theme-light .t3d-header-cta:hover{background:#ffdf40;border-color:#e6bd00;box-shadow:0 4px 16px #a987001c}
+body.theme-light .t3d-mobile-menu summary{color:#24251f;border-color:#dedbd2;background:#fff}
+body.theme-light .t3d-menu-icon,
+body.theme-light .t3d-menu-icon:before,
+body.theme-light .t3d-menu-icon:after{background:currentColor}
+body.theme-light .t3d-mobile-menu[open] .t3d-mobile-links{background:#fff;border-color:#e4e1d8;box-shadow:0 20px 50px #30280d1a}
+body.theme-light .t3d-mobile-links a{color:#34352f}
+body.theme-light .t3d-mobile-links a:hover{background:#f7f4e8;color:#7d6000}
+
+/* Hero: let the reference art remain subtle under a bright wash. */
+body.theme-light .t3d-hero{background-color:#fff;background-image:none;background-position:center 46%;}
+body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#fffffff2 0%,#ffffffdf 24%,#ffffffea 72%,#fff 100%),linear-gradient(90deg,#ffffffef 0%,#ffffffd9 46%,#ffffffd9 100%)}
+body.theme-light .t3d-hero:after{height:24%;background:linear-gradient(0deg,#fff,transparent)}
+body.theme-light .t3d-hero-chip{border-color:#e3d8a3;background:#ffffffdb;color:#57513b;box-shadow:0 2px 10px #30280b08}
+body.theme-light .t3d-hero-chip i{background:#d9ae00}
+body.theme-light .t3d-hero h1{color:#20211e;text-shadow:none}
+body.theme-light .t3d-hero h1 .t3d-hero-serif{color:#9a7600}
+body.theme-light .t3d-hero-description{color:#555750;text-shadow:none}
+body.theme-light .t3d-button-primary{background:#f9cf00;border-color:#e3b900;color:#17150c}
+body.theme-light .t3d-button-primary:hover{background:#ffdf40;border-color:#e3b900;box-shadow:0 6px 20px #a987001e}
+body.theme-light .t3d-button-ghost{background:#ffffffbd;color:#24251f;border-color:#d4d1c8;backdrop-filter:blur(7px)}
+body.theme-light .t3d-button-ghost:hover{background:#fff;border-color:#c39a00;color:#785d00}
+body.theme-light .t3d-scroll-cue{color:#676961}
+body.theme-light .t3d-scroll-cue:after{border-color:#d5d2c9;color:#826300;background:#ffffffaa}
+
+/* Overview and learning cards */
+body.theme-light .t3d-overview{background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
+body.theme-light .t3d-overview-copy h2{color:#20211e}
+body.theme-light .t3d-overview-copy h2 .t3d-yellow{color:#8b6a00}
+body.theme-light .t3d-overview-copy p{color:#666860}
+body.theme-light .t3d-overview-note{border-top-color:#e4e1d8;color:#62645e}
+body.theme-light .t3d-overview-note strong{color:#272821}
+body.theme-light .t3d-note-mark{border-color:#e6c94b;background:#fffdf4;color:#886800}
+body.theme-light .t3d-learning-card{border-color:#e8e5dc;background:linear-gradient(145deg,#fff,#faf9f5);box-shadow:0 5px 20px #28231306}
+body.theme-light .t3d-learning-card:hover{border-color:#d9b52a;box-shadow:0 10px 25px #7f65000c}
+body.theme-light .t3d-learning-icon{border-color:#eadb99;background:#fffbea;color:#866600}
+body.theme-light .t3d-learning-card h3{color:#262720}
+body.theme-light .t3d-learning-card p{color:#686a64}
+
+/* Categories */
+body.theme-light .t3d-category-strip{background:#fff;border-color:#e6e3da;box-shadow:0 5px 22px #28231305}
+body.theme-light .t3d-category-link{border-color:#e7e4dc}
+body.theme-light .t3d-category-link:hover{background:#fffbed}
+body.theme-light .t3d-category-number{color:#8c6a00}
+body.theme-light .t3d-category-link strong{color:#282923}
+body.theme-light .t3d-category-link small{color:#6a6c65}
+
+/* Tutorial cards */
+body.theme-light .t3d-tutorial-section{border-top-color:#eeece6}
+body.theme-light .t3d-list-number{border-color:#e1c54e;background:#fffbed;color:#856400}
+body.theme-light .t3d-list-title h2{color:#20211e}
+body.theme-light .t3d-list-title p{color:#696b65}
+body.theme-light .t3d-see-all,
+body.theme-light .t3d-card-read{color:#856400}
+body.theme-light .t3d-see-all:hover{color:#604900}
+body.theme-light .t3d-tutorial-card{border-color:#e5e2d9;background:#fff;box-shadow:0 4px 18px #28231307}
+body.theme-light .t3d-tutorial-card:hover{border-color:#d5b128;box-shadow:0 14px 34px #28231312}
+body.theme-light .t3d-card-image{background:#eeece6}
+body.theme-light .t3d-card-label{border-color:#ffffff80;background:#fffdf0ed;color:#755800;backdrop-filter:blur(7px)}
+body.theme-light .t3d-card-meta{color:#777971}
+body.theme-light .t3d-card-meta:before{background:#ba9200}
+body.theme-light .t3d-card-content h3{color:#282923}
+body.theme-light .t3d-card-content p{color:#696b65}
+body.theme-light .t3d-card-footer{border-top-color:#efede6}
+body.theme-light .t3d-read-time{color:#85877f}
+
+/* Expert media cards retain readable white overlays on photography. */
+body.theme-light .t3d-expert{background:#f8f7f3;border-block-color:#e7e4dc}
+body.theme-light .t3d-expert-card{border-color:#e0ddd4;background:#ebe9e1;box-shadow:0 5px 18px #28231308}
+body.theme-light .t3d-expert-card img{opacity:.85}
+body.theme-light .t3d-expert-card:hover img{opacity:1}
+body.theme-light .t3d-expert-card:after{background:linear-gradient(0deg,#000c 0%,#0005 54%,#0001 100%)}
+body.theme-light .t3d-play{border-color:#ffffffab;background:#1119;color:#fff}
+body.theme-light .t3d-expert-content{color:#fff}
+body.theme-light .t3d-expert-content small{color:#ffe05b}
+body.theme-light .t3d-expert-content h3{color:#fff;text-shadow:0 2px 10px #0008}
+
+/* FAQ */
+body.theme-light .t3d-faq{background:linear-gradient(180deg,#fff 0%,#faf9f5 100%)}
+body.theme-light .t3d-faq-list{border-top-color:#e6e3db}
+body.theme-light .t3d-faq-item{border-bottom-color:#e6e3db}
+body.theme-light .t3d-faq-item summary{color:#282923}
+body.theme-light .t3d-faq-item summary:after{border-color:#d7d2c4;background:#fff;color:#806100}
+body.theme-light .t3d-faq-item[open] summary:after{border-color:#d3b23e;background:#fffbed}
+body.theme-light .t3d-faq-item p{color:#666860}
+
+/* CTA and footer */
+body.theme-light .t3d-cta-panel{border-color:#e9d67b;background:radial-gradient(ellipse at 50% 120%,#f9cf0033,transparent 62%),linear-gradient(120deg,#fffdf5,#f8f6ec);box-shadow:0 8px 32px #28231307}
+body.theme-light .t3d-cta-panel:before{background:linear-gradient(115deg,transparent 20%,#ffffff80 50%,transparent 80%)}
+body.theme-light .t3d-cta-panel h2{color:#22231f}
+body.theme-light .t3d-cta-panel p{color:#65675f}
+body.theme-light .t3d-footer{border-top-color:#e7e4dc;background:#fff}
+body.theme-light .t3d-footer-about p{color:#73756e}
+body.theme-light .t3d-footer-col h3{color:#34352f}
+body.theme-light .t3d-footer-col a{color:#676962}
+body.theme-light .t3d-footer-col a:hover{color:#806100}
+body.theme-light .t3d-footer-bottom{border-top-color:#eeece6;color:#82847c}
+body.theme-light .t3d-footer-legal a:hover{color:#34352f}
+body.theme-light .t3d-skip-link{background:#f9cf00;color:#17150c}
+body.theme-light .t3d-page a:focus-visible,
+body.theme-light .t3d-page summary:focus-visible{outline-color:#b58b00}
+
+/* Mobile-specific light surfaces: keep horizontal category scroller intact. */
+@media(max-width:767px){
+  body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#ffffffd9 0%,#ffffffc9 32%,#ffffffe8 74%,#fff 100%),linear-gradient(90deg,#ffffffd9, #ffffff8f 100%)}
+  body.theme-light .t3d-category-strip{background:transparent;scrollbar-color:#c7c3b8 transparent}
+  body.theme-light .t3d-category-link,
+body.theme-light .t3d-category-link:nth-child(n){background:#fff;border-color:#e4e1d8;box-shadow:0 3px 12px #28231306}
+  body.theme-light .t3d-category-link:hover,
+body.theme-light .t3d-category-link:focus-visible{background:#fffbed}
+  body.theme-light .t3d-tutorial-card{background:#fff}
+  body.theme-light .t3d-card-image:after{background:linear-gradient(90deg,transparent,#0002)}
+  body.theme-light .t3d-card-label{background:#fffdf0ed;color:#755800;border-color:#ffffffc7}
+  body.theme-light .t3d-cta-panel{background:radial-gradient(ellipse at 50% 120%,#f9cf0030,transparent 62%),linear-gradient(120deg,#fffdf6,#f8f6ed)}
+}
+@media(max-width:420px){
+  body.theme-light .t3d-hero:before{background:linear-gradient(180deg,#ffffffe3 0%,#ffffffd7 42%,#fffffff0 78%,#fff 100%)}
+}
+
+
+/* Lava-specific layer. Original supplied CSS and drawer light modifier remain above. */
+html{scroll-behavior:smooth;scroll-padding-top:96px}body{margin:0;font-family:Arial,sans-serif;color:#20211e;background:#fff}*,*:before,*:after{box-sizing:border-box}.lava-page{background:white;color:#20211e}.lava-page a{color:inherit;text-decoration:none}.lava-container{width:min(1200px,calc(100% - 48px));margin-inline:auto}.lava-header{position:sticky;top:0;background:#fffffff5;border-bottom:1px solid #e7e4dc;z-index:100}.lava-header-row{display:flex;align-items:center;justify-content:space-between;gap:24px;height:80px}.lava-logo{font-size:36px;font-weight:800;letter-spacing:-2px;line-height:1;color:#20211e!important;display:inline-block}.lava-logo small{display:block;font-size:9px;letter-spacing:4px;font-weight:500;margin-top:6px}.lava-desktop{display:flex;gap:28px;font-size:14px}.lava-button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#f9cf00;border:1px solid #e3b900;color:#17150c!important;padding:13px 22px;border-radius:8px;font:600 14px/1.4 Arial,sans-serif;cursor:pointer;text-align:center}.lava-button:hover{background:#ffdf40}.lava-button.secondary{background:#fff;border-color:#d4d1c8}.lava-menu-button{display:none;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:10px;border:1px solid #e7e4dc;border-radius:8px;background:#fff;color:#20211e;cursor:pointer}.lava-menu-button svg{width:22px;height:22px}.lava-hero{padding:88px 0 92px;background:radial-gradient(ellipse at 92% 32%,#f9cf0028,transparent 48%)}.lava-hero-grid{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:54px}.lava-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#806100;font-weight:600}.lava-hero h1{font-size:clamp(36px,4.7vw,66px);line-height:1.15;letter-spacing:-1.8px;margin:22px 0 26px}.lava-hero h1 span{display:block;color:#8b6a00;margin-top:8px}.lava-hero p{font-size:19px;line-height:1.75;color:#555750}.lava-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.lava-emblem{aspect-ratio:1;position:relative;display:grid;place-content:center;border-radius:50%;border:1px solid #eadb99;background:radial-gradient(circle,#fff6c7,#fff 72%);font-size:100px;font-weight:800;letter-spacing:-8px;color:#20211e}.lava-emblem:before,.lava-emblem:after{content:'';position:absolute;border:1px solid #e3d6a0;border-radius:50%;inset:24px}.lava-emblem:after{inset:48px}.lava-section{padding:72px 0;border-top:1px solid #eeece6;scroll-margin-top:12px}.lava-title{font-size:clamp(28px,3.2vw,42px);line-height:1.25;letter-spacing:-.8px;margin:12px 0 24px}.lava-intro{background:#faf9f5}.lava-intro p{max-width:960px;font-size:clamp(22px,3vw,36px);line-height:1.5;margin:0;font-weight:500}.lava-section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:26px}.lava-section-head .lava-title{margin-bottom:0}.lava-shortcuts{display:flex;gap:10px;overflow:auto;padding:2px 0 14px;margin-bottom:16px;scroll-snap-type:x proximity}.lava-shortcuts a{flex:0 0 auto;border:1px solid #e7e4dc;border-radius:8px;background:#fff;padding:12px 17px;min-height:44px;font-size:13px;scroll-snap-align:start}.lava-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.lava-card{border:1px solid #e5e2d9;border-radius:14px;overflow:hidden;background:white;display:flex;flex-direction:column;min-width:0;scroll-margin-top:100px}.lava-card-art{height:160px;display:grid;place-content:center;background:#fff4b8;font-size:52px;color:#866600;font-weight:500}.lava-card:nth-child(3n+2) .lava-card-art{background:#edf0e6;color:#59634b}.lava-card:nth-child(3n) .lava-card-art{background:#f0ece4;color:#726653}.lava-card-body{padding:22px;display:flex;flex:1;flex-direction:column}.lava-card h3{font-size:19px;line-height:1.5;margin:0 0 16px;overflow-wrap:break-word}.lava-card a{border-top:1px solid #efede6;padding-top:14px;margin-top:auto;min-height:44px;font-size:13px;color:#806100}.lava-card:hover{border-color:#d5b128}.lava-brand-panel{padding:60px 30px;border:1px solid #e9d67b;background:#fff9df;border-radius:14px;text-align:center}.lava-brand-panel .lava-title{margin-bottom:16px}.lava-brand-panel p{font-size:17px;line-height:1.8;max-width:720px;margin:auto;color:#666860}.lava-clients{background:#faf9f5}.lava-client-names{display:flex;gap:24px;flex-wrap:wrap;margin:26px 0;color:#555750;font-size:18px;font-weight:600}.lava-quotes{display:grid;grid-template-columns:1fr 1fr;gap:24px}.lava-quotes blockquote{margin:0;padding:30px;background:#fff;border:1px solid #e7e4dc;border-radius:14px;min-width:0}.lava-quotes p{font-size:16px;line-height:1.9;color:#555750;margin:0}.lava-quotes footer{font-size:12px;color:#806100;border-top:1px solid #efede6;margin-top:22px;padding-top:16px}.lava-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}.lava-contact-panel{background:#fffdf5;border:1px solid #e9d67b;padding:30px;border-radius:14px}.lava-contact-panel p{color:#666860;line-height:1.8}.lava-form{display:grid;gap:14px}.lava-form label{font-size:13px;display:block;margin-bottom:6px}.lava-form input,.lava-form textarea{width:100%;min-width:0;padding:13px;border:1px solid #d4d1c8;border-radius:8px;font:16px/1.5 Arial,sans-serif;background:#fff;color:#20211e}.lava-form textarea{min-height:130px;resize:vertical}.lava-note{font-size:12px;color:#686a64;line-height:1.8}.lava-status{font-size:13px;line-height:1.7}.lava-footer{border-top:1px solid #e7e4dc;padding:40px 0}.lava-footer-row{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}.lava-footer nav{display:flex;flex-wrap:wrap;gap:20px}.lava-footer nav a{min-height:44px;display:flex;align-items:center;font-size:13px}.lava-footer .lava-note{border-top:1px solid #eeece6;padding-top:20px;margin-top:25px}.lava-page a:focus-visible,.lava-page button:focus-visible,.lava-page input:focus-visible,.lava-page textarea:focus-visible{outline:2px solid #8b6a00;outline-offset:4px}.lava-skip{position:fixed;top:8px;left:8px;z-index:20000;padding:12px;background:#f9cf00;transform:translateY(-200%)}.lava-skip:focus{transform:none}.onm-overlay{z-index:10000;height:100vh;height:100dvh}.onm-drawer{width:min(360px,calc(100vw - 28px));min-width:0;max-width:none;height:100%;font-family:Arial,sans-serif}.onm-drawer-header{height:auto;min-height:76px;flex-shrink:0;padding-top:env(safe-area-inset-top,0px);padding-left:max(16px,env(safe-area-inset-left,0px))}.onm-close{width:44px;height:44px;flex-basis:44px}.onm-drawer-scroll{min-height:0;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(12px,env(safe-area-inset-left,0px))}.onm-menu-group a{min-height:44px;padding:12px 10px;font-size:14px;line-height:1.5}.onm-menu-group h2{font-weight:600}.onm-menu{gap:18px}.onm-drawer.light-mode .onm-close:focus-visible,.onm-drawer a:focus-visible{outline:2px solid #8b6a00!important;outline-offset:2px}.onm-drawer a.lava-button{background:#f9cf00;color:#17150c!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media(min-width:901px){.onm-overlay{display:none!important}}
+@media(max-width:900px){.lava-desktop,.lava-header-cta{display:none}.lava-menu-button{display:inline-flex}.onm-overlay{display:block!important}.lava-header-row{height:72px}.lava-hero-grid{grid-template-columns:1fr;gap:32px}.lava-emblem{display:none}.lava-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lava-contact-grid{grid-template-columns:1fr;gap:28px}.lava-quotes{grid-template-columns:1fr}}
+@media(max-width:600px){html{scroll-padding-top:84px}.lava-container{width:calc(100% - 32px)}.lava-hero{padding:52px 0 56px}.lava-hero h1{font-size:clamp(29px,7.5vw,44px);letter-spacing:-.7px;line-height:1.2}.lava-hero p{font-size:16px}.lava-actions{flex-direction:column}.lava-actions .lava-button{width:100%}.lava-section{padding:42px 0}.lava-section-head{align-items:start;flex-direction:column;gap:14px}.lava-title{font-size:28px}.lava-grid{grid-template-columns:1fr;gap:14px}.lava-card{display:grid;grid-template-columns:88px minmax(0,1fr)}.lava-card-art{height:100%;min-height:148px;font-size:30px}.lava-card-body{padding:16px}.lava-card h3{font-size:17px;margin-bottom:12px}.lava-card a{font-size:12px;min-height:40px}.lava-quotes blockquote{padding:22px}.lava-brand-panel,.lava-contact-panel{padding:25px 20px}.lava-client-names{font-size:16px;gap:14px}.lava-form .lava-button{width:100%}.lava-footer-row{flex-direction:column}.lava-intro p{font-size:23px}}
+@media(max-width:359px){.lava-container{width:calc(100% - 24px)}.lava-card{grid-template-columns:72px minmax(0,1fr)}.lava-card-body{padding:14px 12px}.lava-card h3{font-size:16px}.onm-drawer{width:calc(100vw - 24px)}}
+@media(orientation:landscape) and (max-height:500px){.onm-drawer-header{min-height:56px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style></head><body class="theme-light"><a class="lava-skip" href="#main">Đến nội dung chính</a><div class="lava-page" id="top"><header class="lava-header"><div class="lava-container lava-header-row"><a href="#top" aria-label="Lava Design — trang chủ"><span class="lava-logo">lava<small>DESIGN</small></span></a><nav class="lava-desktop" aria-label="Điều hướng chính"><a href="#services">Dịch vụ</a><a href="#brand-design">Thiết kế thương hiệu</a><a href="#clients">Khách hàng</a><a href="#contact">Liên hệ</a></nav><a class="lava-button lava-header-cta" href="#contact">Liên hệ với LAVA ↗</a><button class="lava-menu-button" data-onm-open aria-label="Mở menu điều hướng" aria-controls="offset-navimobile-drawer" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></div></header><main id="main"><section class="lava-hero"><div class="lava-container lava-hero-grid"><div><span class="lava-label">LAVA DESIGN</span><h1>THIẾT KẾ THƯƠNG HIỆU<span>ĐỒNG BỘ – BÀI BẢN</span></h1><p>Bạn mong muốn xây dựng hệ thống<br>Thương hiệu sản phẩm chuẩn mực</p><div class="lava-actions"><a class="lava-button" href="#services">Khám phá dịch vụ ↗</a><a class="lava-button secondary" href="#contact">Liên hệ với LAVA →</a></div></div><div class="lava-emblem" aria-hidden="true">lava</div></div></section><section class="lava-section lava-intro"><div class="lava-container"><p>LAVA mang tới cho doanh nghiệp giải pháp khởi tạo, phát triển thương hiệu chuyên nghiệp và bền vững.</p></div></section><section class="lava-section" id="services"><div class="lava-container"><div class="lava-section-head"><div><span class="lava-label">LAVA DESIGN</span><h2 class="lava-title">Dịch vụ</h2></div><a class="lava-button secondary" href="#contact">Liên hệ tư vấn →</a></div><nav class="lava-shortcuts" aria-label="Lối tắt dịch vụ"><a href="#service-01">Thương hiệu</a><a href="#service-05">UI UX Design</a><a href="#service-08">Nhãn mác sản phẩm</a><a href="#service-14">Corporate Brand Image</a></nav><div class="lava-grid"><article class="lava-card" id="service-01"><div class="lava-card-art" aria-hidden="true">01</div><div class="lava-card-body"><h3>Tái định vị thương hiệu</h3><a href="#contact" aria-label="Liên hệ tư vấn: Tái định vị thương hiệu">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-02"><div class="lava-card-art" aria-hidden="true">02</div><div class="lava-card-body"><h3>Quy chế thương hiệu</h3><a href="#contact" aria-label="Liên hệ tư vấn: Quy chế thương hiệu">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-03"><div class="lava-card-art" aria-hidden="true">03</div><div class="lava-card-body"><h3>Định giá thương hiệu</h3><a href="#contact" aria-label="Liên hệ tư vấn: Định giá thương hiệu">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-04"><div class="lava-card-art" aria-hidden="true">04</div><div class="lava-card-body"><h3>Branding Pack</h3><a href="#contact" aria-label="Liên hệ tư vấn: Branding Pack">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-05"><div class="lava-card-art" aria-hidden="true">05</div><div class="lava-card-body"><h3>UI UX Design</h3><a href="#contact" aria-label="Liên hệ tư vấn: UI UX Design">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-06"><div class="lava-card-art" aria-hidden="true">06</div><div class="lava-card-body"><h3>Online Sales Kit</h3><a href="#contact" aria-label="Liên hệ tư vấn: Online Sales Kit">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-07"><div class="lava-card-art" aria-hidden="true">07</div><div class="lava-card-body"><h3>Giải pháp VR360</h3><a href="#contact" aria-label="Liên hệ tư vấn: Giải pháp VR360">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-08"><div class="lava-card-art" aria-hidden="true">08</div><div class="lava-card-body"><h3>Nhãn mác sản phẩm</h3><a href="#contact" aria-label="Liên hệ tư vấn: Nhãn mác sản phẩm">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-09"><div class="lava-card-art" aria-hidden="true">09</div><div class="lava-card-body"><h3>Nhãn mác thực phẩm</h3><a href="#contact" aria-label="Liên hệ tư vấn: Nhãn mác thực phẩm">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-10"><div class="lava-card-art" aria-hidden="true">10</div><div class="lava-card-body"><h3>Nhãn mác dược phẩm</h3><a href="#contact" aria-label="Liên hệ tư vấn: Nhãn mác dược phẩm">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-11"><div class="lava-card-art" aria-hidden="true">11</div><div class="lava-card-body"><h3>Công bố sản phẩm</h3><a href="#contact" aria-label="Liên hệ tư vấn: Công bố sản phẩm">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-12"><div class="lava-card-art" aria-hidden="true">12</div><div class="lava-card-body"><h3>Mã số mã vạch</h3><a href="#contact" aria-label="Liên hệ tư vấn: Mã số mã vạch">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-13"><div class="lava-card-art" aria-hidden="true">13</div><div class="lava-card-body"><h3>Giấy phép quảng cáo</h3><a href="#contact" aria-label="Liên hệ tư vấn: Giấy phép quảng cáo">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-14"><div class="lava-card-art" aria-hidden="true">14</div><div class="lava-card-body"><h3>Corporate Brand Image</h3><a href="#contact" aria-label="Liên hệ tư vấn: Corporate Brand Image">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-15"><div class="lava-card-art" aria-hidden="true">15</div><div class="lava-card-body"><h3>Social Branding</h3><a href="#contact" aria-label="Liên hệ tư vấn: Social Branding">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-16"><div class="lava-card-art" aria-hidden="true">16</div><div class="lava-card-body"><h3>Kế hoạch Marketing</h3><a href="#contact" aria-label="Liên hệ tư vấn: Kế hoạch Marketing">Liên hệ tư vấn →</a></div></article><article class="lava-card" id="service-17"><div class="lava-card-art" aria-hidden="true">17</div><div class="lava-card-body"><h3>Kế hoạch PR</h3><a href="#contact" aria-label="Liên hệ tư vấn: Kế hoạch PR">Liên hệ tư vấn →</a></div></article></div></div></section><section class="lava-section" id="brand-design"><div class="lava-container"><div class="lava-brand-panel"><h2 class="lava-title">Thiết kế bộ nhận diện</h2><p>LAVA mang tới cho doanh nghiệp giải pháp khởi tạo, phát triển thương hiệu chuyên nghiệp và bền vững.</p></div></div></section><section class="lava-section lava-clients" id="clients"><div class="lava-container"><span class="lava-label">Khách hàng LAVA</span><h2 class="lava-title">Những khách hàng tiêu biểu đã hợp tác cùng Lava Design</h2><p>Khách hàng đã tin tưởng<br>hợp tác cùng LAVA</p><div class="lava-client-names"><span>Fennel &amp; Clove</span><span>HERBLUSH</span></div><div class="lava-quotes"><blockquote><p>“Đội ngũ nhân viên Lava làm việc vô cùng chuyên nghiệp. Tôi rất hài lòng với bộ nhận diện Fennel &amp; Clove mà các bạn đã thiết kế. Tôi sẽ tiếp tục đồng hành cùng với Lava trong những dự án tiếp theo để phát triển thương hiệu của mình.”</p><footer>Đại Diện Thương Hiệu Fennel &amp; Clove</footer></blockquote><blockquote><p>“Chúng tôi rất hài lòng về bộ nhận diện thương hiệu do Lava Design thiết kế. Tôi đặc biệt ấn tượng về sự chuyên nghiệp, nhiệt tình và sự thân thiện của các bạn. Chúc Lava ngày càng vững mạnh và luôn là người bạn đồng hành của các thương hiệu”</p><footer>CEO HERBLUSH</footer></blockquote></div></div></section><section class="lava-section" id="contact"><div class="lava-container lava-contact-grid"><div><span class="lava-label">Liên hệ</span><h2 class="lava-title">Liên hệ với chúng tôi khi bạn có thắc mắc và chúng tôi sẽ giúp bạn tìm ra giải pháp.</h2><p>LAVA mang tới cho doanh nghiệp giải pháp khởi tạo, phát triển thương hiệu chuyên nghiệp và bền vững.</p><a class="lava-button secondary" href="https://lavavn.com/">Website Lava ↗</a></div><div class="lava-contact-panel"><p class="lava-note">Form bổ sung cho bản demo, không gửi hoặc lưu dữ liệu. Không nhập thông tin nhạy cảm.</p><form class="lava-form"><div><label for="name">Họ tên *</label><input id="name" required maxlength="100" autocomplete="name"></div><div><label for="contact-info">Email hoặc số điện thoại *</label><input id="contact-info" required maxlength="150"></div><div><label for="message">Nhu cầu của bạn *</label><textarea id="message" required maxlength="3000"></textarea></div><button class="lava-button" type="submit">Thử gửi yêu cầu →</button><div class="lava-status" role="status" aria-live="polite"></div></form></div></div></section></main><footer class="lava-footer"><div class="lava-container"><div class="lava-footer-row"><a href="#top" aria-label="Lava Design — đầu trang"><span class="lava-logo">lava<small>DESIGN</small></span></a><nav aria-label="Điều hướng footer"><a href="#services">Dịch vụ</a><a href="#brand-design">Thiết kế thương hiệu</a><a href="#clients">Khách hàng</a><a href="#contact">Liên hệ</a></nav></div><p class="lava-note">Demo tái bố cục nội dung trang chủ lavavn.com theo bộ Light Mode được cung cấp. Wordmark chữ và đồ họa là minh họa, chưa phải tài sản gốc. Nội dung lặp trên trang nguồn được gộp lại; form là chức năng demo bổ sung.</p></div></footer></div><div aria-hidden="true" class="onm-overlay" data-onm-overlay="" inert="">
+<aside aria-label="Menu điều hướng Lava Design" aria-labelledby="drawer-title" aria-modal="true" class="onm-drawer light-mode" id="offset-navimobile-drawer" role="dialog" tabindex="-1">
+<div class="onm-drawer-header">
+<a aria-label="Lava Design — trang chủ" class="onm-drawer-brand" href="#top"><span class="lava-logo">lava<small>DESIGN</small></span></a>
+<button aria-label="Đóng menu điều hướng" class="onm-close" data-onm-close="" type="button">
+<svg aria-hidden="true" height="22" viewbox="0 0 24 24" width="22">
+<path d="m14.5 5-7 7 7 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</button>
+<span class="sr-only" id="drawer-title">Menu Lava Design</span></div>
+<div class="onm-drawer-scroll" data-onm-scroll="">
+<nav aria-label="Mobile menu links" class="onm-menu"><section class="onm-menu-group"><h2>Khám phá LAVA</h2><a href="#services">Dịch vụ</a><a href="#brand-design">Thiết kế thương hiệu</a><a href="#clients">Khách hàng</a><a href="#contact">Liên hệ</a></section><section class="onm-menu-group"><h2>Dịch vụ</h2><a href="#service-01">Tái định vị thương hiệu</a><a href="#service-02">Quy chế thương hiệu</a><a href="#service-03">Định giá thương hiệu</a><a href="#service-04">Branding Pack</a><a href="#service-05">UI UX Design</a><a href="#service-06">Online Sales Kit</a><a href="#service-07">Giải pháp VR360</a><a href="#service-08">Nhãn mác sản phẩm</a><a href="#service-09">Nhãn mác thực phẩm</a><a href="#service-10">Nhãn mác dược phẩm</a><a href="#service-11">Công bố sản phẩm</a><a href="#service-12">Mã số mã vạch</a><a href="#service-13">Giấy phép quảng cáo</a><a href="#service-14">Corporate Brand Image</a><a href="#service-15">Social Branding</a><a href="#service-16">Kế hoạch Marketing</a><a href="#service-17">Kế hoạch PR</a></section><a class="lava-button" href="#contact">Liên hệ với LAVA ↗</a></nav>
+</div>
+</aside>
+</div><script>(()=>{'use strict';const overlay=document.querySelector('[data-onm-overlay]'),drawer=document.querySelector('.onm-drawer'),trigger=document.querySelector('[data-onm-open]'),closeBtn=document.querySelector('[data-onm-close]'),page=document.querySelector('.lava-page'),desktop=matchMedia('(min-width:901px)');let open=false,previous=null,y=0,bodyStyle=null,wasInert=false;function items(){return [...drawer.querySelectorAll('a[href],button:not([disabled])')].filter(n=>n.getClientRects().length)}function show(){if(open||desktop.matches)return;open=true;previous=document.activeElement;y=scrollY;bodyStyle=document.body.getAttribute('style');wasInert=page.inert;const gap=innerWidth-document.documentElement.clientWidth;Object.assign(document.body.style,{position:'fixed',top:`-${y}px`,left:'0',right:'0',width:'100%',overflow:'hidden',paddingRight:gap?`${gap}px`:document.body.style.paddingRight});overlay.inert=false;overlay.removeAttribute('aria-hidden');overlay.classList.add('is-open');trigger.setAttribute('aria-expanded','true');closeBtn.focus({preventScroll:true});page.inert=true}function hide(restore=true){if(!open)return;open=false;page.inert=wasInert;if(bodyStyle===null)document.body.removeAttribute('style');else document.body.setAttribute('style',bodyStyle);const old=document.documentElement.style.scrollBehavior;document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,y);document.documentElement.style.scrollBehavior=old;overlay.classList.remove('is-open');trigger.setAttribute('aria-expanded','false');if(restore&&previous?.getClientRects().length)previous.focus({preventScroll:true});else if(drawer.contains(document.activeElement))document.activeElement.blur();overlay.inert=true;overlay.setAttribute('aria-hidden','true')}trigger.addEventListener('click',show);closeBtn.addEventListener('click',()=>hide());overlay.addEventListener('click',e=>{if(e.target===overlay)hide()});
+drawer.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const href = link.getAttribute('href');
+
+    const target =
+      href && href.startsWith('#')
+        ? document.getElementById(href.slice(1))
+        : null;
+
+    if (!target) {
+      hide();
+      return;
+    }
+
+    event.preventDefault();
+
+    // Đóng drawer, không đưa focus về nút mở menu.
+    hide(false);
+
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    target.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  });
+});
+document.addEventListener('keydown',e=>{if(!open)return;if(e.key==='Escape'){e.preventDefault();hide()}else if(e.key==='Tab'){const f=items(),first=f[0],last=f[f.length-1];if(!f.length){e.preventDefault();drawer.focus()}else if(e.shiftKey&&(document.activeElement===first||!drawer.contains(document.activeElement))){e.preventDefault();last.focus()}else if(!e.shiftKey&&(document.activeElement===last||!drawer.contains(document.activeElement))){e.preventDefault();first.focus()}}});document.addEventListener('focusin',e=>{if(open&&!drawer.contains(e.target))closeBtn.focus({preventScroll:true})});const resized=e=>{if(e.matches)hide(false)};desktop.addEventListener?desktop.addEventListener('change',resized):desktop.addListener(resized);const field=document.querySelector('#contact-info'),form=document.querySelector('.lava-form');field.addEventListener('input',()=>field.setCustomValidity(''));form.addEventListener('submit',e=>{e.preventDefault();const v=field.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)&&!/^\+?[\d\s().-]{8,20}$/.test(v)){field.setCustomValidity('Nhập email hoặc số điện thoại hợp lệ.');field.reportValidity();return}form.querySelector('.lava-status').textContent='Đã kiểm tra dữ liệu demo. Yêu cầu chưa được gửi và thông tin không được lưu.'});})();</script></body></html>
