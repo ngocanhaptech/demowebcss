@@ -1465,7 +1465,7 @@ body {
     left: 20vw;
 }
 .cuadro-r__front {
-    background-image: url('https://rawcdn.githack.com/ricardoolivaalonso/Codepen/43200238c3177b02a97423fa6cc23f8bfcc5c105/Room/cuadro-2.jpg');
+    background-image: url('./images/1.jpg');
     background-color: #0f1110;
     border: 0.5vw solid #0f1110;
 }
